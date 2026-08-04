@@ -371,6 +371,7 @@ function render(){
   document.getElementById('ofTotal').textContent = list.length===CATALOGUE.length?'':'of '+CATALOGUE.length;
   document.getElementById('empty').style.display=list.length?'none':'block';
   activeChips(); syncControls(); paintHead();
+  if(window.__afterRender) window.__afterRender();
 }
 window.onCurrency=()=>{document.querySelectorAll('.rng').forEach(paintRange); if(CARDS) render();};
 
@@ -384,4 +385,83 @@ document.addEventListener('DOMContentLoaded',()=>{
   const navH=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--navH'));
   const shade=()=>bar.classList.toggle('stuck', bar.getBoundingClientRect().top<=navH+1);
   addEventListener('scroll',shade,{passive:true}); shade();
+});
+
+/* ================= MOBILE =================
+   The bar of ten dropdowns becomes one sticky row: a chip rail of the
+   intents people actually arrive with, and a single Filter button that
+   opens everything in a sheet with a live count on the apply action. */
+const tog=(s,v)=>{ s.has(v)?s.delete(v):s.add(v); };
+const QUICK=[
+  {t:'Rolex',     on:()=>F.brand.has('Rolex'),        go:()=>tog(F.brand,'Rolex')},
+  {t:'Under 50k', on:()=>R.aed[1]<=50000,             go:()=>{R.aed=R.aed[1]<=50000?[...B.aed]:[B.aed[0],50000];}},
+  {t:'Full set',  on:()=>F.kit.has('full'),           go:()=>tog(F.kit,'full')},
+  {t:'Unworn',    on:()=>F.cond.has('Unworn'),        go:()=>tog(F.cond,'Unworn')},
+  {t:'In Dubai',  on:()=>F.loc.has('Dubai'),          go:()=>tog(F.loc,'Dubai')},
+  {t:'In the UK', on:()=>F.loc.has('United Kingdom'), go:()=>tog(F.loc,'United Kingdom')}
+];
+const ICF='<svg viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg>';
+
+let MSHEET=null;
+function filterSheet(){
+  if(MSHEET) return MSHEET;
+  MSHEET=document.createElement('div');
+  MSHEET.innerHTML=GROUPS.map((g,i)=>`
+    <div class="fsec${i<2?' open':''}" data-g="${g.k}">
+      <button class="fsech">${g.t}<em></em><i>+</i></button>
+      <div class="fsecb">${popBody(g)}</div>
+    </div>`).join('');
+  MSHEET.querySelectorAll('.fsech').forEach(h=>h.addEventListener('click',()=>
+    h.parentElement.classList.toggle('open')));
+  bindRows(MSHEET);
+  MSHEET.querySelectorAll('.segs button').forEach(b=>
+    b.addEventListener('click',()=>toggle(b.dataset.k,b.dataset.v)));
+  MSHEET.querySelectorAll('.rng').forEach(initRange);
+  return MSHEET;
+}
+function openFilterSheet(){
+  osSheet.show('Filter', filterSheet(),
+    `<button class="b1" id="fapply">Show <span id="fapplyn"></span></button>`);
+  MSHEET.querySelectorAll('.rng').forEach(paintRange);
+  syncControls(); paintApply();
+  document.getElementById('fapply').addEventListener('click',()=>osSheet.close());
+}
+function paintApply(){
+  const n=document.getElementById('fapplyn'); if(!n) return;
+  const c=CATALOGUE.filter(matches).length;
+  n.textContent = c===1 ? '1 watch' : c+' watches';
+  document.getElementById('fapply').disabled = c===0;
+}
+function paintMobileBar(){
+  const chips=document.getElementById('mchips'); if(!chips) return;
+  chips.querySelectorAll('.mchip').forEach((c,i)=>
+    c.setAttribute('aria-pressed',String(QUICK[i].on())));
+  let n=0; Object.keys(F).forEach(k=>n+=F[k].size);
+  ['aed','y','size'].forEach(k=>{ if(R[k][0]!==B[k][0]||R[k][1]!==B[k][1]) n++; });
+  const btn=document.getElementById('mfilbtn'), tag=btn.querySelector('b');
+  btn.classList.toggle('has',n>0);
+  tag.textContent=n||''; tag.style.display=n?'grid':'none';
+  const c=CATALOGUE.filter(matches).length;
+  document.getElementById('mcnt').innerHTML=
+    `<b>${c}</b> ${c===1?'watch':'watches'}`+(c===CATALOGUE.length?'':` of ${CATALOGUE.length}`);
+  paintApply();
+}
+function buildMobileShop(){
+  const bar=document.createElement('div');
+  bar.className='mfil';
+  bar.innerHTML=`<div class="mfilrow">
+      <div class="mchips" id="mchips">${QUICK.map(q=>
+        `<button class="mchip" aria-pressed="false">${q.t}</button>`).join('')}</div>
+      <button class="mfilbtn" id="mfilbtn">${ICF}Filter<b></b></button>
+    </div><div class="mcount" id="mcnt"></div>`;
+  document.querySelector('.fbar').after(bar);
+  bar.querySelectorAll('.mchip').forEach((c,i)=>c.addEventListener('click',()=>{
+    QUICK[i].go(); document.querySelectorAll('.rng').forEach(paintRange); render();
+  }));
+  document.getElementById('mfilbtn').addEventListener('click',openFilterSheet);
+  window.__afterRender=paintMobileBar;
+  paintMobileBar();
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.osMobile && osMobile()) buildMobileShop();
 });

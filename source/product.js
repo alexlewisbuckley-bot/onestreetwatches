@@ -108,3 +108,44 @@ function linkBooking(i){
   });
 }
 document.addEventListener('DOMContentLoaded',paint);
+
+/* ================= MOBILE =================
+   The gallery becomes a swipeable, edge-to-edge rail with dots — thumbnails
+   are a mouse affordance. One persistent action bar replaces the two inline
+   buttons and the desktop buy bar. */
+const ICWA='<svg viewBox="0 0 24 24"><path d="M3 21l1.6-4.4A8.5 8.5 0 1 1 12 20.5a8.4 8.4 0 0 1-4.2-1.1L3 21Z"/></svg>';
+function buildMobileProduct(){
+  const gm=document.getElementById('gmain');
+  if(gm){
+    gm.parentElement.classList.add('gwrap');
+    const n=gm.querySelectorAll('.gshot').length;
+    const dots=document.createElement('div');
+    dots.className='gdots';
+    dots.innerHTML=Array.from({length:n},(_,i)=>`<i class="${i?'':'on'}"></i>`).join('');
+    gm.parentElement.appendChild(dots);
+    let tick=0;
+    gm.addEventListener('scroll',()=>{
+      if(tick) return;
+      tick=requestAnimationFrame(()=>{tick=0;
+        const k=Math.round(gm.scrollLeft/gm.clientWidth);
+        dots.querySelectorAll('i').forEach((d,j)=>d.classList.toggle('on',j===k));
+      });
+    },{passive:true});
+  }
+  const bar=document.createElement('div');
+  bar.className='mbuy';
+  const price=document.getElementById('pprice');
+  bar.innerHTML=`<span class="p money" data-aed="${price.dataset.aed}">${price.textContent}</span>
+    <a class="b1" id="mres" href="#">Reserve this watch</a>
+    <a class="wa" id="mwa" href="#" aria-label="Enquire on WhatsApp">${ICWA}</a>`;
+  document.body.appendChild(bar);
+  const res=document.getElementById('pres'), wa=document.querySelector('.dacts .b2');
+  document.getElementById('mres').href = res ? res.getAttribute('href') : 'book.html';
+  document.getElementById('mwa').href  = wa  ? wa.getAttribute('href')  : 'https://wa.me/97140000000';
+  /* only show it once the client has seen the price in place */
+  const io=new IntersectionObserver(e=>bar.classList.toggle('on',!e[0].isIntersecting),{rootMargin:'-120px 0px 0px 0px'});
+  io.observe(document.querySelector('.dprice'));
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.osMobile && osMobile()) setTimeout(buildMobileProduct,0);
+});

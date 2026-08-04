@@ -215,3 +215,42 @@ document.addEventListener('DOMContentLoaded',()=>{
   carousel('rvtrack','rvprev','rvnext','rvarrows',2);
   repaintMoney();
 });
+
+/* ================= MOBILE =================
+   The boutique is the best idea on the page and was hover-only, so it did
+   not exist on a phone. The hotspots become tappable and open a sheet. */
+function buildMobileHome(){
+  const box=$h('spots'); if(!box) return;
+  const label=document.querySelector('.hint'); if(label) label.textContent='Tap a case to see what is inside';
+
+  function wire(i){
+    box.querySelectorAll('.pop').forEach(p=>p.remove());
+    box.querySelectorAll('.spot').forEach((sp,j)=>{
+      const s=SHOTS[i][2][j];
+      sp.replaceWith(sp.cloneNode(true));           /* drop the hover handlers */
+    });
+    box.querySelectorAll('.spot').forEach((sp,j)=>{
+      const s=SHOTS[i][2][j];
+      sp.addEventListener('click',e=>{
+        e.preventDefault(); e.stopPropagation();
+        const rows=s.w.map(k=>{const w=CATALOGUE[k], im=w.ims.find(x=>x.img);
+          return `<a class="mrow" href="product.html?i=${k}">
+            <span class="ic" style="width:52px;height:52px;background-image:var(--plate);border:1px solid var(--line)">
+              ${im?`<img src="${im.img}" alt="" style="width:80%;height:80%;object-fit:contain">`:''}</span>
+            <span><span class="n">${w.b} ${w.m}</span>
+            <span style="display:block;font-size:11.5px;color:var(--muted);margin-top:3px">Ref. ${w.r} · ${w.y}</span></span>
+            <em>${money(w.aed)}</em></a>`;}).join('');
+        osSheet.show(s.t, rows+
+          `<a class="mwa" style="background:none;border:1px solid var(--line2);color:var(--ink)"
+              href="shop.html">See everything in the case</a>`);
+      });
+    });
+  }
+  wire(0);
+  /* the hero rotates; rebind after each change */
+  const obs=new MutationObserver(()=>wire(cur));
+  obs.observe(box,{childList:true});
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.osMobile && osMobile()) setTimeout(buildMobileHome,60);
+});

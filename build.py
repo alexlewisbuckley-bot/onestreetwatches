@@ -51,10 +51,10 @@ def img_path(tok, from_css=False):
 
 # ---------- css ----------
 CSSOUT={}
-core=(open(B+'core.css').read()+'\n'+open(B+'mobile.css').read()).replace('/*FONTS*/','')
+core=open(B+'core.css').read().replace('/*FONTS*/','')
 open(OUT+'assets/css/core.css','w').write(face+core)
 CSSOUT['core.css']=fingerprint('css','core.css')
-for f in ['page.css','shop.css','product.css','home.css','book.css']:
+for f in ['page.css','shop.css','product.css','home.css','book.css','mobile.css']:
     if os.path.exists(B+f):
         css=open(B+f).read()
         for tok in list(IMGMAP)+list(ALIAS): css=css.replace(tok, img_path(tok, True))
@@ -108,6 +108,7 @@ for slug,out,title,desc,nav in PAGES:
     page_css = slug+'.css' if slug in ('home','shop','product','book') else 'page.css'
     extra_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT[page_css]}">' if page_css in CSSOUT else ''
     extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
+    mobile_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT["mobile.css"]}">'
     canon = SITE+'/' if out=='index' else f'{SITE}/{out}'
     html=f'''<!DOCTYPE html>
 <html lang="en">
@@ -128,6 +129,7 @@ for slug,out,title,desc,nav in PAGES:
 <link rel="preload" href="assets/fonts/{FONTOUT.get('inter-tight-latin-300-normal.woff2','inter-tight-latin-300-normal.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/{CSSOUT['core.css']}">
 {extra_css}
+{mobile_css}
 <script src="assets/js/{JSOUT['core.js']}" defer></script>
 {extra_js}
 </head>

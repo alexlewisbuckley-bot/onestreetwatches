@@ -528,7 +528,9 @@ function showSheet(title, html, footer){
   const s=document.getElementById('sheet');
   lastFocus=document.activeElement;
   document.getElementById('sheettitle').textContent=title;
-  document.getElementById('sheetc').innerHTML=html;
+  const c=document.getElementById('sheetc');
+  c.innerHTML='';
+  if(html instanceof Node) c.appendChild(html); else c.innerHTML=html;
   const f=document.getElementById('sheetf');
   f.hidden=!footer; f.innerHTML=footer||'';
   s.classList.add('on');
@@ -544,6 +546,7 @@ function closeSheet(){
   lastFocus?.focus?.();
 }
 window.osSheet={show:showSheet, close:closeSheet};
+window.osMobile=()=>MQ.matches;
 
 function openSheet(kind){
   if(kind!=='menu') return;
