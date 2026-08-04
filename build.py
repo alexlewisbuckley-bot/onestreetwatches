@@ -54,7 +54,7 @@ CSSOUT={}
 core=open(B+'core.css').read().replace('/*FONTS*/','')
 open(OUT+'assets/css/core.css','w').write(face+core)
 CSSOUT['core.css']=fingerprint('css','core.css')
-for f in ['page.css','shop.css','product.css','home.css']:
+for f in ['page.css','shop.css','product.css','home.css','book.css']:
     if os.path.exists(B+f):
         css=open(B+f).read()
         for tok in list(IMGMAP)+list(ALIAS): css=css.replace(tok, img_path(tok, True))
@@ -90,6 +90,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'Swiss-trained watchmakers at our own bench in Dubai, with free insured collection in the UAE and UK. 24-month warranty on all work.','servicing'),
        ('visit','visit','Visit the boutique — Dubai & United Kingdom | One Street Watches',
         'Gold & Diamond Park, Building 5, Dubai — open daily. Private viewings by appointment in the United Kingdom.','visit'),
+       ('book','book','Schedule a viewing | One Street Watches',
+        'Book a viewing in Dubai, the United Kingdom or on a video call. Pick a date and time, and we will have the tray ready before you sit down.','visit'),
        ('journal','journal','The journal | One Street Watches',
         'Market notes, buying guides and what actually happens at the bench, written by the people who buy and sell these watches every day.',''),
        ('about','about','About One Street Watches',
@@ -101,7 +103,7 @@ SITE='https://onestreetwatches.com'
 for slug,out,title,desc,nav in PAGES:
     body=open(B+slug+'.html').read()
     for tok in list(IMGMAP)+list(ALIAS): body=body.replace(tok, img_path(tok))
-    page_css = slug+'.css' if slug in ('home','shop','product') else 'page.css'
+    page_css = slug+'.css' if slug in ('home','shop','product','book') else 'page.css'
     extra_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT[page_css]}">' if page_css in CSSOUT else ''
     extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
     canon = SITE+'/' if out=='index' else f'{SITE}/{out}'

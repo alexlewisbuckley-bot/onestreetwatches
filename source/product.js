@@ -72,6 +72,7 @@ function paint(){
   document.querySelectorAll('.acch').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('open')));
 
   /* prev / next through the case */
+  linkBooking(IDX);
   $('prevw').href='product.html?i='+((IDX-1+CATALOGUE.length)%CATALOGUE.length);
   $('nextw').href='product.html?i='+((IDX+1)%CATALOGUE.length);
 
@@ -96,4 +97,5 @@ function paint(){
 
   repaintMoney();
 }
+function linkBooking(i){const b=document.getElementById('dbook'); if(b) b.href='book.html?i='+i+'&type=specific';}
 document.addEventListener('DOMContentLoaded',paint);

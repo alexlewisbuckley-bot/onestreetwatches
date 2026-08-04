@@ -1,0 +1,90 @@
+<div class="phead">
+  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Schedule a viewing</div>
+  <h1>Schedule a viewing</h1>
+  <p class="lede">Pick a time that suits you. We will have the tray ready, the pieces sized and
+    the papers out before you sit down — in Dubai, in the United Kingdom, or on a video call
+    from wherever you are.</p>
+</div>
+
+<div class="bwrap">
+  <div class="bmain">
+    <ol class="bsteps" id="bsteps"></ol>
+
+    <!-- 1 · what kind of viewing -->
+    <section class="bstep on" data-s="1">
+      <h2 class="bh">What kind of viewing?</h2>
+      <div class="btypes" id="btypes"></div>
+    </section>
+
+    <!-- 2 · when -->
+    <section class="bstep" data-s="2">
+      <h2 class="bh">Choose a date and time</h2>
+      <div class="bwhen">
+        <div class="cal">
+          <div class="calhead">
+            <button class="calnav" id="calprev" aria-label="Previous month">←</button>
+            <div class="calmonth" id="calmonth" aria-live="polite"></div>
+            <button class="calnav" id="calnext" aria-label="Next month">→</button>
+          </div>
+          <div class="caldow" id="caldow"></div>
+          <div class="calgrid" id="calgrid" role="grid"></div>
+          <div class="calkey">
+            <span><i class="k-free"></i>Available</span>
+            <span><i class="k-none"></i>Fully booked</span>
+          </div>
+        </div>
+        <div class="slots">
+          <div class="slothead">
+            <div class="slotday" id="slotday">Pick a day</div>
+            <div class="slotcount" id="slotcount"></div>
+          </div>
+          <div class="slotlist" id="slotlist"></div>
+          <div class="slottz" id="slottz"></div>
+        </div>
+      </div>
+      <div class="bnav"><button class="bback" data-back="1">← Change viewing type</button></div>
+    </section>
+
+    <!-- 3 · who -->
+    <section class="bstep" data-s="3">
+      <h2 class="bh">Your details</h2>
+      <form class="bform" id="bform" novalidate>
+        <div class="fgrid">
+          <div class="f"><label for="bname">Full name</label>
+            <input id="bname" name="name" autocomplete="name" required></div>
+          <div class="f"><label for="bemail">Email</label>
+            <input id="bemail" name="email" type="email" autocomplete="email" required></div>
+          <div class="f"><label for="bphone">Phone or WhatsApp</label>
+            <input id="bphone" name="phone" type="tel" autocomplete="tel" required></div>
+          <div class="f"><label for="bpeople">How many coming?</label>
+            <select id="bpeople" name="people">
+              <option>Just me</option><option>Two of us</option><option>Three or more</option>
+            </select></div>
+          <div class="f full"><label for="bnotes">Anything we should have ready? <span class="opt">Optional</span></label>
+            <textarea id="bnotes" name="notes" placeholder="A reference you want to see, a budget, a part-exchange you are bringing, or a bracelet size."></textarea></div>
+        </div>
+        <div class="berr" id="berr" hidden></div>
+        <button class="b1 bsubmit" id="bsubmit" type="submit">
+          <span class="lbl">Confirm the viewing</span> <span class="a">→</span></button>
+        <p class="bnote">No deposit, no obligation, and nothing is held against you if you change
+          your mind. We will send a confirmation and a reminder the day before.</p>
+      </form>
+      <div class="bnav"><button class="bback" data-back="2">← Change the time</button></div>
+    </section>
+
+    <!-- 4 · done -->
+    <section class="bstep bdone" data-s="4">
+      <div class="btick" aria-hidden="true"><span></span></div>
+      <h2 class="bh">You are booked in.</h2>
+      <p class="blede" id="bdonelede"></p>
+      <div class="bcard" id="bcard"></div>
+      <div class="bdoneacts">
+        <button class="b1" id="bics">Add to calendar <span class="a">→</span></button>
+        <a class="b2" id="bwa" href="#">Message us on WhatsApp <span class="a">→</span></a>
+      </div>
+      <p class="bnote" id="bref"></p>
+    </section>
+  </div>
+
+  <aside class="bside" id="bside"></aside>
+</div>

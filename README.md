@@ -66,3 +66,32 @@ replace that constant with a live feed before launch.
 
 Vercel, zero-config static. `vercel.json` sets clean URLs, immutable caching on `/assets`,
 and basic security headers.
+
+## Booking (Cal.com)
+
+`/book` is our own UI; availability and confirmation emails come from Cal.com
+via two serverless functions that keep the API key server-side:
+
+| Route | Does |
+|---|---|
+| `GET /api/slots?type=&date=&tz=` | free slots for a day |
+| `POST /api/book` | creates the booking; Cal sends confirmation + reminder |
+
+Set these in **Vercel → Settings → Environment Variables**:
+
+```
+CAL_API_KEY       cal_live_...          from cal.com → Settings → Developer → API keys
+CAL_EVENT_DUBAI   <event type id>       "Dubai salon viewing", 45 min
+CAL_EVENT_UK      <event type id>       "UK appointment", 60 min
+CAL_EVENT_VIDEO   <event type id>       "Video viewing", 20 min
+CAL_USERNAME      <your cal username>
+```
+
+Until `CAL_API_KEY` exists both routes return 501, and the front end falls
+back to slots generated from the opening hours in `source/book.js` with a
+WhatsApp handoff — the page stays usable, it just cannot promise the slot is
+still free. The confirmation heading changes from "You are booked in." to
+"Request received." in that state, deliberately.
+
+Opening hours, viewing lengths and the WhatsApp number live at the top of
+`source/book.js` in the `TYPES` array and the `WA` constant.
