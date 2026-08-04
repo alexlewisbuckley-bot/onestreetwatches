@@ -181,6 +181,14 @@ function initRange(el){
     });
   });
   el.querySelector('.rngreset').addEventListener('click',()=>{R[key]=[...B[key]];paintRange(el);render();});
+  const hist=el.querySelector('.rnghist');
+  if(hist){
+    const N=22, st=(max-min)/N;
+    const buckets=Array.from({length:N},(_,i)=>CATALOGUE.filter(w=>w.aed>=min+i*st && w.aed<min+(i+1)*st).length);
+    const peak=Math.max(1,...buckets);
+    hist.innerHTML=buckets.map(c=>
+      `<i data-c="${c}" style="height:${Math.max(2,(c/peak)*34)}px"></i>`).join('');
+  }
   paintRange(el);
 }
 function paintRange(el){
@@ -196,18 +204,18 @@ function paintRange(el){
   el.querySelector('.e0').textContent=fmt[key](min);
   el.querySelector('.e1').textContent=fmt[key](max);
   const hist=el.querySelector('.rnghist');
-  if(hist){
-    const N=22, step=(max-min)/N;
-    const buckets=Array.from({length:N},(_,i)=>CATALOGUE.filter(w=>w.aed>=min+i*step && w.aed<min+(i+1)*step).length);
-    const peak=Math.max(1,...buckets);
-    hist.innerHTML=buckets.map((c,i)=>{
-      const lo=min+i*step, hi=min+(i+1)*step;
-      const inRange = hi>a && lo<b;
-      return `<i class="${c?(inRange?'hit':'on'):''}" style="height:${Math.max(2,(c/peak)*34)}px"></i>`;}).join('');
+  if(hist && hist.children.length){
+    const N=hist.children.length, st=(max-min)/N;
+    for(let i=0;i<N;i++){
+      const bar=hist.children[i], has=bar.dataset.c!=='0';
+      const inRange = (min+(i+1)*st)>a && (min+i*st)<b;
+      bar.classList.toggle('hit', has && inRange);
+      bar.classList.toggle('on',  has && !inRange);
+    }
   }
 }
-let rt=null;
-const scheduleRender=()=>{clearTimeout(rt);rt=setTimeout(render,90)};
+let raf=0;
+const scheduleRender=()=>{ if(raf) return; raf=requestAnimationFrame(()=>{raf=0;render();}); };
 
 /* ---------- state ---------- */
 function toggle(k,v){
@@ -281,24 +289,41 @@ function syncControls(){
     badge.textContent=n||''; g.classList.toggle('has', n>0);
   });
 }
+/* The grid is built once and never torn down again. Filtering toggles
+   [hidden] and reorders with CSS `order`, so images are never re-decoded
+   and cards never flash — the old code rebuilt all 24 cards on every click. */
+let CARDS=null;
+function buildGrid(){
+  const grid=document.getElementById('pgrid');
+  grid.innerHTML=CATALOGUE.map((w,i)=>productCard(w,i)).join('');
+  CARDS=[...grid.children];
+  CARDS.forEach((c,i)=>c.setAttribute('href','product.html?i='+i));
+  bindZones(grid);
+}
 function render(){
+  if(!CARDS) return;                 /* core.js repaints currency before the grid exists */
   let list=CATALOGUE.map((w,i)=>({w,i})).filter(o=>matches(o.w));
   const s=document.getElementById('sort').value;
   if(s==='plow') list.sort((a,b)=>a.w.aed-b.w.aed);
   if(s==='phigh') list.sort((a,b)=>b.w.aed-a.w.aed);
   if(s==='year') list.sort((a,b)=>b.w.y-a.w.y);
-  const grid=document.getElementById('pgrid');
-  grid.innerHTML=list.map(o=>productCard(o.w,o.i)).join('');
-  grid.querySelectorAll('.pcard').forEach((c,n)=>c.setAttribute('href','product.html?i='+list[n].i));
+  const shown=new Map(list.map((o,n)=>[o.i,n]));
+  for(let i=0;i<CARDS.length;i++){
+    const n=shown.get(i);
+    const off=n===undefined;
+    if(CARDS[i].hidden!==off) CARDS[i].hidden=off;
+    if(!off && CARDS[i].style.order!=n) CARDS[i].style.order=n;
+  }
   document.getElementById('cnt').textContent=list.length;
   document.getElementById('ofTotal').textContent = list.length===CATALOGUE.length?'':'of '+CATALOGUE.length;
   document.getElementById('empty').style.display=list.length?'none':'block';
-  bindZones(grid); activeChips(); syncControls(); paintHead();
+  activeChips(); syncControls(); paintHead();
   document.querySelectorAll('.rng').forEach(el=>paintRange(el));
 }
-window.onCurrency=()=>{document.querySelectorAll('.rng').forEach(paintRange);render();};
+window.onCurrency=()=>{document.querySelectorAll('.rng').forEach(paintRange);if(CARDS)render();};
 document.addEventListener('DOMContentLoaded',()=>{
   applyURL();
+  buildGrid();
   buildRail();
   document.getElementById('sort').addEventListener('change',render);
   render();
