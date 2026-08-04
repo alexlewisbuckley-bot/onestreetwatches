@@ -420,11 +420,21 @@ function filterSheet(){
   return MSHEET;
 }
 function openFilterSheet(){
-  osSheet.show('Filter', filterSheet(),
-    `<button class="b1" id="fapply">Show <span id="fapplyn"></span></button>`);
+  const panel=document.getElementById('mfilpanel');
+  const open=panel.hasAttribute('hidden');
+  if(!open){ panel.setAttribute('hidden',''); return; }
+  if(!panel.firstChild){
+    panel.appendChild(filterSheet());
+    const done=document.createElement('button');
+    done.className='b1 mfildone'; done.id='fapply';
+    done.innerHTML='Show <span id="fapplyn"></span>';
+    done.addEventListener('click',()=>{panel.setAttribute('hidden','');
+      document.getElementById('mfilbtn').scrollIntoView({block:'start',behavior:'smooth'});});
+    panel.appendChild(done);
+  }
+  panel.removeAttribute('hidden');
   MSHEET.querySelectorAll('.rng').forEach(paintRange);
   syncControls(); paintApply();
-  document.getElementById('fapply').addEventListener('click',()=>osSheet.close());
 }
 function paintApply(){
   const n=document.getElementById('fapplyn'); if(!n) return;
@@ -453,7 +463,8 @@ function buildMobileShop(){
       <div class="mchips" id="mchips">${QUICK.map(q=>
         `<button class="mchip" aria-pressed="false">${q.t}</button>`).join('')}</div>
       <button class="mfilbtn" id="mfilbtn">${ICF}Filter<b></b></button>
-    </div><div class="mcount" id="mcnt"></div>`;
+    </div><div class="mcount" id="mcnt"></div>
+    <div class="mfilpanel" id="mfilpanel" hidden></div>`;
   document.querySelector('.fbar').after(bar);
   bar.querySelectorAll('.mchip').forEach((c,i)=>c.addEventListener('click',()=>{
     QUICK[i].go(); document.querySelectorAll('.rng').forEach(paintRange); render();
