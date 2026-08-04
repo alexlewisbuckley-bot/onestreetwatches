@@ -106,20 +106,38 @@
 
 /* ---------- results ---------- */
 .results{padding:26px 52px 96px}
-.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
 .pgrid .pcard{flex:none;width:auto}
 .pgrid .pcard[hidden]{display:none}
 .empty{padding:90px 0;text-align:center;color:var(--muted);font-size:14px}
 
-@media (max-width:1560px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+/* denser card: model and price stack so nothing truncates awkwardly, and
+   every field the wide card carried is still on show */
+.pgrid .pbody{padding:13px 13px 14px}
+.pgrid .pbrand{font-size:8.5px;letter-spacing:.15em}
+.pgrid .prow{display:block;margin-top:7px}
+.pgrid .pmodel{display:block;font-size:14px;line-height:1.25;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pgrid .pprice{display:block;margin-top:5px;font-size:14px}
+.pgrid .pmeta{font-size:10.5px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pgrid .pspec{gap:10px;row-gap:8px;flex-wrap:wrap;margin-top:11px;padding-top:10px}
+.pgrid .inc{font-size:10px;gap:6px}
+.pgrid .inc .bx{width:11px;height:11px}
+.pgrid .cond{font-size:9.5px;padding:3px 7px}
+.pgrid .ptag{top:9px;left:9px;padding:3px 7px;font-size:8.5px}
+.pgrid .bars{left:10px;right:10px;bottom:9px}
+
+@media (max-width:1700px){.pgrid{grid-template-columns:repeat(5,1fr)}}
+@media (max-width:1320px){.pgrid{grid-template-columns:repeat(4,1fr)}}
 @media (max-width:1180px){
-  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .pgrid{grid-template-columns:repeat(3,1fr)}
   .fbarin,.fbar2{padding-left:22px;padding-right:22px}
   .results{padding:22px 22px 64px}
 }
 @media (max-width:900px){
+  .pgrid{grid-template-columns:repeat(2,1fr)}
   .fbarin{flex-wrap:wrap;gap:12px}
   .sortwrap{margin-left:auto}
   .fpop{width:min(284px,calc(100vw - 44px))}
 }
-@media (max-width:640px){.pgrid{grid-template-columns:1fr}}
+@media (max-width:520px){.pgrid{grid-template-columns:1fr}}
