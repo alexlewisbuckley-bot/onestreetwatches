@@ -82,7 +82,17 @@ function buildRail(){
     `<div class="fclear" id="clear">Clear all filters</div>`;
   // collapse the secondary groups by default — the rail stays short
   document.querySelectorAll('.fgroup').forEach((g,i)=>{ if(i>1) g.classList.add('shut'); });
-  document.querySelectorAll('.fhead').forEach(h=>h.addEventListener('click',()=>h.parentElement.classList.toggle('shut')));
+  document.querySelectorAll('.fhead').forEach(h=>h.addEventListener('click',()=>{
+    const g=h.parentElement;
+    g.classList.toggle('shut');
+    if(g.classList.contains('shut')) return;
+    /* scroll the newly opened group into view within the rail */
+    requestAnimationFrame(()=>{
+      const rail=document.querySelector('.frail');
+      const rb=rail.getBoundingClientRect(), gb=g.getBoundingClientRect();
+      if(gb.bottom>rb.bottom) rail.scrollTop+=Math.min(gb.bottom-rb.bottom+14, gb.top-rb.top);
+    });
+  }));
   bindRows(document);
   document.querySelectorAll('.segs button').forEach(b=>b.addEventListener('click',()=>toggle(b.dataset.k,b.dataset.v)));
   document.getElementById('clear').addEventListener('click',()=>{
@@ -94,6 +104,35 @@ function buildRail(){
     document.querySelectorAll('.rng').forEach(paintRange); render();});
   document.querySelectorAll('.rng').forEach(initRange);
 }
+
+/* ---------- keep the rail inside the visible area ----------
+   The rail is sticky, but until it actually sticks it begins ~350px down the
+   page, so a fixed viewport-height cap still hangs off the bottom of the
+   screen. Height it against where it really is, every frame it can change. */
+function initRailFit(){
+  const rail=document.querySelector('.frail');
+  const wide=matchMedia('(min-width:981px)');
+  let docTop=0, tick=0;
+  const STICK=parseFloat(getComputedStyle(document.documentElement)
+    .getPropertyValue('--navH'))+14;
+  const measure=()=>{
+    rail.style.maxHeight='';
+    docTop=rail.getBoundingClientRect().top+scrollY;
+    fit();
+  };
+  const fit=()=>{
+    if(!wide.matches){ rail.style.maxHeight=''; return; }
+    const top=Math.max(STICK, docTop-scrollY);
+    rail.style.maxHeight=Math.max(260, innerHeight-top-18)+'px';
+  };
+  const onScroll=()=>{ if(tick) return; tick=requestAnimationFrame(()=>{tick=0;fit();}); };
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',measure);
+  wide.addEventListener?.('change',measure);
+  measure();
+  return {measure,fit};
+}
+let RAILFIT=null;
 
 /* open any group that arrived with a filter already applied */
 function revealActive(){
@@ -325,7 +364,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   applyURL();
   buildGrid();
   buildRail();
+  RAILFIT=initRailFit();
   document.getElementById('sort').addEventListener('change',render);
   render();
   revealActive();
+  RAILFIT.measure();
 });

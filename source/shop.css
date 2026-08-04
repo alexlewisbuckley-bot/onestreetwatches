@@ -3,13 +3,19 @@
 /* ---------- layout ---------- */
 .shop{display:grid;grid-template-columns:266px 1fr;gap:0;align-items:start}
 .frail{position:sticky;top:calc(var(--navH) + 14px);
- max-height:calc(100dvh - var(--navH) - 28px);overflow-y:auto;overflow-x:hidden;
+ max-height:calc(100dvh - var(--navH) - 28px);/* JS narrows this to the real gap above the fold */
+ overflow-y:auto;overflow-x:hidden;
  overscroll-behavior:contain;padding:30px 22px 34px 52px;border-right:1px solid var(--line);
- scrollbar-width:thin;scrollbar-color:transparent transparent;transition:scrollbar-color .3s}
-.frail:hover{scrollbar-color:var(--line2) transparent}
-.frail::-webkit-scrollbar{width:4px}
-.frail::-webkit-scrollbar-thumb{background:transparent;transition:background .3s}
-.frail:hover::-webkit-scrollbar-thumb{background:var(--line2)}
+ scrollbar-width:thin;scrollbar-color:var(--line2) transparent;
+ /* soft shadow at whichever edge has more filters beyond it */
+ background:
+  linear-gradient(var(--ivory) 34%, rgba(247,244,239,0)) top/100% 24px no-repeat local,
+  linear-gradient(rgba(247,244,239,0), var(--ivory) 66%) bottom/100% 24px no-repeat local,
+  radial-gradient(farthest-side at 50% 0, rgba(28,27,25,.11), rgba(28,27,25,0)) top/100% 11px no-repeat scroll,
+  radial-gradient(farthest-side at 50% 100%, rgba(28,27,25,.11), rgba(28,27,25,0)) bottom/100% 11px no-repeat scroll}
+.frail::-webkit-scrollbar{width:5px}
+.frail::-webkit-scrollbar-thumb{background:var(--line2)}
+.frail::-webkit-scrollbar-track{background:transparent}
 .results{padding:22px 52px 90px 30px;min-width:0}
 
 /* ---------- filters ---------- */
