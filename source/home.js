@@ -12,7 +12,7 @@ const SHOTS=[
  ["__IMG_CAM3__","The lounge",[
    {x:17,y:70,t:"Arrivals case",w:[3,17]},
    {x:47,y:76,t:"Seating vitrine",w:[1,20]}]],
- ["__IMG_EXT__","Vida Hills, Dubai",[
+ ["__IMG_EXT__","Vida Hotel, Emirates Hills",[
    {x:50,y:62,t:"Step inside",w:[1,2]}]],
  ["__IMG_CAM2__","The high-complication wall",[
    {x:38,y:74,t:"Island vitrine",w:[14,8]},
@@ -130,7 +130,7 @@ const SELL=[
 const PLAY='<svg width="8" height="9" viewBox="0 0 8 9"><path d="M0 0l8 4.5L0 9z"/></svg>';
 const SOCIAL=[
  {bg:"__IMG_CAM1__",cap:"The salon, Tuesday morning",reel:0},
- {bg:"__IMG_EXT__",cap:"Vida Hills, Dubai",reel:0},
+ {bg:"__IMG_EXT__",cap:"Vida Hotel, Emirates Hills",reel:0},
  {ph:["Reel","Hulk unboxing, vertical 9:16, hands only"],cap:"Hulk unboxing",reel:1},
  {bg:"__IMG_CAM4__",cap:"New in — five pieces this week",reel:0},
  {ph:["Reel","Sizing a bracelet, close crop, TikTok cut"],cap:"Sizing a bracelet",reel:1},

@@ -6,8 +6,8 @@
    WhatsApp, so nothing on the page is dead while the account is set up. */
 
 const TYPES=[
-  {id:'dubai', k:'In person', h:'One Street Watches, Vida Hills',
-   p:'Vida Hills, Dubai. Coffee, a tray, and as long as you want with it.',
+  {id:'dubai', k:'In person', h:'Vida Hotel, Emirates Hills',
+   p:'Tower A2, Vida Hotel. Coffee, a tray, and as long as you want with it.',
    m:'Open seven days, 10:00–20:00', tz:'Asia/Dubai', mins:45,
    days:[0,1,2,3,4,5,6], open:'10:00', close:'19:00', step:45},
   {id:'uk', k:'In person', h:'The United Kingdom',
@@ -255,7 +255,7 @@ function downloadICS(){
   const z=d=>d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
   const where = S.type.id==='uk' ? 'One Street Watches — United Kingdom'
               : S.type.id==='video' ? 'Video call — link to follow'
-              : 'One Street Watches, Vida Hills, Dubai';
+              : 'One Street Watches, Tower A2, Vida Hotel, Emirates Hills, Dubai, United Arab Emirates';
   const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//One Street Watches//EN','BEGIN:VEVENT',
     'UID:'+S.ref+'@onestreetwatches.com','DTSTAMP:'+z(new Date()),
     'DTSTART:'+z(st),'DTEND:'+z(en),

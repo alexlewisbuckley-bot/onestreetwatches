@@ -12,7 +12,7 @@ const SHOTS=[
  ["assets/img/boutique-lounge.cc6e46eb3b.jpg","The lounge",[
    {x:17,y:70,t:"Arrivals case",w:[3,17]},
    {x:47,y:76,t:"Seating vitrine",w:[1,20]}]],
- ["assets/img/boutique-exterior.374cb6d191.jpg","Vida Hills, Dubai",[
+ ["assets/img/boutique-exterior.374cb6d191.jpg","Vida Hotel, Emirates Hills",[
    {x:50,y:62,t:"Step inside",w:[1,2]}]],
  ["assets/img/boutique-wall.5ec75b6f36.jpg","The high-complication wall",[
    {x:38,y:74,t:"Island vitrine",w:[14,8]},
@@ -130,7 +130,7 @@ const SELL=[
 const PLAY='<svg width="8" height="9" viewBox="0 0 8 9"><path d="M0 0l8 4.5L0 9z"/></svg>';
 const SOCIAL=[
  {bg:"assets/img/boutique-salon.ea631f9f49.jpg",cap:"The salon, Tuesday morning",reel:0},
- {bg:"assets/img/boutique-exterior.374cb6d191.jpg",cap:"Vida Hills, Dubai",reel:0},
+ {bg:"assets/img/boutique-exterior.374cb6d191.jpg",cap:"Vida Hotel, Emirates Hills",reel:0},
  {ph:["Reel","Hulk unboxing, vertical 9:16, hands only"],cap:"Hulk unboxing",reel:1},
  {bg:"assets/img/boutique-corridor.598b73a1f7.jpg",cap:"New in — five pieces this week",reel:0},
  {ph:["Reel","Sizing a bracelet, close crop, TikTok cut"],cap:"Sizing a bracelet",reel:1},
