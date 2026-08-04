@@ -121,14 +121,18 @@ function buildMobileProduct(){
     const n=gm.querySelectorAll('.gshot').length;
     const dots=document.createElement('div');
     dots.className='gdots';
-    dots.innerHTML=Array.from({length:n},(_,i)=>`<i class="${i?'':'on'}"></i>`).join('');
+    dots.innerHTML=Array.from({length:n},(_,i)=>
+      `<button class="${i?'':'on'}" aria-label="Image ${i+1} of ${n}"></button>`).join('');
     gm.parentElement.appendChild(dots);
+    /* swipe is the gesture, but it must never be the only way through */
+    dots.querySelectorAll('button').forEach((d,i)=>d.addEventListener('click',()=>
+      gm.scrollTo({left:i*gm.clientWidth,behavior:'smooth'})));
     let tick=0;
     gm.addEventListener('scroll',()=>{
       if(tick) return;
       tick=requestAnimationFrame(()=>{tick=0;
         const k=Math.round(gm.scrollLeft/gm.clientWidth);
-        dots.querySelectorAll('i').forEach((d,j)=>d.classList.toggle('on',j===k));
+        dots.querySelectorAll('button').forEach((d,j)=>d.classList.toggle('on',j===k));
       });
     },{passive:true});
   }

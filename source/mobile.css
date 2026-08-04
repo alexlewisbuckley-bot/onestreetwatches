@@ -101,7 +101,6 @@
   .msres{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 16px 24px}
 
   /* ---------- shared mobile typography floor ---------- */
-  .pgrid .pmeta,.pgrid .inc,.pgrid .cond,.pgrid .pbrand{font-size:11.5px}
   .lede{font-size:14.5px}
 
 
@@ -155,13 +154,8 @@
 
   .results{padding:14px 12px calc(28px + var(--dock))}
   .pgrid{grid-template-columns:1fr 1fr !important;gap:10px}
-  .pgrid .pbody{padding:11px 11px 13px}
-  .pgrid .pmodel{font-size:13px}
-  .pgrid .pprice{font-size:13px;margin-top:4px}
-  .pgrid .pmeta{font-size:10.5px}
-  .pgrid .pspec{margin-top:9px;padding-top:9px;gap:8px}
-  .pgrid .inc{font-size:9.5px}
-  .pgrid .cond{font-size:9px;padding:2px 5px}
+  .pgrid .pbody{padding:var(--s3)}
+  .pgrid .pspec{margin-top:var(--s3);padding-top:var(--s3);gap:var(--s3)}
   .pgrid .bars{display:none}
 
   /* filter sheet */
@@ -183,7 +177,7 @@
   .fsecb .rngval{font-size:15px}
 
   /* ================= PRODUCT ================= */
-  .pbar,.gthumbs,.galnote,.dacts,.dbook,.rel{display:none}
+  .pbar,.gthumbs,.galnote,.dacts,.dbook,.buybar{display:none}
   .pwrap{padding:0}
   .pdp{grid-template-columns:1fr !important;gap:0;padding:0 0 24px}
   .gmain{width:100%;height:auto;aspect-ratio:1/1;border:none;border-bottom:1px solid var(--line);
@@ -194,9 +188,12 @@
    display:grid;place-items:center;transition:none}
   .gshot img{width:82%;height:82%}
   .gzoom,.gcount{display:none}
-  .gdots{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:6px;z-index:5}
-  .gdots i{width:5px;height:5px;background:rgba(28,27,25,.22);transition:background .25s}
-  .gdots i.on{background:var(--char)}
+  .gdots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:2px;z-index:5}
+  .gdots button{width:26px;height:26px;padding:0;background:none;border:none;position:relative}
+  .gdots button::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+   width:5px;height:5px;background:rgba(28,27,25,.22);transition:background .25s}
+  .gdots button.on::after{background:var(--char)}
+
   .gwrap{position:relative}
   .det{padding:22px 16px 0}
   .det h1{font-size:26px;margin-top:8px}
@@ -259,4 +256,141 @@
 
 @media (prefers-reduced-motion:reduce){
   .sheetbody,.sheetbg,.dock a{transition-duration:.01ms !important}
+}
+
+/* ============================================================
+   SYSTEM BRIDGE — legacy components adopt the design language.
+   Loaded last so it wins over every page stylesheet.
+   ============================================================ */
+@media (max-width:979px){
+
+  /* ---- one gutter, everywhere ---- */
+  .wrap,.pwrap,.sec,.band,.phead,.results,.fbarin,.fbar2,.bwrap,.film,.cta .wrap,
+  .rvscore,.mcount{padding-left:var(--gut) !important;padding-right:var(--gut) !important}
+  .rail,.svcs,.c-rail{margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1);
+   padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
+  .pane{padding-left:var(--gut);padding-right:var(--gut)}
+  .det{padding-left:var(--gut);padding-right:var(--gut)}
+  .sec,.band{padding-top:var(--s8)}
+  .split{padding:var(--s7) 0}
+  .cta{padding:var(--s8) 0}
+
+  /* ---- one type scale ---- */
+  h1,.phead h1{font-size:var(--t-display) !important;line-height:var(--lh-display);letter-spacing:var(--ls-display)}
+  h2,.shead h2,.split h2,.cta h2,.bh,.sellbd h2,.conc h2{font-size:var(--t-title) !important;
+   line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+  h3,.ccard h3,.acard h3,.loc2 h3,.svc h3,.rv h3,.btype h3,.form h3,.nrow h4,.ss h4{
+   font-size:var(--t-head) !important;line-height:var(--lh-head);letter-spacing:var(--ls-head)}
+  .lede,.lead,.sub,.copy p,.split p,.cta p,.blede,.rv p,.svc p,.conc .lead{
+   font-size:var(--t-body) !important;line-height:var(--lh-body)}
+  .shead p,.ccard p,.acard p,.loc2 .addr,.btype p,.accb,.bnote,.nrow p,.ss p,.stept,.stepd,
+  .sellnote,.concnote .l,.faq p{font-size:var(--t-sec) !important;line-height:var(--lh-sec)}
+  /* dense metadata floors at 12 — it was as low as 8.5 */
+  .pmeta,.bcount,.inc,.cond,.stat .l,.claims,.rvm,.rvv,.dassure,.dspec,.pill2,.slotcount,
+  .rngends,.rngnote,.calkey,.mrow em,.bsrow,.note,.hint,.m,.filmcap span,.acard .m,
+  .galnote,.dfin,.dfair,.crumbs,.count,.sortwrap,.c-row__s,.mchip,.slot,.fchip,.ptag,
+  .bcard .r,.bsassure,.tp,.loc,.pspec,.dstate div{font-size:var(--t-cap) !important;line-height:var(--lh-cap)}
+  /* uppercase labels are the one permitted 11px */
+  .pbrand,.mh,.msub,.sughead,.eyebrow,.conceye,.bsh,.dbrand,.acard .k,.btype .k,.t-label,
+  .f label,.bform label,.fkit label,.caldow span,.fpoph,.fhead,.slotday{
+   font-size:var(--t-label) !important;line-height:var(--lh-label);letter-spacing:var(--ls-label)}
+  .slotday{letter-spacing:var(--ls-sub);font-size:var(--t-sub) !important;text-transform:none}
+
+  /* ---- one button ---- */
+  .b1,.b2,.cbtn,.form .b1,.bsubmit,.mwa,.dacts .b1,.dacts .b2{min-height:var(--tap-lg);
+   padding:0 var(--s5);font-size:var(--t-sec) !important;display:inline-flex;align-items:center;
+   justify-content:center;gap:var(--s3)}
+  .cta .row{flex-direction:column;gap:var(--s2)}
+  .cta .row .b1,.cta .row .b2,.acts .b1,.acts .b2{width:100%}
+  .tlink,.go,.fclear,.bback,.dbook{min-height:var(--tap);display:inline-flex;align-items:center;
+   font-size:var(--t-sec) !important}
+
+  /* ---- one row ---- */
+  .nrow,.gline,.ss,.step,.frow,.mrow,.dspec,.acci .acch,.bcard .r,.bsrow{
+   min-height:var(--tap-lg)}
+  .nrow,.ss{padding:var(--s4) 0;gap:var(--s4)}
+  .gline{padding:var(--s3) 0}
+  .facts > div{padding:var(--s4)}
+
+  /* ---- one accordion ---- */
+  .acch{min-height:var(--tap-lg);padding:var(--s4) 0;font-size:var(--t-sub) !important}
+  .acci.open .acch{padding-left:var(--s4);padding-right:var(--s4)}
+  .accb{padding:0 var(--s4) var(--s4)}
+
+  /* ---- one form: 16px so iOS never zooms on focus ---- */
+  input,select,textarea,.f input,.f select,.f textarea,.bform input,.bform select,.bform textarea,
+  .sortwrap select{font-size:16px !important;min-height:var(--tap-lg);
+   padding-left:var(--s3);padding-right:var(--s3)}
+  textarea,.f textarea,.bform textarea{padding-top:var(--s3);padding-bottom:var(--s3);min-height:104px}
+  .fgrid,.bform .fgrid{gap:var(--s4)}
+  .f,.c-field{gap:var(--s2)}
+  .fkit{gap:var(--s4)}
+  .fkit label{min-height:var(--tap)}
+  .fkit .bx2{width:20px;height:20px}
+
+  /* ---- section heads read the same everywhere ---- */
+  .shead,.c-sechead{margin-bottom:var(--s5)}
+  .phead{padding-top:var(--s6);padding-bottom:var(--s6)}
+  .phead .lede{margin-top:var(--s3);max-width:38ch}
+
+
+  .rel{padding-top:var(--s7);border-top:var(--hair)}
+  .rel .pwrap{padding-bottom:var(--s8)}
+  .reltrack{gap:var(--s3);margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1);
+   padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
+  .reltrack .pcard{flex:0 0 46% !important}
+
+  /* ---- card internals follow the scale, not a bespoke density ---- */
+  .pgrid .pbrand,.pcard .pbrand{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
+  .pgrid .pmodel,.pcard .pmodel{font-size:var(--t-sub) !important;letter-spacing:var(--ls-sub)}
+  .pgrid .pprice,.pcard .pprice{font-size:var(--t-sub) !important;margin-top:4px}
+  .pgrid .pmeta,.pcard .pmeta,.pgrid .inc,.pcard .inc{font-size:var(--t-cap) !important}
+  .pgrid .cond,.pcard .cond{font-size:var(--t-cap) !important;padding:3px 7px}
+  .ptag,.pgrid .ptag{font-size:var(--t-label) !important;letter-spacing:var(--ls-label);padding:4px 8px}
+
+  /* ---- placeholder frames are scaffolding, but users still read them ---- */
+  .ph .l1{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
+  .ph .l2{font-size:var(--t-cap) !important;line-height:var(--lh-cap)}
+  .gthumb span,.im span,.rvav,.bgo,.k,.rvcnt,.dbrand,.eyebrow,.note,.m{font-size:var(--t-cap) !important}
+  .rvav{font-size:var(--t-cap) !important}
+  .dock a span{font-size:var(--t-label) !important;letter-spacing:.02em;text-transform:none}
+  .gshot .ph .l1{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
+  .gshot .ph .l2,.gline span i,.bbl .m,.filmtxt p{font-size:var(--t-cap) !important}
+  .bsteps b{font-size:var(--t-label) !important}
+  nav > a:first-child{min-height:var(--tap);display:flex;align-items:center}
+
+  /* ---- every control reaches 44px ---- */
+  .mbtn{width:var(--tap);height:var(--tap)}
+  .mchip,.c-chip{min-height:var(--tap)}
+  .spot{width:var(--tap);height:var(--tap)}
+  .calnav,.sheetx,.arrows button,.gdots button{width:var(--tap);height:var(--tap);min-height:var(--tap)}
+  .frow,.fkit label,.fsecb .frow{min-height:48px}
+  .slot,.cday,.segs button,.fchip,.pill2{min-height:var(--tap)}
+  .th{min-height:var(--tap)}
+
+  /* ---- nothing may widen the layout viewport ---- */
+  html,body{max-width:100%;overflow-x:hidden}
+  .results,.wrap,.pwrap,.c-section,.cgrid,.pgrid,.grid6,.facts,.fgrid{min-width:0;max-width:100%}
+  .pgrid > *,.cgrid > *,.grid6 > *,.facts > *{min-width:0}
+  .c-rail,.rail,.reltrack,.track,.svcs,.mchips,.c-chips{max-width:100vw}
+  .c-section > .c-rail{margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1)}
+  .ccard,.c-card,.loc2,.acard{min-width:0;overflow-wrap:anywhere}
+
+  /* ---- final normalisation: everything lands on the eight steps ---- */
+  .facts .v,.stat .v,.concnote .v,.dprice b,.pdp h1,.c-stat__v{font-size:var(--t-title) !important;
+   line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+  .acch i,.fsech i,.c-acc__h i{font-size:var(--t-head) !important}
+  .rvn,.dref,.b1,.b2,.cbtn,.bsubmit,.tlink,.go,.count,.sortwrap,.slotcount,
+  .bback,.fclear,.dbook,button,.pill2{font-size:var(--t-sec) !important}
+  .lede,.lead,.sub,.note,.ccard .price,.bsteps li{font-size:var(--t-body) !important}
+  .ccard .price,.c-price__v{font-size:var(--t-head) !important}
+  .bsteps li{font-size:var(--t-cap) !important}
+  .bsteps li b{font-size:var(--t-label) !important}
+  .note,.sub{font-size:var(--t-sec) !important}
+  h3,.ccard h3,.acard h3,.loc2 h3,.svc h3,.rv h3,.btype h3,.form h3{font-size:var(--t-head) !important}
+  .money,.pprice,.dprice b{letter-spacing:var(--ls-title)}
+
+  /* ---- closing CTA bands duplicate the top action: gone ---- */
+  .cta{border-top:var(--hair);background:none}
+  .cta p{max-width:34ch}
 }
