@@ -77,6 +77,7 @@ function productCard(w, i){
       ${w.tag?`<span class="ptag">${w.tag}</span>`:''}
       <div class="zones">${w.ims.map((_,j)=>`<span data-z="${j}"></span>`).join('')}</div>
       <div class="bars">${w.ims.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>
+      <span class="pcta">View watch <em>→</em></span>
     </div>
     <div class="pbody">
       <div class="pbrand">${w.b}</div>
