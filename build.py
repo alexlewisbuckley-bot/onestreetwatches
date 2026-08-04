@@ -51,7 +51,7 @@ def img_path(tok, from_css=False):
 
 # ---------- css ----------
 CSSOUT={}
-core=open(B+'core.css').read().replace('/*FONTS*/','')
+core=(open(B+'core.css').read()+'\n'+open(B+'mobile.css').read()).replace('/*FONTS*/','')
 open(OUT+'assets/css/core.css','w').write(face+core)
 CSSOUT['core.css']=fingerprint('css','core.css')
 for f in ['page.css','shop.css','product.css','home.css','book.css']:
@@ -63,9 +63,11 @@ for f in ['page.css','shop.css','product.css','home.css','book.css']:
 
 # ---------- js ----------
 JSOUT={}
+MOBILE_JS=open(B+'mobile.js').read()
 for f in sorted(os.listdir(B)):
-    if f.endswith('.js'):
+    if f.endswith('.js') and f!='mobile.js':
         js=open(B+f).read()
+        if f=='core.js': js=js+'\n'+MOBILE_JS
         for tok in list(IMGMAP)+list(ALIAS): js=js.replace(tok, img_path(tok))
         open(OUT+'assets/js/'+f,'w').write(js)
         JSOUT[f]=fingerprint('js',f)

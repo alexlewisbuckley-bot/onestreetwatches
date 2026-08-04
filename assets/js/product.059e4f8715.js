@@ -97,5 +97,14 @@ function paint(){
 
   repaintMoney();
 }
-function linkBooking(i){const b=document.getElementById('dbook'); if(b) b.href='book.html?i='+i+'&type=specific';}
+function linkBooking(i){
+  const q='book.html?i='+i+'&type=specific';
+  const b=document.getElementById('dbook'); if(b) b.href=q;
+  const r=document.getElementById('pres');  if(r) r.href=q;
+  const w=CATALOGUE[i];
+  document.querySelectorAll('a[href^="https://wa.me"]').forEach(a=>{
+    a.href='https://wa.me/97140000000?text='+encodeURIComponent(
+      `Hello — I am interested in the ${w.b} ${w.m}, ref ${w.r}.`);
+  });
+}
 document.addEventListener('DOMContentLoaded',paint);

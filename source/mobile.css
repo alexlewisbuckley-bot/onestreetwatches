@@ -1,0 +1,138 @@
+/* ============================================================
+   MOBILE APP SHELL — everything below 980px
+   Desktop is untouched; all of this is gated.
+   ============================================================ */
+:root{--dock:64px;--mtop:56px}
+
+@media (max-width:979px){
+  /* the desktop chrome cannot compress below 896px and was blowing the
+     layout viewport out to 896px on a 390px phone — it is replaced, not scaled */
+  .top,nav .links,nav .tools,.mega,.scrim{display:none !important}
+
+  body{padding-bottom:calc(var(--dock) + env(safe-area-inset-bottom))}
+
+  /* ---------- top bar: logo + one contextual action ---------- */
+  nav{height:var(--mtop);padding:0 16px;justify-content:space-between;
+   background:rgba(247,244,239,.88);backdrop-filter:saturate(180%) blur(14px);
+   -webkit-backdrop-filter:saturate(180%) blur(14px);
+   border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.stuck{border-bottom-color:var(--line)}
+  nav .logo{height:24px}
+  .mact{display:flex;align-items:center;gap:4px}
+  .mbtn{width:40px;height:40px;display:grid;place-items:center;color:var(--soft);
+   -webkit-tap-highlight-color:transparent}
+  .mbtn:active{opacity:.5}
+  .mbtn svg{width:19px;height:19px;display:block}
+  .mbtn .cnt{position:absolute;top:6px;right:5px;min-width:15px;height:15px;padding:0 4px;
+   background:var(--char);color:#fff;font-size:9px;display:grid;place-items:center}
+  .mbtn{position:relative}
+
+  /* ---------- bottom dock ---------- */
+  .dock{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;padding-left:0;padding-right:0;z-index:80;display:grid;
+   grid-template-columns:repeat(5,1fr);
+   background:rgba(247,244,239,.92);backdrop-filter:saturate(180%) blur(18px);
+   -webkit-backdrop-filter:saturate(180%) blur(18px);
+   border-top:1px solid var(--line);
+   padding-bottom:env(safe-area-inset-bottom)}
+  .dock a{height:var(--dock);display:flex;flex-direction:column;align-items:center;
+   justify-content:center;gap:5px;color:var(--pale);font-size:10px;letter-spacing:.02em;
+   -webkit-tap-highlight-color:transparent;transition:color .2s}
+  .dock a svg{width:21px;height:21px;display:block;stroke:currentColor;fill:none;
+   stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .dock a.on{color:var(--ink)}
+  .dock a:active{color:var(--ink);transform:scale(.94)}
+  .dock a span{transition:transform .2s var(--e)}
+
+  /* ---------- bottom sheet ---------- */
+  .sheet{position:fixed;inset:0;z-index:95;display:none}
+  .sheet.on{display:block}
+  .sheetbg{position:absolute;inset:0;background:rgba(28,27,25,.42);opacity:0;
+   transition:opacity .28s var(--e)}
+  .sheet.in .sheetbg{opacity:1}
+  .sheetbody{position:absolute;left:0;right:0;bottom:0;max-height:88dvh;display:flex;
+   flex-direction:column;background:var(--ivory);border-top:1px solid var(--line2);
+   box-shadow:0 -20px 50px -30px rgba(28,27,25,.6);
+   transform:translateY(100%);transition:transform .34s var(--e);
+   padding-bottom:env(safe-area-inset-bottom)}
+  .sheet.in .sheetbody{transform:none}
+  .grab{padding:9px 0 4px;display:grid;place-items:center;flex:none;touch-action:none}
+  .grab i{width:38px;height:4px;background:var(--line2);display:block}
+  .sheeth{display:flex;align-items:center;justify-content:space-between;gap:14px;
+   padding:6px 20px 14px;border-bottom:1px solid var(--line);flex:none}
+  .sheeth h2{font-size:17px;font-weight:400;letter-spacing:-.02em}
+  .sheetx{width:34px;height:34px;display:grid;place-items:center;color:var(--muted);font-size:20px;
+   margin-right:-8px}
+  .sheetc{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+   padding:6px 20px 20px}
+  .sheetf{flex:none;padding:12px 20px calc(12px + env(safe-area-inset-bottom));
+   border-top:1px solid var(--line);background:var(--ivory)}
+  .sheetf .b1{width:100%;justify-content:center;padding:16px}
+
+  /* menu sheet rows */
+  .mrow{display:flex;align-items:center;gap:14px;padding:15px 0;
+   border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink);
+   -webkit-tap-highlight-color:transparent}
+  .mrow:last-child{border-bottom:none}
+  .mrow:active{opacity:.5}
+  .mrow em{margin-left:auto;font-style:normal;font-size:12px;color:var(--pale)}
+  .mrow .ic{width:22px;flex:none;color:var(--muted);display:grid;place-items:center}
+  .mrow .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5}
+  .msub{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--pale);
+   font-weight:500;padding:22px 0 8px}
+  .mcur{display:flex;gap:8px;padding:6px 0 2px}
+  .mcur button{flex:1;border:1px solid var(--line2);background:var(--white);padding:13px;
+   font-size:13px;color:var(--soft)}
+  .mcur button[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff}
+  .mwa{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:18px;
+   background:var(--char);color:#fff;padding:15px;font-size:13.5px}
+
+  /* ---------- full-screen search ---------- */
+  .msearch{position:fixed;inset:0;z-index:96;background:var(--ivory);display:none;
+   flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+  .msearch.on{display:flex}
+  .msbar{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 14px 12px;
+   border-bottom:1px solid var(--line);flex:none}
+  .msbar .fld{flex:1;display:flex;align-items:center;gap:9px;border:1px solid var(--line2);
+   background:var(--white);height:44px;padding:0 13px}
+  .msbar input{flex:1;border:none;outline:none;background:none;font:inherit;font-size:16px;
+   color:var(--ink);min-width:0}
+  .msbar .cancel{font-size:14px;color:var(--soft);padding:0 2px;flex:none}
+  .msres{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 16px 24px}
+
+  /* ---------- shared mobile typography floor ---------- */
+  .pgrid .pmeta,.pgrid .inc,.pgrid .cond,.pgrid .pbrand{font-size:11.5px}
+  .lede{font-size:14.5px}
+
+
+  /* icons inside sheets and the search bar need explicit sizing —
+     an unsized inline SVG defaults to 300px and starves its flex siblings */
+  .msearch svg,.mwa svg,.sheet svg{width:18px;height:18px;flex:none;display:block;
+   stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .msbar .fld svg{color:var(--pale)}
+
+  /* content pages: the two-column split and 4-up grids cannot hold their
+     minimum width at 390px and were widening the layout viewport */
+  .wrap,.pwrap{padding-left:16px;padding-right:16px;max-width:100%}
+  .split,.split.narrow{grid-template-columns:1fr !important;gap:28px;padding:36px 0}
+  .cgrid,.cgrid.four{grid-template-columns:1fr 1fr !important;gap:10px}
+  .facts{grid-template-columns:1fr 1fr !important}
+  .facts > div{border-right:1px solid var(--line)}
+  .facts > div:nth-child(2n){border-right:none}
+  .fgrid{grid-template-columns:1fr !important}
+  .grid6{grid-template-columns:1fr 1fr !important}
+  body[data-page="visit"] .cgrid{grid-template-columns:1fr !important}
+  .loc2 .acts{flex-direction:column}
+  .loc2 .acts .b1,.loc2 .acts .b2{width:100%;justify-content:center}
+  .split h2,.cta h2{font-size:26px}
+  img,svg,video,iframe{max-width:100%}
+
+  /* kill hover-only affordances */
+  .pcta,.hint{display:none}
+}
+
+/* the dock and sheets never exist on desktop */
+@media (min-width:980px){.dock,.sheet,.msearch,.mact{display:none !important}}
+
+@media (prefers-reduced-motion:reduce){
+  .sheetbody,.sheetbg,.dock a{transition-duration:.01ms !important}
+}

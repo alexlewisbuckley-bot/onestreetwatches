@@ -18,6 +18,10 @@ const TYPES=[
    p:'We walk the watch round on camera — serial, papers, bracelet stretch, every awkward question answered.',
    m:'Twenty minutes, any time zone', tz:'Asia/Dubai', mins:20,
    days:[1,2,3,4,5,6], open:'09:00', close:'18:00', step:30},
+  {id:'service', k:'Bring a watch in', h:'Servicing or authentication',
+   p:'Drop a piece with us for a service, a polish, an authentication report or a valuation — bought from us or not.',
+   m:'Dubai or the UK, about 20 minutes', tz:'Asia/Dubai', mins:20,
+   days:[0,1,2,3,4,5,6], open:'10:00', close:'18:00', step:30},
   {id:'specific', k:'A particular watch', h:'See one piece',
    p:'Chosen from the case — we will have it out, sized and with its papers before you arrive.',
    m:'Dubai, the UK or on camera', tz:'Asia/Dubai', mins:45,
@@ -277,6 +281,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     S.watch={b:w.b,m:w.m,r:w.r,aed:w.aed,img:im?im.img:null};
   }
   buildTypes();
+  if(p.get('type')==='service'){
+    const h=document.querySelector('.phead h1'); if(h) h.textContent='Book an appointment';
+    const c=document.querySelector('.phead .crumbs'); if(c) c.innerHTML=c.innerHTML.replace('Schedule a viewing','Book an appointment');
+  }
   /* arriving from a product page? the watch decides the viewing type */
   const want = p.get('type') || (S.watch?'specific':null);
   if(want && TYPES.some(t=>t.id===want)){
