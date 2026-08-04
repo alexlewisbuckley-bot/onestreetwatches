@@ -48,10 +48,15 @@
     <a href="visit.html" data-nav="visit">Visit us</a>
   </div>
   <div class="tools">
-    <label class="srch">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <input type="search" placeholder="Search 142 watches or a reference…" aria-label="Search watches">
-    </label>
+    <div class="srchwrap">
+      <label class="srch">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input type="search" id="q" autocomplete="off" role="combobox" aria-expanded="false"
+               aria-controls="sug" aria-autocomplete="list"
+               placeholder="Search watches, a model or a reference…" aria-label="Search watches">
+      </label>
+      <div class="sug" id="sug" role="listbox" aria-label="Search suggestions"></div>
+    </div>
     <a class="bag" href="#">Bag</a>
   </div>
 
@@ -65,6 +70,8 @@
       <div class="mcol">
         <div class="mh">By category</div>
         <div class="mmodels" id="sh-cat"></div>
+        <div class="mh sp">By condition</div>
+        <div class="mmodels" id="sh-cond"></div>
       </div>
       <div class="mcol">
         <div class="mh">By dial</div>
@@ -81,8 +88,8 @@
     </div>
     <div class="mbar">
       <div class="st">
-        <span><b>11</b> added in the last 7 days</span>
-        <span><b>142</b> in stock right now</span>
+        <span><b class="nstock"></b> in the case right now</span>
+        <span><b id="mb-full"></b> with box and papers</span>
         <span>Held in <b>Dubai</b> and the <b>UK</b></span>
         <span>Rated <b>4.9</b> on Trustpilot</span>
       </div>
@@ -117,7 +124,7 @@
     </div>
     <div class="mbar">
       <div class="st">
-        <span><b>7</b> maisons in stock</span>
+        <span><b id="mb-maisons"></b> maisons in stock</span>
         <span>Authenticated at our own bench</span>
         <span>Part-exchange against anything</span>
       </div>
@@ -136,7 +143,7 @@
   <div class="bd"><div class="k">The gallery</div><h3>Inside our bench: 41 checks before a watch is listed</h3><p>A walk through the process, from the register check to the pressure test, with the things that most often fail.</p><div class="m">5 min read</div></div></a><a class="acard" href="#"><div class="art"><div class="ph"><div class="l1">ARTICLE IMAGE</div><div class="l2">Two trays side by side, one gold-heavy</div></div></div>
   <div class="bd"><div class="k">Market notes</div><h3>What Dubai buys that London does not</h3><p>Four years of our own transaction data, split by market. The differences are bigger than you would think.</p><div class="m">7 min read</div></div></a><a class="acard" href="#"><div class="art"><div class="ph"><div class="l1">ARTICLE IMAGE</div><div class="l2">Five watches laid in a row on sand</div></div></div>
   <div class="bd"><div class="k">Buying guides</div><h3>Your first serious watch, under Dhs. 40,000</h3><p>Five references that hold value, feel like more than they cost, and will not embarrass you in ten years.</p><div class="m">8 min read</div></div></a><a class="acard" href="#"><div class="art"><div class="ph"><div class="l1">ARTICLE IMAGE</div><div class="l2">Empty AD display case, shot through glass</div></div></div>
-  <div class="bd"><div class="k">Opinion</div><h3>Against the waiting list</h3><p>Why we think the authorised-dealer queue has quietly become the worst way to buy a watch.</p><div class="m">4 min read</div></div></a></div></div></div><div class="cta"><div class="wrap"><h2>New pieces go out before they reach the site.</h2><p>One email a week — what came in, what sold, and what the market did. No noise.</p><div class="row"><a class="b1" href="#">Subscribe <span class="a">→</span></a><a class="b2" href="#">Follow on Instagram</a></div></div></div>
+  <div class="bd"><div class="k">Opinion</div><h3>Against the waiting list</h3><p>Why we think the authorised-dealer queue has quietly become the worst way to buy a watch.</p><div class="m">4 min read</div></div></a></div></div></div><div class="cta"><div class="wrap"><h2>New pieces go out before they reach the site.</h2><p>One email a week — what came in, what sold, and what the market did. No noise.</p><div class="row"><a class="b1" href="#">Subscribe <span class="a">→</span></a><a class="b2" href="#">Follow on Instagram <span class="a">→</span></a></div></div></div>
 <footer class="foot">
 
   <div class="fmain">

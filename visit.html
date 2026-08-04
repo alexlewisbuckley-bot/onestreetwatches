@@ -48,10 +48,15 @@
     <a href="visit.html" data-nav="visit">Visit us</a>
   </div>
   <div class="tools">
-    <label class="srch">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <input type="search" placeholder="Search 142 watches or a reference…" aria-label="Search watches">
-    </label>
+    <div class="srchwrap">
+      <label class="srch">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input type="search" id="q" autocomplete="off" role="combobox" aria-expanded="false"
+               aria-controls="sug" aria-autocomplete="list"
+               placeholder="Search watches, a model or a reference…" aria-label="Search watches">
+      </label>
+      <div class="sug" id="sug" role="listbox" aria-label="Search suggestions"></div>
+    </div>
     <a class="bag" href="#">Bag</a>
   </div>
 
@@ -65,6 +70,8 @@
       <div class="mcol">
         <div class="mh">By category</div>
         <div class="mmodels" id="sh-cat"></div>
+        <div class="mh sp">By condition</div>
+        <div class="mmodels" id="sh-cond"></div>
       </div>
       <div class="mcol">
         <div class="mh">By dial</div>
@@ -81,8 +88,8 @@
     </div>
     <div class="mbar">
       <div class="st">
-        <span><b>11</b> added in the last 7 days</span>
-        <span><b>142</b> in stock right now</span>
+        <span><b class="nstock"></b> in the case right now</span>
+        <span><b id="mb-full"></b> with box and papers</span>
         <span>Held in <b>Dubai</b> and the <b>UK</b></span>
         <span>Rated <b>4.9</b> on Trustpilot</span>
       </div>
@@ -117,7 +124,7 @@
     </div>
     <div class="mbar">
       <div class="st">
-        <span><b>7</b> maisons in stock</span>
+        <span><b id="mb-maisons"></b> maisons in stock</span>
         <span>Authenticated at our own bench</span>
         <span>Part-exchange against anything</span>
       </div>
@@ -134,11 +141,11 @@
   <div class="bd"><h3>Dubai — the boutique</h3>
   <div class="addr">Gold &amp; Diamond Park, Building 5<br>Al Quoz, Dubai, United Arab Emirates</div>
   <div class="hrs">Open daily 10:00 – 20:00<br>Walk in, no appointment needed<br>Parking directly outside · Coffee on us</div>
-  <div class="acts"><a class="b1" href="#">Book a private viewing <span class="a">→</span></a><a class="b2" href="#">Get directions</a></div></div></div><div class="loc2"><div class="map"><div class="ph"><div class="l1">Map — United Kingdom</div><div class="l2">Static map, warm greyscale, marker to be confirmed</div></div></div>
+  <div class="acts"><a class="b1" href="#">Book a private viewing <span class="a">→</span></a><a class="b2" href="#">Get directions <span class="a">→</span></a></div></div></div><div class="loc2"><div class="map"><div class="ph"><div class="l1">Map — United Kingdom</div><div class="l2">Static map, warm greyscale, marker to be confirmed</div></div></div>
   <div class="bd"><h3>United Kingdom</h3>
   <div class="addr">Viewings by appointment<br>Address to be confirmed</div>
   <div class="hrs">Monday to Friday, 09:00 – 18:00<br>Private appointments, one client at a time<br>Free insured collection and delivery nationwide</div>
-  <div class="acts"><a class="b1" href="#">Request an appointment <span class="a">→</span></a><a class="b2" href="#">Call us</a></div></div></div></div></div></div><div class="wrap"><div class="facts"><div><div class="v">142</div><div class="l">Watches in the case now</div></div><div><div class="v">7 days</div><div class="l">Open a week in Dubai</div></div><div><div class="v">4.9 / 5</div><div class="l">214 reviews on Trustpilot</div></div><div><div class="v">No pressure</div><div class="l">Coffee, a tray, and time</div></div></div></div><div class="wrap"><div class="split"><div class="copy"><h2>What a viewing is like</h2><p class="lead">You sit down. We bring a tray. You try on as much as you like, for as long as you like,
+  <div class="acts"><a class="b1" href="#">Request an appointment <span class="a">→</span></a><a class="b2" href="#">Call us <span class="a">→</span></a></div></div></div></div></div></div><div class="wrap"><div class="facts"><div><div class="v nstock"></div><div class="l">Watches in the case now</div></div><div><div class="v">7 days</div><div class="l">Open a week in Dubai</div></div><div><div class="v">4.9 / 5</div><div class="l">214 reviews on Trustpilot</div></div><div><div class="v">No pressure</div><div class="l">Coffee, a tray, and time</div></div></div></div><div class="wrap"><div class="split"><div class="copy"><h2>What a viewing is like</h2><p class="lead">You sit down. We bring a tray. You try on as much as you like, for as long as you like,
    and nobody stands over you.</p>
    <p>If you have told us what you are interested in beforehand we will have it out and ready, along with two or
    three things you did not ask for but probably should have. If you would rather browse quietly, say so and we
@@ -155,7 +162,7 @@
   <div class="f"><label>Your name</label><input placeholder="Alex Buckley"></div>
   <div class="f"><label>Email or WhatsApp</label><input placeholder="+971 …"></div>
 </div><a class="b1" href="#">Request a viewing <span class="a">→</span></a>
-<p class="note">Same-day appointments are usually possible in Dubai — message us on WhatsApp and we will confirm in minutes.</p></div></div></div><div class="band"><div class="wrap"><div class="shead"><div><h2>Inside the boutique</h2><p>Gold &amp; Diamond Park, Building 5.</p></div></div><div class="grid6" id="visitgal"></div></div></div><div class="cta"><div class="wrap"><h2>Come and sit with it.</h2><p>Open daily in Dubai, by appointment in the UK, and on a video call from anywhere.</p><div class="row"><a class="b1" href="#">Book a viewing <span class="a">→</span></a><a class="b2" href="#">Message us on WhatsApp</a></div></div></div>
+<p class="note">Same-day appointments are usually possible in Dubai — message us on WhatsApp and we will confirm in minutes.</p></div></div></div><div class="band"><div class="wrap"><div class="shead"><div><h2>Inside the boutique</h2><p>Gold &amp; Diamond Park, Building 5.</p></div></div><div class="grid6" id="visitgal"></div></div></div><div class="cta"><div class="wrap"><h2>Come and sit with it.</h2><p>Open daily in Dubai, by appointment in the UK, and on a video call from anywhere.</p><div class="row"><a class="b1" href="#">Book a viewing <span class="a">→</span></a><a class="b2" href="#">Message us on WhatsApp <span class="a">→</span></a></div></div></div>
 <footer class="foot">
 
   <div class="fmain">

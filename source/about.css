@@ -95,3 +95,21 @@
 }
 @media (max-width:680px){.cgrid,.cgrid.four{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr}
   .facts{grid-template-columns:1fr}.facts > div{border-right:none}}
+
+/* ---------- accordion (FAQ, process notes) ---------- */
+.acc{margin-top:26px;border-top:1px solid var(--line2)}
+.acci{border-bottom:1px solid var(--line);transition:background .3s var(--e)}
+.acci.open{background:var(--white);box-shadow:inset 3px 0 0 var(--char)}
+.acch{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%;text-align:left;
+ padding:17px 0;font-size:14.5px;line-height:1.45;letter-spacing:-.012em;color:var(--ink);
+ cursor:pointer;transition:color .25s,padding .3s var(--e)}
+.acci.open .acch{padding-left:20px;padding-right:20px}
+.acch:hover{color:var(--soft)}
+.acch i{font-style:normal;font-size:18px;line-height:1;color:var(--pale);flex:none;
+ transition:transform .4s var(--e),color .25s}
+.acci.open .acch i{transform:rotate(45deg);color:var(--ink)}
+.accb{display:none;font-size:13px;line-height:1.85;color:var(--soft);padding:0 20px 20px;max-width:62ch}
+.acci.open .accb{display:block}
+.accb ul{list-style:none;display:grid;gap:9px;margin-top:6px}
+.accb li{display:flex;gap:14px}
+.accb li b{font-weight:500;color:var(--ink);min-width:124px;flex:none}

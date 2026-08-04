@@ -25,10 +25,15 @@
     <a href="visit.html" data-nav="visit">Visit us</a>
   </div>
   <div class="tools">
-    <label class="srch">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-      <input type="search" placeholder="Search 142 watches or a reference…" aria-label="Search watches">
-    </label>
+    <div class="srchwrap">
+      <label class="srch">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input type="search" id="q" autocomplete="off" role="combobox" aria-expanded="false"
+               aria-controls="sug" aria-autocomplete="list"
+               placeholder="Search watches, a model or a reference…" aria-label="Search watches">
+      </label>
+      <div class="sug" id="sug" role="listbox" aria-label="Search suggestions"></div>
+    </div>
     <a class="bag" href="#">Bag</a>
   </div>
 
@@ -42,6 +47,8 @@
       <div class="mcol">
         <div class="mh">By category</div>
         <div class="mmodels" id="sh-cat"></div>
+        <div class="mh sp">By condition</div>
+        <div class="mmodels" id="sh-cond"></div>
       </div>
       <div class="mcol">
         <div class="mh">By dial</div>
@@ -58,8 +65,8 @@
     </div>
     <div class="mbar">
       <div class="st">
-        <span><b>11</b> added in the last 7 days</span>
-        <span><b>142</b> in stock right now</span>
+        <span><b class="nstock"></b> in the case right now</span>
+        <span><b id="mb-full"></b> with box and papers</span>
         <span>Held in <b>Dubai</b> and the <b>UK</b></span>
         <span>Rated <b>4.9</b> on Trustpilot</span>
       </div>
@@ -94,7 +101,7 @@
     </div>
     <div class="mbar">
       <div class="st">
-        <span><b>7</b> maisons in stock</span>
+        <span><b id="mb-maisons"></b> maisons in stock</span>
         <span>Authenticated at our own bench</span>
         <span>Part-exchange against anything</span>
       </div>

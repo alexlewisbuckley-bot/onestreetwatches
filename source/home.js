@@ -90,10 +90,10 @@ function initBrands(){
   const t=$h('btrack'); if(!t) return;
   t.innerHTML=BRANDS.map(b=>{
     const im = b.k!==undefined ? (CATALOGUE[b.k].ims.find(x=>x.img)) : null;
-    return `<a class="bcard" href="shop.html">
+    return `<a class="bcard" href="${shopURL({brand:b.n})}">
       <div class="art">${im?`<img src="${im.img}" alt="${b.n}">`
         :`<div class="ph"><div class="l1">${b.ph[0]}</div><div class="l2">${b.ph[1]}</div></div>`}</div>
-      <div class="foot"><div><div class="bname">${b.n}</div><div class="bcount">${b.c} in stock</div></div>
+      <div class="foot"><div><div class="bname">${b.n}</div><div class="bcount">${nWhere(w=>w.b===b.n)} in stock</div></div>
       <div class="bgo" aria-hidden="true">→</div></div></a>`;}).join('');
 }
 
@@ -137,6 +137,58 @@ const SOCIAL=[
  {ph:["Carousel","Box, papers and tags flat-lay for a full set"],cap:"What a full set means",reel:0}
 ];
 
+/* ---------- client reviews ----------
+   PLACEHOLDER COPY — replace with the real Trustpilot / Google feed before launch,
+   and swap each .rvav for the client's own photo (or keep initials if they decline). */
+const STAR='<svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l3.09 6.26L20 7.27l-5 4.87 1.18 6.88L10 15.77 3.82 19 5 12.14 0 7.27l6.91-1.01z"/></svg>';
+const REVIEWS=[
+ {n:"Faisal A.",l:"Dubai",r:5,t:"They opened it in front of me",
+  q:"I have bought four watches in this city and this is the first time a dealer put the caseback on the bench and showed me the movement before I paid. The 41-point sheet came in the box with my name on it.",
+  w:"GMT-Master II “Sprite”",d:"March 2026"},
+ {n:"Charlotte M.",l:"London",r:5,t:"Priced honestly, delivered next day",
+  q:"They showed me the three comparables they had priced against, told me where their margin sat, and then it arrived insured the following morning. No theatre, no waiting list, no being managed.",
+  w:"Datejust 41",d:"February 2026"},
+ {n:"Rajiv S.",l:"Dubai",r:5,t:"Part-exchange was painless",
+  q:"Traded a Speedmaster against a Royal Oak. The offer landed within about forty minutes of sending photos on WhatsApp and it was the same number when I walked in. The difference cleared the same day.",
+  w:"Royal Oak 15400ST",d:"February 2026"},
+ {n:"Sarah K.",l:"Manchester",r:5,t:"Bought it entirely over video",
+  q:"I never set foot in the boutique. They walked the watch round on camera, showed me the serial and the papers, answered every awkward question I had about the bracelet stretch, then sent it insured.",
+  w:"Santos — Large",d:"January 2026"},
+ {n:"Omar B.",l:"Dubai",r:5,t:"Sourced something I had chased for two years",
+  q:"Gave them a reference and a dial colour and forgot about it. Nine days later there were photographs of three of them, with prices, and no pressure to take any of the three. I took the second.",
+  w:"Nautilus 5711/1A",d:"December 2025"},
+ {n:"James T.",l:"Surrey",r:4,t:"Service took a week longer than quoted",
+  q:"The work itself was excellent — it is keeping better time than when it was new, and the case refinish is restrained rather than over-polished. It ran a week past the estimate, and they called me rather than me chasing.",
+  w:"Submariner “Starbucks”",d:"December 2025"},
+ {n:"Aisha R.",l:"Dubai",r:5,t:"Coffee, a tray, and no pressure",
+  q:"I said up front I was only looking. They still brought out six pieces, sized two of them to my wrist and let me sit with it for the better part of an hour. I came back a fortnight later and bought.",
+  w:"Tank Must — Large",d:"November 2025"},
+ {n:"Daniel O.",l:"Edinburgh",r:5,t:"The one time it went wrong, they fixed it",
+  q:"A clasp came loose three weeks in. They collected it, repaired it under the warranty and returned it within four days without a single form. That is the part nobody can show you before you buy.",
+  w:"Explorer 36",d:"November 2025"}
+];
+const DIST=[[5,89],[4,8],[3,2],[2,0],[1,1]];
+const initials=n=>n.split(/\s+/).map(p=>p[0]).join('').toUpperCase();
+
+function initReviews(){
+  const t=$h('rvtrack'); if(!t) return;
+  $h('rvstars').innerHTML=STAR.repeat(5);
+  $h('rvbars').innerHTML=DIST.map(([s,p])=>
+    `<div class="rvbar"><span>${s} star</span><i><b style="width:${p}%"></b></i><u>${p}%</u></div>`).join('');
+  t.innerHTML=REVIEWS.map(r=>`
+    <article class="rv">
+      <div class="stars2" aria-label="${r.r} out of 5">${
+        STAR.repeat(r.r)+STAR.replace('<svg','<svg class="off"').repeat(5-r.r)}</div>
+      <h3>${r.t}</h3>
+      <p>${r.q}</p>
+      <div class="rvfoot">
+        <span class="rvav" title="Client portrait to be supplied — head and shoulders, natural light">${initials(r.n)}</span>
+        <div><div class="rvn">${r.n}</div><div class="rvm">${r.l} &nbsp;·&nbsp; ${r.w} &nbsp;·&nbsp; ${r.d}</div></div>
+      </div>
+      <div class="rvv"><i></i>Verified purchase<span>Trustpilot</span></div>
+    </article>`).join('');
+}
+
 function initSections(){
   if($h('steps')) $h('steps').innerHTML=STEPS.map(s=>
     `<div class="step"><div class="stepn">${s[0]}</div><div class="stept">${s[1]}</div><div class="stepd">${s[2]}</div></div>`).join('');
@@ -157,8 +209,9 @@ function initSections(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  initHero(); initBrands(); initPopular(); initSections();
+  initHero(); initBrands(); initPopular(); initReviews(); initSections();
   carousel('btrack','bprev','bnext','barrows',3);
   carousel('track','prev','next','parrows',2);
+  carousel('rvtrack','rvprev','rvnext','rvarrows',2);
   repaintMoney();
 });

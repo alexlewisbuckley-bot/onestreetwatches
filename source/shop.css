@@ -17,10 +17,11 @@
  transition:color .25s}
 .frow:hover{color:var(--ink)}
 .frow input{position:absolute;opacity:0;pointer-events:none}
-.fbx{width:14px;height:14px;border:1px solid var(--line2);flex:none;position:relative;transition:background .2s,border-color .2s}
+.fbx{width:15px;height:15px;border:1px solid var(--line2);flex:none;position:relative;transition:background .2s,border-color .2s}
 .frow input:checked + .fbx{background:var(--char);border-color:var(--char)}
-.frow input:checked + .fbx::after{content:"";position:absolute;left:3px;top:3.5px;width:7px;height:3.5px;
- border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg)}
+.frow input:checked + .fbx::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:3.5px;
+ border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;
+ transform:translate(-50%,-63%) rotate(-45deg)}
 .frow em{margin-left:auto;font-style:normal;font-size:11px;color:var(--pale)}
 .frow.on{color:var(--ink)}
 .fsw{width:14px;height:14px;flex:none;box-shadow:inset 0 0 0 1px rgba(28,27,25,.2)}
@@ -62,3 +63,42 @@
 
 }
 @media (max-width:640px){.pgrid{grid-template-columns:1fr}}
+
+/* ---------- collapsible group headers with active count ---------- */
+.fhead b{margin-left:auto;margin-right:10px;font-size:10px;font-weight:500;color:#fff;background:var(--char);
+ min-width:16px;height:16px;display:none;align-items:center;justify-content:center;padding:0 4px;letter-spacing:0}
+.fgroup.has .fhead b{display:inline-flex}
+
+/* ---------- dual-handle range ---------- */
+.rng{padding-top:2px}
+.rngval{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--ink)}
+.rngval em{font-style:normal;font-size:11px;color:var(--pale)}
+.rnghist{display:flex;align-items:flex-end;gap:2px;height:34px;margin:12px 0 0}
+.rnghist i{flex:1;background:var(--line);min-height:2px;transition:background .25s var(--e)}
+.rnghist i.on{background:var(--line2)}
+.rnghist i.hit{background:var(--pale)}
+.rngtrack{position:relative;height:2px;background:var(--line2);margin:10px 7px 4px;touch-action:none}
+.rngfill{position:absolute;top:0;bottom:0;background:var(--char)}
+.rngh{position:absolute;top:50%;width:13px;height:13px;margin:0;padding:0;transform:translate(-50%,-50%);
+ background:#fff;border:1px solid var(--ink);cursor:grab;z-index:2;
+ box-shadow:0 1px 3px rgba(28,27,25,.18);transition:box-shadow .2s}
+.rngh:hover,.rngh:focus-visible{box-shadow:0 0 0 4px rgba(28,27,25,.08)}
+.rngh:active{cursor:grabbing}
+.rngends{display:flex;justify-content:space-between;font-size:10.5px;color:var(--pale);margin-top:8px}
+.rngreset{margin-top:9px;font-size:11px;color:var(--muted);border-bottom:1px solid var(--line2);
+ padding-bottom:1px;cursor:pointer;display:none}
+.rng.dirty .rngreset{display:inline-block}
+.rngreset:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ---------- compact segmented toggles ---------- */
+.segs{display:flex;flex-wrap:wrap;gap:6px;padding-top:2px}
+.segs button{border:1px solid var(--line2);padding:6px 10px;font-size:11.5px;color:var(--soft);
+ transition:border-color .25s,background .25s,color .25s}
+.segs button:hover{border-color:var(--ink);color:var(--ink)}
+.segs button[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff}
+
+/* ---------- filter row label ---------- */
+.frow .fl{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fbody.list{max-height:300px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.fbody.list::-webkit-scrollbar{width:3px}
+.fbody.list::-webkit-scrollbar-thumb{background:var(--line2)}
