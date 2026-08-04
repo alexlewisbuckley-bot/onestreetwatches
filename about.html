@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About One Street Watches</title>
+<meta name="description" content="A watch dealer in Dubai and the United Kingdom, founded in 2021. We hold our own stock and authenticate it at our own bench.">
+<link rel="canonical" href="https://onestreetwatches.com/about">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About One Street Watches">
+<meta property="og:description" content="A watch dealer in Dubai and the United Kingdom, founded in 2021. We hold our own stock and authenticate it at our own bench.">
+<meta property="og:image" content="https://onestreetwatches.com/assets/img/boutique-salon.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F7F4EF">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="/">
+<link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/core.css">
+<link rel="stylesheet" href="assets/css/page.css">
+<script src="assets/js/core.js" defer></script>
+<script src="assets/js/about.js" defer></script>
+</head>
+<body data-page="">
+<div class="top">
+  <div class="l">
+    <div class="seg" role="group" aria-label="Currency">
+      <button data-cur="AED" aria-pressed="true">AED</button>
+      <button data-cur="GBP" aria-pressed="false">GBP</button>
+    </div>
+    <span class="loc"><span class="dot"></span>Dubai showroom — open until 20:00</span>
+    <span class="loc">United Kingdom — viewings by appointment</span>
+  </div>
+  <div class="r">
+    <span class="tp"><span class="stars"><i></i><i></i><i></i><i></i><i></i></span><b>4.9</b> / 5 · 214 reviews on Trustpilot</span>
+    <a class="wa" href="#">WhatsApp us</a>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<nav>
+  <a href="index.html"><img class="logo" fetchpriority="high" width="164" height="33" src="assets/img/logo.png" alt="One Street Watches"></a>
+  <div class="links">
+    <a class="mtrigger" href="shop.html" data-mega="shop" data-nav="shop">Shop all</a>
+    <a class="mtrigger" href="shop.html" data-mega="brands" data-nav="brands">Brands</a>
+    <a href="sell.html" data-nav="sell">Sell &amp; trade</a>
+    <a href="sourcing.html" data-nav="sourcing">Sourcing</a>
+    <a href="servicing.html" data-nav="servicing">Servicing</a>
+    <a href="visit.html" data-nav="visit">Visit us</a>
+  </div>
+  <div class="tools">
+    <label class="srch">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="search" placeholder="Search 142 watches or a reference…" aria-label="Search watches">
+    </label>
+    <a class="bag" href="#">Bag</a>
+  </div>
+
+  <!-- ============ SHOP ALL ============ -->
+  <div class="mega" id="mega-shop" data-panel="shop">
+    <div class="megain">
+      <div class="mcol">
+        <div class="mh">Browse</div>
+        <div class="mmodels" id="sh-browse"></div>
+      </div>
+      <div class="mcol">
+        <div class="mh">By category</div>
+        <div class="mmodels" id="sh-cat"></div>
+      </div>
+      <div class="mcol">
+        <div class="mh">By dial</div>
+        <div class="dials" id="sh-dials"></div>
+        <div class="mh sp">By case size</div>
+        <div class="chips" id="sh-sizes"></div>
+        <div class="mh sp">By price</div>
+        <div class="chips" id="sh-prices"></div>
+      </div>
+      <div class="mcol mnew">
+        <div class="nihead"><span class="mh" style="margin:0">New this week</span><a href="shop.html">View all →</a></div>
+        <div class="newin" id="sh-new"></div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="st">
+        <span><b>11</b> added in the last 7 days</span>
+        <span><b>142</b> in stock right now</span>
+        <span>Held in <b>Dubai</b> and the <b>UK</b></span>
+        <span>Rated <b>4.9</b> on Trustpilot</span>
+      </div>
+      <a class="go" href="shop.html">Shop the whole case →</a>
+    </div>
+  </div>
+
+  <!-- ============ BRANDS ============ -->
+  <div class="mega" id="mega-brands" data-panel="brands">
+    <div class="megain">
+      <div class="mcol">
+        <div class="mh">By maison</div>
+        <div id="br-list"></div>
+        <div class="mfoot"><a href="shop.html">Every brand we hold →</a></div>
+      </div>
+      <div class="mcol">
+        <div class="mh" id="br-modelh">Rolex — by model</div>
+        <div class="mmodels" id="br-models"></div>
+      </div>
+      <div class="mcol">
+        <div class="nihead"><span class="mh" style="margin:0" id="br-sigh">In stock — Rolex</span></div>
+        <div class="newin one" id="br-sig"></div>
+      </div>
+      <div class="mcol mnew">
+        <div class="megapromo">
+          <div class="mh">Can’t find it?</div>
+          <p>Name the reference and our concierge will hunt it through the dealer network. Average
+             time to source: eleven days. No fee unless we find it.</p>
+          <a class="b2" href="sourcing.html">Start a sourcing request</a>
+        </div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="st">
+        <span><b>7</b> maisons in stock</span>
+        <span>Authenticated at our own bench</span>
+        <span>Part-exchange against anything</span>
+      </div>
+      <a class="go" href="shop.html">Shop by maison →</a>
+    </div>
+  </div>
+</nav>
+
+<div class="phead"><div class="wrap">
+  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; About us</div>
+  <h1>About One Street</h1>
+  <p class="lede">A watch dealer in Dubai and the United Kingdom, founded in 2021. We hold our own stock, authenticate it at our own bench, and price it against what watches actually trade for.</p>
+</div></div><div class="wrap"><div class="facts"><div><div class="v">2021</div><div class="l">Founded in Dubai</div></div><div><div class="v">2,300+</div><div class="l">Watches sold</div></div><div><div class="v">142</div><div class="l">In the case right now</div></div><div><div class="v">4.9 / 5</div><div class="l">214 Trustpilot reviews</div></div></div></div><div class="wrap"><div class="split"><div class="copy"><h2>Why we started</h2><p class="lead">Because buying a serious watch had become an exercise in being managed. Waiting lists you
+   could not see the end of, prices that moved depending on who was asking, and a lot of people selling watches
+   they had never physically held.</p>
+   <p>We wanted the opposite of that. Own the stock. Open it up. Say what it costs and why. If a watch has been
+   polished, say so. If the papers are gone, say so. If a client would be better off buying elsewhere, say that too.</p>
+   <h3>What that looks like in practice</h3>
+   <p>Every watch on this site is physically in our possession, in Dubai or the UK. Every one has passed 41 checks
+   at our own bench, and the sheet is filed against its serial. Every price is set against live transaction data,
+   and we will show you the comparables if you ask.</p>
+   <p>It is not a complicated idea. It is just unusual enough in this trade to be worth building a business on.</p>
+</div><div class="copy"><h2>The boutique</h2>
+   <p class="lead">Gold &amp; Diamond Park, Building 5 — travertine, oak, and a case you are welcome to sit in front
+   of for as long as you like.</p>
+   <p>We built a room rather than a shop. There is coffee, there are chairs, and there is no expectation that you
+   buy anything. Plenty of our best clients came in for a look and bought something eighteen months later.</p>
+   <h3>Two countries</h3>
+   <p>We hold stock in both the UAE and the UK, which means most clients can have a watch in their hands the next
+   day without customs, duty or a three-week wait. Part-exchange works across both, in either direction.</p>
+   <h3>The bench</h3>
+   <p>Two Swiss-trained watchmakers, in-house. Nothing is sent away without telling you, and nothing is listed
+   before it has been opened, timed and pressure-tested.</p>
+</div></div></div><div class="band"><div class="wrap"><div class="shead"><div><h2>The people</h2><p>Small team, all of whom you will actually meet.</p></div></div><div class="cgrid four"><div class="ccard" style="padding:0"><div style="aspect-ratio:1/1.05;background-image:var(--plate);position:relative;border-bottom:1px solid var(--line)"><div class="ph"><div class="l1">FOUNDER</div><div class="l2">Portrait at the counter, waist up, natural light, no eye contact</div></div></div>
+  <div style="padding:20px"><h3>Name to confirm</h3><p style="margin-top:6px">Founder</p></div></div><div class="ccard" style="padding:0"><div style="aspect-ratio:1/1.05;background-image:var(--plate);position:relative;border-bottom:1px solid var(--line)"><div class="ph"><div class="l1">HEAD OF AUTHENTICATION</div><div class="l2">At the bench, loupe in eye, movement open</div></div></div>
+  <div style="padding:20px"><h3>Name to confirm</h3><p style="margin-top:6px">Head of authentication</p></div></div><div class="ccard" style="padding:0"><div style="aspect-ratio:1/1.05;background-image:var(--plate);position:relative;border-bottom:1px solid var(--line)"><div class="ph"><div class="l1">CLIENT CONCIERGE</div><div class="l2">On the phone at the desk, tray of watches in front</div></div></div>
+  <div style="padding:20px"><h3>Name to confirm</h3><p style="margin-top:6px">Client concierge</p></div></div><div class="ccard" style="padding:0"><div style="aspect-ratio:1/1.05;background-image:var(--plate);position:relative;border-bottom:1px solid var(--line)"><div class="ph"><div class="l1">WATCHMAKER</div><div class="l2">Seated at the bench in profile, tools in frame</div></div></div>
+  <div style="padding:20px"><h3>Name to confirm</h3><p style="margin-top:6px">Watchmaker</p></div></div></div></div></div><div class="cta"><div class="wrap"><h2>Come and see for yourself.</h2><p>The case is open seven days a week in Dubai, and by appointment in the UK.</p><div class="row"><a class="b1" href="visit.html">Book a viewing <span class="a">→</span></a><a class="b2" href="shop.html">Browse the case</a></div></div></div>
+<footer class="foot">
+
+  <div class="fmain">
+    <div class="fbrand">
+      <img class="flogo" src="assets/img/logo.png" alt="One Street Watches">
+      <p>Pre-owned and vintage watches, held in our own stock in Dubai and the United Kingdom.
+        Authenticated at our own bench, priced against the live market, delivered insured.</p>
+      <div class="fnews">
+        <label for="fmail">First look at new arrivals</label>
+        <div class="fnewsrow">
+          <input id="fmail" type="email" placeholder="Your email address">
+          <button type="button">Subscribe</button>
+        </div>
+      </div>
+      <div class="fsocial">
+        <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">Trustpilot</a>
+      </div>
+    </div>
+
+    <div class="fcols">
+      <div class="fcol">
+        <h4>Shop</h4>
+        <a href="shop.html">All watches</a><a href="shop.html">New this week</a><a href="shop.html">Shop by maison</a>
+        <a href="shop.html">Unworn &amp; full set</a><a href="#">Under £10,000</a><a href="shop.html">The vault</a>
+      </div>
+      <div class="fcol">
+        <h4>Sell &amp; trade</h4>
+        <a href="sell.html">Sell your watch</a><a href="sell.html">Part-exchange</a><a href="sell.html">Get a valuation</a>
+        <a href="sell.html">How it works</a><a href="sell.html">Free insured collection</a>
+      </div>
+      <div class="fcol">
+        <h4>Services</h4>
+        <a href="servicing.html">Servicing &amp; polishing</a><a href="servicing.html">Authentication</a><a href="sourcing.html">Sourcing</a>
+        <a href="servicing.html">Warranty &amp; repairs</a><a href="visit.html">Private viewings</a>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <a href="about.html">About us</a><a href="visit.html">The boutique</a><a href="journal.html">Journal</a>
+        <a href="about.html">Reviews</a><a href="contact.html">Contact</a><a href="contact.html">FAQ</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flocs fline">
+    <div class="floc">
+      <h5><span class="sq"></span>Dubai — boutique</h5>
+      <p>Gold &amp; Diamond Park, Building 5<br>Al Quoz, Dubai, United Arab Emirates<br>
+        Open daily 10:00 – 20:00<br><a href="#">+971 4 000 0000</a></p>
+    </div>
+    <div class="floc">
+      <h5><span class="sq"></span>United Kingdom</h5>
+      <p>Viewings by appointment<br>Monday to Friday, 09:00 – 18:00<br>
+        Free insured collection nationwide<br><a href="#">+44 20 0000 0000</a></p>
+    </div>
+    <div class="floc">
+      <h5><span class="sq"></span>Talk to us</h5>
+      <p>The fastest way to reach us is WhatsApp — a real person, seven days a week, in both time zones.</p>
+      <a class="fwa" href="#">
+        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.04 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.98-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3z"/></svg>
+        WhatsApp the concierge <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="fbot fline">
+    <span>© 2026 One Street Watches. All rights reserved.</span>
+    <div class="lks">
+      <a href="#">Terms of sale</a><a href="#">Privacy</a><a href="#">Cookies</a>
+      <a href="#">Shipping &amp; returns</a><a href="#">Warranty</a><a href="#">Authenticity guarantee</a>
+    </div>
+    <span class="fpay">Visa · Mastercard · Amex · Bank transfer · Finance available</span>
+  </div>
+
+</footer>
+</body>
+</html>

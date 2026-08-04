@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Street Watches — pre-owned Rolex, Patek Philippe & more in Dubai and the UK</title>
+<meta name="description" content="Pre-owned and vintage watches held in our own stock in Dubai and the United Kingdom. Authenticated at our own bench, priced against the live market, delivered insured.">
+<link rel="canonical" href="https://onestreetwatches.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="One Street Watches — pre-owned Rolex, Patek Philippe & more in Dubai and the UK">
+<meta property="og:description" content="Pre-owned and vintage watches held in our own stock in Dubai and the United Kingdom. Authenticated at our own bench, priced against the live market, delivered insured.">
+<meta property="og:image" content="https://onestreetwatches.com/assets/img/boutique-salon.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F7F4EF">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="/">
+<link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/core.css">
+<link rel="stylesheet" href="assets/css/home.css">
+<script src="assets/js/core.js" defer></script>
+<script src="assets/js/home.js" defer></script>
+</head>
+<body data-page="home">
+<div class="top">
+  <div class="l">
+    <div class="seg" role="group" aria-label="Currency">
+      <button data-cur="AED" aria-pressed="true">AED</button>
+      <button data-cur="GBP" aria-pressed="false">GBP</button>
+    </div>
+    <span class="loc"><span class="dot"></span>Dubai showroom — open until 20:00</span>
+    <span class="loc">United Kingdom — viewings by appointment</span>
+  </div>
+  <div class="r">
+    <span class="tp"><span class="stars"><i></i><i></i><i></i><i></i><i></i></span><b>4.9</b> / 5 · 214 reviews on Trustpilot</span>
+    <a class="wa" href="#">WhatsApp us</a>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<nav>
+  <a href="index.html"><img class="logo" fetchpriority="high" width="164" height="33" src="assets/img/logo.png" alt="One Street Watches"></a>
+  <div class="links">
+    <a class="mtrigger" href="shop.html" data-mega="shop" data-nav="shop">Shop all</a>
+    <a class="mtrigger" href="shop.html" data-mega="brands" data-nav="brands">Brands</a>
+    <a href="sell.html" data-nav="sell">Sell &amp; trade</a>
+    <a href="sourcing.html" data-nav="sourcing">Sourcing</a>
+    <a href="servicing.html" data-nav="servicing">Servicing</a>
+    <a href="visit.html" data-nav="visit">Visit us</a>
+  </div>
+  <div class="tools">
+    <label class="srch">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="search" placeholder="Search 142 watches or a reference…" aria-label="Search watches">
+    </label>
+    <a class="bag" href="#">Bag</a>
+  </div>
+
+  <!-- ============ SHOP ALL ============ -->
+  <div class="mega" id="mega-shop" data-panel="shop">
+    <div class="megain">
+      <div class="mcol">
+        <div class="mh">Browse</div>
+        <div class="mmodels" id="sh-browse"></div>
+      </div>
+      <div class="mcol">
+        <div class="mh">By category</div>
+        <div class="mmodels" id="sh-cat"></div>
+      </div>
+      <div class="mcol">
+        <div class="mh">By dial</div>
+        <div class="dials" id="sh-dials"></div>
+        <div class="mh sp">By case size</div>
+        <div class="chips" id="sh-sizes"></div>
+        <div class="mh sp">By price</div>
+        <div class="chips" id="sh-prices"></div>
+      </div>
+      <div class="mcol mnew">
+        <div class="nihead"><span class="mh" style="margin:0">New this week</span><a href="shop.html">View all →</a></div>
+        <div class="newin" id="sh-new"></div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="st">
+        <span><b>11</b> added in the last 7 days</span>
+        <span><b>142</b> in stock right now</span>
+        <span>Held in <b>Dubai</b> and the <b>UK</b></span>
+        <span>Rated <b>4.9</b> on Trustpilot</span>
+      </div>
+      <a class="go" href="shop.html">Shop the whole case →</a>
+    </div>
+  </div>
+
+  <!-- ============ BRANDS ============ -->
+  <div class="mega" id="mega-brands" data-panel="brands">
+    <div class="megain">
+      <div class="mcol">
+        <div class="mh">By maison</div>
+        <div id="br-list"></div>
+        <div class="mfoot"><a href="shop.html">Every brand we hold →</a></div>
+      </div>
+      <div class="mcol">
+        <div class="mh" id="br-modelh">Rolex — by model</div>
+        <div class="mmodels" id="br-models"></div>
+      </div>
+      <div class="mcol">
+        <div class="nihead"><span class="mh" style="margin:0" id="br-sigh">In stock — Rolex</span></div>
+        <div class="newin one" id="br-sig"></div>
+      </div>
+      <div class="mcol mnew">
+        <div class="megapromo">
+          <div class="mh">Can’t find it?</div>
+          <p>Name the reference and our concierge will hunt it through the dealer network. Average
+             time to source: eleven days. No fee unless we find it.</p>
+          <a class="b2" href="sourcing.html">Start a sourcing request</a>
+        </div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="st">
+        <span><b>7</b> maisons in stock</span>
+        <span>Authenticated at our own bench</span>
+        <span>Part-exchange against anything</span>
+      </div>
+      <a class="go" href="shop.html">Shop by maison →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+
+  <div class="pane">
+    <div class="eyebrow u d1">Dubai &nbsp;&amp;&nbsp; United Kingdom</div>
+    <h1 class="u d2">Every watch we sell<br><span>is in our hands.</span></h1>
+    <p class="sub u d3">Pre-owned <b>Rolex, Patek Philippe, Audemars Piguet</b> and more — each one authenticated
+      at our own bench, held in our own stock in <b>Dubai and the UK</b>, and delivered insured to your door.
+      Nothing brokered, nothing on a waiting list.</p>
+    <div class="acts u d4">
+      <a class="b1" href="#">Browse 142 watches <span class="a">→</span></a>
+      <a class="tlink" href="#">Sell or part-exchange yours</a>
+      <a class="tlink" href="#">Book a viewing</a>
+    </div>
+    <div class="stats u d5">
+      <div class="stat"><div class="v">142</div><div class="l">In stock right now</div></div>
+      <div class="stat"><div class="v">11</div><div class="l">Added this week</div></div>
+      <div class="stat"><div class="v" id="fromPrice">Dhs. 12,400</div><div class="l">Entry price · finance available</div></div>
+    </div>
+    <div class="claims u d5">
+      <span>Authenticated in-house</span><i></i>
+      <span>24-month warranty</span><i></i>
+      <span>Insured next-day delivery, UAE &amp; UK</span>
+    </div>
+  </div>
+
+  <div class="shot fade d3">
+    <div class="layer on" id="L0"></div>
+    <div class="layer" id="L1"></div>
+    <div class="spots" id="spots"></div>
+    <div class="room u d6" id="room"><span class="dot"></span>The main salon — Dubai</div>
+    <div class="hint u d6">Hover a case to see what’s inside</div>
+    <div class="thumbs u d6" id="thumbs"></div>
+  </div>
+
+  <div class="card u d6">
+    <div class="chead">
+      <span>Featured this week</span>
+      <a href="#">See all 142 →</a>
+    </div>
+    <a class="cbody" href="#">
+      <div class="im"><img id="w-img" alt="Rolex Submariner Hulk"></div>
+      <div>
+        <div class="n1" id="w-brand">Rolex</div>
+        <div class="n2" id="w-name">Submariner “Hulk”</div>
+        <div class="n3" id="w-ref">116610LV · 2019 · Full set</div>
+        <div class="n4" id="w-price">Dhs. 58,500</div>
+      </div>
+      <div class="go" aria-hidden="true">→</div>
+    </a>
+  </div>
+
+</section>
+
+<section class="sec">
+  <div class="shead">
+    <div>
+      <h2>Shop by maison</h2>
+      <p>Seven houses, all held in our own stock across Dubai and the United Kingdom. Every reference
+        authenticated at our bench before it is listed.</p>
+    </div>
+    <div class="rt">
+      <a class="tlink" href="#">All brands →</a>
+      <div class="arrows" id="barrows">
+        <button id="bprev" aria-label="Previous brands">←</button>
+        <button id="bnext" aria-label="More brands">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="rail"><div class="track" id="btrack"></div></div>
+</section>
+
+<section class="sec last">
+  <div class="shead">
+    <div>
+      <h2>Popular right now</h2>
+      <p>The references our clients ask for most. Prices shown in <span id="curName">AED</span> — switch at any time.</p>
+    </div>
+    <div class="rt">
+      <a class="tlink" href="#">View all 142 →</a>
+      <div class="arrows" id="parrows">
+        <button id="prev" aria-label="Previous watches">←</button>
+        <button id="next" aria-label="More watches">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="rail"><div class="track" id="track"></div></div>
+</section>
+
+<!-- ============ AUTHENTICATION ============ -->
+<section class="band">
+  <div class="shead">
+    <div>
+      <h2>Authenticated at our own bench</h2>
+      <p>Not sent away, not signed off on a photograph. Every watch is opened, measured and timed
+        in Dubai or the UK before it is listed — and it stays off the site until it passes.</p>
+    </div>
+    <div class="rt"><a class="tlink" href="#">How we authenticate →</a></div>
+  </div>
+
+  <div class="guarantee">
+    <div class="lft">
+      <h3>100% authentic.<br>Guaranteed, or your money back.</h3>
+      <p>If any watch we have sold is ever shown not to be genuine, we refund it in full — no time
+        limit, no argument, no restocking fee. In four years it has never been claimed.</p>
+    </div>
+    <div class="rgt">
+      <div class="gline"><span class="bx on"></span><span><b>Checked against The Watch Register</b><i>Every serial run through the international stolen-watch database before purchase.</i></span></div>
+      <div class="gline"><span class="bx on"></span><span><b>41 physical checks, logged per watch</b><i>Case, bracelet, dial, hands, movement and timing — recorded and kept on file.</i></span></div>
+      <div class="gline"><span class="bx on"></span><span><b>24-month mechanical warranty</b><i>Covering movement and water resistance, honoured in both the UAE and the UK.</i></span></div>
+    </div>
+  </div>
+
+  <div class="steps" id="steps"></div>
+</section>
+
+<!-- ============ FILM ============ -->
+<section class="film">
+  <div class="filmshot">
+    <div class="bg" id="filmbg"></div>
+    <span class="filmtag">Film to come</span>
+    <div class="filmui">
+      <button class="play" aria-label="Play the film">
+        <svg width="16" height="18" viewBox="0 0 16 18"><path d="M0 0l16 9-16 9z"/></svg>
+      </button>
+      <div class="filmtxt">
+        <h3>Ninety seconds inside the boutique</h3>
+        <p>Gold &amp; Diamond Park, Building 5 — filmed on an ordinary Tuesday.</p>
+      </div>
+    </div>
+  </div>
+  <div class="filmcap">
+    <span>A slow walk through the salon: the case lights coming on, a tray being set down, a bracelet
+      being sized, coffee poured. No voiceover, no music bed, cuts no shorter than three seconds.</span>
+    <span>16:9 &nbsp;·&nbsp; 4K &nbsp;·&nbsp; 60–90 seconds &nbsp;·&nbsp; silent cut required for autoplay</span>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="sec">
+  <div class="shead">
+    <div>
+      <h2>Our services</h2>
+      <p>Four things we do beyond selling from the case — all handled in-house, in Dubai and the
+        United Kingdom.</p>
+    </div>
+    <div class="rt"><a class="tlink" href="#">All services →</a></div>
+  </div>
+  <div class="svcs" id="svcs"></div>
+</section>
+
+
+<section class="sec">
+  <div class="conc">
+    <div class="concbd">
+      <div class="conceye">Client concierge</div>
+      <h2>Can’t find it?<br>That’s what we’re for.</h2>
+      <p class="lead">Name the reference — a birth-year Datejust, a specific dial, a full set you’ve been
+        waiting three years for. One person looks after your search from the first message to the
+        handover, and you speak to them, not a queue.</p>
+      <div class="concacts">
+        <a class="cbtn solid" href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.04 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.98-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3z"/></svg>
+          WhatsApp
+        </a>
+        <a class="cbtn" href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"/></svg>
+          Call us
+        </a>
+        <a class="cbtn" href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18c.6 0 1 .4 1 1v12c0 .6-.4 1-1 1H3c-.6 0-1-.4-1-1V6c0-.6.4-1 1-1zm9 7.2L4.5 7v11h15V7L12 12.2zM12 10 19 6H5l7 4z"/></svg>
+          Email
+        </a>
+      </div>
+      <div class="concnote">
+        <div><div class="v">11 days</div><div class="l">Average time to source</div></div>
+        <div><div class="v">4</div><div class="l">Time zones in the network</div></div>
+        <div><div class="v">No fee</div><div class="l">Unless we find it</div></div>
+      </div>
+    </div>
+
+    <div class="concart">
+      <div class="concwall">
+        <span class="conctag">Sourced, authenticated, then offered</span>
+        <span class="w"><img src="assets/img/rolex-submariner-starbucks.webp" alt=""></span>
+        <span class="w"><img src="assets/img/rolex-submariner-hulk.webp" alt=""></span>
+        <span class="w"><img src="assets/img/rolex-submariner-white-gold.webp" alt=""></span>
+      </div>
+      <div class="concport">
+        <div class="ph"><div class="l1">Your concierge</div><div class="l2">Portrait at the desk — gloves on, loupe down, a tray of watches in front of them. Shot in the salon, natural light, waist up, no eye contact with camera.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SELLING ============ -->
+<section class="band">
+  <div class="sell">
+    <div class="sellart"><div class="ph"><div class="l1">The handover</div><div class="l2">A watch passing across the counter from our hand to a client's wrist — no faces, papers and tray visible on the desk.</div></div></div>
+    <div class="sellbd">
+      <h2>Selling to One Street</h2>
+      <p class="lead">We buy outright and we part-exchange, in both countries. No consignment wait,
+        no listing fees, no chasing a buyer for six weeks — a real number within the hour and the
+        money the same day.</p>
+      <div class="sellsteps" id="sellsteps"></div>
+      <div class="sellacts">
+        <a class="b1" href="#">Get a valuation <span class="a">→</span></a>
+        <a class="tlink" href="#">Or send photos on WhatsApp</a>
+      </div>
+      <div class="sellnote">
+        <span>Free insured collection, UAE &amp; UK</span><i></i>
+        <span>Part-exchange against anything in stock</span><i></i>
+        <span>Paid by transfer the same day</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOCIAL ============ -->
+<section class="sec last">
+  <div class="shead">
+    <div>
+      <h2>@onestreetwatches</h2>
+      <p>New arrivals go out on Instagram and TikTok before they reach the site. 38,000 following
+        along in Dubai and the UK.</p>
+      <div class="socialhead">
+        <a class="pill" href="#">Instagram &nbsp;→</a>
+        <a class="pill" href="#">TikTok &nbsp;→</a>
+      </div>
+    </div>
+  </div>
+  <div class="grid6" id="social"></div>
+</section>
+<footer class="foot">
+
+  <div class="fmain">
+    <div class="fbrand">
+      <img class="flogo" src="assets/img/logo.png" alt="One Street Watches">
+      <p>Pre-owned and vintage watches, held in our own stock in Dubai and the United Kingdom.
+        Authenticated at our own bench, priced against the live market, delivered insured.</p>
+      <div class="fnews">
+        <label for="fmail">First look at new arrivals</label>
+        <div class="fnewsrow">
+          <input id="fmail" type="email" placeholder="Your email address">
+          <button type="button">Subscribe</button>
+        </div>
+      </div>
+      <div class="fsocial">
+        <a href="#">Instagram</a><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">Trustpilot</a>
+      </div>
+    </div>
+
+    <div class="fcols">
+      <div class="fcol">
+        <h4>Shop</h4>
+        <a href="shop.html">All watches</a><a href="shop.html">New this week</a><a href="shop.html">Shop by maison</a>
+        <a href="shop.html">Unworn &amp; full set</a><a href="#">Under £10,000</a><a href="shop.html">The vault</a>
+      </div>
+      <div class="fcol">
+        <h4>Sell &amp; trade</h4>
+        <a href="sell.html">Sell your watch</a><a href="sell.html">Part-exchange</a><a href="sell.html">Get a valuation</a>
+        <a href="sell.html">How it works</a><a href="sell.html">Free insured collection</a>
+      </div>
+      <div class="fcol">
+        <h4>Services</h4>
+        <a href="servicing.html">Servicing &amp; polishing</a><a href="servicing.html">Authentication</a><a href="sourcing.html">Sourcing</a>
+        <a href="servicing.html">Warranty &amp; repairs</a><a href="visit.html">Private viewings</a>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <a href="about.html">About us</a><a href="visit.html">The boutique</a><a href="journal.html">Journal</a>
+        <a href="about.html">Reviews</a><a href="contact.html">Contact</a><a href="contact.html">FAQ</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flocs fline">
+    <div class="floc">
+      <h5><span class="sq"></span>Dubai — boutique</h5>
+      <p>Gold &amp; Diamond Park, Building 5<br>Al Quoz, Dubai, United Arab Emirates<br>
+        Open daily 10:00 – 20:00<br><a href="#">+971 4 000 0000</a></p>
+    </div>
+    <div class="floc">
+      <h5><span class="sq"></span>United Kingdom</h5>
+      <p>Viewings by appointment<br>Monday to Friday, 09:00 – 18:00<br>
+        Free insured collection nationwide<br><a href="#">+44 20 0000 0000</a></p>
+    </div>
+    <div class="floc">
+      <h5><span class="sq"></span>Talk to us</h5>
+      <p>The fastest way to reach us is WhatsApp — a real person, seven days a week, in both time zones.</p>
+      <a class="fwa" href="#">
+        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.04 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.98-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3z"/></svg>
+        WhatsApp the concierge <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="fbot fline">
+    <span>© 2026 One Street Watches. All rights reserved.</span>
+    <div class="lks">
+      <a href="#">Terms of sale</a><a href="#">Privacy</a><a href="#">Cookies</a>
+      <a href="#">Shipping &amp; returns</a><a href="#">Warranty</a><a href="#">Authenticity guarantee</a>
+    </div>
+    <span class="fpay">Visa · Mastercard · Amex · Bank transfer · Finance available</span>
+  </div>
+
+</footer>
+</body>
+</html>
