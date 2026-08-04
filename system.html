@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system | One Street Watches</title>
+<meta name="description" content="Internal reference: the mobile design language."><meta name="robots" content="noindex">
+<link rel="canonical" href="https://onestreetwatches.com/system">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Design system | One Street Watches">
+<meta property="og:description" content="Internal reference: the mobile design language.">
+<meta property="og:image" content="https://onestreetwatches.com/assets/img/boutique-salon.ea631f9f49.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F7F4EF">
+<link rel="icon" href="assets/img/logo.331cc6ca4d.png">
+<link rel="preconnect" href="/">
+<link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.e21cecec3a.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/core.f749df4fe8.css">
+<link rel="stylesheet" href="assets/css/system.2b0c3706b7.css">
+<link rel="stylesheet" href="assets/css/page.33e22af5a4.css">
+<link rel="stylesheet" href="assets/css/mobile.b1fe15583b.css">
+<script src="assets/js/core.d06cc88df3.js" defer></script>
+<script src="assets/js/system.2a412c3b2f.js" defer></script>
+</head>
+<body data-page="">
+<div class="top">
+  <div class="l">
+    <div class="seg" role="group" aria-label="Currency">
+      <button data-cur="AED" aria-pressed="true">AED</button>
+      <button data-cur="GBP" aria-pressed="false">GBP</button>
+    </div>
+    <span class="loc"><span class="dot"></span>Dubai showroom — open until 20:00</span>
+    <span class="loc">United Kingdom — viewings by appointment</span>
+  </div>
+  <div class="r">
+    <span class="tp"><span class="stars"><i></i><i></i><i></i><i></i><i></i></span><b>4.9</b> / 5 · 214 reviews on Trustpilot</span>
+    <a class="wa" href="https://wa.me/97140000000">WhatsApp us</a>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<nav>
+  <a href="index.html"><img class="logo" fetchpriority="high" width="164" height="33" src="assets/img/logo.331cc6ca4d.png" alt="One Street Watches"></a>
+  <div class="links">
+    <a class="mtrigger" href="shop.html" data-mega="shop" data-nav="shop">Shop all</a>
+    <a class="mtrigger" href="shop.html" data-mega="brands" data-nav="brands">Brands</a>
+    <a href="sell.html" data-nav="sell">Sell &amp; trade</a>
+    <a href="sourcing.html" data-nav="sourcing">Sourcing</a>
+    <a href="servicing.html" data-nav="servicing">Servicing</a>
+    <a href="visit.html" data-nav="visit">Visit us</a>
+  </div>
+  <div class="tools">
+    <div class="srchwrap">
+      <label class="srch">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <input type="search" id="q" autocomplete="off" role="combobox" aria-expanded="false"
+               aria-controls="sug" aria-autocomplete="list"
+               placeholder="Search watches, a model or a reference…" aria-label="Search watches">
+      </label>
+      <div class="sug" id="sug" role="listbox" aria-label="Search suggestions"></div>
+    </div>
+    <a class="bag" href="book.html">Bag</a>
+  </div>
+
+  <!-- ============ SHOP ALL ============ -->
+  <div class="mega" id="mega-shop" data-panel="shop">
+    <div class="megain">
+      <div class="mcol">
+        <div class="mh">Browse</div>
+        <div class="mmodels" id="sh-browse"></div>
+      </div>
+      <div class="mcol">
+        <div class="mh">By category</div>
+        <div class="mmodels" id="sh-cat"></div>
+        <div class="mh sp">By condition</div>
+        <div class="mmodels" id="sh-cond"></div>
+      </div>
+      <div class="mcol">
+        <div class="mh">By dial</div>
+        <div class="dials" id="sh-dials"></div>
+        <div class="mh sp">By case size</div>
+        <div class="chips" id="sh-sizes"></div>
+        <div class="mh sp">By price</div>
+        <div class="chips" id="sh-prices"></div>
+      </div>
+      <div class="mcol mnew">
+        <div class="nihead"><span class="mh" style="margin:0">New this week</span><a href="shop.html">View all →</a></div>
+        <div class="newin" id="sh-new"></div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="st">
+        <span><b class="nstock"></b> in the case right now</span>
+        <span><b id="mb-full"></b> with box and papers</span>
+        <span>Held in <b>Dubai</b> and the <b>UK</b></span>
+        <span>Rated <b>4.9</b> on Trustpilot</span>
+      </div>
+      <a class="go" href="shop.html">Shop the whole case →</a>
+    </div>
+  </div>
+
+  <!-- ============ BRANDS ============ -->
+  <div class="mega" id="mega-brands" data-panel="brands">
+    <div class="megain">
+      <div class="mcol">
+        <div class="mh">By maison</div>
+        <div id="br-list"></div>
+        <div class="mfoot"><a href="shop.html">Every brand we hold →</a></div>
+      </div>
+      <div class="mcol">
+        <div class="mh" id="br-modelh">Rolex — by model</div>
+        <div class="mmodels" id="br-models"></div>
+      </div>
+      <div class="mcol">
+        <div class="nihead"><span class="mh" style="margin:0" id="br-sigh">In stock — Rolex</span></div>
+        <div class="newin one" id="br-sig"></div>
+      </div>
+      <div class="mcol mnew">
+        <div class="megapromo">
+          <div class="mh">Can’t find it?</div>
+          <p>Name the reference and our concierge will hunt it through the dealer network. Average
+             time to source: eleven days. No fee unless we find it.</p>
+          <a class="b2" href="sourcing.html">Start a sourcing request</a>
+        </div>
+      </div>
+    </div>
+    <div class="mbar">
+      <div class="st">
+        <span><b id="mb-maisons"></b> maisons in stock</span>
+        <span>Authenticated at our own bench</span>
+        <span>Part-exchange against anything</span>
+      </div>
+      <a class="go" href="shop.html">Shop by maison →</a>
+    </div>
+  </div>
+</nav>
+
+<div class="c-intro">
+  <div class="t-label">Internal reference</div>
+  <h1 style="margin-top:12px">Mobile design language</h1>
+  <p>One navigation model, one type scale, one spacing rhythm, and a fixed set of
+    components. Every screen is assembled from what is on this page. Nothing new is
+    invented for a single section.</p>
+</div>
+
+<div class="sysnav c-chips" id="sysnav"></div>
+
+<!-- ============ FOUNDATIONS ============ -->
+<section class="c-section" id="s-type">
+  <div class="c-sechead"><div><h2>Type</h2>
+    <p>Eight steps. Nothing below 12px except the uppercase label, which reads larger than it measures.</p></div></div>
+  <div class="c-list">
+    <div class="c-row"><span class="c-row__main"><span class="t-display">Display 32</span></span><span class="c-row__end">Page title</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-title">Title 24</span></span><span class="c-row__end">Section</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-head">Heading 19</span></span><span class="c-row__end">Card title</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-sub">Subhead 16</span></span><span class="c-row__end">Row title</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-body">Body 15 — the default for reading</span></span><span class="c-row__end">Prose</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-sec">Secondary 13.5</span></span><span class="c-row__end">UI text</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-cap">Caption 12</span></span><span class="c-row__end">Meta</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-label">Label 11</span></span><span class="c-row__end">Eyebrow</span></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-space">
+  <div class="c-sechead"><div><h2>Space</h2>
+    <p>A single 4px rhythm. Ten steps, no values in between — the old CSS used 32 different gaps.</p></div></div>
+  <div id="spacedemo"></div>
+</section>
+
+<section class="c-section" id="s-nav">
+  <div class="c-sechead"><div><h2>Navigation</h2>
+    <p>One model everywhere. A dock for destinations, sheets for decisions, full-screen for search.</p></div></div>
+  <div class="c-list">
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Bottom dock</span>
+      <span class="c-row__s">Five destinations, always visible, thumb height. The only way to change place.</span></span></div>
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Bottom sheet</span>
+      <span class="c-row__s">Any decision that must not lose the user's place: filters, options, a case of watches.</span></span></div>
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Full screen</span>
+      <span class="c-row__s">Search only. It replaces the page because it replaces the task.</span></span></div>
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Back</span>
+      <span class="c-row__s">The browser's. We never draw our own back button — two back affordances is one too many.</span></span></div>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="c-btn c-btn--secondary" id="demo-sheet">Open a sheet</button>
+    <button class="c-btn c-btn--secondary" id="demo-search">Open search</button>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section class="c-section" id="s-btn">
+  <div class="c-sechead"><div><h2>Buttons</h2>
+    <p>Four variants. One primary per screen — if two things look primary, neither is.</p></div></div>
+  <div style="display:grid;gap:10px">
+    <button class="c-btn c-btn--block">Primary <span class="a">→</span></button>
+    <button class="c-btn c-btn--secondary c-btn--block">Secondary</button>
+    <div style="display:flex;gap:14px;align-items:center">
+      <button class="c-btn c-btn--ghost">Ghost link</button>
+      <button class="c-btn c-btn--icon" aria-label="Icon">＋</button>
+      <button class="c-btn" disabled>Disabled</button>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" id="s-card">
+  <div class="c-sechead"><div><h2>Cards</h2>
+    <p>One card. Media, body, foot. Ten bespoke card types collapse into this plus modifiers.</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <a class="c-card" href="#s-card">
+      <div class="c-card__media"><span class="c-tag">Unworn</span><div class="c-skel c-skel--media"></div></div>
+      <div class="c-card__body"><div class="c-card__k">Rolex</div>
+        <div class="c-card__t">Submariner</div><div class="c-card__p">Ref. 126610LV · 2022</div></div>
+    </a>
+    <div class="c-card c-card--tint">
+      <div class="c-card__body"><div class="c-card__k">Modifier</div>
+        <div class="c-card__t">Tinted</div>
+        <div class="c-card__p">Used where a card carries a summary rather than a product.</div>
+        <div class="c-card__foot"><span class="t-cap">Foot slot</span><span class="t-cap">→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" id="s-list">
+  <div class="c-sechead"><div><h2>Lists</h2>
+    <p>One row, four lead slots: none, number, icon or media. This replaces ten list patterns.</p></div></div>
+  <div class="c-list">
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Plain row</span></span><span class="c-row__end">Meta</span></div>
+    <div class="c-row c-row--step"><span class="c-row__lead c-row__lead--num">01</span>
+      <span class="c-row__main"><span class="c-row__t">Numbered step</span>
+      <span class="c-row__s">Every process list on the site uses this — sell, sourcing, authentication.</span></span></div>
+    <div class="c-row"><span class="c-row__lead c-row__lead--media"></span>
+      <span class="c-row__main"><span class="c-row__t">Media row</span>
+      <span class="c-row__s">Search results, a case of watches, related pieces.</span></span>
+      <span class="c-row__end">Dhs. 58,500</span></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-stat">
+  <div class="c-sechead"><div><h2>Statistics</h2><p>Two up on a phone, four across from 768px.</p></div></div>
+  <div class="c-stats">
+    <div class="c-stat"><div class="c-stat__v">24</div><div class="c-stat__l">In the case</div></div>
+    <div class="c-stat"><div class="c-stat__v">7</div><div class="c-stat__l">Maisons</div></div>
+    <div class="c-stat"><div class="c-stat__v">2</div><div class="c-stat__l">Countries</div></div>
+    <div class="c-stat"><div class="c-stat__v">24mo</div><div class="c-stat__l">Warranty</div></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-quote">
+  <div class="c-sechead"><div><h2>Testimonial</h2><p>Always in a rail. A single quote reads as cherry-picked.</p></div></div>
+  <div class="c-rail">
+    <div class="c-quote"><div class="c-quote__stars" id="qs"></div>
+      <div class="c-quote__t">They opened it in front of me</div>
+      <div class="c-quote__p">The first time a dealer put the caseback on the bench before I paid.</div>
+      <div class="c-quote__by"><span class="c-quote__av">FA</span>
+        <span><span class="c-row__t">Faisal A.</span><span class="c-row__s">Dubai · March 2026</span></span></div></div>
+    <div class="c-quote"><div class="c-quote__stars"></div>
+      <div class="c-quote__t">Priced honestly</div>
+      <div class="c-quote__p">They showed me the comparables they had priced against.</div>
+      <div class="c-quote__by"><span class="c-quote__av">CM</span>
+        <span><span class="c-row__t">Charlotte M.</span><span class="c-row__s">London · February 2026</span></span></div></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-spec">
+  <div class="c-sechead"><div><h2>Specifications &amp; pricing</h2>
+    <p>The same two-column skeleton serves specs, service prices and comparisons.</p></div></div>
+  <div class="c-specs">
+    <div class="c-spec"><span>Reference</span><span>126610LV</span></div>
+    <div class="c-spec"><span>Year</span><span>2022</span></div>
+    <div class="c-spec"><span>Case</span><span>41 mm</span></div>
+    <div class="c-spec"><span>Dial</span><span>Black</span></div>
+    <div class="c-spec c-spec--full"><span>Box &amp; papers</span><span>Full set</span></div>
+  </div>
+  <div style="margin-top:24px">
+    <div class="c-price"><span><span class="c-row__t">Full service</span>
+      <span class="c-row__s">Strip-down, clean, regulation, pressure test</span></span>
+      <span class="c-price__v">1,850</span></div>
+    <div class="c-price"><span><span class="c-row__t">Polish &amp; refinish</span>
+      <span class="c-row__s">Factory-spec, by hand</span></span>
+      <span class="c-price__v">950</span></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-filter">
+  <div class="c-sechead"><div><h2>Chips &amp; segmented</h2>
+    <p>Chips for filters that toggle. Segmented for views that switch. Never both for the same job.</p></div></div>
+  <div class="c-chips" style="margin-bottom:16px">
+    <button class="c-chip" aria-pressed="true">Rolex</button>
+    <button class="c-chip" aria-pressed="false">Under 50k</button>
+    <button class="c-chip" aria-pressed="false">Full set</button>
+    <button class="c-chip" aria-pressed="false">Unworn</button>
+  </div>
+  <div class="c-seg" role="tablist">
+    <button role="tab" aria-selected="true">Popular</button>
+    <button role="tab" aria-selected="false">New in</button>
+    <button role="tab" aria-selected="false">By maison</button>
+  </div>
+</section>
+
+<section class="c-section" id="s-acc">
+  <div class="c-sechead"><div><h2>Accordion</h2>
+    <p>The one disclosure pattern. First item open, the rest closed, one open at a time.</p></div></div>
+  <div class="c-acc" id="accdemo">
+    <div class="c-acc__i is-open"><button class="c-acc__h">Do I pay anything up front?<i>+</i></button>
+      <div class="c-acc__b">No. There is no retainer and no search fee.</div></div>
+    <div class="c-acc__i"><button class="c-acc__h">How do you price what you find?<i>+</i></button>
+      <div class="c-acc__b">One number, delivered and authenticated, with our margin shown.</div></div>
+    <div class="c-acc__i"><button class="c-acc__h">Will it come with a warranty?<i>+</i></button>
+      <div class="c-acc__b">Twenty-four months, mechanical, honoured in both countries.</div></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-form">
+  <div class="c-sechead"><div><h2>Forms</h2>
+    <p>16px inputs so iOS never zooms. 52px targets. Long forms split into steps with a bar, not a numbered rail.</p></div></div>
+  <div class="c-steps"><i class="is-done"></i><i class="is-done"></i><i></i></div>
+  <form class="c-form" id="formdemo" novalidate>
+    <div class="c-field"><label for="d1">Full name</label><input id="d1" autocomplete="name"></div>
+    <div class="c-field"><label for="d2">Email</label><input id="d2" type="email" autocomplete="email">
+      <span class="c-field__hint">We send the confirmation here.</span></div>
+    <div class="c-field"><label for="d3">Anything we should know?</label><textarea id="d3"></textarea></div>
+    <button class="c-btn c-btn--block" type="submit">Continue <span class="a">→</span></button>
+  </form>
+</section>
+
+<section class="c-section" id="s-state">
+  <div class="c-sechead"><div><h2>States</h2>
+    <p>Empty, loading and success are components, not afterthoughts written per page.</p></div></div>
+
+  <div class="t-label" style="margin-bottom:10px">Loading</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="skeldemo">
+    <div class="c-card"><div class="c-skel c-skel--media"></div>
+      <div class="c-card__body"><div class="c-skel c-skel--line is-short"></div>
+        <div class="c-skel c-skel--line"></div></div></div>
+    <div class="c-card"><div class="c-skel c-skel--media"></div>
+      <div class="c-card__body"><div class="c-skel c-skel--line is-short"></div>
+        <div class="c-skel c-skel--line"></div></div></div>
+  </div>
+
+  <div class="t-label" style="margin:26px 0 10px">Empty</div>
+  <div class="c-card c-card--flat" style="border-style:dashed">
+    <div class="c-empty"><div class="c-empty__t">Nothing matches that combination</div>
+      <div class="c-empty__p">Widen the price band, or tell our concierge what you are after — average eleven days.</div>
+      <button class="c-btn c-btn--secondary">Clear filters</button></div>
+  </div>
+
+  <div class="t-label" style="margin:26px 0 10px">Success</div>
+  <div class="c-card c-card--flat" style="border-style:dashed">
+    <div class="c-success"><div class="c-success__mark"><span></span></div>
+      <div class="t-title">You are booked in.</div>
+      <p class="t-body" style="margin-top:8px">Wednesday 5 August at 11:30, Vida Hotel.</p></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-rules">
+  <div class="c-sechead"><div><h2>Interaction rules</h2>
+    <p>Decided once, applied everywhere. If a screen needs an exception, the rule is wrong.</p></div></div>
+  <div class="c-acc" id="rulesdemo"></div>
+</section>
+
+<footer class="foot">
+
+  <div class="fmain">
+    <div class="fbrand">
+      <img class="flogo" src="assets/img/logo.331cc6ca4d.png" alt="One Street Watches">
+      <p>Pre-owned and vintage watches, held in our own stock in Dubai and the United Kingdom.
+        Authenticated at our own bench, priced against the live market, delivered insured.</p>
+      <div class="fnews">
+        <label for="fmail">First look at new arrivals</label>
+        <div class="fnewsrow">
+          <input id="fmail" type="email" placeholder="Your email address">
+          <button type="button">Subscribe</button>
+        </div>
+      </div>
+      <div class="fsocial">
+        <a href="https://instagram.com/onestreetwatches" target="_blank" rel="noopener">Instagram</a><a href="https://tiktok.com/@onestreetwatches" target="_blank" rel="noopener">TikTok</a><a href="https://youtube.com/@onestreetwatches" target="_blank" rel="noopener">YouTube</a><a href="https://uk.trustpilot.com/review/onestreetwatches.com" target="_blank" rel="noopener">Trustpilot</a>
+      </div>
+    </div>
+
+    <div class="fcols">
+      <div class="fcol">
+        <h4>Shop</h4>
+        <a href="shop.html">All watches</a><a href="shop.html">New this week</a><a href="shop.html">Shop by maison</a>
+        <a href="shop.html">Unworn &amp; full set</a><a href="shop.html?aed=0-47000">Under £10,000</a><a href="shop.html">The vault</a>
+      </div>
+      <div class="fcol">
+        <h4>Sell &amp; trade</h4>
+        <a href="sell.html">Sell your watch</a><a href="sell.html">Part-exchange</a><a href="sell.html">Get a valuation</a>
+        <a href="sell.html">How it works</a><a href="sell.html">Free insured collection</a>
+      </div>
+      <div class="fcol">
+        <h4>Services</h4>
+        <a href="servicing.html">Servicing &amp; polishing</a><a href="servicing.html">Authentication</a><a href="sourcing.html">Sourcing</a>
+        <a href="servicing.html">Warranty &amp; repairs</a><a href="visit.html">Private viewings</a>
+      </div>
+      <div class="fcol">
+        <h4>Company</h4>
+        <a href="about.html">About us</a><a href="visit.html">The boutique</a><a href="journal.html">Journal</a>
+        <a href="about.html">Reviews</a><a href="contact.html">Contact</a><a href="contact.html">FAQ</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="flocs fline">
+    <div class="floc">
+      <h5><span class="sq"></span>Dubai — boutique</h5>
+      <p>Tower A2, Vida Hotel<br>Emirates Hills, Dubai<br>United Arab Emirates<br>
+        Open daily 10:00 – 20:00<br><a href="tel:+97140000000">+971 4 000 0000</a></p>
+    </div>
+    <div class="floc">
+      <h5><span class="sq"></span>United Kingdom</h5>
+      <p>Viewings by appointment<br>Monday to Friday, 09:00 – 18:00<br>
+        Free insured collection nationwide<br><a href="tel:+442000000000">+44 20 0000 0000</a></p>
+    </div>
+    <div class="floc">
+      <h5><span class="sq"></span>Talk to us</h5>
+      <p>The fastest way to reach us is WhatsApp — a real person, seven days a week, in both time zones.</p>
+      <a class="fwa" href="https://wa.me/97140000000">
+        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.04 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.98-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.18-.47-.3z"/></svg>
+        WhatsApp the concierge <span class="a">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="fbot fline">
+    <span>© 2026 One Street Watches. All rights reserved.</span>
+    <div class="lks">
+      <a href="#">Terms of sale</a><a href="#">Privacy</a><a href="#">Cookies</a>
+      <a href="#">Shipping &amp; returns</a><a href="#">Warranty</a><a href="#">Authenticity guarantee</a>
+    </div>
+    <span class="fpay">Visa · Mastercard · Amex · Bank transfer · Finance available</span>
+  </div>
+
+</footer>
+</body>
+</html>

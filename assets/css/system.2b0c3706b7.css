@@ -1,0 +1,255 @@
+/* ============================================================
+   ONE STREET — MOBILE DESIGN LANGUAGE
+   Tokens and components. Additive: nothing here overrides the
+   existing pages until they are migrated onto it.
+   ============================================================ */
+:root{
+  /* ---- type: 8 steps, nothing below 12px except the uppercase label ---- */
+  --t-display: 32px; --lh-display: 1.06; --ls-display: -.03em;
+  --t-title:   24px; --lh-title:   1.14; --ls-title:   -.026em;
+  --t-head:    19px; --lh-head:    1.22; --ls-head:    -.02em;
+  --t-sub:     16px; --lh-sub:     1.35; --ls-sub:     -.014em;
+  --t-body:    15px; --lh-body:    1.62; --ls-body:    -.004em;
+  --t-sec:   13.5px; --lh-sec:     1.55; --ls-sec:      0;
+  --t-cap:     12px; --lh-cap:     1.48; --ls-cap:     .01em;
+  --t-label:   11px; --lh-label:   1.2;  --ls-label:   .16em;
+
+  /* ---- space: one 4px rhythm, ten steps ---- */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px;
+  --s6:24px; --s7:32px; --s8:40px; --s9:56px; --s10:72px;
+  --gut:16px;              /* the only horizontal page margin on mobile */
+
+  /* ---- form ---- */
+  --r:0;                   /* crisp: nothing is rounded, ever */
+  --hair:1px solid var(--line);
+  --hair2:1px solid var(--line2);
+  --tap:44px; --tap-lg:52px;
+
+  /* ---- motion: three durations, one curve ---- */
+  --m-fast:160ms; --m:260ms; --m-slow:400ms;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-reduced-motion:reduce){
+  :root{--m-fast:1ms; --m:1ms; --m-slow:1ms}
+}
+
+/* ---- type utilities: the only way text is sized ---- */
+.t-display{font-size:var(--t-display);line-height:var(--lh-display);letter-spacing:var(--ls-display);font-weight:300}
+.t-title  {font-size:var(--t-title);  line-height:var(--lh-title);  letter-spacing:var(--ls-title);  font-weight:300}
+.t-head   {font-size:var(--t-head);   line-height:var(--lh-head);   letter-spacing:var(--ls-head);   font-weight:400}
+.t-sub    {font-size:var(--t-sub);    line-height:var(--lh-sub);    letter-spacing:var(--ls-sub);    font-weight:400}
+.t-body   {font-size:var(--t-body);   line-height:var(--lh-body);   letter-spacing:var(--ls-body);   color:var(--soft)}
+.t-sec    {font-size:var(--t-sec);    line-height:var(--lh-sec);    letter-spacing:var(--ls-sec);    color:var(--muted)}
+.t-cap    {font-size:var(--t-cap);    line-height:var(--lh-cap);    letter-spacing:var(--ls-cap);    color:var(--muted)}
+.t-label  {font-size:var(--t-label);  line-height:var(--lh-label);  letter-spacing:var(--ls-label);
+           text-transform:uppercase;font-weight:500;color:var(--muted)}
+
+/* ============================================================
+   SECTION — the only page-structure pattern
+   ============================================================ */
+.c-section{padding:var(--s8) 0 0}
+.c-section:last-child{padding-bottom:var(--s9)}
+.c-section > *{padding-left:var(--gut);padding-right:var(--gut)}
+.c-section > .c-rail{padding-left:0;padding-right:0}
+.c-sechead{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s4);
+ margin-bottom:var(--s5)}
+.c-sechead h2{font-size:var(--t-title);line-height:var(--lh-title);letter-spacing:var(--ls-title);font-weight:300}
+.c-sechead p{margin-top:var(--s2);font-size:var(--t-sec);line-height:var(--lh-sec);color:var(--muted)}
+.c-sechead a{flex:none;font-size:var(--t-cap);color:var(--soft);border-bottom:var(--hair2);padding-bottom:2px}
+/* page introduction: title, one sentence, one action. Never more. */
+.c-intro{padding:var(--s6) var(--gut) var(--s6)}
+.c-intro h1{font-size:var(--t-display);line-height:var(--lh-display);letter-spacing:var(--ls-display);font-weight:300}
+.c-intro p{margin-top:var(--s3);font-size:var(--t-body);line-height:var(--lh-body);color:var(--soft);max-width:38ch}
+.c-intro .c-btn{margin-top:var(--s5)}
+
+/* ============================================================
+   BUTTONS — four variants, no others
+   ============================================================ */
+.c-btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);
+ min-height:var(--tap-lg);padding:0 var(--s5);font-size:var(--t-sec);border-radius:var(--r);
+ border:1px solid transparent;background:var(--char);color:#fff;
+ -webkit-tap-highlight-color:transparent;
+ transition:background var(--m),border-color var(--m),transform var(--m-fast) var(--ease)}
+.c-btn:active{transform:scale(.985)}
+.c-btn--secondary{background:var(--white);color:var(--ink);border-color:var(--line2)}
+.c-btn--ghost{background:none;color:var(--soft);border-color:transparent;padding:0;min-height:var(--tap);
+ border-bottom:var(--hair2);border-radius:0}
+.c-btn--icon{width:var(--tap);min-height:var(--tap);padding:0;background:none;color:var(--soft);
+ border-color:var(--line2)}
+.c-btn--block{display:flex;width:100%}
+.c-btn[disabled]{opacity:.45;pointer-events:none}
+.c-btn .a{transition:transform var(--m-slow) var(--ease)}
+.c-btn:active .a{transform:translateX(3px)}
+
+/* ============================================================
+   CARD — one card, three modifiers
+   ============================================================ */
+.c-card{display:block;background:var(--white);border:var(--hair);box-shadow:var(--e1);
+ border-radius:var(--r);overflow:hidden;
+ transition:border-color var(--m),box-shadow var(--m-slow) var(--ease),transform var(--m-slow) var(--ease)}
+.c-card:active{transform:scale(.99)}
+.c-card__media{aspect-ratio:1/.9;background-image:var(--plate);position:relative;display:grid;place-items:center}
+.c-card__media img{width:76%;height:76%;object-fit:contain}
+.c-card__body{padding:var(--s4)}
+.c-card__k{font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;
+ color:var(--muted);font-weight:500}
+.c-card__t{margin-top:var(--s2);font-size:var(--t-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+.c-card__p{margin-top:var(--s2);font-size:var(--t-cap);line-height:var(--lh-cap);color:var(--muted)}
+.c-card__foot{margin-top:var(--s3);padding-top:var(--s3);border-top:var(--hair);
+ display:flex;align-items:center;justify-content:space-between;gap:var(--s3)}
+.c-card--flat{box-shadow:none;background:none}
+.c-card--tint{background-image:var(--plate)}
+.c-tag{position:absolute;top:var(--s2);left:var(--s2);background:rgba(255,255,255,.95);
+ padding:4px var(--s2);font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;
+ color:var(--ink);font-weight:500}
+
+/* ============================================================
+   LIST — replaces ten bespoke list patterns
+   ============================================================ */
+.c-list{border-top:var(--hair)}
+.c-row{display:flex;align-items:center;gap:var(--s3);min-height:var(--tap-lg);
+ padding:var(--s3) 0;border-bottom:var(--hair);
+ font-size:var(--t-sec);color:var(--ink);-webkit-tap-highlight-color:transparent}
+.c-row:active{opacity:.55}
+.c-row__lead{flex:none;width:22px;display:grid;place-items:center;color:var(--muted)}
+.c-row__lead--num{font-size:var(--t-cap);color:var(--pale)}
+.c-row__lead--media{width:52px;height:52px;background-image:var(--plate);border:var(--hair);overflow:hidden}
+.c-row__lead--media img{width:80%;height:80%;object-fit:contain}
+.c-row__main{min-width:0;flex:1}
+.c-row__t{font-size:var(--t-sec);letter-spacing:-.01em;color:var(--ink)}
+.c-row__s{margin-top:3px;font-size:var(--t-cap);color:var(--muted);line-height:var(--lh-cap)}
+.c-row__end{flex:none;margin-left:auto;font-size:var(--t-cap);color:var(--pale);text-align:right}
+/* numbered process list is the same row with a number in the lead slot */
+.c-row--step{align-items:flex-start;padding:var(--s4) 0}
+.c-row--step .c-row__lead{padding-top:2px}
+
+/* ============================================================
+   STAT · QUOTE · SPEC
+   ============================================================ */
+.c-stats{display:grid;grid-template-columns:1fr 1fr;border-top:var(--hair);border-left:var(--hair)}
+.c-stat{padding:var(--s4);border-right:var(--hair);border-bottom:var(--hair)}
+.c-stat__v{font-size:var(--t-title);line-height:1;letter-spacing:var(--ls-title);font-weight:300}
+.c-stat__l{margin-top:var(--s2);font-size:var(--t-cap);color:var(--muted);line-height:var(--lh-cap)}
+
+.c-quote{background:var(--white);border:var(--hair);box-shadow:var(--e1);padding:var(--s5)}
+.c-quote__stars{display:flex;gap:3px;margin-bottom:var(--s3)}
+.c-quote__stars svg{width:13px;height:13px;fill:var(--char)}
+.c-quote__t{font-size:var(--t-sub);line-height:var(--lh-sub);letter-spacing:var(--ls-sub)}
+.c-quote__p{margin-top:var(--s2);font-size:var(--t-sec);line-height:1.72;color:var(--soft)}
+.c-quote__by{margin-top:var(--s4);padding-top:var(--s4);border-top:var(--hair);
+ display:flex;align-items:center;gap:var(--s3)}
+.c-quote__av{width:40px;height:40px;flex:none;background-image:var(--plate);border:var(--hair);
+ display:grid;place-items:center;font-size:var(--t-cap);color:var(--muted)}
+
+.c-specs{display:grid;grid-template-columns:1fr 1fr;column-gap:var(--s5);border-top:var(--hair)}
+.c-spec{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);
+ padding:var(--s3) 0;border-bottom:var(--hair);font-size:var(--t-cap)}
+.c-spec span:first-child{color:var(--muted)}
+.c-spec--full{grid-column:1 / -1}
+
+/* price / comparison rows share the spec skeleton */
+.c-price{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);
+ padding:var(--s4) 0;border-bottom:var(--hair)}
+.c-price__v{font-size:var(--t-head);letter-spacing:var(--ls-head);font-weight:400}
+
+/* ============================================================
+   CHIPS · SEGMENTED
+   ============================================================ */
+.c-chips{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+ -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+.c-chips::-webkit-scrollbar{display:none}
+.c-chip{flex:none;min-height:var(--tap);display:inline-flex;align-items:center;padding:0 var(--s4);
+ border:var(--hair2);background:var(--white);font-size:var(--t-sec);color:var(--soft);
+ white-space:nowrap;scroll-snap-align:start;transition:background var(--m),color var(--m),border-color var(--m)}
+.c-chip[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff}
+.c-seg{display:flex;border:var(--hair2);background:var(--white)}
+.c-seg button{flex:1;min-height:var(--tap);font-size:var(--t-sec);color:var(--soft);
+ transition:background var(--m),color var(--m)}
+.c-seg button[aria-selected="true"]{background:var(--char);color:#fff}
+
+/* ============================================================
+   ACCORDION — the one disclosure pattern
+   ============================================================ */
+.c-acc{border-top:var(--hair)}
+.c-acc__i{border-bottom:var(--hair)}
+.c-acc__h{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+ width:100%;min-height:var(--tap-lg);padding:var(--s4) 0;text-align:left;
+ font-size:var(--t-sub);line-height:1.4;letter-spacing:var(--ls-sub);color:var(--ink)}
+.c-acc__h i{font-style:normal;font-size:18px;color:var(--pale);flex:none;
+ transition:transform var(--m-slow) var(--ease)}
+.c-acc__i.is-open .c-acc__h i{transform:rotate(45deg);color:var(--ink)}
+.c-acc__b{display:none;padding:0 0 var(--s4);font-size:var(--t-sec);line-height:1.75;color:var(--soft)}
+.c-acc__i.is-open .c-acc__b{display:block}
+
+/* ============================================================
+   FORM — one field, one rhythm, one step model
+   ============================================================ */
+.c-form{display:grid;gap:var(--s4)}
+.c-field{display:flex;flex-direction:column;gap:var(--s2)}
+.c-field > label{font-size:var(--t-label);letter-spacing:var(--ls-label);text-transform:uppercase;
+ color:var(--muted);font-weight:500}
+.c-field input,.c-field select,.c-field textarea{font:inherit;font-size:16px;color:var(--ink);
+ background:var(--white);border:var(--hair2);border-radius:var(--r);
+ min-height:var(--tap-lg);padding:0 var(--s3);outline:none;transition:border-color var(--m)}
+.c-field textarea{padding:var(--s3);min-height:96px;resize:vertical;line-height:1.6}
+.c-field input:focus,.c-field select:focus,.c-field textarea:focus{border-color:var(--ink)}
+.c-field.is-bad input,.c-field.is-bad textarea{border-color:#9B3B32}
+.c-field__hint{font-size:var(--t-cap);color:var(--pale)}
+.c-field__err{font-size:var(--t-cap);color:#9B3B32}
+/* progress: one bar, never a numbered rail on mobile */
+.c-steps{display:flex;gap:4px;padding:0 var(--gut) var(--s4)}
+.c-steps i{flex:1;height:2px;background:var(--line);transition:background var(--m)}
+.c-steps i.is-done{background:var(--char)}
+
+/* ============================================================
+   STATE — empty, loading, success. One of each.
+   ============================================================ */
+.c-empty{padding:var(--s9) var(--gut);text-align:center}
+.c-empty__t{font-size:var(--t-sub);letter-spacing:var(--ls-sub)}
+.c-empty__p{margin-top:var(--s2);font-size:var(--t-sec);color:var(--muted);line-height:1.7;
+ max-width:34ch;margin-left:auto;margin-right:auto}
+.c-empty .c-btn{margin-top:var(--s5)}
+
+.c-skel{background:linear-gradient(90deg,var(--sand) 0%,#F5F1EA 50%,var(--sand) 100%);
+ background-size:200% 100%;animation:skel 1.4s ease-in-out infinite}
+@keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.c-skel{animation:none}}
+.c-skel--media{aspect-ratio:1/.9}
+.c-skel--line{height:11px;margin-top:var(--s2)}
+.c-skel--line.is-short{width:52%}
+
+.c-success{text-align:left;padding:var(--s6) var(--gut)}
+.c-success__mark{width:44px;height:44px;background:var(--sage);display:grid;place-items:center;
+ margin-bottom:var(--s5);animation:pop var(--m-slow) var(--ease)}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.c-success__mark{animation:none}}
+.c-success__mark span{width:14px;height:7px;border-left:2px solid #fff;border-bottom:2px solid #fff;
+ transform:rotate(-45deg) translate(1px,-2px)}
+
+/* ============================================================
+   RAIL — the one horizontal-scroll pattern
+   ============================================================ */
+.c-rail{display:flex;gap:var(--s3);overflow-x:auto;scroll-snap-type:x mandatory;
+ -webkit-overflow-scrolling:touch;scrollbar-width:none;
+ padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
+.c-rail::-webkit-scrollbar{display:none}
+.c-rail > *{flex:0 0 78%;scroll-snap-align:start}
+.c-rail--tight > *{flex:0 0 46%}
+.c-dots{display:flex;justify-content:center;gap:6px;margin-top:var(--s3)}
+.c-dots i{width:5px;height:5px;background:var(--line2)}
+.c-dots i.is-on{background:var(--char)}
+
+/* ============================================================
+   BREAKPOINTS — the system scales at three points only
+   ============================================================ */
+@media (min-width:430px){:root{--gut:20px}}
+@media (min-width:768px){
+  :root{--gut:32px; --t-display:40px; --t-title:28px}
+  .c-stats{grid-template-columns:repeat(4,1fr)}
+  .c-rail > *{flex:0 0 40%}
+  .c-rail--tight > *{flex:0 0 30%}
+}
+@media (min-width:1024px){
+  :root{--gut:52px; --t-display:52px; --t-title:34px; --t-body:14.5px}
+  .c-rail > *{flex:0 0 25%}
+}

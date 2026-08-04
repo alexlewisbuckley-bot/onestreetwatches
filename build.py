@@ -54,7 +54,7 @@ CSSOUT={}
 core=open(B+'core.css').read().replace('/*FONTS*/','')
 open(OUT+'assets/css/core.css','w').write(face+core)
 CSSOUT['core.css']=fingerprint('css','core.css')
-for f in ['page.css','shop.css','product.css','home.css','book.css','mobile.css']:
+for f in ['page.css','shop.css','product.css','home.css','book.css','system.css','mobile.css']:
     if os.path.exists(B+f):
         css=open(B+f).read()
         for tok in list(IMGMAP)+list(ALIAS): css=css.replace(tok, img_path(tok, True))
@@ -94,6 +94,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'Gold & Diamond Park, Building 5, Dubai — open daily. Private viewings by appointment in the United Kingdom.','visit'),
        ('book','book','Schedule a viewing | One Street Watches',
         'Book a viewing in Dubai, the United Kingdom or on a video call. Pick a date and time, and we will have the tray ready before you sit down.','visit'),
+       ('system','system','Design system | One Street Watches',
+        'Internal reference: the mobile design language.',''),
        ('journal','journal','The journal | One Street Watches',
         'Market notes, buying guides and what actually happens at the bench, written by the people who buy and sell these watches every day.',''),
        ('about','about','About One Street Watches',
@@ -110,13 +112,14 @@ for slug,out,title,desc,nav in PAGES:
     extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
     mobile_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT["mobile.css"]}">'
     canon = SITE+'/' if out=='index' else f'{SITE}/{out}'
+    ROBOTS = '<meta name="robots" content="noindex">' if slug=='system' else ''
     html=f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
-<meta name="description" content="{desc}">
+<meta name="description" content="{desc}">{ROBOTS}
 <link rel="canonical" href="{canon}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
@@ -128,6 +131,7 @@ for slug,out,title,desc,nav in PAGES:
 <link rel="preconnect" href="/">
 <link rel="preload" href="assets/fonts/{FONTOUT.get('inter-tight-latin-300-normal.woff2','inter-tight-latin-300-normal.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/{CSSOUT['core.css']}">
+<link rel="stylesheet" href="assets/css/{CSSOUT['system.css']}">
 {extra_css}
 {mobile_css}
 <script src="assets/js/{JSOUT['core.js']}" defer></script>

@@ -1,0 +1,221 @@
+<div class="c-intro">
+  <div class="t-label">Internal reference</div>
+  <h1 style="margin-top:12px">Mobile design language</h1>
+  <p>One navigation model, one type scale, one spacing rhythm, and a fixed set of
+    components. Every screen is assembled from what is on this page. Nothing new is
+    invented for a single section.</p>
+</div>
+
+<div class="sysnav c-chips" id="sysnav"></div>
+
+<!-- ============ FOUNDATIONS ============ -->
+<section class="c-section" id="s-type">
+  <div class="c-sechead"><div><h2>Type</h2>
+    <p>Eight steps. Nothing below 12px except the uppercase label, which reads larger than it measures.</p></div></div>
+  <div class="c-list">
+    <div class="c-row"><span class="c-row__main"><span class="t-display">Display 32</span></span><span class="c-row__end">Page title</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-title">Title 24</span></span><span class="c-row__end">Section</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-head">Heading 19</span></span><span class="c-row__end">Card title</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-sub">Subhead 16</span></span><span class="c-row__end">Row title</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-body">Body 15 — the default for reading</span></span><span class="c-row__end">Prose</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-sec">Secondary 13.5</span></span><span class="c-row__end">UI text</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-cap">Caption 12</span></span><span class="c-row__end">Meta</span></div>
+    <div class="c-row"><span class="c-row__main"><span class="t-label">Label 11</span></span><span class="c-row__end">Eyebrow</span></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-space">
+  <div class="c-sechead"><div><h2>Space</h2>
+    <p>A single 4px rhythm. Ten steps, no values in between — the old CSS used 32 different gaps.</p></div></div>
+  <div id="spacedemo"></div>
+</section>
+
+<section class="c-section" id="s-nav">
+  <div class="c-sechead"><div><h2>Navigation</h2>
+    <p>One model everywhere. A dock for destinations, sheets for decisions, full-screen for search.</p></div></div>
+  <div class="c-list">
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Bottom dock</span>
+      <span class="c-row__s">Five destinations, always visible, thumb height. The only way to change place.</span></span></div>
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Bottom sheet</span>
+      <span class="c-row__s">Any decision that must not lose the user's place: filters, options, a case of watches.</span></span></div>
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Full screen</span>
+      <span class="c-row__s">Search only. It replaces the page because it replaces the task.</span></span></div>
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Back</span>
+      <span class="c-row__s">The browser's. We never draw our own back button — two back affordances is one too many.</span></span></div>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="c-btn c-btn--secondary" id="demo-sheet">Open a sheet</button>
+    <button class="c-btn c-btn--secondary" id="demo-search">Open search</button>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section class="c-section" id="s-btn">
+  <div class="c-sechead"><div><h2>Buttons</h2>
+    <p>Four variants. One primary per screen — if two things look primary, neither is.</p></div></div>
+  <div style="display:grid;gap:10px">
+    <button class="c-btn c-btn--block">Primary <span class="a">→</span></button>
+    <button class="c-btn c-btn--secondary c-btn--block">Secondary</button>
+    <div style="display:flex;gap:14px;align-items:center">
+      <button class="c-btn c-btn--ghost">Ghost link</button>
+      <button class="c-btn c-btn--icon" aria-label="Icon">＋</button>
+      <button class="c-btn" disabled>Disabled</button>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" id="s-card">
+  <div class="c-sechead"><div><h2>Cards</h2>
+    <p>One card. Media, body, foot. Ten bespoke card types collapse into this plus modifiers.</p></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <a class="c-card" href="#s-card">
+      <div class="c-card__media"><span class="c-tag">Unworn</span><div class="c-skel c-skel--media"></div></div>
+      <div class="c-card__body"><div class="c-card__k">Rolex</div>
+        <div class="c-card__t">Submariner</div><div class="c-card__p">Ref. 126610LV · 2022</div></div>
+    </a>
+    <div class="c-card c-card--tint">
+      <div class="c-card__body"><div class="c-card__k">Modifier</div>
+        <div class="c-card__t">Tinted</div>
+        <div class="c-card__p">Used where a card carries a summary rather than a product.</div>
+        <div class="c-card__foot"><span class="t-cap">Foot slot</span><span class="t-cap">→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" id="s-list">
+  <div class="c-sechead"><div><h2>Lists</h2>
+    <p>One row, four lead slots: none, number, icon or media. This replaces ten list patterns.</p></div></div>
+  <div class="c-list">
+    <div class="c-row"><span class="c-row__main"><span class="c-row__t">Plain row</span></span><span class="c-row__end">Meta</span></div>
+    <div class="c-row c-row--step"><span class="c-row__lead c-row__lead--num">01</span>
+      <span class="c-row__main"><span class="c-row__t">Numbered step</span>
+      <span class="c-row__s">Every process list on the site uses this — sell, sourcing, authentication.</span></span></div>
+    <div class="c-row"><span class="c-row__lead c-row__lead--media"></span>
+      <span class="c-row__main"><span class="c-row__t">Media row</span>
+      <span class="c-row__s">Search results, a case of watches, related pieces.</span></span>
+      <span class="c-row__end">Dhs. 58,500</span></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-stat">
+  <div class="c-sechead"><div><h2>Statistics</h2><p>Two up on a phone, four across from 768px.</p></div></div>
+  <div class="c-stats">
+    <div class="c-stat"><div class="c-stat__v">24</div><div class="c-stat__l">In the case</div></div>
+    <div class="c-stat"><div class="c-stat__v">7</div><div class="c-stat__l">Maisons</div></div>
+    <div class="c-stat"><div class="c-stat__v">2</div><div class="c-stat__l">Countries</div></div>
+    <div class="c-stat"><div class="c-stat__v">24mo</div><div class="c-stat__l">Warranty</div></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-quote">
+  <div class="c-sechead"><div><h2>Testimonial</h2><p>Always in a rail. A single quote reads as cherry-picked.</p></div></div>
+  <div class="c-rail">
+    <div class="c-quote"><div class="c-quote__stars" id="qs"></div>
+      <div class="c-quote__t">They opened it in front of me</div>
+      <div class="c-quote__p">The first time a dealer put the caseback on the bench before I paid.</div>
+      <div class="c-quote__by"><span class="c-quote__av">FA</span>
+        <span><span class="c-row__t">Faisal A.</span><span class="c-row__s">Dubai · March 2026</span></span></div></div>
+    <div class="c-quote"><div class="c-quote__stars"></div>
+      <div class="c-quote__t">Priced honestly</div>
+      <div class="c-quote__p">They showed me the comparables they had priced against.</div>
+      <div class="c-quote__by"><span class="c-quote__av">CM</span>
+        <span><span class="c-row__t">Charlotte M.</span><span class="c-row__s">London · February 2026</span></span></div></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-spec">
+  <div class="c-sechead"><div><h2>Specifications &amp; pricing</h2>
+    <p>The same two-column skeleton serves specs, service prices and comparisons.</p></div></div>
+  <div class="c-specs">
+    <div class="c-spec"><span>Reference</span><span>126610LV</span></div>
+    <div class="c-spec"><span>Year</span><span>2022</span></div>
+    <div class="c-spec"><span>Case</span><span>41 mm</span></div>
+    <div class="c-spec"><span>Dial</span><span>Black</span></div>
+    <div class="c-spec c-spec--full"><span>Box &amp; papers</span><span>Full set</span></div>
+  </div>
+  <div style="margin-top:24px">
+    <div class="c-price"><span><span class="c-row__t">Full service</span>
+      <span class="c-row__s">Strip-down, clean, regulation, pressure test</span></span>
+      <span class="c-price__v">1,850</span></div>
+    <div class="c-price"><span><span class="c-row__t">Polish &amp; refinish</span>
+      <span class="c-row__s">Factory-spec, by hand</span></span>
+      <span class="c-price__v">950</span></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-filter">
+  <div class="c-sechead"><div><h2>Chips &amp; segmented</h2>
+    <p>Chips for filters that toggle. Segmented for views that switch. Never both for the same job.</p></div></div>
+  <div class="c-chips" style="margin-bottom:16px">
+    <button class="c-chip" aria-pressed="true">Rolex</button>
+    <button class="c-chip" aria-pressed="false">Under 50k</button>
+    <button class="c-chip" aria-pressed="false">Full set</button>
+    <button class="c-chip" aria-pressed="false">Unworn</button>
+  </div>
+  <div class="c-seg" role="tablist">
+    <button role="tab" aria-selected="true">Popular</button>
+    <button role="tab" aria-selected="false">New in</button>
+    <button role="tab" aria-selected="false">By maison</button>
+  </div>
+</section>
+
+<section class="c-section" id="s-acc">
+  <div class="c-sechead"><div><h2>Accordion</h2>
+    <p>The one disclosure pattern. First item open, the rest closed, one open at a time.</p></div></div>
+  <div class="c-acc" id="accdemo">
+    <div class="c-acc__i is-open"><button class="c-acc__h">Do I pay anything up front?<i>+</i></button>
+      <div class="c-acc__b">No. There is no retainer and no search fee.</div></div>
+    <div class="c-acc__i"><button class="c-acc__h">How do you price what you find?<i>+</i></button>
+      <div class="c-acc__b">One number, delivered and authenticated, with our margin shown.</div></div>
+    <div class="c-acc__i"><button class="c-acc__h">Will it come with a warranty?<i>+</i></button>
+      <div class="c-acc__b">Twenty-four months, mechanical, honoured in both countries.</div></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-form">
+  <div class="c-sechead"><div><h2>Forms</h2>
+    <p>16px inputs so iOS never zooms. 52px targets. Long forms split into steps with a bar, not a numbered rail.</p></div></div>
+  <div class="c-steps"><i class="is-done"></i><i class="is-done"></i><i></i></div>
+  <form class="c-form" id="formdemo" novalidate>
+    <div class="c-field"><label for="d1">Full name</label><input id="d1" autocomplete="name"></div>
+    <div class="c-field"><label for="d2">Email</label><input id="d2" type="email" autocomplete="email">
+      <span class="c-field__hint">We send the confirmation here.</span></div>
+    <div class="c-field"><label for="d3">Anything we should know?</label><textarea id="d3"></textarea></div>
+    <button class="c-btn c-btn--block" type="submit">Continue <span class="a">→</span></button>
+  </form>
+</section>
+
+<section class="c-section" id="s-state">
+  <div class="c-sechead"><div><h2>States</h2>
+    <p>Empty, loading and success are components, not afterthoughts written per page.</p></div></div>
+
+  <div class="t-label" style="margin-bottom:10px">Loading</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px" id="skeldemo">
+    <div class="c-card"><div class="c-skel c-skel--media"></div>
+      <div class="c-card__body"><div class="c-skel c-skel--line is-short"></div>
+        <div class="c-skel c-skel--line"></div></div></div>
+    <div class="c-card"><div class="c-skel c-skel--media"></div>
+      <div class="c-card__body"><div class="c-skel c-skel--line is-short"></div>
+        <div class="c-skel c-skel--line"></div></div></div>
+  </div>
+
+  <div class="t-label" style="margin:26px 0 10px">Empty</div>
+  <div class="c-card c-card--flat" style="border-style:dashed">
+    <div class="c-empty"><div class="c-empty__t">Nothing matches that combination</div>
+      <div class="c-empty__p">Widen the price band, or tell our concierge what you are after — average eleven days.</div>
+      <button class="c-btn c-btn--secondary">Clear filters</button></div>
+  </div>
+
+  <div class="t-label" style="margin:26px 0 10px">Success</div>
+  <div class="c-card c-card--flat" style="border-style:dashed">
+    <div class="c-success"><div class="c-success__mark"><span></span></div>
+      <div class="t-title">You are booked in.</div>
+      <p class="t-body" style="margin-top:8px">Wednesday 5 August at 11:30, Vida Hotel.</p></div>
+  </div>
+</section>
+
+<section class="c-section" id="s-rules">
+  <div class="c-sechead"><div><h2>Interaction rules</h2>
+    <p>Decided once, applied everywhere. If a screen needs an exception, the rule is wrong.</p></div></div>
+  <div class="c-acc" id="rulesdemo"></div>
+</section>
