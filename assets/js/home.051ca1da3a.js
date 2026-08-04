@@ -2,19 +2,19 @@
 
 /* ---------- hero: the shoppable boutique ---------- */
 const SHOTS=[
- ["assets/img/boutique-salon.jpg","The main salon — Dubai",[
+ ["assets/img/boutique-salon.ea631f9f49.jpg","The main salon — Dubai",[
    {x:29,y:74,t:"Steel sports case",w:[1,3]},
    {x:63,y:80,t:"Rolex counter",w:[2,4]},
    {x:92,y:52,t:"Gold & two-tone wall",w:[6,13]}]],
- ["assets/img/boutique-corridor.jpg","The corridor, looking east",[
+ ["assets/img/boutique-corridor.598b73a1f7.jpg","The corridor, looking east",[
    {x:47,y:70,t:"Centre vitrine",w:[8,2]},
    {x:16,y:58,t:"Complications wall",w:[14,11]}]],
- ["assets/img/boutique-lounge.jpg","The lounge",[
+ ["assets/img/boutique-lounge.cc6e46eb3b.jpg","The lounge",[
    {x:17,y:70,t:"Arrivals case",w:[3,17]},
    {x:47,y:76,t:"Seating vitrine",w:[1,20]}]],
- ["assets/img/boutique-exterior.jpg","Building 5, Gold & Diamond Park",[
+ ["assets/img/boutique-exterior.374cb6d191.jpg","Building 5, Gold & Diamond Park",[
    {x:50,y:62,t:"Step inside",w:[1,2]}]],
- ["assets/img/boutique-wall.jpg","The high-complication wall",[
+ ["assets/img/boutique-wall.5ec75b6f36.jpg","The high-complication wall",[
    {x:38,y:74,t:"Island vitrine",w:[14,8]},
    {x:74,y:70,t:"Patek & AP case",w:[12,13]}]]
 ];
@@ -129,10 +129,10 @@ const SELL=[
 ];
 const PLAY='<svg width="8" height="9" viewBox="0 0 8 9"><path d="M0 0l8 4.5L0 9z"/></svg>';
 const SOCIAL=[
- {bg:"assets/img/boutique-salon.jpg",cap:"The salon, Tuesday morning",reel:0},
- {bg:"assets/img/boutique-exterior.jpg",cap:"Building 5, Gold & Diamond Park",reel:0},
+ {bg:"assets/img/boutique-salon.ea631f9f49.jpg",cap:"The salon, Tuesday morning",reel:0},
+ {bg:"assets/img/boutique-exterior.374cb6d191.jpg",cap:"Building 5, Gold & Diamond Park",reel:0},
  {ph:["Reel","Hulk unboxing, vertical 9:16, hands only"],cap:"Hulk unboxing",reel:1},
- {bg:"assets/img/boutique-corridor.jpg",cap:"New in — five pieces this week",reel:0},
+ {bg:"assets/img/boutique-corridor.598b73a1f7.jpg",cap:"New in — five pieces this week",reel:0},
  {ph:["Reel","Sizing a bracelet, close crop, TikTok cut"],cap:"Sizing a bracelet",reel:1},
  {ph:["Carousel","Box, papers and tags flat-lay for a full set"],cap:"What a full set means",reel:0}
 ];
@@ -192,7 +192,7 @@ function initReviews(){
 function initSections(){
   if($h('steps')) $h('steps').innerHTML=STEPS.map(s=>
     `<div class="step"><div class="stepn">${s[0]}</div><div class="stept">${s[1]}</div><div class="stepd">${s[2]}</div></div>`).join('');
-  if($h('filmbg')) $h('filmbg').style.backgroundImage='url(assets/img/boutique-lounge.jpg)';
+  if($h('filmbg')) $h('filmbg').style.backgroundImage='url(assets/img/boutique-lounge.cc6e46eb3b.jpg)';
   if($h('svcs')) $h('svcs').innerHTML=SVCS.map(s=>{
     const im = s.k!==undefined ? CATALOGUE[s.k].ims.find(x=>x.img) : null;
     return `<a class="svc" href="servicing.html">

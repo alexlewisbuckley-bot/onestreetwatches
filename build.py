@@ -1,18 +1,33 @@
-import os, shutil, re
+import os, shutil, re, hashlib
 B='site/'; OUT='prod/'
+# assets are served immutable for a year, so every filename must carry a
+# content hash — otherwise a browser that has visited before will keep
+# running last week's JS against this week's HTML.
+shutil.rmtree(OUT+'assets', ignore_errors=True)
 for d in ['', 'assets/css', 'assets/js', 'assets/fonts', 'assets/img']:
     os.makedirs(OUT+d, exist_ok=True)
+
+def fingerprint(subdir, name):
+    p = OUT+'assets/'+subdir+'/'+name
+    h = hashlib.sha256(open(p,'rb').read()).hexdigest()[:10]
+    stem, ext = os.path.splitext(name)
+    new = f'{stem}.{h}{ext}'
+    os.replace(p, OUT+'assets/'+subdir+'/'+new)
+    return new
 
 # ---------- fonts ----------
 FONTS=[('200','inter-tight-latin-200-normal.woff2'),('300','inter-tight-latin-300-normal.woff2'),
        ('400','inter-tight-latin-400-normal.woff2'),('500','inter-tight-latin-500-normal.woff2')]
 face=''
+FONTOUT={}
 for w,f in FONTS:
     src='node_modules/@fontsource/inter-tight/files/'+f
     if os.path.exists(src):
         shutil.copy(src, OUT+'assets/fonts/'+f)
+        hf = fingerprint('fonts', f)
+        FONTOUT[f] = hf
         face+=(f'@font-face{{font-family:"Inter Tight";font-style:normal;font-weight:{w};'
-               f'font-display:swap;src:url("../fonts/{f}") format("woff2");}}\n')
+               f'font-display:swap;src:url("../fonts/{hf}") format("woff2");}}\n')
 
 # ---------- images ----------
 IMGMAP={'__LOGO__':'logo.png','__IMG_CAM1__':'boutique-salon.jpg','__IMG_CAM2__':'boutique-wall.jpg',
@@ -25,7 +40,9 @@ SRC={'__LOGO__':'b/logo.png','__IMG_CAM1__':'b/cam1.jpg','__IMG_CAM2__':'b/cam2.
      '__W_HULK__':'b/w-hulk.webp','__W_STAR__':'b/w-starbucks.webp',
      '__W_SPRITE__':'b/w-sprite.webp','__W_WG__':'b/w-wg.webp'}
 for tok,name in IMGMAP.items():
-    if os.path.exists(SRC[tok]): shutil.copy(SRC[tok], OUT+'assets/img/'+name)
+    if os.path.exists(SRC[tok]):
+        shutil.copy(SRC[tok], OUT+'assets/img/'+name)
+        IMGMAP[tok] = fingerprint('img', name)
 ALIAS={'__W_APOR__':'__W_WG__','__W_RM__':'__W_SPRITE__','__W_SANTOS__':'__W_STAR__'}
 
 def img_path(tok, from_css=False):
@@ -33,20 +50,25 @@ def img_path(tok, from_css=False):
     return ('../img/' if from_css else 'assets/img/')+IMGMAP[real]
 
 # ---------- css ----------
+CSSOUT={}
 core=open(B+'core.css').read().replace('/*FONTS*/','')
 open(OUT+'assets/css/core.css','w').write(face+core)
+CSSOUT['core.css']=fingerprint('css','core.css')
 for f in ['page.css','shop.css','product.css','home.css']:
     if os.path.exists(B+f):
         css=open(B+f).read()
         for tok in list(IMGMAP)+list(ALIAS): css=css.replace(tok, img_path(tok, True))
         open(OUT+'assets/css/'+f,'w').write(css)
+        CSSOUT[f]=fingerprint('css',f)
 
 # ---------- js ----------
-for f in os.listdir(B):
+JSOUT={}
+for f in sorted(os.listdir(B)):
     if f.endswith('.js'):
         js=open(B+f).read()
         for tok in list(IMGMAP)+list(ALIAS): js=js.replace(tok, img_path(tok))
         open(OUT+'assets/js/'+f,'w').write(js)
+        JSOUT[f]=fingerprint('js',f)
 
 HEADER=open(B+'header.html').read()
 FOOTER=open(B+'footer.html').read()
@@ -79,10 +101,9 @@ SITE='https://onestreetwatches.com'
 for slug,out,title,desc,nav in PAGES:
     body=open(B+slug+'.html').read()
     for tok in list(IMGMAP)+list(ALIAS): body=body.replace(tok, img_path(tok))
-    extra_css = f'<link rel="stylesheet" href="assets/css/{slug}.css">' if os.path.exists(B+slug+'.css') else ''
-    if slug not in ('home','shop','product'):
-        extra_css = '<link rel="stylesheet" href="assets/css/page.css">'
-    extra_js = f'<script src="assets/js/{slug}.js" defer></script>' if os.path.exists(B+slug+'.js') else ''
+    page_css = slug+'.css' if slug in ('home','shop','product') else 'page.css'
+    extra_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT[page_css]}">' if page_css in CSSOUT else ''
+    extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
     canon = SITE+'/' if out=='index' else f'{SITE}/{out}'
     html=f'''<!DOCTYPE html>
 <html lang="en">
@@ -95,15 +116,15 @@ for slug,out,title,desc,nav in PAGES:
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{SITE}/assets/img/boutique-salon.jpg">
+<meta property="og:image" content="{SITE}/assets/img/{IMGMAP["__IMG_CAM1__"]}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F7F4EF">
-<link rel="icon" href="assets/img/logo.png">
+<link rel="icon" href="assets/img/{IMGMAP["__LOGO__"]}">
 <link rel="preconnect" href="/">
-<link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/core.css">
+<link rel="preload" href="assets/fonts/{FONTOUT.get('inter-tight-latin-300-normal.woff2','inter-tight-latin-300-normal.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/{CSSOUT['core.css']}">
 {extra_css}
-<script src="assets/js/core.js" defer></script>
+<script src="assets/js/{JSOUT['core.js']}" defer></script>
 {extra_js}
 </head>
 <body data-page="{nav}">
