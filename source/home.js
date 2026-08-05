@@ -108,12 +108,12 @@ function initPopular(){
 
 /* ---------- authentication steps ---------- */
 const STEPS=[
- ["01","Provenance &amp; register check","Serial and reference logged, then run through The Watch Register and our own purchase history before a penny changes hands."],
- ["02","Case, bracelet &amp; clasp","Lug geometry, chamfers and finishing compared against a known reference. Weights and micron measurements recorded."],
- ["03","Dial, hands &amp; lume","Ten-times loupe and UV. Font, print density, lume colour and applied index seating all checked for correct-period parts."],
- ["04","Movement &amp; engravings","Caseback opened. Calibre, bridge finishing, rotor engraving and screw heads inspected — the fastest place a fake gives itself away."],
- ["05","Timing &amp; pressure","Six positions on the timegrapher for rate, amplitude and beat error, then a dry pressure test to the stated depth."],
- ["06","Catalogued &amp; warranted","Photographed, the 41-point sheet filed against the serial, and the 24-month warranty issued in your name."]
+ ["01","Provenance","Serial run through The Watch Register and our own purchase history before we buy it."],
+ ["02","Case &amp; bracelet","Lug geometry, chamfers and weight compared against a known-genuine reference."],
+ ["03","Dial &amp; hands","Loupe and UV — font, lume and index seating checked for correct-period parts."],
+ ["04","Movement","Caseback off. Calibre, finishing and engraving inspected: where a fake gives itself away."],
+ ["05","Timing","Six positions on the timegrapher, then a pressure test to the stated depth."],
+ ["06","Warranted","Photographed, filed against the serial, and a 24-month warranty issued in your name."]
 ];
 /* ---------- services ---------- */
 const SVCS=[
@@ -219,6 +219,25 @@ document.addEventListener('DOMContentLoaded',()=>{
 /* ================= MOBILE =================
    The boutique hotspots were hover-driven. On touch they open the same
    popover the desktop uses — no new component, no sheet. */
+function buildMobileSteps(){
+  const box=$h('steps'); if(!box) return;
+  box.classList.add('msteps');
+  box.innerHTML=`<div class="mstepchips" role="tablist">${STEPS.map((s,i)=>
+      `<button role="tab" aria-selected="${i===0}" data-i="${i}">
+         <b>${s[0]}</b><span>${s[1]}</span></button>`).join('')}</div>
+    <div class="msteppanel" id="msteppanel" aria-live="polite"></div>`;
+  const panel=box.querySelector('#msteppanel');
+  const show=i=>{
+    panel.innerHTML=`<h4>${STEPS[i][1]}</h4><p>${STEPS[i][2]}</p>`;
+    box.querySelectorAll('[role=tab]').forEach((t,j)=>t.setAttribute('aria-selected',String(j===i)));
+  };
+  box.querySelectorAll('[role=tab]').forEach(t=>t.addEventListener('click',()=>{
+    show(+t.dataset.i);
+    t.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  }));
+  show(0);
+}
+
 function buildMobileHome(){
   const box=$h('spots'); if(!box) return;
   const label=document.querySelector('.hint');
@@ -241,5 +260,5 @@ function buildMobileHome(){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  if(window.osMobile && osMobile()) setTimeout(buildMobileHome,60);
+  if(window.osMobile && osMobile()) setTimeout(()=>{buildMobileHome();buildMobileSteps();},60);
 });

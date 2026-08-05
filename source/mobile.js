@@ -13,19 +13,19 @@ const ICON = {
 const svg = d => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
 
 /* every destination, visible — nothing hidden behind "More" */
+/* Three things people come to do, then the rest. Labels in their words,
+   not ours — "Find me a watch", not "Concierge sourcing". */
+const PRIMARY = [
+  {t:'Browse the case', s:'', href:'shop.html', k:'case'},
+  {t:'Ask us anything', s:'On WhatsApp, seven days', href:'#wa', k:'wa'},
+  {t:'Book a viewing',  s:'Dubai, the UK or on camera', href:'book.html', k:'book'}
+];
 const NAV = [
-  {g:'Shop', rows:[
-    {t:'All watches', href:'shop.html'},
-    {t:'Book a viewing', href:'book.html'}]},
-  {g:'Services', rows:[
-    {t:'Sell or part-exchange', href:'sell.html'},
-    {t:'Concierge sourcing',    href:'sourcing.html'},
-    {t:'Servicing & authentication', href:'servicing.html'}]},
-  {g:'One Street', rows:[
-    {t:'Visit us',    href:'visit.html'},
-    {t:'The journal', href:'journal.html'},
-    {t:'About',       href:'about.html'},
-    {t:'Contact',     href:'contact.html'}]}
+  {t:'Sell a watch',        href:'sell.html'},
+  {t:'Find me a watch',     href:'sourcing.html'},
+  {t:'Service a watch',     href:'servicing.html'},
+  {t:'Visit us',            href:'visit.html'},
+  {t:'About One Street',    href:'about.html'}
 ];
 const WANO='https://wa.me/97140000000';
 
@@ -51,19 +51,25 @@ function buildShell(){
         <button class="mbtn" id="m-close" aria-label="Close menu">${svg(ICON.close)}</button>
       </div>
       <div class="navmenu__body">
-        ${NAV.map(g=>`<div class="navgroup"><div class="t-label">${g.g}</div>
-          ${g.rows.map(r=>`<a class="navlink" href="${r.href}">${r.t}</a>`).join('')}</div>`).join('')}
-        <div class="navgroup">
-          <div class="t-label">Currency</div>
+        <div class="navbig">
+          ${PRIMARY.map(r=>`<a class="navtile" href="${r.k==='wa'?WANO:r.href}" data-k="${r.k}">
+            <span class="navtile__t">${r.t}</span>
+            ${r.s?`<span class="navtile__s">${r.s}</span>`:'<span class="navtile__s" data-n="stock"></span>'}
+            <span class="navtile__a">→</span></a>`).join('')}
+        </div>
+        <div class="navrest">
+          ${NAV.map(r=>`<a class="navlink" href="${r.href}">${r.t}</a>`).join('')}
+        </div>
+        <div class="navfoot">
           <div class="navcur">
             <button data-c="AED" aria-pressed="${CUR==='AED'}">AED</button>
             <button data-c="GBP" aria-pressed="${CUR==='GBP'}">GBP</button>
           </div>
-          <a class="navwa" href="${WANO}">${svg(ICON.wa)}WhatsApp us</a>
         </div>
       </div>`;
     document.body.appendChild(m);
     document.getElementById('m-close').addEventListener('click',closeMenu);
+    const sc=m.querySelector('[data-n="stock"]'); if(sc) sc.textContent=CATALOGUE.length+' in stock now';
     m.querySelectorAll('.navcur button').forEach(b=>b.addEventListener('click',()=>{
       CUR=b.dataset.c; localStorage.setItem('osw-cur',CUR);
       m.querySelectorAll('.navcur button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.c===CUR)));
