@@ -298,7 +298,7 @@ function initHeader(){
 
 /* ---------------- header search ---------------- */
 const PAGES=[
- ['Sell or part-exchange','A firm offer within the hour, paid the same day','sell.html'],
+ ['Sell or part-exchange','A firm offer within 24 hours, paid the same day','sell.html'],
  ['Concierge sourcing','Name the reference — we hunt it down','sourcing.html'],
  ['Servicing &amp; polishing','Swiss-trained watchmakers, our own bench','servicing.html'],
  ['Authentication','41 checks and a written report','servicing.html'],

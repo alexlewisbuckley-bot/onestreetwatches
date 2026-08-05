@@ -298,7 +298,7 @@ function initHeader(){
 
 /* ---------------- header search ---------------- */
 const PAGES=[
- ['Sell or part-exchange','A firm offer within the hour, paid the same day','sell.html'],
+ ['Sell or part-exchange','A firm offer within 24 hours, paid the same day','sell.html'],
  ['Concierge sourcing','Name the reference — we hunt it down','sourcing.html'],
  ['Servicing &amp; polishing','Swiss-trained watchmakers, our own bench','servicing.html'],
  ['Authentication','41 checks and a written report','servicing.html'],
@@ -684,7 +684,7 @@ const FLOW={
       {k:'kit',   l:'What is included',      type:'chips', opts:['Full set','Box only','Papers only','Watch only']}
     ],
     cta:'Get a valuation on WhatsApp',
-    note:'Send four photos — front, back, clasp and papers — and we come back with a firm number, usually within the hour.',
+    note:'Send four photos — front, back, clasp and papers — and we come back with a firm number within 24 hours.',
     msg:v=>`Hello — I would like a valuation.\n\n${v.brand||''} ${v.model||''}\n`+
            `Condition: ${v.cond||'—'}\nIncludes: ${v.kit||'—'}\n\nI will send photographs next.`
   },

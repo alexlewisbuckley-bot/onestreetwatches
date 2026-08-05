@@ -131,7 +131,7 @@ function initComposer(box){
       document.querySelector('.csin').innerHTML=`
         <div class="csh">Received</div>
         <p class="csdone">Thank you — your ${V.brand} ${V.model} is with us.
-        A firm number goes to <b>${V.contact}</b>, usually within the hour of opening times.</p>
+        A firm number goes to <b>${V.contact}</b> within 24 hours.</p>
         <a class="csalt" href="shop.html">Browse all watches while you wait</a>`;
     }catch(e){
       SENDING=false;

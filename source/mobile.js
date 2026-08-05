@@ -182,7 +182,7 @@ const FLOW={
       {k:'kit',   l:'What is included',      type:'chips', opts:['Full set','Box only','Papers only','Watch only']}
     ],
     cta:'Get a valuation on WhatsApp',
-    note:'Send four photos — front, back, clasp and papers — and we come back with a firm number, usually within the hour.',
+    note:'Send four photos — front, back, clasp and papers — and we come back with a firm number within 24 hours.',
     msg:v=>`Hello — I would like a valuation.\n\n${v.brand||''} ${v.model||''}\n`+
            `Condition: ${v.cond||'—'}\nIncludes: ${v.kit||'—'}\n\nI will send photographs next.`
   },
