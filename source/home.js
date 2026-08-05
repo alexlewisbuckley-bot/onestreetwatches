@@ -79,6 +79,18 @@ function initNew(){
   bindZones(t);
 }
 
+/* ---------- collector picks: a second shelf, no overlap with the first ---------- */
+function initPicks(){
+  const t=$h('track2'); if(!t) return;
+  const newest=new Set(CATALOGUE.map((w,i)=>({w,i})).sort((a,b)=>b.w.y-a.w.y).slice(0,8).map(o=>o.i));
+  const picks=CATALOGUE.map((w,i)=>({w,i}))
+    .filter(o=>!newest.has(o.i))
+    .sort((a,b)=>b.w.aed-a.w.aed).slice(0,8);
+  t.innerHTML=picks.map(o=>productCard(o.w,o.i)).join('');
+  t.querySelectorAll('.pcard').forEach((c,n)=>c.setAttribute('href','product.html?i='+picks[n].i));
+  bindZones(t);
+}
+
 /* ---------- shop by brand: three tiles + a link row ----------
    Only Rolex has real photography today; the other two tiles carry
    art-directed placeholders rather than borrowing the wrong watch. */
@@ -111,13 +123,13 @@ function initSpotlight(){
     <div class="f3">${FEATURED.map(i=>{
       const w=CATALOGUE[i], im=w.ims.find(x=>x.img);
       return `<a class="fcard" href="product.html?i=${i}">
-        <div class="fart"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
-        <div class="fbd">
-          <div class="fbrand">${w.b}</div>
-          <div class="fname">${w.m}</div>
-          <div class="fmeta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
+        <div class="f3art"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
+        <div class="f3bd">
+          <div class="f3brand">${w.b}</div>
+          <div class="f3name">${w.m}</div>
+          <div class="f3meta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
             <i></i><span>${w.y}</span><i></i><span>${w.box&&w.pap?'Full set':w.c}</span></div>
-          <span class="fgo">View this watch →</span>
+          <span class="f3go">View this watch →</span>
         </div></a>`;}).join('')}</div>`;
   repaintMoney();
 }
@@ -188,7 +200,7 @@ function initReviews(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  initHero(); initNew(); initMaisons(); initSpotlight(); initSocial(); initReviews();
+  initHero(); initNew(); initPicks(); initMaisons(); initSpotlight(); initSocial(); initReviews();
   repaintMoney();
 });
 

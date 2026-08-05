@@ -12,12 +12,20 @@
 /* ---------- count / sort row ---------- */
 .shopbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 52px;
  border-bottom:1px solid var(--line)}
-.shopsearch{display:flex;align-items:center;gap:9px;height:44px;flex:1;max-width:340px;min-width:180px;
- border-bottom:1px solid var(--line2);color:var(--pale);transition:border-color .3s}
-.shopsearch:focus-within{border-color:var(--ink)}
-.shopsearch input{flex:1;border:none;outline:none;background:none;font:inherit;font-size:12px;
- letter-spacing:.03em;color:var(--ink);min-width:0}
-.shopsearch input::placeholder{color:var(--pale)}
+.shopsearch{display:flex;align-items:center;gap:10px;height:44px;flex:1;max-width:320px;min-width:180px;
+ border:1px solid var(--line2);background:var(--white);padding:0 15px;color:var(--pale);
+ transition:border-color .3s,box-shadow .3s}
+.shopsearch:hover{border-color:var(--pale)}
+.shopsearch:focus-within{border-color:var(--ink);color:var(--ink)}
+.shopsearch svg{flex:none}
+.shopsearch input{flex:1;border:none;outline:none;background:none;font:inherit;font-size:12.5px;
+ letter-spacing:.02em;color:var(--ink);min-width:0;height:100%}
+.shopsearch input::placeholder{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--pale)}
+.shopsearch input::-webkit-search-cancel-button{display:none}
+.sqclear{flex:none;width:26px;height:26px;display:none;place-items:center;font-size:14px;
+ color:var(--muted);transition:color .25s}
+.sqclear:hover{color:var(--ink)}
+.shopsearch.has .sqclear{display:grid}
 .count{font-size:12px;color:var(--muted);flex:none;letter-spacing:.04em}
 .count b{color:var(--ink);font-weight:500}
 .active{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
@@ -53,11 +61,22 @@
 .filtoggle[aria-expanded="true"] b{background:#fff;color:var(--char)}
 .filtoggle b[hidden]{display:none}   /* author display beats the hidden attribute otherwise */
 .locseg{display:flex;border:1px solid var(--line2);height:44px}
-.locseg button{padding:0 16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
- color:var(--muted);border-right:1px solid var(--line2);transition:background .25s,color .25s}
+.locseg button{position:relative;padding:0 16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--muted);border-right:1px solid var(--line2);transition:background .25s,color .25s;overflow:hidden}
 .locseg button:last-child{border-right:none}
 .locseg button:hover{color:var(--ink)}
 .locseg button[aria-pressed="true"]{background:var(--char);color:#fff}
+/* each country wears its colours as a fine thread along the base */
+.locseg button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+ opacity:.35;transition:opacity .3s var(--e)}
+.locseg button:hover::after,.locseg button[aria-pressed="true"]::after{opacity:1}
+.locseg button[data-l="Dubai"]::after{background:linear-gradient(90deg,
+ #EF3340 0 14%,#00843D 14% 43%,#F4F4F2 43% 71%,#141414 71% 100%)}
+.locseg button[data-l="United Kingdom"]::after{background:linear-gradient(90deg,
+ #012169 0 30%,#F4F4F2 30% 42%,#C8102A 42% 58%,#F4F4F2 58% 70%,#012169 70% 100%)}
+.locseg button[data-l=""]::after{background:linear-gradient(90deg,
+ #EF3340 0 10%,#00843D 10% 28%,#F4F4F2 28% 46%,#141414 46% 55%,
+ #012169 55% 72%,#F4F4F2 72% 82%,#C8102A 82% 100%)}
 
 /* ---------- filter rail ---------- */
 .frail{min-width:0}

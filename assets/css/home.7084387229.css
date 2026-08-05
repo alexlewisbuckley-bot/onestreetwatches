@@ -58,20 +58,20 @@
 .f3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:1220px;margin:0 auto}
 .fcard{border:1px solid var(--line);background:#fff;display:block;transition:border-color .35s}
 .fcard:hover{border-color:var(--ink)}
-.fart{aspect-ratio:1/.88;background:var(--sand);display:grid;place-items:center;overflow:hidden}
-.fart img{width:56%;height:auto;object-fit:contain;
+.f3art{aspect-ratio:1/.88;background:var(--sand);display:grid;place-items:center;overflow:hidden}
+.f3art img{width:56%;height:auto;object-fit:contain;
  filter:drop-shadow(0 12px 16px rgba(0,0,0,.14));transition:transform .6s var(--e)}
-.fcard:hover .fart img{transform:scale(1.05)}
-.fbd{padding:20px 22px 24px;text-align:center}
-.fbrand{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);font-weight:600}
-.fname{margin-top:8px;font-size:15.5px;font-weight:300;letter-spacing:-.01em}
-.fmeta{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;
+.fcard:hover .f3art img{transform:scale(1.05)}
+.f3bd{padding:20px 22px 24px;text-align:center}
+.f3brand{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);font-weight:600}
+.f3name{margin-top:8px;font-size:15.5px;font-weight:300;letter-spacing:-.01em}
+.f3meta{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;
  margin-top:10px;font-size:11.5px;letter-spacing:.02em;color:var(--muted)}
-.fmeta .money{color:var(--ink);font-size:12.5px}
-.fmeta i{width:3px;height:3px;background:var(--line2);font-style:normal}
-.fgo{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+.f3meta .money{color:var(--ink);font-size:12.5px}
+.f3meta i{width:3px;height:3px;background:var(--line2);font-style:normal}
+.f3go{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
  color:var(--ink);border-bottom:1px solid var(--line2);padding-bottom:3px;transition:border-color .3s}
-.fcard:hover .fgo{border-color:var(--ink)}
+.fcard:hover .f3go{border-color:var(--ink)}
 
 /* ---------- editorial doors ---------- */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -104,6 +104,6 @@
   .duo{grid-template-columns:1fr;gap:26px}
   .spot2{margin-top:44px;padding:0 16px}
   .f3{grid-template-columns:1fr;gap:12px}
-  .fart{aspect-ratio:1/.72}
+  .f3art{aspect-ratio:1/.72}
   .h2shot .thumbs{display:none}
 }

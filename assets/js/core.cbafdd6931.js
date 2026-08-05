@@ -540,6 +540,7 @@ const NAV = [
   {t:'Find me a watch',     href:'sourcing.html'},
   {t:'Service a watch',     href:'servicing.html'},
   {t:'Visit us',            href:'visit.html'},
+  {t:'The community',       href:'community.html'},
   {t:'About One Street',    href:'about.html'}
 ];
 const WANO=WA_LINK;

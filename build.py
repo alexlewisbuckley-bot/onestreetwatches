@@ -106,6 +106,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'Market notes, buying guides and what actually happens at the bench, written by the people who buy and sell these watches every day.',''),
        ('about','about','About One Street Watches',
         'A watch dealer in Dubai and the United Kingdom, founded in 2021. We hold our own stock and authenticate it at our own bench.',''),
+       ('community','community','The community | One Street Watches',
+        'Collector dinners, first looks and straight talk — the One Street community in Dubai and the United Kingdom. Membership is free and stays small.','community'),
        ('contact','contact','Contact One Street Watches',
         'WhatsApp, phone, email, or visit us in Dubai and the United Kingdom. A real person, seven days a week.','')]
 

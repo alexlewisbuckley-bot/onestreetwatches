@@ -96,8 +96,12 @@ function buildRail(){
   /* live search — the grid narrows as you type */
   const sq=document.getElementById('shopq');
   if(sq){
+    const wrapEl=sq.closest('.shopsearch'), clr=document.getElementById('sqclear');
+    const paintHas=()=>wrapEl.classList.toggle('has',!!sq.value);
     if(Q) sq.value=Q;
-    sq.addEventListener('input',()=>{ Q=sq.value.trim(); render(); });
+    paintHas();
+    sq.addEventListener('input',()=>{ Q=sq.value.trim(); paintHas(); render(); });
+    clr.addEventListener('click',()=>{ sq.value=''; Q=''; paintHas(); render(); sq.focus(); });
   }
 
   /* the location toggle mirrors the loc filter — one place of truth */
