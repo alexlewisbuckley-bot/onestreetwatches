@@ -4,7 +4,7 @@
 
 /* ---------- hero: the shoppable boutique ---------- */
 const SHOTS=[
- ["assets/img/boutique-salon.ea631f9f49.jpg","The main salon — Dubai",[
+ ["assets/img/boutique-salon.ea631f9f49.jpg","The main boutique — Dubai",[
    {x:29,y:74,t:"Steel sports case",w:[1,3]},
    {x:63,y:80,t:"Rolex counter",w:[2,4]},
    {x:92,y:52,t:"Gold & two-tone wall",w:[6,13]}]],
@@ -132,7 +132,7 @@ function initSpotlight(){
 /* ---------- social ---------- */
 const PLAY='<svg width="8" height="9" viewBox="0 0 8 9"><path d="M0 0l8 4.5L0 9z"/></svg>';
 const SOCIAL=[
- {bg:"assets/img/boutique-salon.ea631f9f49.jpg",cap:"The salon, Tuesday morning",reel:0},
+ {bg:"assets/img/boutique-salon.ea631f9f49.jpg",cap:"The boutique, Tuesday morning",reel:0},
  {bg:"assets/img/boutique-exterior.374cb6d191.jpg",cap:"Vida Hotel, Emirates Hills",reel:0},
  {ph:["Reel","Hulk unboxing, vertical 9:16, hands only"],cap:"Hulk unboxing",reel:1},
  {bg:"assets/img/boutique-corridor.598b73a1f7.jpg",cap:"New in — five pieces this week",reel:0},

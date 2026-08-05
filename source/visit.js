@@ -1,5 +1,5 @@
 const GAL=["__IMG_CAM1__","__IMG_CAM4__","__IMG_CAM3__","__IMG_EXT__","__IMG_CAM2__"];
-const CAPS=["The main salon","The corridor","The lounge","The entrance","The complication wall"];
+const CAPS=["The main boutique","The corridor","The lounge","The entrance","The complication wall"];
 document.addEventListener('DOMContentLoaded',()=>{
   const g=document.getElementById('visitgal'); if(!g) return;
   g.innerHTML=GAL.map((s,i)=>`<a class="tile6" href="#"><div class="bg" style="background-image:url(${s})"></div>
