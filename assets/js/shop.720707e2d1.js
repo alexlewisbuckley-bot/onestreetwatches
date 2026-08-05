@@ -93,6 +93,13 @@ function buildRail(){
   rail.querySelectorAll('.rng').forEach(initRange);
   document.getElementById('clear').addEventListener('click',clearAll);
 
+  /* the location toggle mirrors the loc filter — one place of truth */
+  document.querySelectorAll('#locseg button').forEach(b=>b.addEventListener('click',()=>{
+    F.loc.clear();
+    if(b.dataset.l) F.loc.add(b.dataset.l);
+    render();
+  }));
+
   /* the rail is a drawer — closed by default, 4-up; open, 3-up */
   const wrap=document.querySelector('.shopwrap'), tog=document.getElementById('filtoggle');
   if(tog) tog.addEventListener('click',()=>{
@@ -302,6 +309,12 @@ function syncControls(){
     r.querySelector('input').checked=on; r.classList.toggle('on',on);});
   document.querySelectorAll('.segs button').forEach(b=>
     b.setAttribute('aria-pressed', String(F[b.dataset.k].has(b.dataset.v))));
+  const seg=document.getElementById('locseg');
+  if(seg){
+    const one=F.loc.size===1?[...F.loc][0]:'';
+    seg.querySelectorAll('button').forEach(b=>
+      b.setAttribute('aria-pressed',String(b.dataset.l===(F.loc.size===1?one:''))));
+  }
   GROUPS.forEach(g=>{
     const wrap=document.querySelector(`.fwrap[data-g="${g.k}"]`); if(!wrap) return;
     const btn=wrap.querySelector('.fbtn'), tag=btn.querySelector('b');
