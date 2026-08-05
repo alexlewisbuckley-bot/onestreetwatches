@@ -102,7 +102,13 @@
   /* content pages: the two-column split and 4-up grids cannot hold their
      minimum width at 390px and were widening the layout viewport */
   .wrap,.pwrap{padding-left:16px;padding-right:16px;max-width:100%}
-  .split,.split.narrow{grid-template-columns:1fr !important;gap:28px;padding:36px 0}
+  /* minmax(0,1fr), not 1fr: an `auto` grid minimum takes the track's
+     min-content size, and a nowrap flex child (the step chips) reports its
+     full scroll width there — which widened the track to 719px inside a
+     358px container. min-width:0 on the items closes the same hole for any
+     future horizontal rail dropped into a split. */
+  .split,.split.narrow{grid-template-columns:minmax(0,1fr) !important;gap:28px;padding:36px 0}
+  .split > *{min-width:0}
   .cgrid,.cgrid.four{grid-template-columns:1fr 1fr !important;gap:10px}
   .facts{grid-template-columns:1fr 1fr !important}
   .facts > div{border-right:1px solid var(--line)}
@@ -110,6 +116,10 @@
   .fgrid{grid-template-columns:1fr !important}
   .grid6{grid-template-columns:1fr 1fr !important}
   body[data-page="visit"] .cgrid{grid-template-columns:1fr !important}
+  /* two-up only works for label-length cards. These hold paragraphs, and at
+     ~130px of measure they read worse and — because the rows go ragged —
+     actually run taller than a single column. */
+  body[data-page="sell"] .cgrid,body[data-page="sourcing"] .cgrid{grid-template-columns:1fr !important}
   .loc2 .acts{flex-direction:column}
   .loc2 .acts .b1,.loc2 .acts .b2{width:100%;justify-content:center}
   .split h2,.cta h2{font-size:26px}
@@ -242,8 +252,8 @@
   .rail{margin:0 -16px;padding:0 16px}
   .track{scroll-padding-left:16px}
   /* authentication: six taps, not six paragraphs */
-  .msteps{display:block}
-  .mstepchips{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+  .msteps{display:block;min-width:0}
+  .mstepchips{display:flex;min-width:0;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
    margin:0 calc(var(--gut) * -1);padding:0 var(--gut) var(--s4);scroll-padding-left:var(--gut)}
   .mstepchips::-webkit-scrollbar{display:none}
   .mstepchips button{flex:none;min-height:52px;padding:0 var(--s4);border:var(--hair2);
@@ -502,6 +512,15 @@
   .floc p{line-height:1.7}
   .fbot{padding:var(--s5) 0 var(--s6) !important;gap:var(--s3) !important}
   .fbot .lks{gap:var(--s3) var(--s4) !important}
+  /* every footer link was a 14–25px tall target. Padding, not font size:
+     the type stays quiet, the thumb gets 44px. */
+  .fcol a{padding:var(--s3) 0 !important;min-height:var(--tap);display:flex;align-items:center}
+  .fbot .lks a,.floc a:not(.fwa){display:inline-flex;align-items:center;min-height:var(--tap)}
+  .fsocial a{min-height:var(--tap);display:inline-flex;align-items:center}
+  .pill{min-height:var(--tap)}
+  .floc a.fwa{min-height:var(--tap)}
+  .crumbs a{display:inline-flex;align-items:center;min-height:var(--tap)}
+  .crumbs{display:flex;align-items:center;flex-wrap:wrap}
   .fnews{margin-top:var(--s4)}
   .fsocial{margin-top:var(--s4)}
 
