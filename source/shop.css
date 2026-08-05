@@ -25,7 +25,7 @@
 .fclear:hover{color:var(--ink);border-color:var(--ink)}
 .sortwrap{display:flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:.16em;
  text-transform:uppercase;color:var(--muted);flex:none;margin-left:auto}
-.fclear + .sortwrap{margin-left:0}
+.fclear:not([hidden]) + .sortwrap{margin-left:0}   /* a hidden Clear still matches + otherwise */
 .sortwrap select{font:inherit;font-size:12px;color:var(--ink);background:var(--white);
  border:1px solid var(--line2);padding:8px 11px;outline:none;cursor:pointer;border-radius:0}
 
