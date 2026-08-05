@@ -1,4 +1,6 @@
-/* ================= HOME ================= */
+/* ================= HOME (v2.1) =================
+   Image-led. The hero keeps its shoppable hotspots — that IS product —
+   and everything else on the page is either a watch or a door. */
 
 /* ---------- hero: the shoppable boutique ---------- */
 const SHOTS=[
@@ -66,67 +68,68 @@ function initHero(){
     t.addEventListener('focus',()=>showShot(+t.dataset.i));});
   const run=()=>{if(!auto)auto=setInterval(()=>showShot((cur+1)%SHOTS.length),9000)};
   run();
-  document.querySelector('.shot').addEventListener('mouseenter',()=>{clearInterval(auto);auto=null});
+  document.querySelector('.h2shot').addEventListener('mouseenter',()=>{clearInterval(auto);auto=null});
   document.addEventListener('visibilitychange',()=>document.hidden?(clearInterval(auto),auto=null):run());
-
-  /* featured card — first watch with a real image */
-  const k=CATALOGUE.findIndex(w=>w.ims.some(x=>x.img));
-  const w=CATALOGUE[k], im=w.ims.find(x=>x.img);
-  $h('w-img').src=im.img; $h('w-brand').textContent=w.b; $h('w-name').textContent=w.m;
-  $h('w-ref').textContent=w.r+' · '+w.y+' · '+(w.box&&w.pap?'Full set':'See details');
-  const pr=$h('w-price'); pr.classList.add('money'); pr.dataset.aed=w.aed; pr.textContent=money(w.aed);
-  document.querySelector('.cbody').setAttribute('href','product.html?i='+k);
-  $h('fromPrice').classList.add('money'); $h('fromPrice').dataset.aed=16400;
 }
 
-/* ---------- shop by maison ---------- */
-const BRANDS=[
- {n:"Rolex",c:58,k:1},{n:"Patek Philippe",c:16,ph:["Nautilus 5711","Rose gold, 45° on sand, one soft key light"]},
- {n:"Audemars Piguet",c:21,k:13},{n:"Richard Mille",c:6,k:14},
- {n:"Cartier",c:14,k:17},{n:"Vacheron Constantin",c:7,ph:["Overseas","Blue dial at 45°, bracelet fanned right"]},
- {n:"Hublot",c:9,ph:["Big Bang Unico","Three-quarter on sand, skeleton dial, rubber strap"]}
-];
-function initBrands(){
-  const t=$h('btrack'); if(!t) return;
-  t.innerHTML=BRANDS.map(b=>{
-    const im = b.k!==undefined ? (CATALOGUE[b.k].ims.find(x=>x.img)) : null;
-    return `<a class="bcard" href="${shopURL({brand:b.n})}">
-      <div class="art">${im?`<img src="${im.img}" alt="${b.n}">`
-        :`<div class="ph"><div class="l1">${b.ph[0]}</div><div class="l2">${b.ph[1]}</div></div>`}</div>
-      <div class="foot"><div><div class="bname">${b.n}</div><div class="bcount">${nWhere(w=>w.b===b.n)} in stock</div></div>
-      <div class="bgo" aria-hidden="true">→</div></div></a>`;}).join('');
-}
-
-/* ---------- popular right now ---------- */
-function initPopular(){
+/* ---------- new this week: the eight most recent, product cards only ---------- */
+function initNew(){
   const t=$h('track'); if(!t) return;
-  const picks=[0,1,2,8,3,12,4,17];
-  t.innerHTML=picks.map(i=>productCard(CATALOGUE[i],i)).join('');
-  t.querySelectorAll('.pcard').forEach((c,n)=>c.setAttribute('href','product.html?i='+picks[n]));
+  const picks=CATALOGUE.map((w,i)=>({w,i})).sort((a,b)=>b.w.y-a.w.y).slice(0,8);
+  t.innerHTML=picks.map(o=>productCard(o.w,o.i)).join('');
+  t.querySelectorAll('.pcard').forEach((c,n)=>c.setAttribute('href','product.html?i='+picks[n].i));
   bindZones(t);
 }
 
-/* ---------- authentication steps ---------- */
-const STEPS=[
- ["01","Provenance","Serial run through The Watch Register and our own purchase history before we buy it."],
- ["02","Case &amp; bracelet","Lug geometry, chamfers and weight compared against a known-genuine reference."],
- ["03","Dial &amp; hands","Loupe and UV — font, lume and index seating checked for correct-period parts."],
- ["04","Movement","Caseback off. Calibre, finishing and engraving inspected: where a fake gives itself away."],
- ["05","Timing","Six positions on the timegrapher, then a pressure test to the stated depth."],
- ["06","Warranted","Photographed, filed against the serial, and a 12-month warranty issued in your name."]
+/* ---------- shop by maison: three tiles + a link row ----------
+   Only Rolex has real photography today; the other two tiles carry
+   art-directed placeholders rather than borrowing the wrong watch. */
+const TILES=[
+ {n:"Rolex",k:1},
+ {n:"Audemars Piguet",ph:["Royal Oak","Rose gold Double Balance, three-quarter on grey"]},
+ {n:"Cartier",ph:["Santos de Cartier","Green lacquer dial, three-quarter on grey"]}
 ];
-/* ---------- services ---------- */
-const SVCS=[
- {t:"Servicing &amp; polishing",d:"Full strip-down, ultrasonic clean, lubrication and regulation by Swiss-trained watchmakers — plus factory-spec refinishing when a case deserves it.",ph:["The bench","Watchmaker at the bench, loupe in eye, movement open on the mat"]},
- {t:"Authentication",d:"Bring us anything, bought from us or not. 41 checks, a written report against the serial, and an honest answer either way.",ph:["Loupe &amp; movement","Macro of a movement under the loupe, tweezers in frame"]},
- {t:"Sourcing",d:"Name the reference. We hunt it through our dealer network and come back with real options and real prices. Average: 48 hours.",k:2},
- {t:"Selling &amp; part-exchange",d:"Outright purchase or trade against anything in the case. A firm offer within the hour and payment the same day, in the UAE or the UK.",ph:["The counter","Watch and papers on the desk mid-valuation, hands only"]}
-];
-const SELL=[
- ["01","Send us photos","Front, back, clasp and papers on WhatsApp, or book a five-minute appointment at either location. No forms."],
- ["02","A firm offer within the hour","Priced against live market data, not a lowball opener. We show you the comparables we used."],
- ["03","Paid the same day","Bank transfer on collection, or put the value straight against anything in the case and walk out with it."]
-];
+function initMaisons(){
+  const box=$h('mtiles'); if(!box) return;
+  box.innerHTML=TILES.map(t=>{
+    const im=t.k!==undefined ? CATALOGUE[t.k].ims.find(x=>x.img) : null;
+    return `<a class="mtile" href="${shopURL({brand:t.n})}">
+      <div class="art">${im?`<img src="${im.img}" alt="${t.n}">`
+        :`<div class="ph"><div class="l1">${t.ph[0]}</div><div class="l2">${t.ph[1]}</div></div>`}</div>
+      <div class="lbl">Shop ${t.n}<em>${nWhere(w=>w.b===t.n)}</em></div>
+    </a>`;}).join('');
+  const rest=[...new Set(CATALOGUE.map(w=>w.b))].filter(b=>!TILES.some(t=>t.n===b));
+  $h('mrowlinks').innerHTML=rest.map(b=>`<a href="${shopURL({brand:b})}">${b}</a>`).join('')
+    +`<a href="shop.html">All maisons</a>`;
+}
+
+/* ---------- spotlight ----------
+   Only these four indices carry genuinely their own photography —
+   the other image tokens are aliased stand-ins, and a spotlight must
+   never wear another watch's picture. */
+const REAL=[1,2,3,4];
+function initSpotlight(){
+  const box=$h('spotlight'); if(!box) return;
+  let idx=-1;
+  REAL.forEach(i=>{ if(idx<0||CATALOGUE[i].aed>CATALOGUE[idx].aed) idx=i; });
+  const w=CATALOGUE[idx], im=w.ims.find(x=>x.img);
+  box.innerHTML=`<div class="in">
+    <div class="art"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
+    <div class="bd">
+      <div class="k">Featured this week</div>
+      <h2>${w.b} ${w.m}</h2>
+      <div class="pr money" data-aed="${w.aed}">${money(w.aed)}</div>
+      <p class="why">${w.y} · ${w.c} · ${w.box&&w.pap?'Full set':'See details'} · held in ${w.loc}</p>
+      <div class="acts">
+        <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
+        <a class="b2" href="${bandURL(250000,null)}">The vault <span class="a">→</span></a>
+      </div>
+    </div>
+  </div>`;
+  repaintMoney();
+}
+
+/* ---------- social ---------- */
 const PLAY='<svg width="8" height="9" viewBox="0 0 8 9"><path d="M0 0l8 4.5L0 9z"/></svg>';
 const SOCIAL=[
  {bg:"__IMG_CAM1__",cap:"The salon, Tuesday morning",reel:0},
@@ -136,10 +139,17 @@ const SOCIAL=[
  {ph:["Reel","Sizing a bracelet, close crop, TikTok cut"],cap:"Sizing a bracelet",reel:1},
  {ph:["Carousel","Box, papers and tags flat-lay for a full set"],cap:"What a full set means",reel:0}
 ];
+function initSocial(){
+  if(!$h('social')) return;
+  $h('social').innerHTML=SOCIAL.map(s=>
+    `<a class="tile6" href="#">${s.bg?`<div class="bg" style="background-image:url(${s.bg})"></div>`
+      :`<div class="ph"><div class="l1">${s.ph[0]}</div><div class="l2">${s.ph[1]}</div></div>`}
+     ${s.reel?`<span class="reel${s.bg?'':' dark'}">${PLAY}</span>`:''}
+     <div class="ov"><span>${s.cap}</span></div></a>`).join('');
+}
 
 /* ---------- client reviews ----------
-   PLACEHOLDER COPY — replace with the real Trustpilot / Google feed before launch,
-   and swap each .rvav for the client's own photo (or keep initials if they decline). */
+   PLACEHOLDER COPY — replace with the real Trustpilot / Google feed before launch. */
 const STAR='<svg viewBox="0 0 20 19" aria-hidden="true"><path d="M10 0l3.09 6.26L20 7.27l-5 4.87 1.18 6.88L10 15.77 3.82 19 5 12.14 0 7.27l6.91-1.01z"/></svg>';
 const REVIEWS=[
  {n:"Faisal A.",l:"Dubai",r:5,t:"They opened it in front of me",
@@ -167,14 +177,9 @@ const REVIEWS=[
   q:"A clasp came loose three weeks in. They collected it, repaired it under the warranty and returned it within four days without a single form. That is the part nobody can show you before you buy.",
   w:"Explorer 36",d:"November 2025"}
 ];
-const DIST=[[5,89],[4,8],[3,2],[2,0],[1,1]];
 const initials=n=>n.split(/\s+/).map(p=>p[0]).join('').toUpperCase();
-
 function initReviews(){
   const t=$h('rvtrack'); if(!t) return;
-  $h('rvstars').innerHTML=STAR.repeat(5);
-  $h('rvbars').innerHTML=DIST.map(([s,p])=>
-    `<div class="rvbar"><span>${s} star</span><i><b style="width:${p}%"></b></i><u>${p}%</u></div>`).join('');
   t.innerHTML=REVIEWS.map(r=>`
     <article class="rv">
       <div class="stars2" aria-label="${r.r} out of 5">${
@@ -189,59 +194,15 @@ function initReviews(){
     </article>`).join('');
 }
 
-function initSections(){
-  if($h('steps')) $h('steps').innerHTML=STEPS.map(s=>
-    `<div class="step"><div class="stepn">${s[0]}</div><div class="stept">${s[1]}</div><div class="stepd">${s[2]}</div></div>`).join('');
-  if($h('filmbg')) $h('filmbg').style.backgroundImage='url(__IMG_CAM3__)';
-  if($h('svcs')) $h('svcs').innerHTML=SVCS.map(s=>{
-    const im = s.k!==undefined ? CATALOGUE[s.k].ims.find(x=>x.img) : null;
-    return `<a class="svc" href="servicing.html">
-      <div class="art">${im?`<img src="${im.img}" alt="">`
-        :`<div class="ph"><div class="l1">${s.ph[0]}</div><div class="l2">${s.ph[1]}</div></div>`}</div>
-      <div class="bd"><h3>${s.t}</h3><p>${s.d}</p><span class="go">Find out more <em>→</em></span></div></a>`;}).join('');
-  if($h('sellsteps')) $h('sellsteps').innerHTML=SELL.map(s=>
-    `<div class="ss"><div class="n">${s[0]}</div><div><h4>${s[1]}</h4><p>${s[2]}</p></div></div>`).join('');
-  if($h('social')) $h('social').innerHTML=SOCIAL.map(s=>
-    `<a class="tile6" href="#">${s.bg?`<div class="bg" style="background-image:url(${s.bg})"></div>`
-      :`<div class="ph"><div class="l1">${s.ph[0]}</div><div class="l2">${s.ph[1]}</div></div>`}
-     ${s.reel?`<span class="reel${s.bg?'':' dark'}">${PLAY}</span>`:''}
-     <div class="ov"><span>${s.cap}</span></div></a>`).join('');
-}
-
 document.addEventListener('DOMContentLoaded',()=>{
-  initHero(); initBrands(); initPopular(); initReviews(); initSections();
-  carousel('btrack','bprev','bnext','barrows',3);
-  carousel('track','prev','next','parrows',2);
-  carousel('rvtrack','rvprev','rvnext','rvarrows',2);
+  initHero(); initNew(); initMaisons(); initSpotlight(); initSocial(); initReviews();
   repaintMoney();
 });
 
 /* ================= MOBILE =================
-   The boutique hotspots were hover-driven. On touch they open the same
-   popover the desktop uses — no new component, no sheet. */
-function buildMobileSteps(){
-  const box=$h('steps'); if(!box) return;
-  box.classList.add('msteps');
-  box.innerHTML=`<div class="mstepchips" role="tablist">${STEPS.map((s,i)=>
-      `<button role="tab" aria-selected="${i===0}" data-i="${i}">
-         <b>${s[0]}</b><span>${s[1]}</span></button>`).join('')}</div>
-    <div class="msteppanel" id="msteppanel" aria-live="polite"></div>`;
-  const panel=box.querySelector('#msteppanel');
-  const show=i=>{
-    panel.innerHTML=`<h4>${STEPS[i][1]}</h4><p>${STEPS[i][2]}</p>`;
-    box.querySelectorAll('[role=tab]').forEach((t,j)=>t.setAttribute('aria-selected',String(j===i)));
-  };
-  box.querySelectorAll('[role=tab]').forEach(t=>t.addEventListener('click',()=>{
-    show(+t.dataset.i);
-    t.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
-  }));
-  show(0);
-}
-
+   Hotspots open on tap — same popover the desktop uses. */
 function buildMobileHome(){
   const box=$h('spots'); if(!box) return;
-  const label=document.querySelector('.hint');
-  if(label) label.textContent='Tap a case to see what is inside';
   const bind=()=>box.querySelectorAll('.spot').forEach(sp=>{
     if(sp.dataset.tap) return; sp.dataset.tap=1;
     sp.addEventListener('click',e=>{
@@ -260,5 +221,5 @@ function buildMobileHome(){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  if(window.osMobile && osMobile()) setTimeout(()=>{buildMobileHome();buildMobileSteps();},60);
+  if(window.osMobile && osMobile()) setTimeout(buildMobileHome,60);
 });
