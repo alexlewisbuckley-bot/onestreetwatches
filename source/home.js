@@ -100,137 +100,26 @@ function initMaisons(){
     +`<a href="shop.html">All brands</a>`;
 }
 
-/* ---------- spotlight: a rotating, explorable showcase ----------
-   Every watch with genuinely its own photography takes a turn on the
-   plate: auto-advancing with a progress bar, switchable by thumbnail,
-   and each one carries a lens tour — the spec rows glide the image in
-   to bezel, dial, crown, bracelet. */
-const REAL=[1,2,3,4];
-const TOURS={
-  1:[ /* Submariner "Hulk" */
-    {l:'Bezel',   v:'Green Cerachrom, 60-click', o:'50% 26%', z:2.2,
-     n:'Unidirectional ceramic bezel in the same green as the dial — the pairing that earned the nickname.'},
-    {l:'Dial',    v:'Green sunburst',            o:'50% 42%', z:2.4,
-     n:'Sunburst green with maxi markers — discontinued in 2020, which is exactly why it is wanted.'},
-    {l:'Crown',   v:'Triplock, screw-down',      o:'71% 43%', z:2.6,
-     n:'Triple-sealed behind the crown guards, rated to 300 metres.'},
-    {l:'Bracelet',v:'Oyster, Glidelock',         o:'46% 78%', z:2.1,
-     n:'Solid-link Oyster; the Glidelock clasp adjusts 20mm without a tool.'}],
-  2:[ /* GMT "Sprite" */
-    {l:'Bezel',   v:'Green & black Cerachrom',   o:'50% 26%', z:2.2,
-     n:'Two-colour ceramic, 24-hour graduations — tracks a second time zone at a glance.'},
-    {l:'Crown',   v:'Left-hand drive',           o:'29% 43%', z:2.6,
-     n:'The crown sits on the left — the first left-handed GMT Rolex ever catalogued.'},
-    {l:'Dial',    v:'Black, Chromalight',        o:'50% 42%', z:2.4,
-     n:'Black dial with the green GMT hand mirroring the bezel.'},
-    {l:'Bracelet',v:'Jubilee, Oysterlock',       o:'46% 78%', z:2.1,
-     n:'Five-link Jubilee with the Oysterlock safety clasp.'}],
-  3:[ /* Submariner "Starbucks" */
-    {l:'Bezel',   v:'Green Cerachrom, 60-click', o:'50% 26%', z:2.2,
-     n:'The green ceramic bezel over a black dial — the current-generation 41mm case.'},
-    {l:'Dial',    v:'Black lacquer',             o:'50% 42%', z:2.4,
-     n:'Gloss black with white gold surrounds and blue-glowing Chromalight.'},
-    {l:'Crown',   v:'Triplock, screw-down',      o:'71% 43%', z:2.6,
-     n:'Triple-sealed crown, rated to 300 metres.'},
-    {l:'Bracelet',v:'Oyster, Glidelock',         o:'46% 78%', z:2.1,
-     n:'Oyster bracelet, tool-free Glidelock adjustment.'}],
-  4:[ /* Submariner white gold */
-    {l:'Bezel',   v:'Blue Cerachrom, 60-click',  o:'50% 26%', z:2.2,
-     n:'Unidirectional ceramic bezel — the blue is fired in, not coated, so it cannot fade.'},
-    {l:'Dial',    v:'Black lacquer',             o:'50% 42%', z:2.4,
-     n:'Maxi markers in 18k white gold surrounds, Chromalight lume that glows blue.'},
-    {l:'Crown',   v:'Triplock, screw-down',      o:'71% 43%', z:2.6,
-     n:'Triple-sealed crown behind the guards — rated to 300 metres.'},
-    {l:'Bracelet',v:'Oyster, Glidelock',         o:'46% 78%', z:2.1,
-     n:'Solid white gold links; the clasp adjusts 20mm without a tool.'}]
-};
-const SPAUTO=7000;
+/* ---------- featured: three pieces, not one ----------
+   A quiet triptych of the watches that own real photography.
+   No machinery — the pieces are the display. */
+const FEATURED=[4,2,1];   /* white gold Sub, Sprite, Hulk */
 function initSpotlight(){
   const box=$h('spotlight'); if(!box) return;
-  box.innerHTML=`<div class="in">
-    <div class="artcol">
-      <div class="art" id="sp-art"><img id="sp-img" alt="">
-        <div class="lensnote" id="sp-note" aria-live="polite"></div></div>
-      <div class="spthumbs" id="sp-thumbs">${REAL.map((k,j)=>{
-        const w=CATALOGUE[k], im=w.ims.find(x=>x.img);
-        return `<button class="spth" data-j="${j}" aria-current="false"
-          aria-label="${w.b} ${w.m}"><img src="${im.img}" alt="">
-          <i class="pg"><b></b></i></button>`;}).join('')}</div>
-    </div>
-    <div class="bd" id="sp-bd"></div>
-  </div>`;
-
-  const img=$h('sp-img'), note=$h('sp-note'), bd=$h('sp-bd');
-  let cur=0, pinned=-1, timer=null;
-
-  const lens=i=>{
-    const tour=TOURS[REAL[cur]];
-    bd.querySelectorAll('.sprow--lens').forEach((r,j)=>{
-      r.setAttribute('aria-pressed',String(j===i)); r.classList.toggle('on',j===i);
-    });
-    if(i<0){ img.style.transform='none'; note.classList.remove('on'); return; }
-    const f=tour[i];
-    img.style.transformOrigin=f.o; img.style.transform='scale('+f.z+')';
-    note.textContent=f.n; note.classList.add('on');
-  };
-
-  const renderBd=()=>{
-    const idx=REAL[cur], w=CATALOGUE[idx], tour=TOURS[idx];
-    bd.innerHTML=`
-      <div class="k">Featured this week &nbsp;·&nbsp; ${cur+1} / ${REAL.length}</div>
-      <h2>${w.b} ${w.m}</h2>
-      <div class="meta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
-        <i></i><span>${w.y}</span><i></i><span>${w.c}</span>
-        <i></i><span>${w.box&&w.pap?'Full set':'See details'}</span>
-        <i></i><span>Ref. ${w.r}</span></div>
-      <div class="specs specs--tour">${tour.map((f,i)=>
-        `<button class="sprow sprow--lens" data-f="${i}" aria-pressed="false">
-           <em>${f.l}</em><span>${f.v}</span></button>`).join('')}</div>
-      <div class="tourhint">Select a detail to look closer</div>
-      <div class="acts">
-        <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
-        <a class="b2" href="shop.html">Explore all watches <span class="a">→</span></a>
-      </div>`;
-    bd.querySelectorAll('.sprow--lens').forEach((r,i)=>{
-      r.addEventListener('mouseenter',()=>lens(i));
-      r.addEventListener('click',()=>{ pinned = pinned===i ? -1 : i; lens(pinned); });
-    });
-    bd.querySelector('.specs').addEventListener('mouseleave',()=>lens(pinned));
-    repaintMoney();
-  };
-
-  const bar=j=>box.querySelectorAll('.spth')[j].querySelector('.pg b');
-  const resetBars=()=>box.querySelectorAll('.pg b').forEach(b=>{
-    b.style.transition='none'; b.style.width='0';});
-  const runBar=()=>{
-    const b=bar(cur);
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      b.style.transition='width '+SPAUTO+'ms linear'; b.style.width='100%';
-    }));
-  };
-
-  const show=j=>{
-    cur=j; pinned=-1;
-    const w=CATALOGUE[REAL[j]], im=w.ims.find(x=>x.img);
-    img.style.opacity='0'; img.style.transform='none'; note.classList.remove('on');
-    setTimeout(()=>{ img.src=im.img; img.alt=w.b+' '+w.m; img.style.opacity='1'; },220);
-    box.querySelectorAll('.spth').forEach((t,i)=>t.setAttribute('aria-current',String(i===j)));
-    renderBd(); resetBars();
-  };
-  const play=()=>{ if(timer) return; runBar();
-    timer=setInterval(()=>{ show((cur+1)%REAL.length); runBar(); },SPAUTO); };
-  const pause=()=>{ if(!timer) return; clearInterval(timer); timer=null;
-    const b=bar(cur), wNow=getComputedStyle(b).width;
-    b.style.transition='none'; b.style.width=wNow; };
-
-  box.querySelectorAll('.spth').forEach(t=>t.addEventListener('click',()=>{
-    pause(); show(+t.dataset.j);
-  }));
-  $h('sp-art').addEventListener('click',()=>{ pinned=-1; lens(-1); });
-  box.addEventListener('mouseenter',pause);
-  box.addEventListener('mouseleave',()=>{ resetBars(); play(); });
-
-  show(0); play();
+  box.innerHTML=`<div class="vhead"><div class="veye">Hand-picked from the case</div>
+      <h2>Featured this week</h2></div>
+    <div class="f3">${FEATURED.map(i=>{
+      const w=CATALOGUE[i], im=w.ims.find(x=>x.img);
+      return `<a class="fcard" href="product.html?i=${i}">
+        <div class="fart"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
+        <div class="fbd">
+          <div class="fbrand">${w.b}</div>
+          <div class="fname">${w.m}</div>
+          <div class="fmeta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
+            <i></i><span>${w.y}</span><i></i><span>${w.box&&w.pap?'Full set':w.c}</span></div>
+          <span class="fgo">View this watch →</span>
+        </div></a>`;}).join('')}</div>`;
+  repaintMoney();
 }
 
 /* ---------- social ---------- */
