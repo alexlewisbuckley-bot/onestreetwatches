@@ -33,7 +33,7 @@
 .veye{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
 .vhead h2{margin-top:10px;font-size:19px;font-weight:400;letter-spacing:.3em;text-transform:uppercase}
 .vmore{text-align:center;margin-top:30px}
-.vmore a{display:inline-block;border:1px solid var(--ink);padding:13px 30px;font-size:10.5px;
+.vmore a{display:inline-flex;align-items:center;min-height:44px;border:1px solid var(--ink);padding:0 30px;font-size:10.5px;
  letter-spacing:.18em;text-transform:uppercase;transition:background .3s,color .3s}
 .vmore a:hover{background:var(--ink);color:#fff}
 .vfollow{display:flex;justify-content:center;gap:8px;margin-top:16px}
@@ -48,8 +48,9 @@
 .mtile .lbl{margin-top:16px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink)}
 .mtile .lbl em{font-style:normal;color:var(--pale);margin-left:8px;letter-spacing:.1em}
 .mrow{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:26px}
-.mrow a{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
- padding:6px 0;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+.mrow a{display:inline-flex;align-items:center;min-height:44px;font-size:10.5px;letter-spacing:.18em;
+ text-transform:uppercase;color:var(--muted);border-bottom:1px solid transparent;
+ transition:color .3s,border-color .3s}
 .mrow a:hover{color:var(--ink);border-color:var(--ink)}
 
 /* ---------- spotlight ---------- */
