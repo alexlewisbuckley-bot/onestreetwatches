@@ -84,9 +84,9 @@ function initNew(){
    art-directed placeholders rather than borrowing the wrong watch. */
 /* brand photography shot on black, cropped to one scale */
 const TILES=[
- {n:"Rolex",img:"assets/img/brand-rolex.407a5af427.jpg"},
- {n:"Audemars Piguet",img:"assets/img/brand-ap.cd0aedc876.jpg"},
- {n:"Patek Philippe",img:"assets/img/brand-patek.4b19a0cdb0.jpg"}
+ {n:"Rolex",img:"assets/img/brand-rolex.b2612895f3.jpg"},
+ {n:"Audemars Piguet",img:"assets/img/brand-ap.0c7d6dd7d9.jpg"},
+ {n:"Patek Philippe",img:"assets/img/brand-patek.384c1eac5f.jpg"}
 ];
 function initMaisons(){
   const box=$h('mtiles'); if(!box) return;
