@@ -4,11 +4,14 @@
 
 const EVENTS=[
  {t:'Collector dinner — Emirates Hills', city:'Dubai', when:'Thursday 17 September, 8pm',
-  d:'Twelve seats at one table. Bring what you wear; the tray comes out after dessert.', seats:'12 seats'},
+  d:'Twelve seats at one table. Bring what you wear; the tray comes out after dessert.',
+  seats:'12 seats', img:'__IMG_CAM3__'},
  {t:'GTG — what a full set is actually worth', city:'London', when:'Saturday 10 October, 3pm',
-  d:'An open get-together with a short talk from our bench on boxes, papers and provenance.', seats:'20 seats'},
+  d:'An open get-together with a short talk from our bench on boxes, papers and provenance.',
+  seats:'20 seats', ph:['The back room','Loupes out over a long table — venue to be announced']},
  {t:'An evening at the bench', city:'Dubai', when:'Monthly — next date to members first',
-  d:'Watch an authentication end to end: caseback off, timegrapher on, questions welcome.', seats:'8 seats'}
+  d:'Watch an authentication end to end: caseback off, timegrapher on, questions welcome.',
+  seats:'8 seats', img:'__IMG_CAM2__'}
 ];
 
 const GAL_C=[
@@ -25,6 +28,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(list){
     list.innerHTML=EVENTS.map((e,i)=>`
       <div class="evrow">
+        <div class="evim">${e.img
+          ?`<div class="bg" style="background-image:url(${e.img})"></div>`
+          :`<div class="ph"><div class="l1">${e.ph[0]}</div><div class="l2">${e.ph[1]}</div></div>`}</div>
         <div class="evwhen"><b>${e.city}</b><span>${e.when}</span></div>
         <div class="evbody"><h3>${e.t}</h3><p>${e.d}</p></div>
         <div class="evside"><span class="evseats">${e.seats}</span>
