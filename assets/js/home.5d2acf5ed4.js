@@ -87,7 +87,7 @@ function initNew(){
 const TILES=[
  {n:"Rolex",k:1},
  {n:"Audemars Piguet",ph:["Royal Oak","Rose gold Double Balance, three-quarter on grey"]},
- {n:"Cartier",ph:["Santos de Cartier","Green lacquer dial, three-quarter on grey"]}
+ {n:"Patek Philippe",ph:["Nautilus","Blue embossed dial, three-quarter on grey"]}
 ];
 function initMaisons(){
   const box=$h('mtiles'); if(!box) return;
