@@ -415,8 +415,13 @@
   h3,.ccard h3,.acard h3,.loc2 h3,.svc h3,.rv h3,.btype h3,.form h3{font-size:var(--t-head) !important}
   .money,.pprice,.dprice b{letter-spacing:var(--ls-title)}
 
+  /* separators dangle at the end of a wrapped line — space the claims instead */
+  .claims{gap:var(--s2) var(--s5)}
+  .claims i{display:none}
+  .dassure{gap:var(--s2) var(--s5)}
+
   /* ---- footer: was 1504px on a 844px screen ---- */
-  .foot{padding:var(--s7) var(--gut) 0 !important}
+  footer.foot{padding:var(--s7) var(--gut) 0 !important}
   .fmain{padding-bottom:var(--s6) !important;gap:var(--s6) !important}
   .fcols{grid-template-columns:1fr 1fr !important;gap:var(--s5) var(--s4) !important;align-items:start}
   .fcol{align-self:start}

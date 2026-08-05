@@ -206,12 +206,13 @@ h1 span{color:var(--pale)}
 /* ---------- shop by brand ---------- */
 .bcard{flex:0 0 calc((100% - 60px)/6);scroll-snap-align:start}
 #btrack{gap:12px}
-.bcard{border:1px solid var(--line);background:var(--white);
+.bcard{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--white);
  transition:border-color .4s,transform .5s var(--e)}
 .bcard:hover{border-color:var(--line2);transform:translateY(-3px)}
 .bcard .art{aspect-ratio:1/1;background:var(--sand);position:relative;display:grid;place-items:center;overflow:hidden}
 .bcard .art>img{width:62%;height:62%;object-fit:contain;position:relative;z-index:2}
-.bcard .foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 14px}
+.bcard .foot{display:flex;align-items:center;justify-content:space-between;gap:8px;
+ padding:13px 14px;background:var(--white);color:var(--ink);margin-top:auto}
 .bname{font-size:13.5px;letter-spacing:-.012em;line-height:1.25}
 .bcount{font-size:11px;color:var(--muted);margin-top:3px}
 .bgo{width:26px;height:26px;flex:none;border:1px solid var(--line2);display:grid;place-items:center;font-size:11px;
@@ -386,8 +387,8 @@ h1 span{color:var(--pale)}
  .filmtxt h3{font-size:21px}.filmshot{aspect-ratio:16/10}}
 
 /* ---------- footer ---------- */
-.foot{background:#22211E;color:#EFEAE4;padding:70px 52px 0;margin-top:0}
-.foot a{transition:color .3s}
+footer.foot{background:#22211E;color:#EFEAE4;padding:70px 52px 0;margin-top:0}
+footer.foot a{transition:color .3s}
 .fline{border-top:1px solid rgba(239,234,228,.13)}
 
 .fmain{display:grid;grid-template-columns:1.25fr 2fr;gap:56px;padding-bottom:56px}
@@ -436,7 +437,7 @@ h1 span{color:var(--pale)}
 
 @media (max-width:1100px){.fmain{grid-template-columns:1fr;gap:44px}.fcols{grid-template-columns:repeat(2,1fr)}
  .flocs{grid-template-columns:1fr;gap:28px}}
-@media (max-width:900px){.foot{padding:52px 22px 0}.fbot{flex-direction:column;align-items:flex-start;gap:14px}}
+@media (max-width:900px){footer.foot{padding:52px 22px 0}.fbot{flex-direction:column;align-items:flex-start;gap:14px}}
 
 /* ---------- mega menu ---------- */
 .links .mtrigger{background:none;border:none;cursor:pointer;font:inherit;font-size:13px;color:var(--soft);
@@ -617,7 +618,7 @@ nav.stuck{box-shadow:0 1px 0 rgba(28,27,25,.06), 0 16px 34px -24px rgba(28,27,25
 .b1{box-shadow:0 1px 0 rgba(255,255,255,.12) inset, 0 8px 20px -12px rgba(28,27,25,.6)}
 
 /* --- footer depth --- */
-.foot{background:linear-gradient(180deg,#26251F 0%, #201F1C 55%, #191816 100%);
+footer.foot{background:linear-gradient(180deg,#26251F 0%, #201F1C 55%, #191816 100%);
   box-shadow:inset 0 1px 0 rgba(239,234,228,.10)}
 
 @media (prefers-reduced-motion:reduce){nav{transition:none}}
