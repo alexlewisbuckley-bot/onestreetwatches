@@ -35,12 +35,16 @@ IMGMAP={'__LOGO__':'logo.png','__IMG_CAM1__':'boutique-salon.jpg','__IMG_CAM2__'
         '__IMG_EXT__':'boutique-exterior.jpg','__W_HULK__':'rolex-submariner-hulk.webp',
         '__W_STAR__':'rolex-submariner-starbucks.webp','__W_SPRITE__':'rolex-gmt-sprite.webp',
         '__W_WG__':'rolex-submariner-white-gold.webp',
-        '__B_ROLEX__':'brand-rolex.jpg','__B_AP__':'brand-ap.jpg','__B_PATEK__':'brand-patek.jpg'}
+        '__B_ROLEX__':'brand-rolex.jpg','__B_AP__':'brand-ap.jpg','__B_PATEK__':'brand-patek.jpg',
+        '__W_P5712__':'patek-nautilus-5712r.webp','__W_P5711R__':'patek-nautilus-5711r.webp',
+        '__W_CUBITUS__':'patek-cubitus-5821r.webp','__W_AQ5968__':'patek-aquanaut-5968a.webp'}
 SRC={'__LOGO__':'b/logo.png','__IMG_CAM1__':'b/cam1.jpg','__IMG_CAM2__':'b/cam2.jpg',
      '__IMG_CAM3__':'b/cam3.jpg','__IMG_CAM4__':'b/cam4.jpg','__IMG_EXT__':'b/ext.jpg',
      '__W_HULK__':'b/w-hulk.webp','__W_STAR__':'b/w-starbucks.webp',
      '__W_SPRITE__':'b/w-sprite.webp','__W_WG__':'b/w-wg.webp',
-     '__B_ROLEX__':'b/brand-rolex.jpg','__B_AP__':'b/brand-ap.jpg','__B_PATEK__':'b/brand-patek.jpg'}
+     '__B_ROLEX__':'b/brand-rolex.jpg','__B_AP__':'b/brand-ap.jpg','__B_PATEK__':'b/brand-patek.jpg',
+     '__W_P5712__':'b/p5712.webp','__W_P5711R__':'b/p5711r.webp',
+     '__W_CUBITUS__':'b/cubitus.webp','__W_AQ5968__':'b/aq5968.webp'}
 for tok,name in IMGMAP.items():
     if os.path.exists(SRC[tok]):
         shutil.copy(SRC[tok], OUT+'assets/img/'+name)

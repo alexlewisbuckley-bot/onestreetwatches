@@ -155,7 +155,8 @@
   .results{padding:14px 12px calc(28px + var(--dock))}
   .pgrid{grid-template-columns:1fr 1fr !important;gap:10px}
   .pgrid .pbody{padding:var(--s3)}
-  .pgrid .pspec{margin-top:var(--s3);padding-top:var(--s3);gap:var(--s3)}
+  .pgrid .pspec{margin-top:var(--s3);padding-top:var(--s3);gap:var(--s2) var(--s3);flex-wrap:wrap}
+  .pgrid .cond{margin-left:0}
   .pgrid .bars{display:none}
 
   .mfilpanel{border-top:var(--hair);padding:var(--s2) var(--gut) var(--s5);

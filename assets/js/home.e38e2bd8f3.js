@@ -103,7 +103,7 @@ function initMaisons(){
 /* ---------- featured: three pieces, not one ----------
    A quiet triptych of the watches that own real photography.
    No machinery — the pieces are the display. */
-const FEATURED=[4,2,1];   /* white gold Sub, Sprite, Hulk */
+const FEATURED=[24,4,26];   /* Nautilus 5712/1R, white gold Sub, Cubitus */
 function initSpotlight(){
   const box=$h('spotlight'); if(!box) return;
   box.innerHTML=`<div class="vhead"><div class="veye">Hand-picked from the case</div>
