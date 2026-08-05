@@ -100,80 +100,137 @@ function initMaisons(){
     +`<a href="shop.html">All brands</a>`;
 }
 
-/* ---------- spotlight ----------
-   Only these four indices carry genuinely their own photography —
-   the other image tokens are aliased stand-ins, and a spotlight must
-   never wear another watch's picture.
-
-   The spec rows are a guided tour: each one is a lens. Choosing a row
-   glides the photograph in to that detail — one image, five views. */
+/* ---------- spotlight: a rotating, explorable showcase ----------
+   Every watch with genuinely its own photography takes a turn on the
+   plate: auto-advancing with a progress bar, switchable by thumbnail,
+   and each one carries a lens tour — the spec rows glide the image in
+   to bezel, dial, crown, bracelet. */
 const REAL=[1,2,3,4];
-const TOUR={
-  4:[  /* Submariner — white gold cut-out (800×800, watch centred) */
-    {l:'Bezel',   v:'Blue Cerachrom, 60-click', o:'50% 26%', z:2.2,
+const TOURS={
+  1:[ /* Submariner "Hulk" */
+    {l:'Bezel',   v:'Green Cerachrom, 60-click', o:'50% 26%', z:2.2,
+     n:'Unidirectional ceramic bezel in the same green as the dial — the pairing that earned the nickname.'},
+    {l:'Dial',    v:'Green sunburst',            o:'50% 42%', z:2.4,
+     n:'Sunburst green with maxi markers — discontinued in 2020, which is exactly why it is wanted.'},
+    {l:'Crown',   v:'Triplock, screw-down',      o:'71% 43%', z:2.6,
+     n:'Triple-sealed behind the crown guards, rated to 300 metres.'},
+    {l:'Bracelet',v:'Oyster, Glidelock',         o:'46% 78%', z:2.1,
+     n:'Solid-link Oyster; the Glidelock clasp adjusts 20mm without a tool.'}],
+  2:[ /* GMT "Sprite" */
+    {l:'Bezel',   v:'Green & black Cerachrom',   o:'50% 26%', z:2.2,
+     n:'Two-colour ceramic, 24-hour graduations — tracks a second time zone at a glance.'},
+    {l:'Crown',   v:'Left-hand drive',           o:'29% 43%', z:2.6,
+     n:'The crown sits on the left — the first left-handed GMT Rolex ever catalogued.'},
+    {l:'Dial',    v:'Black, Chromalight',        o:'50% 42%', z:2.4,
+     n:'Black dial with the green GMT hand mirroring the bezel.'},
+    {l:'Bracelet',v:'Jubilee, Oysterlock',       o:'46% 78%', z:2.1,
+     n:'Five-link Jubilee with the Oysterlock safety clasp.'}],
+  3:[ /* Submariner "Starbucks" */
+    {l:'Bezel',   v:'Green Cerachrom, 60-click', o:'50% 26%', z:2.2,
+     n:'The green ceramic bezel over a black dial — the current-generation 41mm case.'},
+    {l:'Dial',    v:'Black lacquer',             o:'50% 42%', z:2.4,
+     n:'Gloss black with white gold surrounds and blue-glowing Chromalight.'},
+    {l:'Crown',   v:'Triplock, screw-down',      o:'71% 43%', z:2.6,
+     n:'Triple-sealed crown, rated to 300 metres.'},
+    {l:'Bracelet',v:'Oyster, Glidelock',         o:'46% 78%', z:2.1,
+     n:'Oyster bracelet, tool-free Glidelock adjustment.'}],
+  4:[ /* Submariner white gold */
+    {l:'Bezel',   v:'Blue Cerachrom, 60-click',  o:'50% 26%', z:2.2,
      n:'Unidirectional ceramic bezel — the blue is fired in, not coated, so it cannot fade.'},
-    {l:'Dial',    v:'Black lacquer',            o:'50% 42%', z:2.4,
+    {l:'Dial',    v:'Black lacquer',             o:'50% 42%', z:2.4,
      n:'Maxi markers in 18k white gold surrounds, Chromalight lume that glows blue.'},
-    {l:'Crown',   v:'Triplock, screw-down',     o:'71% 43%', z:2.6,
+    {l:'Crown',   v:'Triplock, screw-down',      o:'71% 43%', z:2.6,
      n:'Triple-sealed crown behind the guards — rated to 300 metres.'},
-    {l:'Bracelet',v:'Oyster, Glidelock',        o:'46% 78%', z:2.1,
-     n:'Solid white gold links; the clasp adjusts 20mm without a tool.'}
-  ]
+    {l:'Bracelet',v:'Oyster, Glidelock',         o:'46% 78%', z:2.1,
+     n:'Solid white gold links; the clasp adjusts 20mm without a tool.'}]
 };
+const SPAUTO=7000;
 function initSpotlight(){
   const box=$h('spotlight'); if(!box) return;
-  let idx=-1;
-  REAL.forEach(i=>{ if(idx<0||CATALOGUE[i].aed>CATALOGUE[idx].aed) idx=i; });
-  const w=CATALOGUE[idx], im=w.ims.find(x=>x.img);
-  const tour=TOUR[idx];
-  const rows = tour
-    ? tour.map((f,i)=>`<button class="sprow sprow--lens" data-f="${i}" aria-pressed="false">
-        <em>${f.l}</em><span>${f.v}</span></button>`).join('')
-    : `<div class="sprow"><em>Reference</em><span>${w.r}</span></div>
-       <div class="sprow"><em>Case</em><span>${w.size} mm</span></div>
-       <div class="sprow"><em>Dial</em><span>${w.dial}</span></div>
-       <div class="sprow"><em>Held in</em><span>${w.loc}</span></div>`;
   box.innerHTML=`<div class="in">
-    <div class="art" id="sp-art"><img src="${im.img}" alt="${w.b} ${w.m}">
-      <div class="lensnote" id="sp-note" aria-live="polite"></div></div>
-    <div class="bd">
-      <div class="k">Featured this week</div>
+    <div class="artcol">
+      <div class="art" id="sp-art"><img id="sp-img" alt="">
+        <div class="lensnote" id="sp-note" aria-live="polite"></div></div>
+      <div class="spthumbs" id="sp-thumbs">${REAL.map((k,j)=>{
+        const w=CATALOGUE[k], im=w.ims.find(x=>x.img);
+        return `<button class="spth" data-j="${j}" aria-current="false"
+          aria-label="${w.b} ${w.m}"><img src="${im.img}" alt="">
+          <i class="pg"><b></b></i></button>`;}).join('')}</div>
+    </div>
+    <div class="bd" id="sp-bd"></div>
+  </div>`;
+
+  const img=$h('sp-img'), note=$h('sp-note'), bd=$h('sp-bd');
+  let cur=0, pinned=-1, timer=null;
+
+  const lens=i=>{
+    const tour=TOURS[REAL[cur]];
+    bd.querySelectorAll('.sprow--lens').forEach((r,j)=>{
+      r.setAttribute('aria-pressed',String(j===i)); r.classList.toggle('on',j===i);
+    });
+    if(i<0){ img.style.transform='none'; note.classList.remove('on'); return; }
+    const f=tour[i];
+    img.style.transformOrigin=f.o; img.style.transform='scale('+f.z+')';
+    note.textContent=f.n; note.classList.add('on');
+  };
+
+  const renderBd=()=>{
+    const idx=REAL[cur], w=CATALOGUE[idx], tour=TOURS[idx];
+    bd.innerHTML=`
+      <div class="k">Featured this week &nbsp;·&nbsp; ${cur+1} / ${REAL.length}</div>
       <h2>${w.b} ${w.m}</h2>
       <div class="meta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
         <i></i><span>${w.y}</span><i></i><span>${w.c}</span>
         <i></i><span>${w.box&&w.pap?'Full set':'See details'}</span>
         <i></i><span>Ref. ${w.r}</span></div>
-      <div class="specs${tour?' specs--tour':''}">${rows}</div>
-      ${tour?'<div class="tourhint">Select a detail to look closer</div>':''}
+      <div class="specs specs--tour">${tour.map((f,i)=>
+        `<button class="sprow sprow--lens" data-f="${i}" aria-pressed="false">
+           <em>${f.l}</em><span>${f.v}</span></button>`).join('')}</div>
+      <div class="tourhint">Select a detail to look closer</div>
       <div class="acts">
         <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
         <a class="b2" href="shop.html">Explore all watches <span class="a">→</span></a>
-      </div>
-    </div>
-  </div>`;
-  repaintMoney();
-
-  if(!tour) return;
-  const img=box.querySelector('#sp-art img'), note=$h('sp-note');
-  /* hover previews a lens; click pins it. Two states, or hovering on the
-     way to the button you meant would keep stealing the pin. */
-  let pinned=-1;
-  const preview=i=>{
-    box.querySelectorAll('.sprow--lens').forEach((r,j)=>{
-      r.setAttribute('aria-pressed',String(j===i)); r.classList.toggle('on',j===i);
+      </div>`;
+    bd.querySelectorAll('.sprow--lens').forEach((r,i)=>{
+      r.addEventListener('mouseenter',()=>lens(i));
+      r.addEventListener('click',()=>{ pinned = pinned===i ? -1 : i; lens(pinned); });
     });
-    if(i<0){ img.style.transform='none'; note.classList.remove('on'); return; }
-    const f=tour[i];
-    img.style.transformOrigin=f.o;
-    img.style.transform='scale('+f.z+')';
-    note.textContent=f.n; note.classList.add('on');
+    bd.querySelector('.specs').addEventListener('mouseleave',()=>lens(pinned));
+    repaintMoney();
   };
-  box.querySelectorAll('.sprow--lens').forEach((r,i)=>{
-    r.addEventListener('mouseenter',()=>preview(i));
-    r.addEventListener('click',()=>{ pinned = pinned===i ? -1 : i; preview(pinned); });
-  });
-  box.querySelector('.specs').addEventListener('mouseleave',()=>preview(pinned));
-  box.querySelector('#sp-art').addEventListener('click',()=>{ pinned=-1; preview(-1); });
+
+  const bar=j=>box.querySelectorAll('.spth')[j].querySelector('.pg b');
+  const resetBars=()=>box.querySelectorAll('.pg b').forEach(b=>{
+    b.style.transition='none'; b.style.width='0';});
+  const runBar=()=>{
+    const b=bar(cur);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      b.style.transition='width '+SPAUTO+'ms linear'; b.style.width='100%';
+    }));
+  };
+
+  const show=j=>{
+    cur=j; pinned=-1;
+    const w=CATALOGUE[REAL[j]], im=w.ims.find(x=>x.img);
+    img.style.opacity='0'; img.style.transform='none'; note.classList.remove('on');
+    setTimeout(()=>{ img.src=im.img; img.alt=w.b+' '+w.m; img.style.opacity='1'; },220);
+    box.querySelectorAll('.spth').forEach((t,i)=>t.setAttribute('aria-current',String(i===j)));
+    renderBd(); resetBars();
+  };
+  const play=()=>{ if(timer) return; runBar();
+    timer=setInterval(()=>{ show((cur+1)%REAL.length); runBar(); },SPAUTO); };
+  const pause=()=>{ if(!timer) return; clearInterval(timer); timer=null;
+    const b=bar(cur), wNow=getComputedStyle(b).width;
+    b.style.transition='none'; b.style.width=wNow; };
+
+  box.querySelectorAll('.spth').forEach(t=>t.addEventListener('click',()=>{
+    pause(); show(+t.dataset.j);
+  }));
+  $h('sp-art').addEventListener('click',()=>{ pinned=-1; lens(-1); });
+  box.addEventListener('mouseenter',pause);
+  box.addEventListener('mouseleave',()=>{ resetBars(); play(); });
+
+  show(0); play();
 }
 
 /* ---------- social ---------- */

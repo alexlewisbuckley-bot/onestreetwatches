@@ -243,7 +243,7 @@ h1 span{color:var(--pale)}
 /* ---------- popular watches carousel ---------- */
 .rail{position:relative;margin:0 -52px;padding:0 52px}
 .track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
- scrollbar-width:none;-ms-overflow-style:none;padding:2px 0 6px}
+ scrollbar-width:none;-ms-overflow-style:none;padding:4px 0 6px}   /* headroom for the 3px hover lift */
 .track::-webkit-scrollbar{display:none}
 .pcard{flex:0 0 calc((100% - 42px)/4);scroll-snap-align:start;border:none;
  background:var(--white);transition:opacity .4s}
