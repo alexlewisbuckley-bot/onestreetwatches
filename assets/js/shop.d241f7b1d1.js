@@ -98,6 +98,8 @@ function buildRail(){
   if(tog) tog.addEventListener('click',()=>{
     const open=wrap.classList.toggle('open');
     tog.setAttribute('aria-expanded',String(open));
+    const t=document.getElementById('filtoggletext');
+    if(t) t.textContent=open?'Hide':'Filters';
     if(open) rail.querySelectorAll('.rng').forEach(paintRange);   /* sliders need width */
   });
 }

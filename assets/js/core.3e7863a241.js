@@ -412,7 +412,93 @@ function initSearch(){
   document.querySelectorAll('.mtrigger').forEach(t => t.addEventListener('mouseenter', shut));
 }
 
-document.addEventListener('DOMContentLoaded',()=>{ buildMega(); initCurrency(); initHeader(); initSearch(); repaintMoney(); });
+/* ---------------- book a viewing — drawdown ----------------
+   Desktop only: the header link opens a compact request panel under the
+   mast instead of leaving the page. The full calendar stays one click
+   away, and the link still navigates if JS never runs. */
+function initBookPanel(){
+  if(!matchMedia('(min-width:980px)').matches) return;
+  const trig=document.querySelector('a.bag'); if(!trig) return;
+  const nav=document.querySelector('nav'); if(!nav) return;
+
+  const days=[];
+  const now=new Date();
+  for(let i=0;i<7;i++){
+    const d=new Date(now); d.setDate(now.getDate()+i);
+    days.push({v:d.toISOString().slice(0,10),
+      l:i===0?'Today':i===1?'Tomorrow':d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})});
+  }
+  const chip=(k,v,l)=>`<button class="bpc" data-k="${k}" data-v="${v}">${l}</button>`;
+  const panel=document.createElement('div');
+  panel.className='bookpanel'; panel.id='bookpanel';
+  panel.setAttribute('role','dialog'); panel.setAttribute('aria-label','Book a viewing');
+  panel.innerHTML=`
+    <div class="bph"><span>Book a viewing</span><button class="bpx" aria-label="Close">×</button></div>
+    <div class="bpl">Where</div>
+    <div class="bpchips">${chip('type','Dubai boutique','Dubai boutique')}${chip('type','United Kingdom','United Kingdom')}${chip('type','Video call','Video call')}</div>
+    <div class="bpl">Day</div>
+    <div class="bpchips">${days.map(d=>chip('day',d.v,d.l)).join('')}</div>
+    <div class="bpl">Time</div>
+    <div class="bpchips">${chip('time','Morning','Morning')}${chip('time','Afternoon','Afternoon')}${chip('time','Evening','Evening')}</div>
+    <input class="bpin" id="bp-name" type="text" placeholder="Your name" autocomplete="name">
+    <input class="bpin" id="bp-contact" type="text" placeholder="Email or phone" autocomplete="email">
+    <button class="bpgo" id="bp-go" disabled>Request this viewing <span class="a">→</span></button>
+    <div class="bperr" id="bp-err" hidden>That didn’t send — <a href="book.html">use the full calendar</a>
+      or <a href="https://wa.me/message/55ILJOASJYUAD1">WhatsApp us</a>.</div>
+    <a class="bpfull" href="book.html">Prefer an exact slot? Open the full calendar →</a>`;
+  nav.appendChild(panel);
+
+  const S={}; let sending=false;
+  const go=panel.querySelector('#bp-go');
+  const name=panel.querySelector('#bp-name'), contact=panel.querySelector('#bp-contact');
+  const contactOK=v=>/@.+\./.test(v)||(v.replace(/\D/g,'').length>=7);
+  const refresh=()=>{ go.disabled=sending||!(S.type&&S.day&&S.time&&name.value.trim()&&contactOK(contact.value.trim())); };
+  panel.querySelectorAll('.bpc').forEach(c=>c.addEventListener('click',()=>{
+    const k=c.dataset.k, on=S[k]===c.dataset.v;
+    S[k]=on?null:c.dataset.v;
+    panel.querySelectorAll(`.bpc[data-k="${k}"]`).forEach(x=>x.classList.toggle('on',!on&&x===c));
+    refresh();
+  }));
+  [name,contact].forEach(i=>i.addEventListener('input',refresh));
+
+  go.addEventListener('click',async()=>{
+    if(go.disabled) return;
+    sending=true; refresh(); go.innerHTML='Sending…';
+    panel.querySelector('#bp-err').hidden=true;
+    try{
+      const r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({page:'viewing',brand:S.type,model:S.day+' — '+S.time,
+          contact:name.value.trim()+' · '+contact.value.trim(),photos:[]})});
+      if(!r.ok) throw 0;
+      panel.querySelector('.bph span').textContent='Requested';
+      panel.innerHTML=`<div class="bph"><span>Requested</span><button class="bpx" aria-label="Close">×</button></div>
+        <p class="bpdone">Thank you — we will confirm your ${S.type} viewing for
+        <b>${S.day}, ${S.time.toLowerCase()}</b> shortly, usually within the hour.</p>
+        <a class="bpfull" href="book.html">Or pick an exact slot on the calendar →</a>`;
+      panel.querySelector('.bpx').addEventListener('click',close);
+    }catch(e){
+      sending=false; go.innerHTML='Request this viewing <span class="a">→</span>';
+      panel.querySelector('#bp-err').hidden=false; refresh();
+    }
+  });
+
+  const open=()=>{ panel.classList.add('on'); trig.setAttribute('aria-expanded','true'); };
+  const close=()=>{ panel.classList.remove('on'); trig.setAttribute('aria-expanded','false'); };
+  trig.setAttribute('aria-haspopup','dialog'); trig.setAttribute('aria-expanded','false');
+  trig.addEventListener('click',e=>{
+    e.preventDefault();
+    panel.classList.contains('on')?close():open();
+  });
+  panel.querySelector('.bpx').addEventListener('click',close);
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#bookpanel') && !e.target.closest('a.bag')) close();
+  });
+  addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+  /* opening a mega closes the panel and vice versa */
+  document.querySelectorAll('.mtrigger').forEach(t=>t.addEventListener('mouseenter',close));
+}
+
+document.addEventListener('DOMContentLoaded',()=>{ buildMega(); initCurrency(); initHeader(); initSearch(); initBookPanel(); repaintMoney(); });
 
 /* ============================================================
    MOBILE — header menu and search.
