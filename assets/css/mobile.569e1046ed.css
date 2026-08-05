@@ -444,6 +444,10 @@
   .mtext{width:100%;min-height:var(--tap-lg);border:var(--hair2);background:var(--white);
    padding:0 var(--s4);font:inherit;font-size:16px !important;color:var(--ink);outline:none}
   .mtext:focus{border-color:var(--ink)}
+  /* "Other" is a question, not an answer — tapping it opens the field that
+     holds the real one. Hidden until asked so the form stays four taps long. */
+  .mother{display:none}
+  .mfield.askother .mother{display:block;margin-top:var(--s3)}
   .mflowgo{width:100%;min-height:56px;display:flex;align-items:center;justify-content:center;
    gap:var(--s3);background:var(--char);color:#fff;font-size:var(--t-sec) !important;
    margin-top:var(--s2);transition:opacity var(--m)}

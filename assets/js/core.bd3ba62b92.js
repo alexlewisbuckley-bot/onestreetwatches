@@ -593,7 +593,7 @@ const FLOW={
     title:'What is your watch worth?',
     lede:'Four photographs and two minutes is usually enough for a real number.',
     fields:[
-      {k:'brand', l:'What are you selling?', type:'chips', opts:MAISONS},
+      {k:'brand', l:'What are you selling?', type:'chips', opts:MAISONS, otherPh:'Which brand? e.g. Tudor'},
       {k:'model', l:'Model or reference',    type:'text',  ph:'Submariner 116610LV'},
       {k:'cond',  l:'Condition',             type:'chips', opts:['Unworn','Excellent','Very good','Good']},
       {k:'kit',   l:'What is included',      type:'chips', opts:['Full set','Box only','Papers only','Watch only']}
@@ -608,7 +608,7 @@ const FLOW={
     title:'Name the reference.',
     lede:'Tell us what you are after. Most searches close in about 48 hours.',
     fields:[
-      {k:'brand',  l:'Which maison?',        type:'chips', opts:MAISONS},
+      {k:'brand',  l:'Which maison?',        type:'chips', opts:MAISONS, otherPh:'Which maison? e.g. Vacheron Constantin'},
       {k:'model',  l:'Model or reference',   type:'text',  ph:'Daytona 116500LN, white dial'},
       {k:'budget', l:'Budget',               type:'chips', opts:['Under 50k','50–150k','150–350k','350k +','Open']}
     ],
@@ -632,7 +632,10 @@ function buildFlowPage(){
     e.textContent=cfg.eyebrow; h1.before(e);       /* h1 may be nested in .wrap */
   }
 
-  const V={};
+  /* SEL is what was tapped; V is what we actually send. They differ for
+     "Other", where the tap only asks a question and the typed answer is
+     the value. */
+  const SEL={}, V={};
   const box=document.createElement('section');
   box.className='mflow';
   box.innerHTML=cfg.fields.map(f=>`
@@ -640,7 +643,11 @@ function buildFlowPage(){
       <div class="t-label">${f.l}</div>
       ${f.type==='chips'
         ? `<div class="mchipset">${f.opts.map(o=>`<button class="mchip2" data-v="${o}">${o}</button>`).join('')}</div>`
-        : `<input class="mtext" type="text" placeholder="${f.ph}" autocomplete="off">`}
+          + (f.opts.indexOf('Other')>-1
+             ? `<input class="mtext mother" type="text" autocomplete="off"
+                       placeholder="${f.otherPh||'Tell us which'}" aria-label="${f.otherPh||'Tell us which'}">`
+             : '')
+        : `<input class="mtext" data-k="${f.k}" type="text" placeholder="${f.ph}" autocomplete="off">`}
     </div>`).join('')
     + `<button class="mflowgo" id="mflowgo" disabled>${cfg.cta} <span class="a">→</span></button>
        <p class="mflownote">${cfg.note}</p>`;
@@ -653,16 +660,25 @@ function buildFlowPage(){
     go.onclick=ok?()=>{ location.href=waURL(cfg.msg(V)); }:null;
   };
   box.querySelectorAll('.mchipset').forEach(set=>{
-    const k=set.parentElement.dataset.k;
+    const field=set.parentElement, k=field.dataset.k;
+    const other=field.querySelector('.mother');
+    const settle=()=>{ V[k]=SEL[k]==='Other' ? ((other&&other.value.trim())||null) : (SEL[k]||null); refresh(); };
     set.querySelectorAll('.mchip2').forEach(c=>c.addEventListener('click',()=>{
-      const on=V[k]===c.dataset.v;
-      V[k]=on?null:c.dataset.v;
+      const on=SEL[k]===c.dataset.v;                 /* tapping the live chip clears it */
+      SEL[k]=on?null:c.dataset.v;
       set.querySelectorAll('.mchip2').forEach(x=>x.classList.toggle('on',!on&&x===c));
-      refresh();
+      if(other){
+        const ask=SEL[k]==='Other';
+        field.classList.toggle('askother',ask);
+        if(ask) requestAnimationFrame(()=>other.focus());
+        else other.value='';
+      }
+      settle();
     }));
+    if(other) other.addEventListener('input',settle);
   });
-  const t=box.querySelector('.mtext');
-  if(t) t.addEventListener('input',()=>{V.model=t.value;refresh();});
+  box.querySelectorAll('.mtext[data-k]').forEach(t=>
+    t.addEventListener('input',()=>{V[t.dataset.k]=t.value;refresh();}));
   refresh();
 
   /* the numbered process list becomes taps, like the authentication section */
