@@ -579,3 +579,113 @@ function paintSearch(){
 function sync(){ if(MQ.matches) buildShell(); else { closeMenu(); closeSearch(); } }
 window.osMobile=()=>MQ.matches;
 document.addEventListener('DOMContentLoaded',()=>{ sync(); MQ.addEventListener?.('change',sync); });
+
+/* ============================================================
+   SELL & SOURCING — mobile
+   Both pages asked for 16 fields before giving anything back, on a site
+   where the only conversion is a WhatsApp message. They become a short
+   composer: three taps and a model name produce a complete enquiry.
+   ============================================================ */
+const MAISONS=['Rolex','Patek Philippe','Audemars Piguet','Cartier','Omega','Other'];
+const FLOW={
+  sell:{
+    eyebrow:'Free valuation',
+    title:'What is your watch worth?',
+    lede:'Four photographs and two minutes is usually enough for a real number.',
+    fields:[
+      {k:'brand', l:'What are you selling?', type:'chips', opts:MAISONS},
+      {k:'model', l:'Model or reference',    type:'text',  ph:'Submariner 116610LV'},
+      {k:'cond',  l:'Condition',             type:'chips', opts:['Unworn','Excellent','Very good','Good']},
+      {k:'kit',   l:'What is included',      type:'chips', opts:['Full set','Box only','Papers only','Watch only']}
+    ],
+    cta:'Get a valuation on WhatsApp',
+    note:'Send four photos — front, back, clasp and papers — and we come back with a firm number, usually within the hour.',
+    msg:v=>`Hello — I would like a valuation.\n\n${v.brand||''} ${v.model||''}\n`+
+           `Condition: ${v.cond||'—'}\nIncludes: ${v.kit||'—'}\n\nI will send photographs next.`
+  },
+  sourcing:{
+    eyebrow:'No fee unless we find it',
+    title:'Name the reference.',
+    lede:'Tell us what you are after. Most searches close in about 48 hours.',
+    fields:[
+      {k:'brand',  l:'Which maison?',        type:'chips', opts:MAISONS},
+      {k:'model',  l:'Model or reference',   type:'text',  ph:'Daytona 116500LN, white dial'},
+      {k:'budget', l:'Budget',               type:'chips', opts:['Under 50k','50–150k','150–350k','350k +','Open']}
+    ],
+    cta:'Start the search on WhatsApp',
+    note:'One person looks after your search from the first message to the handover. No fee unless we find it.',
+    msg:v=>`Hello — I am looking for a watch.\n\n${v.brand||''} ${v.model||''}\n`+
+           `Budget: ${v.budget||'—'}\n\nCan you find it?`
+  }
+};
+
+function buildFlowPage(){
+  const page=document.body.dataset.page;
+  const cfg=FLOW[page]; if(!cfg) return;
+  const head=document.querySelector('.phead'); if(!head) return;
+
+  /* compact intro — the 40-word lede goes */
+  const h1=head.querySelector('h1'); if(h1) h1.textContent=cfg.title;
+  const lede=head.querySelector('.lede'); if(lede) lede.textContent=cfg.lede;
+  if(h1 && !head.querySelector('.t-label')){
+    const e=document.createElement('div'); e.className='t-label';
+    e.textContent=cfg.eyebrow; h1.before(e);       /* h1 may be nested in .wrap */
+  }
+
+  const V={};
+  const box=document.createElement('section');
+  box.className='mflow';
+  box.innerHTML=cfg.fields.map(f=>`
+    <div class="mfield" data-k="${f.k}">
+      <div class="t-label">${f.l}</div>
+      ${f.type==='chips'
+        ? `<div class="mchipset">${f.opts.map(o=>`<button class="mchip2" data-v="${o}">${o}</button>`).join('')}</div>`
+        : `<input class="mtext" type="text" placeholder="${f.ph}" autocomplete="off">`}
+    </div>`).join('')
+    + `<button class="mflowgo" id="mflowgo" disabled>${cfg.cta} <span class="a">→</span></button>
+       <p class="mflownote">${cfg.note}</p>`;
+  head.after(box);
+
+  const go=document.getElementById('mflowgo');
+  const refresh=()=>{
+    const ok=V.brand && (V.model||'').trim().length>1;
+    go.disabled=!ok;
+    go.onclick=ok?()=>{ location.href=waURL(cfg.msg(V)); }:null;
+  };
+  box.querySelectorAll('.mchipset').forEach(set=>{
+    const k=set.parentElement.dataset.k;
+    set.querySelectorAll('.mchip2').forEach(c=>c.addEventListener('click',()=>{
+      const on=V[k]===c.dataset.v;
+      V[k]=on?null:c.dataset.v;
+      set.querySelectorAll('.mchip2').forEach(x=>x.classList.toggle('on',!on&&x===c));
+      refresh();
+    }));
+  });
+  const t=box.querySelector('.mtext');
+  if(t) t.addEventListener('input',()=>{V.model=t.value;refresh();});
+  refresh();
+
+  /* the numbered process list becomes taps, like the authentication section */
+  const list=document.querySelector('.nlist');
+  if(list){
+    const rows=[...list.querySelectorAll('.nrow')].map(r=>[
+      (r.querySelector('.n')||{}).textContent||'',
+      (r.querySelector('h4')||{}).textContent||'',
+      (r.querySelector('p')||{}).textContent||'']);
+    if(rows.length){
+      list.classList.add('msteps');
+      list.innerHTML=`<div class="mstepchips" role="tablist">${rows.map((r,i)=>
+          `<button role="tab" aria-selected="${i===0}" data-i="${i}"><b>${r[0].trim()}</b><span>${r[1]}</span></button>`).join('')}</div>
+        <div class="msteppanel"></div>`;
+      const panel=list.querySelector('.msteppanel');
+      const show=i=>{panel.innerHTML=`<h4>${rows[i][1]}</h4><p>${rows[i][2]}</p>`;
+        list.querySelectorAll('[role=tab]').forEach((t,j)=>t.setAttribute('aria-selected',String(j===i)));};
+      list.querySelectorAll('[role=tab]').forEach(t=>t.addEventListener('click',()=>{
+        show(+t.dataset.i); t.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});}));
+      show(0);
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.osMobile && osMobile()) setTimeout(buildFlowPage,0);
+});
