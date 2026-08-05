@@ -25,11 +25,26 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
 /* ---------- top bar ---------- */
-.top{height:var(--topH);display:flex;align-items:center;justify-content:space-between;gap:20px;
- padding:0 38px;background:#141414;color:#fff;font-size:10px;letter-spacing:.16em;text-transform:uppercase}
-.top .l,.top .r{display:flex;gap:20px;align-items:center;flex:1}
-.top .r{justify-content:flex-end}
-.top .mid{text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
+.top{position:relative;height:var(--topH);display:flex;align-items:center;justify-content:space-between;
+ gap:20px;padding:0;background:#141414;color:#fff;font-size:10px;letter-spacing:.16em;
+ text-transform:uppercase;overflow:hidden}
+/* the pinned ends own the bar's edge padding, so the ticker cannot leak past them */
+.top .l,.top .r{position:relative;z-index:2;display:flex;gap:20px;align-items:center;
+ background:#141414;height:100%}
+.top .l{padding-left:38px}
+.top .r{padding-right:38px}
+.top .l::after,.top .r::before{content:"";position:absolute;top:0;bottom:0;width:46px;z-index:1;
+ pointer-events:none}
+.top .l::after{left:100%;background:linear-gradient(90deg,#141414,rgba(20,20,20,0))}
+.top .r::before{right:100%;background:linear-gradient(270deg,#141414,rgba(20,20,20,0))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* the ticker runs the full width of the bar, underneath both ends */
+.marqwrap{position:absolute;inset:0;display:flex;align-items:center;overflow:hidden;z-index:1}
+.marq{display:flex;width:max-content;animation:marq 55s linear infinite}
+.mset{display:flex;align-items:center;gap:44px;white-space:nowrap;color:#fff;padding-right:44px}
+.mset i{width:3px;height:3px;background:rgba(255,255,255,.4);flex:none;font-style:normal}
+@keyframes marq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marq{animation:none}}
 .seg{display:flex;border:1px solid rgba(255,255,255,.32)}
 .seg button{padding:3px 9px;font-size:9.5px;letter-spacing:.1em;color:rgba(255,255,255,.75);
  transition:background .25s,color .25s}
