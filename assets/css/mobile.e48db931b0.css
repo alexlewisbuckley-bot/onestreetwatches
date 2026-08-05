@@ -254,7 +254,7 @@
   .mstepchips button[aria-selected="true"]{background:var(--char);border-color:var(--char)}
   .mstepchips button[aria-selected="true"] b{color:rgba(255,255,255,.55)}
   .mstepchips button[aria-selected="true"] span{color:#fff}
-  .msteppanel{border:var(--hair);background:var(--white);padding:var(--s5);min-height:118px}
+  .msteppanel{border:var(--hair);background:var(--white);padding:var(--s5);min-height:92px}
   .msteppanel h4{font-size:var(--t-head) !important;letter-spacing:var(--ls-head);font-weight:400}
   .msteppanel p{margin-top:var(--s2);font-size:var(--t-sec) !important;line-height:1.7;color:var(--soft)}
   .guarantee{grid-template-columns:1fr;gap:20px}
@@ -419,6 +419,56 @@
   .claims{gap:var(--s2) var(--s5)}
   .claims i{display:none}
   .dassure{gap:var(--s2) var(--s5)}
+
+  /* ================= BOOKING ================= */
+  .bwrap{display:block;padding:0 0 var(--s8)}
+  .bside{display:none}                 /* the summary belonged after a choice, not before one */
+  .bsteps{display:none}                /* numbered rail wrapped and clipped */
+  .bmain{padding:0}
+  body[data-page="visit"] .phead p.lede{display:none}
+  .bprog{display:flex;gap:4px;padding:var(--s4) var(--gut) 0}
+  .bprog i{flex:1;height:2px;background:var(--line);transition:background var(--m)}
+  .bprog i.on{background:var(--char)}
+  .bsum{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);padding:var(--s3) var(--gut) 0;
+   font-size:var(--t-cap) !important;color:var(--muted)}
+  .bsum span:not(:last-child)::after{content:" ·";color:var(--line2)}
+  .bstep{padding:0 var(--gut)}
+  .bh{margin:var(--s5) 0 var(--s4);font-size:var(--t-title) !important}
+
+  /* viewing type — full-width rows, not 176px cards */
+  .btypes{grid-template-columns:1fr;gap:var(--s2)}
+  .btype{padding:var(--s4);gap:var(--s1);min-height:0}
+  .btype .k{display:none}
+  .btype h3{font-size:var(--t-sub) !important;letter-spacing:var(--ls-sub)}
+  .btype p{display:none}
+  .btype .m{margin-top:var(--s1);padding-top:0;font-size:var(--t-cap) !important}
+
+  /* dates as a rail; the month grid is opt-in */
+  .bwhen{display:block}
+  .drail{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+   margin:0 calc(var(--gut) * -1);padding:0 var(--gut) var(--s3);scroll-padding-left:var(--gut)}
+  .drail::-webkit-scrollbar{display:none}
+  .dday{flex:none;width:60px;min-height:76px;border:var(--hair2);background:var(--white);
+   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+   scroll-snap-align:start;transition:background var(--m),border-color var(--m)}
+  .dday .dw{font-size:var(--t-label) !important;letter-spacing:.08em;text-transform:uppercase;color:var(--pale)}
+  .dday .dn{font-size:var(--t-head) !important;color:var(--ink);letter-spacing:-.02em}
+  .dday .dm{font-size:var(--t-label) !important;color:var(--pale);text-transform:uppercase;letter-spacing:.08em}
+  .dday.off{opacity:.32}
+  .dday.sel{background:var(--char);border-color:var(--char)}
+  .dday.sel .dw,.dday.sel .dn,.dday.sel .dm{color:#fff}
+  .dmore{min-height:var(--tap);font-size:var(--t-cap) !important;color:var(--muted);
+   border-bottom:var(--hair2);padding-bottom:2px}
+  .cal{display:none;margin-top:var(--s4)}
+  .cal.on{display:block}
+  .slothead{margin-top:var(--s5)}
+  .slotlist{grid-template-columns:repeat(3,1fr);gap:var(--s2);max-height:none;margin-top:var(--s3)}
+  .slot{min-height:var(--tap-lg)}
+  .slottz{margin-top:var(--s4)}
+  .bnav{margin-top:var(--s5)}
+  .bform .fgrid{grid-template-columns:1fr}
+  .bdoneacts{flex-direction:column}
+  .bdoneacts .b1,.bdoneacts .b2{width:100%;min-width:0}
 
   /* ---- footer: was 1504px on a 844px screen ---- */
   footer.foot{padding:var(--s7) var(--gut) 0 !important}

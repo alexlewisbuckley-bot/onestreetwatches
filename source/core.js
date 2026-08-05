@@ -360,7 +360,7 @@ function initSearch(){
       const pages = PAGES.filter(p => (p[0]+' '+p[1]).toLowerCase().includes(ql));
       if(!hits.length && !brands.length && !fams.length && !pages.length){
         h = `<div class="none">Nothing in the case matches “${esc(q)}” right now.<br>
-             Tell our concierge what you are after — average time to source is eleven days.</div>
+             Tell our concierge what you are after — average time to source is 48 hours.</div>
              <a class="all" href="sourcing.html">Start a sourcing request →</a>`;
       } else {
         if(brands.length || fams.length){

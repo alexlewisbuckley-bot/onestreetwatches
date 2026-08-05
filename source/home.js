@@ -113,13 +113,13 @@ const STEPS=[
  ["03","Dial &amp; hands","Loupe and UV — font, lume and index seating checked for correct-period parts."],
  ["04","Movement","Caseback off. Calibre, finishing and engraving inspected: where a fake gives itself away."],
  ["05","Timing","Six positions on the timegrapher, then a pressure test to the stated depth."],
- ["06","Warranted","Photographed, filed against the serial, and a 24-month warranty issued in your name."]
+ ["06","Warranted","Photographed, filed against the serial, and a 12-month warranty issued in your name."]
 ];
 /* ---------- services ---------- */
 const SVCS=[
  {t:"Servicing &amp; polishing",d:"Full strip-down, ultrasonic clean, lubrication and regulation by Swiss-trained watchmakers — plus factory-spec refinishing when a case deserves it.",ph:["The bench","Watchmaker at the bench, loupe in eye, movement open on the mat"]},
  {t:"Authentication",d:"Bring us anything, bought from us or not. 41 checks, a written report against the serial, and an honest answer either way.",ph:["Loupe &amp; movement","Macro of a movement under the loupe, tweezers in frame"]},
- {t:"Sourcing",d:"Name the reference. We hunt it through our dealer network across four time zones and come back with real options and real prices. Average: eleven days.",k:2},
+ {t:"Sourcing",d:"Name the reference. We hunt it through our dealer network and come back with real options and real prices. Average: 48 hours.",k:2},
  {t:"Selling &amp; part-exchange",d:"Outright purchase or trade against anything in the case. A firm offer within the hour and payment the same day, in the UAE or the UK.",ph:["The counter","Watch and papers on the desk mid-valuation, hands only"]}
 ];
 const SELL=[

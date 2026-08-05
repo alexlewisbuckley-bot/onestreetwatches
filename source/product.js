@@ -12,11 +12,10 @@ function paint(){
   $('pbrand').textContent=W.b; $('pmodel').textContent=W.m;
   $('pref').textContent='Ref. '+W.r+'  ·  '+W.y+'  ·  '+W.size+' mm';
   $('pprice').dataset.aed=W.aed;
-  document.querySelector('.dfin .money').dataset.aed=Math.round(W.aed/12);
   $('ploc').innerHTML='<b>In the case now</b> — '+W.loc+'. One of one.';
   $('pdel').innerHTML=W.loc==='Dubai'
-    ? '<b>Order by 4pm</b> — insured delivery tomorrow in the UAE, Thursday in the UK.'
-    : '<b>Order by 4pm</b> — insured delivery tomorrow in the UK, Thursday in the UAE.';
+    ? '<b>Order before 6pm</b> — delivered within the hour in Dubai.'
+    : '<b>In the UK</b> — next-day delivery, or bring it to a viewing.';
 
   /* gallery */
   const gm=$('gmain');
@@ -65,7 +64,6 @@ function paint(){
       <li><b>United Kingdom</b>Insured next-day delivery, tracked and signed for.</li>
       <li><b>Worldwide</b>Insured courier, 2–5 working days. Duties quoted before dispatch.</li>
       <li><b>Returns</b>14 days from delivery, unworn and complete, no questions asked.</li></ul>`],
-    ['Payment, finance &amp; part-exchange',`<p>Card, bank transfer or cash at either location. Finance over 6, 12 or 24 months, 0% on selected pieces. Put the value of your current watch straight against this one — a firm offer within the hour.</p>`]
   ];
   $('acc').innerHTML=ACC.map((a,i)=>
     `<div class="acci${i===0?' open':''}"><button class="acch">${a[0]}<i>+</i></button><div class="accb">${a[1]}</div></div>`).join('');

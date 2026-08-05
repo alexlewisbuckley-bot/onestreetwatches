@@ -13,7 +13,10 @@
   --topH:38px; --navH:82px; --peek:74px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--ivory);color:var(--ink);
+/* the canvas below the last pixel of the page takes html's background —
+   without this, over-scrolling past the dark footer shows an ivory band */
+html{background:#191816}
+body{background:var(--ivory);color:var(--ink);min-height:100dvh;
  font-family:"Inter Tight",Inter,-apple-system,"Helvetica Neue",Arial,sans-serif;
  -webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}

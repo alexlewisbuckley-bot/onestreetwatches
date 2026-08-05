@@ -86,6 +86,7 @@ function paintSteps(n){
 }
 let STEP=1;
 function go(n){
+  if(window.__bsum) setTimeout(window.__bsum,0);
   if(n===4 && STEP!==4) return;
   STEP=n;
   document.querySelectorAll('.bstep').forEach(s=>s.classList.toggle('on',+s.dataset.s===n));
@@ -103,7 +104,7 @@ function buildTypes(){
     S.type=TYPES.find(t=>t.id===b.dataset.t);
     S.date=null; S.slot=null;
     document.querySelectorAll('.btype').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-    buildCal(); go(2);
+    buildCal(); go(2); if(window.__paintRail) window.__paintRail();
   }));
 }
 
@@ -167,7 +168,7 @@ async function pickDay(ds){
     S.slot=list[+b.dataset.i];
     document.querySelectorAll('.slot').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
     paintSide();
-    setTimeout(()=>go(3),260);
+    setTimeout(()=>go(3),260); if(window.__bsum) window.__bsum();
   }));
   const tzName=tzLabel(S.type.tz);
   $b('slottz').textContent = TZ===S.type.tz
@@ -297,4 +298,82 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   $b('bform').addEventListener('submit',submit);
   document.querySelectorAll('.bback').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.back)));
+});
+
+/* ================= MOBILE =================
+   The desktop layout stacked badly: the summary rail landed above the flow,
+   so the first screen was "Not chosen yet", and the numbered step rail
+   wrapped and clipped. On a phone this is a three-step task and should read
+   as one: progress bar, one decision per screen, summary only once there is
+   something to summarise. */
+function mDates(n){
+  const out=[], t=midnight(new Date());
+  for(let i=0;i<n;i++) out.push(addDays(t,i));
+  return out;
+}
+function buildMobileBook(){
+  const wrap=document.querySelector('.bwrap'); if(!wrap) return;
+
+  /* slim progress bar replaces the numbered rail */
+  const bar=document.createElement('div');
+  bar.className='bprog';
+  bar.innerHTML='<i></i><i></i><i></i>';
+  document.querySelector('.bmain').prepend(bar);
+
+  /* one-line summary, only once a choice exists */
+  const sum=document.createElement('div');
+  sum.className='bsum'; sum.hidden=true;
+  bar.after(sum);
+  window.__bsum=()=>{
+    const bits=[];
+    if(S.type) bits.push(S.type.h);
+    if(S.slot) bits.push(longDate(new Date(S.date+'T00:00:00'))+', '+hhmm(S.slot));
+    sum.hidden=!bits.length;
+    sum.innerHTML=bits.map(b=>`<span>${b}</span>`).join('');
+    document.querySelectorAll('.bprog i').forEach((x,i)=>
+      x.classList.toggle('on', i < (STEP>3?3:STEP-1) + (STEP===4?1:0) || i<STEP-1));
+  };
+
+  /* dates as a rail — a month grid on a phone is 44px cells and a lot of hunting */
+  const when=document.querySelector('.bwhen');
+  const rail=document.createElement('div');
+  rail.className='drail'; rail.id='drail';
+  when.prepend(rail);
+  const more=document.createElement('button');
+  more.className='dmore'; more.textContent='Show the full month';
+  more.addEventListener('click',()=>{
+    const cal=document.querySelector('.cal');
+    const open=cal.classList.toggle('on');
+    more.textContent=open?'Hide the month':'Show the full month';
+  });
+  rail.after(more);
+
+  window.__paintRail=async ()=>{
+    const days=mDates(21);
+    const flags=await Promise.all(days.map(d=>dayHasSlots(iso(d))));
+    rail.innerHTML=days.map((d,i)=>{
+      const ds=iso(d), free=flags[i];
+      return `<button class="dday${free?'':' off'}${S.date===ds?' sel':''}" data-d="${ds}" ${free?'':'disabled'}>
+        <span class="dw">${d.toLocaleDateString('en-GB',{weekday:'short'})}</span>
+        <span class="dn">${d.getDate()}</span>
+        <span class="dm">${MONTHS[d.getMonth()].slice(0,3)}</span></button>`;}).join('');
+    rail.querySelectorAll('.dday:not(.off)').forEach(b=>b.addEventListener('click',()=>{
+      pickDay(b.dataset.d);
+      rail.querySelectorAll('.dday').forEach(x=>x.classList.toggle('sel',x.dataset.d===b.dataset.d));
+      b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+    }));
+    const sel=rail.querySelector('.dday.sel')||rail.querySelector('.dday:not(.off)');
+    if(sel) sel.scrollIntoView({inline:'start',block:'nearest'});
+  };
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!(window.osMobile && osMobile())) return;
+  setTimeout(()=>{
+    buildMobileBook();
+    const _go=go, _pick=pickDay, _cal=paintCal;
+    window.go=n=>{_go(n); if(window.__bsum) window.__bsum();};
+    paintCal=async()=>{ await _cal(); if(window.__paintRail) window.__paintRail(); };
+    if(S.type) paintCal();
+    if(window.__bsum) window.__bsum();
+  },0);
 });
