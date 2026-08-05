@@ -82,20 +82,19 @@ function initNew(){
 /* ---------- shop by brand: three tiles + a link row ----------
    Only Rolex has real photography today; the other two tiles carry
    art-directed placeholders rather than borrowing the wrong watch. */
+/* brand photography shot on black, cropped to one scale */
 const TILES=[
- {n:"Rolex",k:1},
- {n:"Audemars Piguet",ph:["Royal Oak","Rose gold Double Balance, three-quarter on grey"]},
- {n:"Patek Philippe",ph:["Nautilus","Blue embossed dial, three-quarter on grey"]}
+ {n:"Rolex",img:"__B_ROLEX__"},
+ {n:"Audemars Piguet",img:"__B_AP__"},
+ {n:"Patek Philippe",img:"__B_PATEK__"}
 ];
 function initMaisons(){
   const box=$h('mtiles'); if(!box) return;
-  box.innerHTML=TILES.map(t=>{
-    const im=t.k!==undefined ? CATALOGUE[t.k].ims.find(x=>x.img) : null;
-    return `<a class="mtile" href="${shopURL({brand:t.n})}">
-      <div class="art">${im?`<img src="${im.img}" alt="${t.n}">`
-        :`<div class="ph"><div class="l1">${t.ph[0]}</div><div class="l2">${t.ph[1]}</div></div>`}</div>
+  box.innerHTML=TILES.map(t=>`
+    <a class="mtile" href="${shopURL({brand:t.n})}">
+      <div class="art"><img src="${t.img}" alt="${t.n}"></div>
       <div class="lbl">Shop ${t.n}<em>${nWhere(w=>w.b===t.n)}</em></div>
-    </a>`;}).join('');
+    </a>`).join('');
   const rest=[...new Set(CATALOGUE.map(w=>w.b))].filter(b=>!TILES.some(t=>t.n===b));
   $h('mrowlinks').innerHTML=rest.map(b=>`<a href="${shopURL({brand:b})}">${b}</a>`).join('')
     +`<a href="shop.html">All brands</a>`;
@@ -115,12 +114,13 @@ function initSpotlight(){
     <div class="art"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
     <div class="bd">
       <div class="k">Featured this week</div>
-      <h2>${w.b} ${w.m}</h2>
-      <div class="pr money" data-aed="${w.aed}">${money(w.aed)}</div>
-      <p class="why">${w.y} · ${w.c} · ${w.box&&w.pap?'Full set':'See details'} · held in ${w.loc}</p>
+      <h2>${w.b}<br>${w.m}</h2>
+      <div class="meta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
+        <i></i><span>${w.y}</span><i></i><span>${w.c}</span>
+        <i></i><span>${w.box&&w.pap?'Full set':'See details'}</span></div>
       <div class="acts">
-        <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
-        <a class="b2" href="${bandURL(250000,null)}">The vault <span class="a">→</span></a>
+        <a class="hb" href="product.html?i=${idx}">View this watch</a>
+        <a class="hb hb--ghost" href="${bandURL(250000,null)}">Explore the vault</a>
       </div>
     </div>
   </div>`;

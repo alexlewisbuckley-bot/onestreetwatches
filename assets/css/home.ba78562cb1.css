@@ -33,7 +33,7 @@
 .veye{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
 .vhead h2{margin-top:10px;font-size:19px;font-weight:400;letter-spacing:.3em;text-transform:uppercase}
 .vmore{text-align:center;margin-top:30px}
-.vmore a{display:inline-flex;align-items:center;min-height:44px;border:1px solid var(--ink);padding:0 30px;font-size:10.5px;
+.vmore a{display:inline-block;border:1px solid var(--ink);padding:15px 30px;font-size:10.5px;
  letter-spacing:.18em;text-transform:uppercase;transition:background .3s,color .3s}
 .vmore a:hover{background:var(--ink);color:#fff}
 .vfollow{display:flex;justify-content:center;gap:8px;margin-top:16px}
@@ -41,10 +41,9 @@
 /* ---------- maison tiles ---------- */
 .mtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mtile{display:block;text-align:center}
-.mtile .art{aspect-ratio:1/.92;background:var(--sand);display:grid;place-items:center;overflow:hidden}
-.mtile .art img{width:56%;height:56%;object-fit:contain;transition:transform .7s var(--e)}
-.mtile:hover .art img{transform:scale(1.05)}
-.mtile .art .ph{position:relative;inset:auto;width:100%;height:100%}
+.mtile .art{aspect-ratio:1/1;background:#050505;display:grid;place-items:center;overflow:hidden}
+.mtile .art img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--e)}
+.mtile:hover .art img{transform:scale(1.04)}
 .mtile .lbl{margin-top:16px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink)}
 .mtile .lbl em{font-style:normal;color:var(--pale);margin-left:8px;letter-spacing:.1em}
 .mrow{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:26px}
@@ -53,18 +52,23 @@
  transition:color .3s,border-color .3s}
 .mrow a:hover{color:var(--ink);border-color:var(--ink)}
 
-/* ---------- spotlight ---------- */
-.spot2{margin-top:76px;background:var(--sand)}
-.spot2 .in{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:40px;
- padding:64px 52px;max-width:1200px;margin:0 auto}
-.spot2 .art{display:grid;place-items:center;min-height:360px}
-.spot2 .art img{width:min(340px,80%);height:auto;object-fit:contain}
-.spot2 .art .ph{position:relative;inset:auto;width:100%;min-height:360px}
-.spot2 .bd .k{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
-.spot2 .bd h2{margin-top:14px;font-size:clamp(24px,2.4vw,34px);font-weight:300;letter-spacing:-.01em;line-height:1.2}
-.spot2 .bd .pr{margin-top:14px;font-size:15px;letter-spacing:.02em}
-.spot2 .bd .why{margin-top:12px;font-size:12.5px;color:var(--muted);line-height:1.8;max-width:400px}
-.spot2 .acts{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+/* ---------- spotlight: one watch on black, gallery-lit ---------- */
+.spot2{margin-top:76px;background:#0B0B0A;color:#fff}
+.spot2 .in{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:56px;
+ padding:88px 52px;max-width:1160px;margin:0 auto}
+.spot2 .art{display:grid;place-items:center;min-height:400px;position:relative}
+.spot2 .art::before{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(55% 55% at 50% 46%,rgba(255,255,255,.13),rgba(255,255,255,0) 70%)}
+.spot2 .art img{position:relative;width:min(360px,78%);height:auto;object-fit:contain;
+ filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))}
+.spot2 .bd .k{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.spot2 .bd h2{margin-top:18px;font-size:clamp(28px,2.8vw,40px);font-weight:300;letter-spacing:-.01em;
+ line-height:1.16;color:#fff}
+.spot2 .meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px;
+ font-size:13px;letter-spacing:.03em;color:rgba(255,255,255,.72)}
+.spot2 .meta .money{color:#fff;font-size:15px}
+.spot2 .meta i{width:3px;height:3px;background:rgba(255,255,255,.3);font-style:normal}
+.spot2 .acts{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
 
 /* ---------- editorial doors ---------- */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
