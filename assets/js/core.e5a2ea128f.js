@@ -2,6 +2,12 @@
    ONE STREET WATCHES — shared core
    currency · catalogue data · mega menu · header · carousels
    ============================================================ */
+/* WhatsApp — the only conversion on this site. One source of truth.
+   Short links carry the business's own pre-set greeting; ?text= is honoured
+   by most clients but is only guaranteed on a wa.me/<number> link. */
+const WA_LINK = 'https://wa.me/message/55ILJOASJYUAD1';
+const waURL = msg => WA_LINK + (msg ? '?text=' + encodeURIComponent(msg) : '');
+
 const RATE = 4.70;                      // AED per GBP (indicative — replace with a live feed)
 let CUR = localStorage.getItem('osw-cur') || 'AED';
 const money = aed => CUR === 'AED'
@@ -438,7 +444,7 @@ const NAV = [
   {t:'Visit us',            href:'visit.html'},
   {t:'About One Street',    href:'about.html'}
 ];
-const WANO='https://wa.me/97140000000';
+const WANO=WA_LINK;
 
 let built=false;
 function buildShell(){

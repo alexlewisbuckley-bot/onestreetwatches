@@ -27,7 +27,7 @@ const NAV = [
   {t:'Visit us',            href:'visit.html'},
   {t:'About One Street',    href:'about.html'}
 ];
-const WANO='https://wa.me/97140000000';
+const WANO=WA_LINK;
 
 let built=false;
 function buildShell(){

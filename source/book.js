@@ -27,7 +27,7 @@ const TYPES=[
    m:'Dubai, the UK or on camera', tz:'Asia/Dubai', mins:45,
    days:[0,1,2,3,4,5,6], open:'10:00', close:'19:00', step:45}
 ];
-const WA='https://wa.me/97140000000';           /* replace with the real number */
+const WA=WA_LINK;           /* replace with the real number */
 const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone||'Asia/Dubai';
 const tzLabel=z=>((z||'').split('/').pop()||'').replace(/_/g,' ')||'your local';
 const S={type:null, date:null, slot:null, watch:null, ref:null};

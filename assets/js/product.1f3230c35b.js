@@ -103,7 +103,7 @@ function linkBooking(i){
   const r=document.getElementById('pres');  if(r) r.href=q;
   const w=CATALOGUE[i];
   document.querySelectorAll('a[href^="https://wa.me"]').forEach(a=>{
-    a.href='https://wa.me/97140000000?text='+encodeURIComponent(
+    a.href=waURL(
       `Hello — I am interested in the ${w.b} ${w.m}, ref ${w.r}.`);
   });
 }
@@ -120,7 +120,7 @@ function waLink(w){
   const msg=`Hello — I'm interested in this watch.\n\n`+
     `${w.b} ${w.m}\nRef. ${w.r} · ${w.y}\n${money(w.aed)}\n\n`+
     `Is it still available?`;
-  return 'https://wa.me/97140000000?text='+encodeURIComponent(msg);
+  return waURL(msg);
 }
 
 /* the six facts a buyer checks before asking — as chips, not a spec table */
