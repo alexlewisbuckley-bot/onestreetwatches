@@ -103,26 +103,48 @@ function initMaisons(){
 /* ---------- spotlight ----------
    Only these four indices carry genuinely their own photography —
    the other image tokens are aliased stand-ins, and a spotlight must
-   never wear another watch's picture. */
+   never wear another watch's picture.
+
+   The spec rows are a guided tour: each one is a lens. Choosing a row
+   glides the photograph in to that detail — one image, five views. */
 const REAL=[1,2,3,4];
+const TOUR={
+  4:[  /* Submariner — white gold cut-out (800×800, watch centred) */
+    {l:'Bezel',   v:'Blue Cerachrom, 60-click', o:'50% 26%', z:2.2,
+     n:'Unidirectional ceramic bezel — the blue is fired in, not coated, so it cannot fade.'},
+    {l:'Dial',    v:'Black lacquer',            o:'50% 42%', z:2.4,
+     n:'Maxi markers in 18k white gold surrounds, Chromalight lume that glows blue.'},
+    {l:'Crown',   v:'Triplock, screw-down',     o:'71% 43%', z:2.6,
+     n:'Triple-sealed crown behind the guards — rated to 300 metres.'},
+    {l:'Bracelet',v:'Oyster, Glidelock',        o:'46% 78%', z:2.1,
+     n:'Solid white gold links; the clasp adjusts 20mm without a tool.'}
+  ]
+};
 function initSpotlight(){
   const box=$h('spotlight'); if(!box) return;
   let idx=-1;
   REAL.forEach(i=>{ if(idx<0||CATALOGUE[i].aed>CATALOGUE[idx].aed) idx=i; });
   const w=CATALOGUE[idx], im=w.ims.find(x=>x.img);
-  const row=(l,v)=>`<div class="sprow"><em>${l}</em><span>${v}</span></div>`;
+  const tour=TOUR[idx];
+  const rows = tour
+    ? tour.map((f,i)=>`<button class="sprow sprow--lens" data-f="${i}" aria-pressed="false">
+        <em>${f.l}</em><span>${f.v}</span></button>`).join('')
+    : `<div class="sprow"><em>Reference</em><span>${w.r}</span></div>
+       <div class="sprow"><em>Case</em><span>${w.size} mm</span></div>
+       <div class="sprow"><em>Dial</em><span>${w.dial}</span></div>
+       <div class="sprow"><em>Held in</em><span>${w.loc}</span></div>`;
   box.innerHTML=`<div class="in">
-    <div class="art"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
+    <div class="art" id="sp-art"><img src="${im.img}" alt="${w.b} ${w.m}">
+      <div class="lensnote" id="sp-note" aria-live="polite"></div></div>
     <div class="bd">
       <div class="k">Featured this week</div>
       <h2>${w.b} ${w.m}</h2>
       <div class="meta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
         <i></i><span>${w.y}</span><i></i><span>${w.c}</span>
-        <i></i><span>${w.box&&w.pap?'Full set':'See details'}</span></div>
-      <div class="specs">
-        ${row('Reference',w.r)}${row('Case',w.size+' mm')}
-        ${row('Dial',w.dial)}${row('Held in',w.loc)}
-      </div>
+        <i></i><span>${w.box&&w.pap?'Full set':'See details'}</span>
+        <i></i><span>Ref. ${w.r}</span></div>
+      <div class="specs${tour?' specs--tour':''}">${rows}</div>
+      ${tour?'<div class="tourhint">Select a detail to look closer</div>':''}
       <div class="acts">
         <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
         <a class="b2" href="${bandURL(250000,null)}">Explore the vault <span class="a">→</span></a>
@@ -130,6 +152,28 @@ function initSpotlight(){
     </div>
   </div>`;
   repaintMoney();
+
+  if(!tour) return;
+  const img=box.querySelector('#sp-art img'), note=$h('sp-note');
+  /* hover previews a lens; click pins it. Two states, or hovering on the
+     way to the button you meant would keep stealing the pin. */
+  let pinned=-1;
+  const preview=i=>{
+    box.querySelectorAll('.sprow--lens').forEach((r,j)=>{
+      r.setAttribute('aria-pressed',String(j===i)); r.classList.toggle('on',j===i);
+    });
+    if(i<0){ img.style.transform='none'; note.classList.remove('on'); return; }
+    const f=tour[i];
+    img.style.transformOrigin=f.o;
+    img.style.transform='scale('+f.z+')';
+    note.textContent=f.n; note.classList.add('on');
+  };
+  box.querySelectorAll('.sprow--lens').forEach((r,i)=>{
+    r.addEventListener('mouseenter',()=>preview(i));
+    r.addEventListener('click',()=>{ pinned = pinned===i ? -1 : i; preview(pinned); });
+  });
+  box.querySelector('.specs').addEventListener('mouseleave',()=>preview(pinned));
+  box.querySelector('#sp-art').addEventListener('click',()=>{ pinned=-1; preview(-1); });
 }
 
 /* ---------- social ---------- */

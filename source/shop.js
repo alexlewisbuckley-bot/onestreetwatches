@@ -92,6 +92,14 @@ function buildRail(){
     b.addEventListener('click',()=>toggle(b.dataset.k,b.dataset.v)));
   rail.querySelectorAll('.rng').forEach(initRange);
   document.getElementById('clear').addEventListener('click',clearAll);
+
+  /* the rail is a drawer — closed by default, 4-up; open, 3-up */
+  const wrap=document.querySelector('.shopwrap'), tog=document.getElementById('filtoggle');
+  if(tog) tog.addEventListener('click',()=>{
+    const open=wrap.classList.toggle('open');
+    tog.setAttribute('aria-expanded',String(open));
+    if(open) rail.querySelectorAll('.rng').forEach(paintRange);   /* sliders need width */
+  });
 }
 function closePop(){}   /* the rail never opens or closes — kept for callers */
 
@@ -275,6 +283,8 @@ function activeChips(){
   const el=document.getElementById('active');
   el.innerHTML=out.join('');
   document.getElementById('clear').hidden = !out.length;
+  const fc=document.getElementById('filcount');
+  if(fc){ fc.hidden=!out.length; fc.textContent=out.length; }
   el.querySelectorAll('.pill2').forEach(p=>p.addEventListener('click',()=>{
     if(p.dataset.t==='rng'){ R[p.dataset.k]=[...B[p.dataset.k]];
       document.querySelectorAll('.rng').forEach(paintRange); }

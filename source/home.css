@@ -56,9 +56,16 @@
 .spot2{margin-top:76px;padding:0 52px}
 .spot2 .in{max-width:1160px;margin:0 auto;border:1px solid var(--line2);background:#fff;
  display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch}
-.spot2 .art{background:var(--sand);display:grid;place-items:center;min-height:460px;padding:40px}
+.spot2 .art{background:var(--sand);display:grid;place-items:center;min-height:460px;padding:40px;
+ position:relative;overflow:hidden;cursor:zoom-out}
 .spot2 .art img{width:min(300px,70%);height:auto;object-fit:contain;
- filter:drop-shadow(0 16px 20px rgba(0,0,0,.16))}
+ filter:drop-shadow(0 16px 20px rgba(0,0,0,.16));
+ transition:transform .9s var(--e),transform-origin .9s var(--e);will-change:transform}
+.lensnote{position:absolute;left:20px;right:20px;bottom:18px;z-index:3;
+ background:rgba(255,255,255,.95);padding:12px 16px;font-size:11.5px;line-height:1.6;
+ color:var(--soft);opacity:0;transform:translateY(8px);pointer-events:none;
+ transition:opacity .4s var(--e),transform .5s var(--e)}
+.lensnote.on{opacity:1;transform:none}
 .spot2 .bd{padding:44px 50px;display:flex;flex-direction:column;justify-content:center}
 .spot2 .bd .k{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
 .spot2 .bd h2{margin-top:14px;font-size:clamp(24px,2.2vw,31px);font-weight:300;letter-spacing:-.01em;line-height:1.2}
@@ -70,6 +77,13 @@
 .sprow{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
  padding:10px 0;border-bottom:1px solid var(--line);font-size:12.5px}
 .sprow em{font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--pale)}
+.sprow--lens{width:100%;text-align:left;cursor:pointer;min-height:44px;align-items:center;
+ transition:padding .35s var(--e),background .3s}
+.sprow--lens:hover{background:var(--sand);padding-left:12px;padding-right:12px}
+.sprow--lens.on{background:var(--sand);padding-left:12px;padding-right:12px;
+ box-shadow:inset 2px 0 0 var(--char)}
+.sprow--lens.on em{color:var(--ink)}
+.tourhint{margin-top:10px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--pale)}
 .spot2 .acts{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
 
 /* ---------- editorial doors ---------- */
