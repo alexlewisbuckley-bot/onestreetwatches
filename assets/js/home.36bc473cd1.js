@@ -85,8 +85,8 @@ function initNew(){
 /* brand photography shot on black, cropped to one scale */
 const TILES=[
  {n:"Rolex",img:"assets/img/brand-rolex.407a5af427.jpg"},
- {n:"Audemars Piguet",img:"assets/img/brand-ap.e0ca24fceb.jpg"},
- {n:"Patek Philippe",img:"assets/img/brand-patek.da9c94bbdc.jpg"}
+ {n:"Audemars Piguet",img:"assets/img/brand-ap.cd0aedc876.jpg"},
+ {n:"Patek Philippe",img:"assets/img/brand-patek.4b19a0cdb0.jpg"}
 ];
 function initMaisons(){
   const box=$h('mtiles'); if(!box) return;
