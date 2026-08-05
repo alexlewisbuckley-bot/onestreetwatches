@@ -171,6 +171,11 @@ function buildMobileProduct(){
       ${ICWA}<span><b>Ask about this watch</b><em>WhatsApp · replies in minutes</em></span></a>
     <a class="mbuy__alt" id="mres" href="book.html?i=${IDX}&type=specific" aria-label="Book a viewing">See it</a>`;
   document.body.appendChild(bar);
+  /* reserve the space it occupies so it never covers the end of the footer */
+  const reserve=()=>{document.body.style.paddingBottom=
+    bar.classList.contains('on') ? bar.offsetHeight+'px' : '';};
+  const io2=new MutationObserver(reserve); io2.observe(bar,{attributes:true,attributeFilter:['class']});
+  addEventListener('resize',reserve);
   const io=new IntersectionObserver(e=>bar.classList.toggle('on',!e[0].isIntersecting),
     {rootMargin:'-90px 0px 0px 0px'});
   io.observe(document.querySelector('.dprice'));

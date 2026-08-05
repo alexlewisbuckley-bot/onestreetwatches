@@ -292,7 +292,11 @@
    padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
   .pane{padding-left:var(--gut);padding-right:var(--gut)}
   .det{padding-left:var(--gut);padding-right:var(--gut)}
-  .sec,.band{padding-top:var(--s8)}
+  .sec,.band,.split,.rel{padding-top:var(--s8) !important}
+  .phead{padding-top:var(--s6) !important;padding-bottom:var(--s6) !important}
+  .results{padding-top:var(--s5) !important}
+  .cta{padding-top:var(--s8) !important;padding-bottom:var(--s8) !important}
+  .bwrap{padding-top:var(--s6) !important}
   .split{padding:var(--s7) 0}
   .cta{padding:var(--s8) 0}
 
@@ -410,6 +414,21 @@
   .note,.sub{font-size:var(--t-sec) !important}
   h3,.ccard h3,.acard h3,.loc2 h3,.svc h3,.rv h3,.btype h3,.form h3{font-size:var(--t-head) !important}
   .money,.pprice,.dprice b{letter-spacing:var(--ls-title)}
+
+  /* ---- footer: was 1504px on a 844px screen ---- */
+  .foot{padding:var(--s7) var(--gut) 0 !important}
+  .fmain{padding-bottom:var(--s6) !important;gap:var(--s6) !important}
+  .fcols{grid-template-columns:1fr 1fr !important;gap:var(--s5) var(--s4) !important;align-items:start}
+  .fcol{align-self:start}
+  .flocs{padding:var(--s6) 0 !important;gap:var(--s5) !important}
+  .floc h5{margin-bottom:var(--s2)}
+  .floc p:empty{display:none}
+  .floc h5 + .fwa{margin-top:var(--s3)}
+  .floc p{line-height:1.7}
+  .fbot{padding:var(--s5) 0 var(--s6) !important;gap:var(--s3) !important}
+  .fbot .lks{gap:var(--s3) var(--s4) !important}
+  .fnews{margin-top:var(--s4)}
+  .fsocial{margin-top:var(--s4)}
 
   /* ---- closing CTA bands duplicate the top action: gone ---- */
   .cta{border-top:var(--hair);background:none}

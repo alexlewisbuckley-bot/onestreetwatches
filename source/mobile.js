@@ -106,7 +106,8 @@ function buildShell(){
 }
 
 function openMenu(){
-  document.getElementById('navmenu').classList.add('on');
+  const m=document.getElementById('navmenu'); if(!m) return;
+  m.classList.add('on');
   document.getElementById('m-menu').setAttribute('aria-expanded','true');
   document.body.style.overflow='hidden';
 }
@@ -117,13 +118,15 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 function openSearch(){
-  document.getElementById('msearch').classList.add('on');
+  const s=document.getElementById('msearch'); if(!s) return;
+  s.classList.add('on');
   document.body.style.overflow='hidden';
   paintSearch();
   setTimeout(()=>document.getElementById('mq').focus(),60);
 }
 function closeSearch(){
-  document.getElementById('msearch').classList.remove('on');
+  const s=document.getElementById('msearch'); if(!s) return;   /* never built on desktop */
+  s.classList.remove('on');
   document.body.style.overflow='';
 }
 function paintSearch(){
