@@ -210,7 +210,7 @@
  max-width:34ch;margin-left:auto;margin-right:auto}
 .c-empty .c-btn{margin-top:var(--s5)}
 
-.c-skel{background:linear-gradient(90deg,var(--sand) 0%,#F5F1EA 50%,var(--sand) 100%);
+.c-skel{background:linear-gradient(90deg,var(--sand) 0%,#FBFBFA 50%,var(--sand) 100%);
  background-size:200% 100%;animation:skel 1.4s ease-in-out infinite}
 @keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
 @media (prefers-reduced-motion:reduce){.c-skel{animation:none}}

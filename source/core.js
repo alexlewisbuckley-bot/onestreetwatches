@@ -17,53 +17,53 @@ const money = aed => CUR === 'AED'
 /* ---------------- the catalogue ---------------- */
 const SHOT = (a, b) => ({ ph: [a, b] });
 const CATALOGUE = [
- {b:"Rolex",m:"Daytona",r:"116520",y:2010,c:"Very good",box:1,pap:1,aed:82250,loc:"Dubai",tag:"Popular",dial:"White",size:40,cat:["Sports","Chronographs"],
+ {b:"Rolex",m:"Daytona",r:"116520",t:"Daytona 116520 Chronograph In Steel With White Dial And Black Sub-Dials, 2010 Full Set",y:2010,c:"Very good",box:1,pap:1,aed:82250,loc:"Dubai",tag:"Popular",dial:"White",size:40,cat:["Sports","Chronographs"],
   ims:[SHOT("Three-quarter","Steel Daytona at 45°, soft top light, sand plate"),SHOT("Dial macro","Sub-dials filling the frame"),SHOT("Caseback","Serial between the lugs"),SHOT("Box & papers","Full set laid flat")]},
- {b:"Rolex",m:"Submariner “Hulk”",r:"116610LV",y:2019,c:"Excellent",box:1,pap:1,aed:58500,loc:"Dubai",tag:"In Dubai",dial:"Green",size:40,cat:["Sports"],
+ {b:"Rolex",m:"Submariner “Hulk”",r:"116610LV",t:"Submariner Date 116610LV “Hulk” In Steel With Green Dial And Green Ceramic Bezel 40mm, 2019 Full Set",y:2019,c:"Excellent",box:1,pap:1,aed:58500,loc:"Dubai",tag:"In Dubai",dial:"Green",size:40,cat:["Sports"],
   ims:[{img:"__W_HULK__"},SHOT("Dial macro","Green dial, maxi markers, at 1:1"),SHOT("Clasp","Glidelock open"),SHOT("Box & papers","Card, booklets and green box")]},
- {b:"Rolex",m:"GMT-Master II “Sprite”",r:"126720VTNR",y:2023,c:"Unworn",box:1,pap:1,aed:74500,loc:"Dubai",tag:"Unworn",dial:"Black",size:40,cat:["Sports"],
+ {b:"Rolex",m:"GMT-Master II “Sprite”",r:"126720VTNR",t:"GMT-Master II 126720VTNR “Sprite” Left-Hand Drive In Steel With Green And Black Bezel 40mm, 2023 Unworn Full Set",y:2023,c:"Unworn",box:1,pap:1,aed:74500,loc:"Dubai",tag:"Unworn",dial:"Black",size:40,cat:["Sports"],
   ims:[{img:"__W_SPRITE__"},SHOT("Bezel detail","Green and black Cerachrom"),SHOT("Left-hand crown","Case profile"),SHOT("Box & papers","Full 2023 set")]},
- {b:"Rolex",m:"Submariner “Starbucks”",r:"126610LV",y:2022,c:"Excellent",box:1,pap:0,aed:52800,loc:"United Kingdom",tag:"In the UK",dial:"Black",size:41,cat:["Sports"],
+ {b:"Rolex",m:"Submariner “Starbucks”",r:"126610LV",t:"Submariner Date 126610LV “Starbucks” In Steel With Black Dial And Green Ceramic Bezel 41mm, 2022 Box Only",y:2022,c:"Excellent",box:1,pap:0,aed:52800,loc:"United Kingdom",tag:"In the UK",dial:"Black",size:41,cat:["Sports"],
   ims:[{img:"__W_STAR__"},SHOT("Dial macro","Black dial, green bezel"),SHOT("Caseback","Serial and rehaut"),SHOT("Box only","Box without papers")]},
- {b:"Rolex",m:"Submariner — White gold",r:"126619LB",y:2021,c:"Excellent",box:1,pap:1,aed:139000,loc:"United Kingdom",tag:"In the UK",dial:"Blue",size:41,cat:["Sports","Gold & two-tone"],
+ {b:"Rolex",m:"Submariner — White gold",r:"126619LB",t:"Submariner Date 126619LB In 18K White Gold With Black Dial And Blue Bezel 41mm, 2021 Full Set",y:2021,c:"Excellent",box:1,pap:1,aed:139000,loc:"United Kingdom",tag:"In the UK",dial:"Blue",size:41,cat:["Sports","Gold & two-tone"],
   ims:[{img:"__W_WG__"},SHOT("Dial macro","Blue dial, white gold surrounds"),SHOT("Weight & profile","Case on its side"),SHOT("Box & papers","Full set")]},
- {b:"Rolex",m:"Datejust 41",r:"126334",y:2020,c:"Very good",box:1,pap:1,aed:44600,loc:"Dubai",tag:"",dial:"Blue",size:41,cat:["Dress"],
+ {b:"Rolex",m:"Datejust 41",r:"126334",t:"Datejust 41 126334 In Steel With Sunburst Blue Dial, Fluted Bezel And Jubilee Bracelet, 2020 Full Set",y:2020,c:"Very good",box:1,pap:1,aed:44600,loc:"Dubai",tag:"",dial:"Blue",size:41,cat:["Dress"],
   ims:[SHOT("Three-quarter","Datejust on sand, fluted bezel catching light"),SHOT("Dial macro","Sunburst blue, applied indices"),SHOT("Jubilee bracelet","Five-link detail"),SHOT("Box & papers","Full set")]},
- {b:"Rolex",m:"Day-Date 40",r:"228238",y:2018,c:"Very good",box:1,pap:1,aed:172000,loc:"Dubai",tag:"",dial:"Champagne",size:40,cat:["Dress","Gold & two-tone"],
+ {b:"Rolex",m:"Day-Date 40",r:"228238",t:"Day-Date 40 228238 In 18K Yellow Gold With Champagne Dial And President Bracelet, 2018 Full Set",y:2018,c:"Very good",box:1,pap:1,aed:172000,loc:"Dubai",tag:"",dial:"Champagne",size:40,cat:["Dress","Gold & two-tone"],
   ims:[SHOT("Three-quarter","Yellow gold Day-Date, president bracelet"),SHOT("Dial macro","Champagne sunburst, day aperture"),SHOT("Clasp","Crownclasp detail"),SHOT("Box & papers","Full set")]},
- {b:"Rolex",m:"Explorer 36",r:"124270",y:2022,c:"Unworn",box:1,pap:1,aed:36900,loc:"United Kingdom",tag:"Unworn",dial:"Black",size:36,cat:["Sports"],
+ {b:"Rolex",m:"Explorer 36",r:"124270",t:"Explorer 36 124270 In Steel With Matte Black Dial 36mm, 2022 Unworn Full Set",y:2022,c:"Unworn",box:1,pap:1,aed:36900,loc:"United Kingdom",tag:"Unworn",dial:"Black",size:36,cat:["Sports"],
   ims:[SHOT("Three-quarter","Explorer at 45°, matte black dial"),SHOT("Dial macro","3-6-9 numerals and lume"),SHOT("Caseback","Plain steel back"),SHOT("Box & papers","Full 2022 set")]},
- {b:"Patek Philippe",m:"Nautilus",r:"5711/1A-010",y:2019,c:"Very good",box:1,pap:1,aed:446500,loc:"Dubai",tag:"Grail",dial:"Blue",size:40,cat:["Sports"],
+ {b:"Patek Philippe",m:"Nautilus",r:"5711/1A-010",t:"Nautilus 5711/1A-010 In Steel With Blue Embossed Dial 40mm, 2019 Full Set",y:2019,c:"Very good",box:1,pap:1,aed:446500,loc:"Dubai",tag:"Grail",dial:"Blue",size:40,cat:["Sports"],
   ims:[SHOT("Three-quarter","Blue dial Nautilus 45°, single key light"),SHOT("Dial macro","Horizontal embossing raked left"),SHOT("Caseback","Sapphire back, movement visible"),SHOT("Box & papers","Full set with outer carton")]},
- {b:"Patek Philippe",m:"Aquanaut",r:"5167A-001",y:2020,c:"Excellent",box:1,pap:1,aed:298000,loc:"Dubai",tag:"",dial:"Black",size:40,cat:["Sports"],
+ {b:"Patek Philippe",m:"Aquanaut",r:"5167A-001",t:"Aquanaut 5167A-001 In Steel With Black Embossed Dial And Composite Strap 40mm, 2020 Full Set",y:2020,c:"Excellent",box:1,pap:1,aed:298000,loc:"Dubai",tag:"",dial:"Black",size:40,cat:["Sports"],
   ims:[SHOT("Three-quarter","Aquanaut on sand, tropical strap curled"),SHOT("Dial macro","Embossed grid pattern"),SHOT("Strap & buckle","Composite strap detail"),SHOT("Box & papers","Full set")]},
- {b:"Patek Philippe",m:"Calatrava",r:"5227G",y:2017,c:"Very good",box:0,pap:1,aed:186000,loc:"United Kingdom",tag:"Papers only",dial:"White",size:39,cat:["Dress","Gold & two-tone"],
+ {b:"Patek Philippe",m:"Calatrava",r:"5227G",t:"Calatrava 5227G In 18K White Gold With White Lacquer Dial And Officer's Caseback 39mm, 2017 With Papers",y:2017,c:"Very good",box:0,pap:1,aed:186000,loc:"United Kingdom",tag:"Papers only",dial:"White",size:39,cat:["Dress","Gold & two-tone"],
   ims:[SHOT("Three-quarter","White gold Calatrava, alligator strap"),SHOT("Dial macro","Applied gold indices"),SHOT("Officer's back","Hinged caseback open"),SHOT("Papers","Certificate flat, serial legible")]},
- {b:"Audemars Piguet",m:"Royal Oak",r:"15400ST",y:2018,c:"Good",box:0,pap:1,aed:112800,loc:"United Kingdom",tag:"Papers only",dial:"Blue",size:41,cat:["Sports"],
+ {b:"Audemars Piguet",m:"Royal Oak",r:"15400ST",t:"Royal Oak 15400ST In Steel With Blue “Grande Tapisserie” Dial 41mm, 2018 With Papers",y:2018,c:"Good",box:0,pap:1,aed:112800,loc:"United Kingdom",tag:"Papers only",dial:"Blue",size:41,cat:["Sports"],
   ims:[SHOT("Three-quarter","Steel Royal Oak, bracelet fanned right"),SHOT("Tapisserie macro","Raking light across the dial"),SHOT("Bracelet & clasp","Integrated links"),SHOT("Papers","Certificate flat")]},
- {b:"Audemars Piguet",m:"Royal Oak Offshore",r:"26470ST",y:2019,c:"Excellent",box:1,pap:1,aed:158000,loc:"Dubai",tag:"",dial:"Black",size:42,cat:["Sports","Chronographs"],
+ {b:"Audemars Piguet",m:"Royal Oak Offshore",r:"26470ST",t:"Royal Oak Offshore 26470ST Chronograph In Steel With Black “Méga Tapisserie” Dial 42mm, 2019 Full Set",y:2019,c:"Excellent",box:1,pap:1,aed:158000,loc:"Dubai",tag:"",dial:"Black",size:42,cat:["Sports","Chronographs"],
   ims:[SHOT("Three-quarter","Offshore chronograph, rubber strap"),SHOT("Dial macro","Méga tapisserie and sub-dials"),SHOT("Pushers","Case flank showing pushers"),SHOT("Box & papers","Full set")]},
- {b:"Audemars Piguet",m:"Royal Oak Double Balance",r:"15468OR",y:2022,c:"Excellent",box:1,pap:1,aed:214000,loc:"Dubai",tag:"",dial:"Grey",size:41,cat:["Sports","Gold & two-tone","Complications"],
+ {b:"Audemars Piguet",m:"Royal Oak Double Balance",r:"15468OR",t:"Royal Oak Double Balance Wheel Openworked 15468OR In 18K Rose Gold 41mm, 2022 Full Set",y:2022,c:"Excellent",box:1,pap:1,aed:214000,loc:"Dubai",tag:"",dial:"Grey",size:41,cat:["Sports","Gold & two-tone","Complications"],
   ims:[{img:"__W_APOR__"},SHOT("Dial macro","Openworked balance at 9"),SHOT("Rose gold bracelet","Link and bevel detail"),SHOT("Box & papers","Full set")]},
- {b:"Richard Mille",m:"RM 67-01 Extra Flat",r:"RM 67-01",y:2019,c:"Excellent",box:1,pap:1,aed:780000,loc:"Dubai",tag:"Vault",dial:"Skeleton",size:38,cat:["Sports","Complications"],
+ {b:"Richard Mille",m:"RM 67-01 Extra Flat",r:"RM 67-01",t:"RM 67-01 Extra Flat In Titanium With Skeletonised Dial 38mm, 2019 Full Set",y:2019,c:"Excellent",box:1,pap:1,aed:780000,loc:"Dubai",tag:"Vault",dial:"Skeleton",size:38,cat:["Sports","Complications"],
   ims:[{img:"__W_RM__"},SHOT("Movement macro","Skeleton calibre filling the frame"),SHOT("Case profile","Showing the 7.75mm thickness"),SHOT("Box & papers","Full set with pouch")]},
- {b:"Richard Mille",m:"RM 011 Felipe Massa",r:"RM 011",y:2016,c:"Very good",box:1,pap:1,aed:640000,loc:"Dubai",tag:"Vault",dial:"Skeleton",size:44,cat:["Sports","Chronographs","Complications"],
+ {b:"Richard Mille",m:"RM 011 Felipe Massa",r:"RM 011",t:"RM 011 Felipe Massa Flyback Chronograph In Titanium With Skeletonised Dial 44mm, 2016 Full Set",y:2016,c:"Very good",box:1,pap:1,aed:640000,loc:"Dubai",tag:"Vault",dial:"Skeleton",size:44,cat:["Sports","Chronographs","Complications"],
   ims:[SHOT("Three-quarter","RM 011 at 45°, rubber strap curled behind"),SHOT("Movement macro","Flyback chronograph bridges"),SHOT("Case band","Tripartite case screws"),SHOT("Box & papers","Full set")]},
- {b:"Cartier",m:"Santos — Large",r:"WSSA0018",y:2022,c:"Excellent",box:1,pap:1,aed:29140,loc:"United Kingdom",tag:"Entry",dial:"White",size:40,cat:["Dress"],
+ {b:"Cartier",m:"Santos — Large",r:"WSSA0018",t:"Santos De Cartier Large WSSA0018 In Steel With White Dial And QuickSwitch Bracelet, 2022 Full Set",y:2022,c:"Excellent",box:1,pap:1,aed:29140,loc:"United Kingdom",tag:"Entry",dial:"White",size:40,cat:["Dress"],
   ims:[SHOT("Three-quarter","Santos on sand, bracelet curving behind"),SHOT("Dial macro","Roman numerals, railroad track"),SHOT("QuickSwitch","Bracelet detached, second strap"),SHOT("Box & papers","Full set with both straps")]},
- {b:"Cartier",m:"Santos — Green dial",r:"WSSA0062",y:2023,c:"Unworn",box:1,pap:1,aed:31800,loc:"Dubai",tag:"Unworn",dial:"Green",size:40,cat:["Dress"],
+ {b:"Cartier",m:"Santos — Green dial",r:"WSSA0062",t:"Santos De Cartier Large WSSA0062 In Steel With Green Lacquer Dial, 2023 Unworn Full Set",y:2023,c:"Unworn",box:1,pap:1,aed:31800,loc:"Dubai",tag:"Unworn",dial:"Green",size:40,cat:["Dress"],
   ims:[{img:"__W_SANTOS__"},SHOT("Dial macro","Green lacquer, sword hands"),SHOT("Case profile","Exposed screws on the bezel"),SHOT("Box & papers","Full 2023 set")]},
- {b:"Cartier",m:"Tank Must — Large",r:"WSTA0053",y:2021,c:"Very good",box:1,pap:0,aed:16400,loc:"United Kingdom",tag:"",dial:"Black",size:36,cat:["Dress"],
+ {b:"Cartier",m:"Tank Must — Large",r:"WSTA0053",t:"Tank Must Large WSTA0053 With Black Dial And Blued Hands On Leather, 2021 Box Only",y:2021,c:"Very good",box:1,pap:0,aed:16400,loc:"United Kingdom",tag:"",dial:"Black",size:36,cat:["Dress"],
   ims:[SHOT("Three-quarter","Tank Must on leather, three-quarter"),SHOT("Dial macro","Roman numerals, blued hands"),SHOT("Strap & buckle","Leather grain and pin buckle"),SHOT("Box only","Box without papers")]},
- {b:"Cartier",m:"Ballon Bleu 42",r:"W69012Z4",y:2015,c:"Good",box:0,pap:0,aed:19800,loc:"United Kingdom",tag:"Watch only",dial:"Silver",size:42,cat:["Dress"],
+ {b:"Cartier",m:"Ballon Bleu 42",r:"W69012Z4",t:"Ballon Bleu 42 W69012Z4 In Steel And 18K Yellow Gold With Silver Guilloché Dial, 2015 Watch Only",y:2015,c:"Good",box:0,pap:0,aed:19800,loc:"United Kingdom",tag:"Watch only",dial:"Silver",size:42,cat:["Dress"],
   ims:[SHOT("Three-quarter","Ballon Bleu, two-tone bracelet"),SHOT("Crown guard","Blue cabochon detail"),SHOT("Dial macro","Guilloché silver dial"),SHOT("Watch only","Watch photographed alone on sand")]},
- {b:"Vacheron Constantin",m:"Overseas",r:"4500V/110A",y:2020,c:"Excellent",box:1,pap:1,aed:186500,loc:"Dubai",tag:"",dial:"Blue",size:41,cat:["Sports"],
+ {b:"Vacheron Constantin",m:"Overseas",r:"4500V/110A",t:"Overseas 4500V/110A In Steel With Sunburst Blue Dial And Three Straps 41mm, 2020 Full Set",y:2020,c:"Excellent",box:1,pap:1,aed:186500,loc:"Dubai",tag:"",dial:"Blue",size:41,cat:["Sports"],
   ims:[SHOT("Three-quarter","Overseas blue dial, bracelet fanned"),SHOT("Dial macro","Sunburst blue and applied indices"),SHOT("Interchangeable straps","All three straps laid out"),SHOT("Box & papers","Full set")]},
- {b:"Vacheron Constantin",m:"Patrimony",r:"81180/000G",y:2016,c:"Very good",box:1,pap:1,aed:98000,loc:"United Kingdom",tag:"",dial:"Silver",size:40,cat:["Dress","Gold & two-tone"],
+ {b:"Vacheron Constantin",m:"Patrimony",r:"81180/000G",t:"Patrimony 81180/000G In 18K White Gold With Silver Dial On Alligator 40mm, 2016 Full Set",y:2016,c:"Very good",box:1,pap:1,aed:98000,loc:"United Kingdom",tag:"",dial:"Silver",size:40,cat:["Dress","Gold & two-tone"],
   ims:[SHOT("Three-quarter","White gold Patrimony on alligator"),SHOT("Dial macro","Minimal baton indices"),SHOT("Caseback","Maltese cross hallmark"),SHOT("Box & papers","Full set")]},
- {b:"Hublot",m:"Big Bang Unico",r:"411.NX.1170.RX",y:2021,c:"Excellent",box:1,pap:1,aed:64200,loc:"Dubai",tag:"",dial:"Skeleton",size:44,cat:["Sports","Chronographs"],
+ {b:"Hublot",m:"Big Bang Unico",r:"411.NX.1170.RX",t:"Big Bang Unico 411.NX.1170.RX In Titanium With Skeletonised Dial On Rubber 44mm, 2021 Full Set",y:2021,c:"Excellent",box:1,pap:1,aed:64200,loc:"Dubai",tag:"",dial:"Skeleton",size:44,cat:["Sports","Chronographs"],
   ims:[SHOT("Three-quarter","Big Bang Unico, titanium, rubber strap"),SHOT("Movement macro","Unico calibre through the dial"),SHOT("Bezel screws","H-screws on the bezel"),SHOT("Box & papers","Full set")]},
- {b:"Hublot",m:"Classic Fusion 45",r:"511.NX.1171.RX",y:2019,c:"Very good",box:1,pap:1,aed:38600,loc:"United Kingdom",tag:"",dial:"Black",size:45,cat:["Dress"],
+ {b:"Hublot",m:"Classic Fusion 45",r:"511.NX.1171.RX",t:"Classic Fusion 45 511.NX.1171.RX In Titanium With Matte Black Dial On Rubber, 2019 Full Set",y:2019,c:"Very good",box:1,pap:1,aed:38600,loc:"United Kingdom",tag:"",dial:"Black",size:45,cat:["Dress"],
   ims:[SHOT("Three-quarter","Classic Fusion titanium, matte black dial"),SHOT("Dial macro","Applied indices and date"),SHOT("Strap","Rubber strap with deployant"),SHOT("Box & papers","Full set")]}
 ];
 
@@ -76,21 +76,20 @@ function productCard(w, i){
       ${im.img ? `<img src="${im.img}" alt="${w.b} ${w.m}">`
                : `<div class="ph"><div class="l1">${im.ph[0]}</div><div class="l2">${im.ph[1]}</div></div>`}
     </div>`).join('');
+  /* v2 card — the Sellier grammar: image, small-caps brand, one long
+     descriptive title that carries the spec, price. Nothing else. */
   return `
   <a class="pcard" href="product.html" data-c="${i}">
     <div class="part">
       ${shots}
-      ${w.tag?`<span class="ptag">${w.tag}</span>`:''}
       <div class="zones">${w.ims.map((_,j)=>`<span data-z="${j}"></span>`).join('')}</div>
       <div class="bars">${w.ims.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>
       <span class="pcta">View watch <em>→</em></span>
     </div>
     <div class="pbody">
       <div class="pbrand">${w.b}</div>
-      <div class="prow"><span class="pmodel">${w.m}</span>
-        <span class="pprice money" data-aed="${w.aed}">${money(w.aed)}</span></div>
-      <div class="pmeta">Ref. ${w.r} &nbsp;·&nbsp; ${w.y}</div>
-      <div class="pspec">${inc(w.box,'Box')}${inc(w.pap,'Papers')}<span class="cond">${w.c}</span></div>
+      <div class="pname">${w.t||w.m}</div>
+      <div class="pprice money" data-aed="${w.aed}">${money(w.aed)}</div>
     </div>
   </a>`;
 }
