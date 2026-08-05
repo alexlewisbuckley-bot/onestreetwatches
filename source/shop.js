@@ -93,6 +93,13 @@ function buildRail(){
   rail.querySelectorAll('.rng').forEach(initRange);
   document.getElementById('clear').addEventListener('click',clearAll);
 
+  /* live search — the grid narrows as you type */
+  const sq=document.getElementById('shopq');
+  if(sq){
+    if(Q) sq.value=Q;
+    sq.addEventListener('input',()=>{ Q=sq.value.trim(); render(); });
+  }
+
   /* the location toggle mirrors the loc filter — one place of truth */
   document.querySelectorAll('#locseg button').forEach(b=>b.addEventListener('click',()=>{
     F.loc.clear();
@@ -133,6 +140,7 @@ function clearAll(){
   Object.keys(F).forEach(k=>F[k].clear());
   R.aed=[...B.aed];R.y=[...B.y];R.size=[...B.size];
   Q=''; const q=document.getElementById('q'); if(q) q.value='';
+  const sq=document.getElementById('shopq'); if(sq) sq.value='';
   history.replaceState(null,'','shop.html');
   paintFam();
   document.querySelectorAll('.rng').forEach(paintRange);
@@ -274,7 +282,12 @@ function matches(w){
   if(w.aed<R.aed[0]||w.aed>R.aed[1]) return false;
   if(w.y<R.y[0]||w.y>R.y[1]) return false;
   if(w.size<R.size[0]||w.size>R.size[1]) return false;
-  if(Q && !(w.b+' '+w.m+' '+w.r+' '+w.dial+' '+w.y+' '+w.loc).toLowerCase().includes(Q.toLowerCase())) return false;
+  if(Q){
+    /* every word must land somewhere — "green bezel" finds
+       "…Green Ceramic Bezel…" even though the words aren't adjacent */
+    const hay=(w.b+' '+w.m+' '+w.r+' '+(w.t||'')+' '+w.dial+' '+w.y+' '+w.loc).toLowerCase();
+    if(!Q.toLowerCase().split(/\s+/).every(t=>hay.includes(t))) return false;
+  }
   return true;
 }
 const CHIPLABEL={ kit:{box:'Box included',pap:'Papers included',full:'Full set'}, loc:v=>'In '+v };
@@ -297,7 +310,9 @@ function activeChips(){
   el.querySelectorAll('.pill2').forEach(p=>p.addEventListener('click',()=>{
     if(p.dataset.t==='rng'){ R[p.dataset.k]=[...B[p.dataset.k]];
       document.querySelectorAll('.rng').forEach(paintRange); }
-    else if(p.dataset.t==='q'){ Q=''; const q=document.getElementById('q'); if(q) q.value=''; }
+    else if(p.dataset.t==='q'){ Q='';
+      const q=document.getElementById('q'); if(q) q.value='';
+      const sq=document.getElementById('shopq'); if(sq) sq.value=''; }
     else { F[p.dataset.k].delete(p.dataset.v); if(p.dataset.k==='brand') paintFam(); }
     render();
   }));

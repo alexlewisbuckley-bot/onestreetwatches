@@ -12,6 +12,12 @@
 /* ---------- count / sort row ---------- */
 .shopbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 52px;
  border-bottom:1px solid var(--line)}
+.shopsearch{display:flex;align-items:center;gap:9px;height:44px;flex:1;max-width:340px;min-width:180px;
+ border-bottom:1px solid var(--line2);color:var(--pale);transition:border-color .3s}
+.shopsearch:focus-within{border-color:var(--ink)}
+.shopsearch input{flex:1;border:none;outline:none;background:none;font:inherit;font-size:12px;
+ letter-spacing:.03em;color:var(--ink);min-width:0}
+.shopsearch input::placeholder{color:var(--pale)}
 .count{font-size:12px;color:var(--muted);flex:none;letter-spacing:.04em}
 .count b{color:var(--ink);font-weight:500}
 .active{display:flex;gap:6px;flex-wrap:wrap;min-width:0}

@@ -731,3 +731,6 @@ nav.stuck{box-shadow:0 1px 0 rgba(0,0,0,.04)}
 .bpfull{display:block;margin-top:14px;text-align:center;font-size:11px;color:var(--muted)}
 .bpfull:hover{color:var(--ink)}
 @media (max-width:979px){.bookpanel{display:none}}
+/* the same booking flow, inline on the Visit page */
+.bookcard{border:1px solid var(--line2);background:#fff;padding:26px 28px 28px}
+.bookcard .bph{border-bottom:1px solid var(--line);padding-bottom:14px}
