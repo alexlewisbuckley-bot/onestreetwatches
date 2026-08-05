@@ -81,7 +81,7 @@ function initNew(){
   bindZones(t);
 }
 
-/* ---------- shop by maison: three tiles + a link row ----------
+/* ---------- shop by brand: three tiles + a link row ----------
    Only Rolex has real photography today; the other two tiles carry
    art-directed placeholders rather than borrowing the wrong watch. */
 const TILES=[
@@ -100,7 +100,7 @@ function initMaisons(){
     </a>`;}).join('');
   const rest=[...new Set(CATALOGUE.map(w=>w.b))].filter(b=>!TILES.some(t=>t.n===b));
   $h('mrowlinks').innerHTML=rest.map(b=>`<a href="${shopURL({brand:b})}">${b}</a>`).join('')
-    +`<a href="shop.html">All maisons</a>`;
+    +`<a href="shop.html">All brands</a>`;
 }
 
 /* ---------- spotlight ----------

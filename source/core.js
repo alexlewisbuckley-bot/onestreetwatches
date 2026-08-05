@@ -340,7 +340,7 @@ function initSearch(){
     const q = input.value.trim();
     let h = '';
     if(!q){
-      h += `<div class="sughead">By maison</div>`;
+      h += `<div class="sughead">By brand</div>`;
       BRANDLIST().slice(0,4).forEach(b => { h += quick(b.c, b.n, shopURL({brand:b.n})); });
       const u = UNDER();
       h += `<div class="sughead sep">Jump straight to</div>`

@@ -340,7 +340,7 @@ function initSearch(){
     const q = input.value.trim();
     let h = '';
     if(!q){
-      h += `<div class="sughead">By maison</div>`;
+      h += `<div class="sughead">By brand</div>`;
       BRANDLIST().slice(0,4).forEach(b => { h += quick(b.c, b.n, shopURL({brand:b.n})); });
       const u = UNDER();
       h += `<div class="sughead sep">Jump straight to</div>`
@@ -555,7 +555,7 @@ function paintSearch(){
       <span class="s">Ref. ${w.r} · ${w.y}</span></span>
       <span class="p">${money(w.aed)}</span></a>`;};
   if(!q){
-    box.innerHTML=`<div class="navgroup"><div class="t-label">By maison</div>`+
+    box.innerHTML=`<div class="navgroup"><div class="t-label">By brand</div>`+
       BRANDLIST().map(b=>`<a class="navlink" href="${shopURL({brand:b.n})}">${b.n}<em>${b.c}</em></a>`).join('')+
       `</div><div class="navgroup"><div class="t-label">Jump to</div>`+
       [['Unworn only',shopURL({cond:'Unworn'})],['Full set',shopURL({kit:'full'})],
@@ -607,7 +607,7 @@ const FLOW={
     title:'Name the reference.',
     lede:'Tell us what you are after. Most searches close in about 48 hours.',
     fields:[
-      {k:'brand',  l:'Which maison?',        type:'chips', opts:MAISONS, otherPh:'Which maison? e.g. Vacheron Constantin'},
+      {k:'brand',  l:'Which brand?',         type:'chips', opts:MAISONS, otherPh:'Which brand? e.g. Vacheron Constantin'},
       {k:'model',  l:'Model or reference',   type:'text',  ph:'Daytona 116500LN, white dial'},
       {k:'budget', l:'Budget',               type:'chips', opts:['Under 50k','50–150k','150–350k','350k +','Open']}
     ],

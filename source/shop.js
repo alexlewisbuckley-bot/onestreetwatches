@@ -22,7 +22,7 @@ const shortMoney=v=>CUR==='AED'
 /* ---------- what sits in the bar ---------- */
 const GROUPS=[
   {k:'aed',   t:'Budget',          type:'range', step:1000, wide:1},
-  {k:'brand', t:'Maison',          type:'check'},
+  {k:'brand', t:'Brand',           type:'check'},
   {k:'fam',   t:'Model',           type:'check'},
   {k:'cat',   t:'Type',            type:'check'},
   {k:'y',     t:'Year',            type:'range', step:1},
