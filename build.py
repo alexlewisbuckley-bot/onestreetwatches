@@ -108,6 +108,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'A watch dealer in Dubai and the United Kingdom, founded in 2021. We hold our own stock and authenticate it at our own bench.',''),
        ('community','community','The community | One Street Watches',
         'Collector dinners, first looks and straight talk — the One Street community in Dubai and the United Kingdom. Membership is free and stays small.','community'),
+       ('vip','vip','VIP portal | One Street Watches',
+        'Members-only services: chauffeur collection, home viewings, complimentary servicing and sizing, first refusal on arrivals.','vip'),
        ('contact','contact','Contact One Street Watches',
         'WhatsApp, phone, email, or visit us in Dubai and the United Kingdom. A real person, seven days a week.','')]
 
@@ -120,7 +122,7 @@ for slug,out,title,desc,nav in PAGES:
     extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
     mobile_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT["mobile.css"]}">'
     canon = SITE+'/' if out=='index' else f'{SITE}/{out}'
-    ROBOTS = '<meta name="robots" content="noindex">' if slug=='system' else ''
+    ROBOTS = '<meta name="robots" content="noindex">' if slug in ('system','vip') else ''
     html=f'''<!DOCTYPE html>
 <html lang="en">
 <head>
