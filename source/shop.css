@@ -93,13 +93,13 @@
 
 /* ---------- results ---------- */
 .results{min-width:0}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:52px 26px}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:44px 22px}
 .pgrid .pcard{flex:none;width:auto}
 .pgrid .pcard[hidden]{display:none}
 .empty{padding:90px 0;text-align:center;color:var(--muted);font-size:13px}
 .pgrid .bars{left:12px;right:12px;bottom:10px}
 
-@media (max-width:1280px){.pgrid{gap:40px 20px}}
+@media (max-width:1380px){.pgrid{grid-template-columns:repeat(3,1fr);gap:40px 20px}}
 @media (max-width:1120px){.pgrid{grid-template-columns:repeat(2,1fr)}
  .shopwrap{grid-template-columns:204px minmax(0,1fr);gap:32px;padding:28px 22px 72px}
  .shopbar{padding:14px 22px}.phead--shop{padding:36px 22px 32px}}
