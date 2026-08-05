@@ -16,7 +16,7 @@ const svg = d => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
 /* Three things people come to do, then the rest. Labels in their words,
    not ours — "Find me a watch", not "Concierge sourcing". */
 const PRIMARY = [
-  {t:'Browse the case', s:'', href:'shop.html', k:'case'},
+  {t:'Browse all watches', s:'', href:'shop.html', k:'case'},
   {t:'Ask us anything', s:'On WhatsApp, seven days', href:'#wa', k:'wa'},
   {t:'Book a viewing',  s:'Dubai, the UK or on camera', href:'book.html', k:'book'}
 ];
@@ -143,7 +143,7 @@ function paintSearch(){
       BRANDLIST().map(b=>`<a class="navlink" href="${shopURL({brand:b.n})}">${b.n}<em>${b.c}</em></a>`).join('')+
       `</div><div class="navgroup"><div class="t-label">Jump to</div>`+
       [['Unworn only',shopURL({cond:'Unworn'})],['Full set',shopURL({kit:'full'})],
-       ['Everything in the case','shop.html']]
+       ['All watches','shop.html']]
       .map(([t,h])=>`<a class="navlink" href="${h}">${t}</a>`).join('')+`</div>`;
     return;
   }

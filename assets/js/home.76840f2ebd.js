@@ -147,7 +147,7 @@ function initSpotlight(){
       ${tour?'<div class="tourhint">Select a detail to look closer</div>':''}
       <div class="acts">
         <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
-        <a class="b2" href="${bandURL(250000,null)}">Explore the vault <span class="a">→</span></a>
+        <a class="b2" href="shop.html">Explore all watches <span class="a">→</span></a>
       </div>
     </div>
   </div>`;

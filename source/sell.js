@@ -132,7 +132,7 @@ function initComposer(box){
         <div class="csh">Received</div>
         <p class="csdone">Thank you — your ${V.brand} ${V.model} is with us.
         A firm number goes to <b>${V.contact}</b>, usually within the hour of opening times.</p>
-        <a class="csalt" href="shop.html">Browse the case while you wait</a>`;
+        <a class="csalt" href="shop.html">Browse all watches while you wait</a>`;
     }catch(e){
       SENDING=false;
       send.innerHTML='Send enquiry <span class="a">→</span>';

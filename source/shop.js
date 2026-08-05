@@ -163,7 +163,7 @@ function paintHead(){
   if(!bits.length && F.loc.size) bits.push([...F.loc].map(l=>'Held in '+l).join(', '));
   if(!bits.length && F.cond.size) bits.push([...F.cond].join(', '));
   if(!bits.length && Q) bits.push('“'+Q+'”');
-  const title = bits.length ? bits.join(' — ') : 'The case';
+  const title = bits.length ? bits.join(' — ') : 'All products';
   h.textContent=title;
   if(c) c.textContent = bits.length ? title : 'All watches';
 }

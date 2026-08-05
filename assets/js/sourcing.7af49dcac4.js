@@ -84,7 +84,7 @@ function initComposer(box){
         <div class="csh">The search is on</div>
         <p class="csdone">Thank you — we are looking for a ${V.brand} ${V.model}.
         Options go to <b>${V.contact}</b>, usually within 48 hours.</p>
-        <a class="csalt" href="shop.html">Browse the case while you wait</a>`;
+        <a class="csalt" href="shop.html">Browse all watches while you wait</a>`;
     }catch(e){
       SENDING=false;
       send.innerHTML='Start the search <span class="a">→</span>';
