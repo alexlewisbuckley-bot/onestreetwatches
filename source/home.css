@@ -52,23 +52,25 @@
  transition:color .3s,border-color .3s}
 .mrow a:hover{color:var(--ink);border-color:var(--ink)}
 
-/* ---------- spotlight: one watch on black, gallery-lit ---------- */
-.spot2{margin-top:76px;background:#0B0B0A;color:#fff}
-.spot2 .in{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:56px;
- padding:88px 52px;max-width:1160px;margin:0 auto}
-.spot2 .art{display:grid;place-items:center;min-height:400px;position:relative}
-.spot2 .art::before{content:"";position:absolute;inset:0;pointer-events:none;
- background:radial-gradient(55% 55% at 50% 46%,rgba(255,255,255,.13),rgba(255,255,255,0) 70%)}
-.spot2 .art img{position:relative;width:min(360px,78%);height:auto;object-fit:contain;
- filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))}
-.spot2 .bd .k{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5)}
-.spot2 .bd h2{margin-top:18px;font-size:clamp(28px,2.8vw,40px);font-weight:300;letter-spacing:-.01em;
- line-height:1.16;color:#fff}
-.spot2 .meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px;
- font-size:13px;letter-spacing:.03em;color:rgba(255,255,255,.72)}
-.spot2 .meta .money{color:#fff;font-size:15px}
-.spot2 .meta i{width:3px;height:3px;background:rgba(255,255,255,.3);font-style:normal}
-.spot2 .acts{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
+/* ---------- spotlight: a framed product card, not a poster ---------- */
+.spot2{margin-top:76px;padding:0 52px}
+.spot2 .in{max-width:1160px;margin:0 auto;border:1px solid var(--line2);background:#fff;
+ display:grid;grid-template-columns:1fr 1.05fr;align-items:stretch}
+.spot2 .art{background:var(--sand);display:grid;place-items:center;min-height:460px;padding:40px}
+.spot2 .art img{width:min(300px,70%);height:auto;object-fit:contain;
+ filter:drop-shadow(0 16px 20px rgba(0,0,0,.16))}
+.spot2 .bd{padding:44px 50px;display:flex;flex-direction:column;justify-content:center}
+.spot2 .bd .k{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.spot2 .bd h2{margin-top:14px;font-size:clamp(24px,2.2vw,31px);font-weight:300;letter-spacing:-.01em;line-height:1.2}
+.spot2 .meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;
+ font-size:12.5px;letter-spacing:.02em;color:var(--muted)}
+.spot2 .meta .money{color:var(--ink);font-size:14px}
+.spot2 .meta i{width:3px;height:3px;background:var(--line2);font-style:normal}
+.spot2 .specs{margin-top:24px;border-top:1px solid var(--line)}
+.sprow{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+ padding:10px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.sprow em{font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--pale)}
+.spot2 .acts{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
 
 /* ---------- editorial doors ---------- */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -99,6 +101,9 @@
   .mtiles{grid-template-columns:1fr;gap:12px}
   .mtile .art{aspect-ratio:1/.72}
   .duo{grid-template-columns:1fr;gap:26px}
-  .spot2{margin-top:44px}
+  .spot2{margin-top:44px;padding:0 16px}
+  .spot2 .in{grid-template-columns:1fr}
+  .spot2 .art{min-height:300px;padding:24px}
+  .spot2 .bd{padding:24px 18px 28px}
   .h2shot .thumbs{display:none}
 }

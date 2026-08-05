@@ -27,6 +27,19 @@
         <div class="ql">04 &nbsp;What comes with it <em>optional</em></div>
         <div class="qchips" id="q-kit"></div>
       </div>
+      <div class="qf" data-k="photos">
+        <div class="ql">05 &nbsp;Photographs <em>front, back, clasp, papers — up to 6</em></div>
+        <div class="dz" id="dz" role="button" tabindex="0" aria-label="Add photographs">
+          <input type="file" id="dzin" accept="image/*" multiple hidden>
+          <div class="dzhint"><b>Drag photographs here</b><span>or click to choose from your device</span></div>
+        </div>
+        <div class="dzgrid" id="dzgrid"></div>
+      </div>
+      <div class="qf" data-k="contact">
+        <div class="ql">06 &nbsp;Where should the offer go?</div>
+        <input class="qtext" id="q-contact" type="text" autocomplete="email"
+               placeholder="Email address or phone number">
+      </div>
     </div>
 
     <aside class="cs">
@@ -35,9 +48,15 @@
         <div class="csrow" id="s-watch"><em>Watch</em><span>—</span></div>
         <div class="csrow" id="s-cond"><em>Condition</em><span>—</span></div>
         <div class="csrow" id="s-kit"><em>Includes</em><span>—</span></div>
-        <div class="csnote">Send four photographs after this message — front, back, clasp
-          and papers — and we come back with a firm number, usually within the hour.</div>
-        <button class="cswa" id="cswa" disabled>Get a valuation on WhatsApp <span class="a">→</span></button>
+        <div class="csrow" id="s-photos"><em>Photographs</em><span>—</span></div>
+        <div class="csrow" id="s-contact"><em>Offer to</em><span>—</span></div>
+        <div class="csnote">We come back with a firm number, usually within the hour of opening times.</div>
+        <div class="csacts">
+          <button class="cswa" id="cssubmit" disabled>Send enquiry <span class="a">→</span></button>
+          <button class="cswa cswa--ghost" id="cswa" disabled>Or get a valuation on WhatsApp</button>
+        </div>
+        <div class="cserr" id="cserr" hidden>That didn’t send — WhatsApp is the fastest route, or email
+          <a href="mailto:hello@onestreetwatches.com">hello@onestreetwatches.com</a>.</div>
         <a class="csalt" href="book.html">Or bring it in — book five minutes</a>
       </div>
     </aside>

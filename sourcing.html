@@ -17,10 +17,10 @@
 <link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.e21cecec3a.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/core.033e90face.css">
 <link rel="stylesheet" href="assets/css/system.64cbaafc12.css">
-<link rel="stylesheet" href="assets/css/page.dab1aefbec.css">
+<link rel="stylesheet" href="assets/css/page.02a6674263.css">
 <link rel="stylesheet" href="assets/css/mobile.59958930e0.css">
 <script src="assets/js/core.f913336ba5.js" defer></script>
-<script src="assets/js/sourcing.ca62c803d3.js" defer></script>
+<script src="assets/js/sourcing.f8c5d379c4.js" defer></script>
 </head>
 <body data-page="sourcing">
 <div class="top">
@@ -133,54 +133,106 @@
   </div>
 </nav>
 
-<div class="phead"><div class="wrap">
-  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Sourcing</div>
-  <h1>Concierge sourcing</h1>
-  <p class="lede">Name the reference and we will hunt it. Our network runs across our dealer network and most searches close in about 48 hours. No fee unless we find it, and no obligation when we do.</p>
-</div></div><div class="wrap"><div class="facts"><div><div class="v">48 hours</div><div class="l">Average time to source</div></div><div><div class="v">No fee</div><div class="l">Unless we find it</div></div><div><div class="v">94%</div><div class="l">Of searches closed in 2025</div></div></div></div><div class="wrap"><div class="split narrow">
-<div class="copy">
-  <h2>What we can find</h2>
-  <p class="lead">Current-production references with a waiting list. Discontinued pieces. A specific dial,
-     a specific year, a full set when you have been offered watch-only for months. If it trades, we can usually reach it.</p>
-  <div class="nlist"><div class="nrow"><div class="n">01</div><div><h4>Tell us the reference</h4><p>The more specific the better — dial colour, bracelet, year, whether papers matter to you, and the ceiling you will not go past.</p></div></div><div class="nrow"><div class="n">02</div><div><h4>We go looking</h4><p>Our own network first, then trusted dealers in Dubai, London, Geneva and Hong Kong. You are not paying us to browse public listings.</p></div></div><div class="nrow"><div class="n">03</div><div><h4>Real options, real prices</h4><p>We come back with what actually exists, with photographs and condition notes, and what each one will cost you delivered.</p></div></div><div class="nrow"><div class="n">04</div><div><h4>Authenticated before it reaches you</h4><p>Anything we source goes across our own bench first. If it fails, you never see an invoice.</p></div></div></div>
-  <h3>What it costs</h3>
-  <p>Nothing to start, and nothing if we come up empty. When we do find it you pay the agreed price
-     for the watch — our margin is inside that number and we tell you what it is before you commit.</p>
+<!-- ============ HERO ============ -->
+<div class="sellhero">
+  <div class="k">No fee unless we find it</div>
+  <h1>Name the reference.</h1>
+  <p>Most searches close in about 48 hours.</p>
 </div>
-<div class="form" id="request">
-  <h3>Start a search</h3>
-  <p class="sub">The more you tell us, the less back-and-forth. Everything here is optional except how to reach you.</p>
-  <div class="fgrid">
-    <div class="f"><label>Brand</label><select><option>Rolex</option><option>Patek Philippe</option><option>Audemars Piguet</option><option>Richard Mille</option><option>Cartier</option><option>Vacheron Constantin</option><option>Hublot</option><option>Other</option></select></div>
-    <div class="f"><label>Model or reference</label><input placeholder="Daytona 126500LN"></div>
-    <div class="f"><label>Dial / variant</label><input placeholder="White dial, ceramic bezel"></div>
-    <div class="f"><label>Year range</label><input placeholder="2023 onwards"></div>
-    <div class="f"><label>Budget ceiling</label><input placeholder="Dhs. 150,000"></div>
-    <div class="f"><label>How soon</label><select><option>No rush</option><option selected>Within a month</option><option>Within a week</option><option>It is a gift — fixed date</option></select></div>
-    <div class="f full"><label>Must it have</label>
-      <div class="fkit">
-        <label><input type="checkbox" checked><span class="bx2"></span>Box &amp; papers</label>
-        <label><input type="checkbox"><span class="bx2"></span>Unworn only</label>
-        <label><input type="checkbox"><span class="bx2"></span>Unpolished</label>
-        <label><input type="checkbox"><span class="bx2"></span>Specific year</label>
-      </div></div>
-    <div class="f full"><label>Anything else</label><textarea placeholder="I have been on a list at an AD for two years. I would part-exchange my Datejust against it."></textarea></div>
-    <div class="f"><label>Your name</label><input placeholder="Alex Buckley"></div>
-    <div class="f"><label>Email or WhatsApp</label><input placeholder="+44 …"></div>
+
+<!-- ============ THE COMPOSER ============ -->
+<div class="wrap">
+  <div class="composer" id="composer">
+    <div class="cq">
+      <div class="qf" data-k="brand">
+        <div class="ql">01 &nbsp;Which brand?</div>
+        <div class="qchips" id="q-brand"></div>
+        <input class="qtext qother" id="q-brand-other" type="text" autocomplete="off"
+               placeholder="Which brand? e.g. Vacheron Constantin" aria-label="Which brand?">
+      </div>
+      <div class="qf" data-k="model">
+        <div class="ql">02 &nbsp;Model or reference</div>
+        <input class="qtext" id="q-model" type="text" autocomplete="off"
+               placeholder="Daytona 116500LN, white dial">
+      </div>
+      <div class="qf" data-k="budget">
+        <div class="ql">03 &nbsp;Budget <em>optional</em></div>
+        <div class="qchips" id="q-budget"></div>
+      </div>
+      <div class="qf" data-k="contact">
+        <div class="ql">04 &nbsp;Where should the options go?</div>
+        <input class="qtext" id="q-contact" type="text" autocomplete="email"
+               placeholder="Email address or phone number">
+      </div>
+    </div>
+
+    <aside class="cs">
+      <div class="csin">
+        <div class="csh">Your search</div>
+        <div class="csrow" id="s-watch"><em>Watch</em><span>—</span></div>
+        <div class="csrow" id="s-budget"><em>Budget</em><span>—</span></div>
+        <div class="csrow" id="s-contact"><em>Options to</em><span>—</span></div>
+        <div class="csnote">One person looks after your search from the first message to the
+          handover. Nothing to pay unless we find it.</div>
+        <div class="csacts">
+          <button class="cswa" id="cssubmit" disabled>Start the search <span class="a">→</span></button>
+          <button class="cswa cswa--ghost" id="cswa" disabled>Or start it on WhatsApp</button>
+        </div>
+        <div class="cserr" id="cserr" hidden>That didn’t send — WhatsApp is the fastest route, or email
+          <a href="mailto:hello@onestreetwatches.com">hello@onestreetwatches.com</a>.</div>
+      </div>
+    </aside>
   </div>
-  <a class="b1" href="#request">Start the search <span class="a">→</span></a>
-  <p class="note">One person owns your search from the first message to the handover. You speak to them, not a queue.</p>
 </div>
-</div></div><div class="band"><div class="wrap"><div class="shead"><div><h2>Recently found</h2><p>A few searches that closed this quarter.</p></div></div><div class="cgrid"><div class="ccard"><h3>Daytona 116500LN, white</h3><p>Client had been on a list for three years. Found unworn with a full 2022 set in Geneva.</p><div class="price">Nine days</div></div><div class="ccard"><h3>Birth-year GMT 1675</h3><p>1968, matte dial, honest patina, original bracelet. Two dealers had said it was impossible.</p><div class="price">Nineteen days</div></div><div class="ccard"><h3>Nautilus 5711/1A, blue</h3><p>Sourced through a private collection in Hong Kong rather than the open market.</p><div class="price">Twenty-two days</div></div></div></div></div><div class="wrap"><div class="split"><div class="copy"><h2>Common questions</h2><div class="acc" id="srcfaq"><div class="acci open"><button class="acch">Do I pay anything up front?<i>+</i></button><div class="accb">No. There is no retainer and no search fee. If we cannot find it, you owe us nothing.</div></div><div class="acci"><button class="acch">How do you price what you find?<i>+</i></button><div class="accb">We quote you one number, delivered and authenticated, and we tell you what our margin inside it is. You decide with the full picture.</div></div><div class="acci"><button class="acch">What if I change my mind?<i>+</i></button><div class="accb">Nothing is binding until you say yes to a specific watch at a specific price. We do not buy on your behalf without confirmation.</div></div><div class="acci"><button class="acch">Can you source outside the brands you stock?<i>+</i></button><div class="accb">Usually. Tell us what it is — if it is outside our expertise we will say so rather than guess.</div></div><div class="acci"><button class="acch">Will it come with a warranty?<i>+</i></button><div class="accb">Yes. Anything we source passes our bench and carries the same 12-month mechanical warranty as stock.</div></div></div></div><div class="copy"><h2>Why this works</h2>
-  <p class="lead">Most of what trades at this level never appears on a public listing. It moves between dealers,
-     collectors and a handful of people who know who owns what.</p>
-  <p>Four years of buying and selling in Dubai and the UK buys you access to that. We are not searching the
-     same websites you already have open — we are asking people directly, and they answer because we buy from
-     them regularly and pay on time.</p>
-  <h3>What we will not do</h3>
-  <p>We will not take a deposit and go quiet. We will not present a watch we have not seen photographs of.
-     And we will not tell you something is rare when it is sitting in three windows on the same street.</p>
-</div></div></div><div class="cta"><div class="wrap"><h2>Name the reference.</h2><p>Tell us what you are looking for and we will tell you honestly whether we can get it, and roughly what it will take.</p><div class="row"><a class="b1" href="#request">Start a sourcing request <span class="a">→</span></a><a class="b2" href="https://wa.me/message/55ILJOASJYUAD1">Or message the concierge <span class="a">→</span></a></div></div></div>
+
+<!-- ============ THREE STEPS ============ -->
+<div class="wrap">
+  <div class="strip3">
+    <div><b>01</b><h3>Tell us the reference</h3><p>The more specific the better — dial, bracelet, year.</p></div>
+    <div><b>02</b><h3>We go hunting</h3><p>Through the dealer network, not the listings you already have open.</p></div>
+    <div><b>03</b><h3>Real options, real prices</h3><p>Photographs and firm numbers. No pressure to take any of them.</p></div>
+  </div>
+</div>
+
+<!-- ============ WHAT WE FIND ============ -->
+<div class="pxband">
+  <div class="k">What we can find</div>
+  <h2>Waiting-list pieces, discontinued references, specific dials.</h2>
+  <p>If it trades, we can usually reach it — most of what moves at this level
+     never appears on a public listing.</p>
+  <a class="b2" href="shop.html">Or browse what is already in the case <span class="a">→</span></a>
+</div>
+
+<!-- ============ QUIET NUMBERS ============ -->
+<div class="wrap"><div class="facts facts--quiet">
+  <div><div class="v">48 hours</div><div class="l">Average time to source</div></div>
+  <div><div class="v">No fee</div><div class="l">Unless we find it</div></div>
+  <div><div class="v">94%</div><div class="l">Of searches closed in 2025</div></div>
+  <div><div class="v">One person</div><div class="l">From first message to handover</div></div>
+</div></div>
+
+<!-- ============ QUESTIONS ============ -->
+<div class="wrap"><div class="faqwrap">
+  <h2 class="faqh">Common questions</h2>
+  <div class="acc">
+    <div class="acci"><button class="acch">Do I pay anything up front?<i>+</i></button>
+      <div class="accb">No. There is no retainer and no search fee. If we cannot find it,
+      you owe us nothing.</div></div>
+    <div class="acci"><button class="acch">How do you price what you find?<i>+</i></button>
+      <div class="accb">You pay the agreed price for the watch — our margin is inside that
+      number, and we tell you what it is before you commit.</div></div>
+    <div class="acci"><button class="acch">What if I change my mind?<i>+</i></button>
+      <div class="accb">Until you confirm, nothing is bought and nothing is owed. We will
+      not take a deposit and go quiet.</div></div>
+    <div class="acci"><button class="acch">Can you source outside the brands you stock?<i>+</i></button>
+      <div class="accb">Usually, if it is a serious maker. Name it and we will be honest
+      about whether our network reaches it.</div></div>
+    <div class="acci"><button class="acch">Will it come with a warranty?<i>+</i></button>
+      <div class="accb">Yes — every sourced watch passes the same bench checks as our own
+      stock and carries the same 12-month warranty.</div></div>
+  </div>
+</div></div>
+
 <footer class="foot">
 
   <div class="fmain">

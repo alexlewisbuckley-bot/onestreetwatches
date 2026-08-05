@@ -84,7 +84,7 @@ function initNew(){
    art-directed placeholders rather than borrowing the wrong watch. */
 /* brand photography shot on black, cropped to one scale */
 const TILES=[
- {n:"Rolex",img:"assets/img/brand-rolex.dafde92dfb.jpg"},
+ {n:"Rolex",img:"assets/img/brand-rolex.407a5af427.jpg"},
  {n:"Audemars Piguet",img:"assets/img/brand-ap.e0ca24fceb.jpg"},
  {n:"Patek Philippe",img:"assets/img/brand-patek.da9c94bbdc.jpg"}
 ];
@@ -110,17 +110,22 @@ function initSpotlight(){
   let idx=-1;
   REAL.forEach(i=>{ if(idx<0||CATALOGUE[i].aed>CATALOGUE[idx].aed) idx=i; });
   const w=CATALOGUE[idx], im=w.ims.find(x=>x.img);
+  const row=(l,v)=>`<div class="sprow"><em>${l}</em><span>${v}</span></div>`;
   box.innerHTML=`<div class="in">
     <div class="art"><img src="${im.img}" alt="${w.b} ${w.m}"></div>
     <div class="bd">
       <div class="k">Featured this week</div>
-      <h2>${w.b}<br>${w.m}</h2>
+      <h2>${w.b} ${w.m}</h2>
       <div class="meta"><span class="money" data-aed="${w.aed}">${money(w.aed)}</span>
         <i></i><span>${w.y}</span><i></i><span>${w.c}</span>
         <i></i><span>${w.box&&w.pap?'Full set':'See details'}</span></div>
+      <div class="specs">
+        ${row('Reference',w.r)}${row('Case',w.size+' mm')}
+        ${row('Dial',w.dial)}${row('Held in',w.loc)}
+      </div>
       <div class="acts">
-        <a class="hb" href="product.html?i=${idx}">View this watch</a>
-        <a class="hb hb--ghost" href="${bandURL(250000,null)}">Explore the vault</a>
+        <a class="b1" href="product.html?i=${idx}">View this watch <span class="a">→</span></a>
+        <a class="b2" href="${bandURL(250000,null)}">Explore the vault <span class="a">→</span></a>
       </div>
     </div>
   </div>`;
