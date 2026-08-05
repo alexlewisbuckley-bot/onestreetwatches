@@ -1,7 +1,7 @@
-/* ================= THE CASE — filtering =================
-   Filters live in a horizontal bar above the products. Each one opens its
-   own dropdown, so no filter can ever be pushed below the fold by the
-   length of the list above it. */
+/* ================= THE CASE (v2) — filtering =================
+   Filters live in a left rail that scrolls with the page — always open,
+   nothing sticky, nothing to trap. Same state engine as before; only the
+   furniture changed. */
 const uniq=k=>[...new Set(CATALOGUE.map(w=>w[k]))];
 const countBy=(k,v)=>CATALOGUE.filter(w=>w[k]===v).length;
 const bounds=k=>[Math.min(...CATALOGUE.map(w=>w[k])), Math.max(...CATALOGUE.map(w=>w[k]))];
@@ -74,64 +74,26 @@ function popBody(g){
   return `<div class="flist" id="list-${g.k}">${checkRows(g.k,ITEMS[g.k]())}</div>`;
 }
 
-function buildBar(){
-  document.getElementById('fbtns').innerHTML=GROUPS.map(g=>`
-    <div class="fwrap" data-g="${g.k}">
-      <button class="fbtn" data-g="${g.k}" aria-expanded="false">
-        <span class="lbl">${g.t}</span><b></b><i>▾</i></button>
-      <div class="fpop${g.wide?' wide':''}" role="dialog" aria-label="${g.t}">
-        <div class="fpoph"><span>${g.t}</span><button data-reset="${g.k}">Reset</button></div>
-        ${popBody(g)}
-      </div>
+function buildRail(){
+  const rail=document.getElementById('frail'); if(!rail) return;
+  rail.innerHTML=GROUPS.map(g=>`
+    <div class="rsec open" data-g="${g.k}">
+      <button class="rsech" aria-expanded="true">${g.t}<i>−</i></button>
+      <div class="rsecb">${popBody(g)}</div>
     </div>`).join('');
-
-  document.querySelectorAll('.fbtn').forEach(b=>
-    b.addEventListener('click',e=>{e.stopPropagation();openPop(b.dataset.g);}));
-  document.querySelectorAll('.fpop').forEach(p=>p.addEventListener('click',e=>e.stopPropagation()));
-  document.querySelectorAll('[data-reset]').forEach(b=>
-    b.addEventListener('click',()=>resetGroup(b.dataset.reset)));
-  bindRows(document);
-  document.querySelectorAll('.segs button').forEach(b=>
+  rail.querySelectorAll('.rsech').forEach(h=>h.addEventListener('click',()=>{
+    const sec=h.parentElement, open=sec.classList.toggle('open');
+    h.setAttribute('aria-expanded',String(open));
+    h.querySelector('i').textContent=open?'−':'+';
+    if(open) sec.querySelectorAll('.rng').forEach(paintRange);
+  }));
+  bindRows(rail);
+  rail.querySelectorAll('.segs button').forEach(b=>
     b.addEventListener('click',()=>toggle(b.dataset.k,b.dataset.v)));
-  document.querySelectorAll('.rng').forEach(initRange);
-
+  rail.querySelectorAll('.rng').forEach(initRange);
   document.getElementById('clear').addEventListener('click',clearAll);
-  document.addEventListener('click',()=>closePop());
-  addEventListener('keydown',e=>{if(e.key==='Escape')closePop();});
 }
-
-let OPEN=null;
-function closePop(){
-  if(!OPEN) return;
-  const w=document.querySelector(`.fwrap[data-g="${OPEN}"]`);
-  if(w){ w.classList.remove('open','flip');
-         const b=w.querySelector('.fbtn');
-         b.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
-  OPEN=null;
-}
-function openPop(k){
-  if(OPEN===k){ closePop(); return; }
-  closePop();
-  const w=document.querySelector(`.fwrap[data-g="${k}"]`);
-  w.classList.add('open');
-  const b=w.querySelector('.fbtn');
-  b.classList.add('open'); b.setAttribute('aria-expanded','true');
-  OPEN=k;
-  /* flip to the right edge if the panel would run off the screen */
-  const pop=w.querySelector('.fpop');
-  if(pop.getBoundingClientRect().right > innerWidth-16) w.classList.add('flip');
-  /* never let a panel run past the bottom of the screen — cap its list to
-     whatever room is actually below the button */
-  const list=pop.querySelector('.flist');
-  if(list){
-    list.style.maxHeight='';
-    const room=innerHeight - b.getBoundingClientRect().bottom - 26;
-    const chrome=pop.offsetHeight - list.offsetHeight;
-    list.style.maxHeight=Math.max(132, room-chrome)+'px';
-  }
-  /* sliders need a measurable width before they can be dragged */
-  w.querySelectorAll('.rng').forEach(paintRange);
-}
+function closePop(){}   /* the rail never opens or closes — kept for callers */
 
 function bindRows(scope){
   scope.querySelectorAll('.frow').forEach(r=>{
@@ -378,13 +340,9 @@ window.onCurrency=()=>{document.querySelectorAll('.rng').forEach(paintRange); if
 document.addEventListener('DOMContentLoaded',()=>{
   applyURL();
   buildGrid();
-  buildBar();
+  buildRail();
   document.getElementById('sort').addEventListener('change',render);
   render();
-  const bar=document.getElementById('fbar');
-  const navH=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--navH'));
-  const shade=()=>bar.classList.toggle('stuck', bar.getBoundingClientRect().top<=navH+1);
-  addEventListener('scroll',shade,{passive:true}); shade();
 });
 
 /* ================= MOBILE =================
@@ -465,7 +423,7 @@ function buildMobileShop(){
       <button class="mfilbtn" id="mfilbtn">${ICF}Filter<b></b></button>
     </div><div class="mcount" id="mcnt"></div>
     <div class="mfilpanel" id="mfilpanel" hidden></div>`;
-  document.querySelector('.fbar').after(bar);
+  document.querySelector('.shopbar').after(bar);
   bar.querySelectorAll('.mchip').forEach((c,i)=>c.addEventListener('click',()=>{
     QUICK[i].go(); document.querySelectorAll('.rng').forEach(paintRange); render();
   }));

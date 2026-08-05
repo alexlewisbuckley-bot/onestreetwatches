@@ -15,12 +15,12 @@
 <link rel="icon" href="assets/img/logo.331cc6ca4d.png">
 <link rel="preconnect" href="/">
 <link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.e21cecec3a.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/core.64695df5bd.css">
-<link rel="stylesheet" href="assets/css/system.c06c07cee5.css">
-<link rel="stylesheet" href="assets/css/shop.cb110087df.css">
-<link rel="stylesheet" href="assets/css/mobile.569e1046ed.css">
-<script src="assets/js/core.bd3ba62b92.js" defer></script>
-<script src="assets/js/shop.501d9a63f0.js" defer></script>
+<link rel="stylesheet" href="assets/css/core.033e90face.css">
+<link rel="stylesheet" href="assets/css/system.64cbaafc12.css">
+<link rel="stylesheet" href="assets/css/shop.fe0028b8d7.css">
+<link rel="stylesheet" href="assets/css/mobile.59958930e0.css">
+<script src="assets/js/core.59c0333b6a.js" defer></script>
+<script src="assets/js/shop.3e496fe3ff.js" defer></script>
 </head>
 <body data-page="shop">
 <div class="top">
@@ -29,11 +29,9 @@
       <button data-cur="AED" aria-pressed="true">AED</button>
       <button data-cur="GBP" aria-pressed="false">GBP</button>
     </div>
-    <span class="loc"><span class="dot"></span>Dubai showroom — open until 20:00</span>
-    <span class="loc">United Kingdom — viewings by appointment</span>
   </div>
+  <div class="mid">Authenticated pre-owned watches — Dubai &amp; United Kingdom</div>
   <div class="r">
-    <span class="tp"><span class="stars"><i></i><i></i><i></i><i></i><i></i></span><b>4.9</b> / 5 · 214 reviews on Trustpilot</span>
     <a class="wa" href="https://wa.me/message/55ILJOASJYUAD1">WhatsApp us</a>
   </div>
 </div>
@@ -55,11 +53,11 @@
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         <input type="search" id="q" autocomplete="off" role="combobox" aria-expanded="false"
                aria-controls="sug" aria-autocomplete="list"
-               placeholder="Search watches, a model or a reference…" aria-label="Search watches">
+               placeholder="Search" aria-label="Search watches">
       </label>
       <div class="sug" id="sug" role="listbox" aria-label="Search suggestions"></div>
     </div>
-    <a class="bag" href="book.html">Bag</a>
+    <a class="bag" href="book.html">Book a viewing</a>
   </div>
 
   <!-- ============ SHOP ALL ============ -->
@@ -135,37 +133,34 @@
   </div>
 </nav>
 
-<div class="phead">
-  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="shop.html">The case</a> &nbsp;/&nbsp; <span id="crumbTail">All watches</span></div>
+<div class="phead phead--shop">
   <h1 id="shopTitle">The case</h1>
-  <p class="lede">Every piece below is in our own stock — in Dubai or the United Kingdom — authenticated at
-    our bench and priced against the live market. Nothing brokered, nothing on a waiting list.</p>
+  <p class="lede">Our own stock in Dubai and the United Kingdom — authenticated at our bench,
+    priced against the live market. Happy browsing.</p>
 </div>
 
-<div class="fbar" id="fbar">
-  <div class="fbarin">
-    <div class="fbtns" id="fbtns"></div>
-    <div class="sortwrap">
-      <label for="sort">Sort</label>
-      <select id="sort">
-        <option value="new">Newest in</option>
-        <option value="plow">Price — low to high</option>
-        <option value="phigh">Price — high to low</option>
-        <option value="year">Year — newest first</option>
-      </select>
+<div class="shopbar" id="fbaranchor">
+  <div class="count"><b id="cnt">24</b> watches <span id="ofTotal"></span></div>
+  <div class="active" id="active"></div>
+  <button class="fclear" id="clear" hidden>Clear all</button>
+  <div class="sortwrap">
+    <label for="sort">Sort</label>
+    <select id="sort">
+      <option value="new">Newest in</option>
+      <option value="plow">Price — low to high</option>
+      <option value="phigh">Price — high to low</option>
+      <option value="year">Year — newest first</option>
+    </select>
+  </div>
+</div>
+
+<div class="shopwrap">
+  <aside class="frail" id="frail" aria-label="Filters"></aside>
+  <div class="results">
+    <div class="pgrid" id="pgrid"></div>
+    <div class="empty" id="empty" style="display:none">
+      Nothing matches that combination — try widening the price band or clearing a filter.
     </div>
-  </div>
-  <div class="fbar2">
-    <div class="count"><b id="cnt">24</b> watches <span id="ofTotal"></span></div>
-    <div class="active" id="active"></div>
-    <button class="fclear" id="clear" hidden>Clear all</button>
-  </div>
-</div>
-
-<div class="results">
-  <div class="pgrid" id="pgrid"></div>
-  <div class="empty" id="empty" style="display:none">
-    Nothing matches that combination — try widening the price band or clearing a filter.
   </div>
 </div>
 

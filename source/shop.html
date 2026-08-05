@@ -1,33 +1,30 @@
-<div class="phead">
-  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="shop.html">The case</a> &nbsp;/&nbsp; <span id="crumbTail">All watches</span></div>
+<div class="phead phead--shop">
   <h1 id="shopTitle">The case</h1>
-  <p class="lede">Every piece below is in our own stock — in Dubai or the United Kingdom — authenticated at
-    our bench and priced against the live market. Nothing brokered, nothing on a waiting list.</p>
+  <p class="lede">Our own stock in Dubai and the United Kingdom — authenticated at our bench,
+    priced against the live market. Happy browsing.</p>
 </div>
 
-<div class="fbar" id="fbar">
-  <div class="fbarin">
-    <div class="fbtns" id="fbtns"></div>
-    <div class="sortwrap">
-      <label for="sort">Sort</label>
-      <select id="sort">
-        <option value="new">Newest in</option>
-        <option value="plow">Price — low to high</option>
-        <option value="phigh">Price — high to low</option>
-        <option value="year">Year — newest first</option>
-      </select>
+<div class="shopbar" id="fbaranchor">
+  <div class="count"><b id="cnt">24</b> watches <span id="ofTotal"></span></div>
+  <div class="active" id="active"></div>
+  <button class="fclear" id="clear" hidden>Clear all</button>
+  <div class="sortwrap">
+    <label for="sort">Sort</label>
+    <select id="sort">
+      <option value="new">Newest in</option>
+      <option value="plow">Price — low to high</option>
+      <option value="phigh">Price — high to low</option>
+      <option value="year">Year — newest first</option>
+    </select>
+  </div>
+</div>
+
+<div class="shopwrap">
+  <aside class="frail" id="frail" aria-label="Filters"></aside>
+  <div class="results">
+    <div class="pgrid" id="pgrid"></div>
+    <div class="empty" id="empty" style="display:none">
+      Nothing matches that combination — try widening the price band or clearing a filter.
     </div>
-  </div>
-  <div class="fbar2">
-    <div class="count"><b id="cnt">24</b> watches <span id="ofTotal"></span></div>
-    <div class="active" id="active"></div>
-    <button class="fclear" id="clear" hidden>Clear all</button>
-  </div>
-</div>
-
-<div class="results">
-  <div class="pgrid" id="pgrid"></div>
-  <div class="empty" id="empty" style="display:none">
-    Nothing matches that combination — try widening the price band or clearing a filter.
   </div>
 </div>
