@@ -14,8 +14,6 @@ const SHOTS=[
  ["__IMG_CAM3__","The lounge",[
    {x:17,y:70,t:"Arrivals case",w:[3,17]},
    {x:47,y:76,t:"Seating vitrine",w:[1,20]}]],
- ["__IMG_EXT__","Vida Hotel, Emirates Hills",[
-   {x:50,y:62,t:"Step inside",w:[1,2]}]],
  ["__IMG_CAM2__","The high-complication wall",[
    {x:38,y:74,t:"Island vitrine",w:[14,8]},
    {x:74,y:70,t:"Patek & AP case",w:[12,13]}]]

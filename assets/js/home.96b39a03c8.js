@@ -14,8 +14,6 @@ const SHOTS=[
  ["assets/img/boutique-lounge.cc6e46eb3b.jpg","The lounge",[
    {x:17,y:70,t:"Arrivals case",w:[3,17]},
    {x:47,y:76,t:"Seating vitrine",w:[1,20]}]],
- ["assets/img/boutique-exterior.374cb6d191.jpg","Vida Hotel, Emirates Hills",[
-   {x:50,y:62,t:"Step inside",w:[1,2]}]],
  ["assets/img/boutique-wall.5ec75b6f36.jpg","The high-complication wall",[
    {x:38,y:74,t:"Island vitrine",w:[14,8]},
    {x:74,y:70,t:"Patek & AP case",w:[12,13]}]]
