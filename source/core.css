@@ -534,6 +534,23 @@ footer.foot a{transition:color .3s}
 .mbar .go{color:var(--ink);border-bottom:1px solid var(--line2);padding-bottom:1px}
 .mbar .go:hover{border-color:var(--ink)}
 
+/* a compact drop, not a full-bleed mega — six links do not need the width */
+.mega--drop{left:50%;right:auto;width:372px;transform:translate(-50%,-8px);
+ border-bottom:1px solid var(--line2)}
+.mega--drop.on{transform:translate(-50%,0)}
+.dropin{padding:22px 26px 20px}
+.drow{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+ padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--soft);
+ transition:color .25s}
+.drow:last-of-type{border-bottom:none}
+.drow:hover{color:var(--ink)}
+.drow em{font-style:normal;font-size:11px;color:var(--pale);white-space:nowrap}
+.drow:hover em{color:var(--muted)}
+.dfoot{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;padding-top:14px;
+ border-top:1px solid var(--line2)}
+.dfoot a{font-size:11px;letter-spacing:.08em;color:var(--ink)}
+.dfoot a:hover{color:var(--muted)}
+
 @media (max-width:1280px){.megain{grid-template-columns:1fr 1fr 1.3fr;}
  .mcol.mnew{display:none}}
 @media (max-width:980px){.mega{display:none}}

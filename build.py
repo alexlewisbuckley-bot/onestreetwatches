@@ -98,7 +98,7 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'A firm offer within the hour and payment the same day, in Dubai and the United Kingdom. No fees, free insured collection.','sell'),
        ('sourcing','sourcing','Concierge watch sourcing | One Street Watches',
         'Name the reference and we will hunt it through our dealer network across four time zones. Average eleven days. No fee unless we find it.','sourcing'),
-       ('servicing','servicing','Watch servicing, polishing & authentication | One Street Watches',
+       ('servicing','servicing','Services — watch servicing, polishing & authentication | One Street Watches',
         'Swiss-trained watchmakers at our own bench in Dubai, with free insured collection in the UAE and UK. 24-month warranty on all work.','servicing'),
        ('visit','visit','Visit the boutique — Dubai & United Kingdom | One Street Watches',
         'Gold & Diamond Park, Building 5, Dubai — open daily. Private viewings by appointment in the United Kingdom.','visit'),

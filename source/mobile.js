@@ -27,7 +27,7 @@ const NAV = [
   {t:'Handbags',            href:'bags.html'},
   {t:'Sell a watch',        href:'sell.html'},
   {t:'Find me a watch',     href:'sourcing.html'},
-  {t:'Service a watch',     href:'servicing.html'},
+  {t:'Services & repairs',  href:'servicing.html'},
   {t:'Visit us',            href:'visit.html'},
   {t:'The community',       href:'community.html'},
   {t:'About One Street',    href:'about.html'}

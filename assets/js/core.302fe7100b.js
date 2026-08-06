@@ -372,7 +372,8 @@ function buildBrandPanel(){
 }
 
 function initMega(){
-  const panels={shop:$m('mega-shop'), bags:$m('mega-bags'), brands:$m('mega-brands')};
+  const panels={shop:$m('mega-shop'), bags:$m('mega-bags'),
+                services:$m('mega-services'), brands:$m('mega-brands')};
   const scrim=$m('scrim'), navEl=document.querySelector('nav');
   if(!panels.shop || !navEl) return;
   let openT=null, closeT=null, current=null;
@@ -711,7 +712,7 @@ const NAV = [
   {t:'Handbags',            href:'bags.html'},
   {t:'Sell a watch',        href:'sell.html'},
   {t:'Find me a watch',     href:'sourcing.html'},
-  {t:'Service a watch',     href:'servicing.html'},
+  {t:'Services & repairs',  href:'servicing.html'},
   {t:'Visit us',            href:'visit.html'},
   {t:'The community',       href:'community.html'},
   {t:'About One Street',    href:'about.html'}

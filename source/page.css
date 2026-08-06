@@ -73,6 +73,12 @@
 /* location card */
 .loc2{border:1px solid var(--line);background:var(--white);box-shadow:var(--e1)}
 .loc2 .map{aspect-ratio:1/.5;background-image:var(--plate);position:relative;border-bottom:1px solid var(--line)}
+/* a live map, desaturated so it sits inside the palette rather than shouting */
+.map--live{background:var(--sand);overflow:hidden}
+.map--live iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+ filter:grayscale(.85) contrast(.95);transition:filter .5s var(--e)}
+.loc2:hover .map--live iframe{filter:grayscale(0) contrast(1)}
+@media (prefers-reduced-motion:reduce){.map--live iframe{transition:none}}
 .loc2 .bd{padding:26px}
 .loc2 h3{font-size:20px;font-weight:400;letter-spacing:-.02em}
 .loc2 .addr{margin-top:14px;font-size:13.5px;color:var(--soft);line-height:1.85}
