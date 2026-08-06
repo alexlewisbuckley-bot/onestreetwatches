@@ -21,6 +21,9 @@ const PRIMARY = [
   {t:'Book a viewing',  s:'Dubai, the UK or on camera', href:'book.html', k:'book'}
 ];
 const NAV = [
+  /* Watches repeats the first tile as a plain link — the tile is easy to
+     read past, and the list is where people look for a category. */
+  {t:'Watches',             href:'shop.html'},
   {t:'Handbags',            href:'bags.html'},
   {t:'Sell a watch',        href:'sell.html'},
   {t:'Find me a watch',     href:'sourcing.html'},
