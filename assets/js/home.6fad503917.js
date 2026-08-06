@@ -79,6 +79,12 @@ function initNew(){
   bindZones(t);
 }
 
+/* ---------- handbags shelf ---------- */
+function initBags(){
+  const t=$h('bagtrack'); if(!t||typeof BAGS==='undefined') return;
+  t.innerHTML=BAGS.map((g,i)=>bagCard(g,i)).join('');
+}
+
 /* ---------- collector picks: a second shelf, no overlap with the first ---------- */
 function initPicks(){
   const t=$h('track2'); if(!t) return;
@@ -200,7 +206,7 @@ function initReviews(){
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-  initHero(); initNew(); initPicks(); initMaisons(); initSpotlight(); initSocial(); initReviews();
+  initHero(); initNew(); initPicks(); initMaisons(); initBags(); initSpotlight(); initSocial(); initReviews();
   repaintMoney();
 });
 

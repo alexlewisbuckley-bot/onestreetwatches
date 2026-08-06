@@ -21,6 +21,7 @@ const PRIMARY = [
   {t:'Book a viewing',  s:'Dubai, the UK or on camera', href:'book.html', k:'book'}
 ];
 const NAV = [
+  {t:'Handbags',            href:'bags.html'},
   {t:'Sell a watch',        href:'sell.html'},
   {t:'Find me a watch',     href:'sourcing.html'},
   {t:'Service a watch',     href:'servicing.html'},

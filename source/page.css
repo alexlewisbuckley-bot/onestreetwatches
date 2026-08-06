@@ -291,3 +291,28 @@
 .vipline{margin-top:22px;text-align:center;font-size:12px;color:var(--muted)}
 .vipline a{color:var(--ink);border-bottom:1px solid var(--line2)}
 .vipline a:hover{border-color:var(--ink)}
+
+/* ============================================================
+   HANDBAGS
+   ============================================================ */
+.bagwrap{max-width:1100px;margin:0 auto;padding:44px 52px 20px}
+.bagrow{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+ padding:44px 0;border-bottom:1px solid var(--line)}
+.bagart{position:relative;background:var(--sand);display:grid;place-items:center;
+ aspect-ratio:1/1;overflow:hidden}
+.bagart img{width:78%;height:auto;object-fit:contain;
+ filter:drop-shadow(0 16px 22px rgba(0,0,0,.14));transition:transform .7s var(--e)}
+.bagrow:hover .bagart img{transform:scale(1.03)}
+.bagbd h2{margin-top:10px;font-size:clamp(22px,2.2vw,29px);font-weight:300;letter-spacing:-.01em}
+.bagprice{margin-top:12px;font-size:16px;letter-spacing:.02em}
+.bagd{margin-top:16px;font-size:13px;color:var(--soft);line-height:1.85;max-width:46ch}
+.bagspecs{margin-top:22px;border-top:1px solid var(--line)}
+.bgrow{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+ padding:9px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.bgrow em{font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--pale)}
+.bagacts{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+@media (max-width:979px){
+  .bagwrap{padding:24px 16px 8px}
+  .bagrow{grid-template-columns:1fr;gap:22px;padding:28px 0}
+  .bagacts .b1,.bagacts .b2{width:100%;justify-content:center}
+}

@@ -76,6 +76,38 @@ const CATALOGUE = [
   ims:[{img:"__W_AQ5968__"},SHOT("Dial macro","Flyback chronograph, embossed grid"),SHOT("Strap","Orange composite with fold-over clasp"),SHOT("Box & papers","Full set with both straps")]}
 ];
 
+
+/* ---------------- handbags ----------------
+   A second department, deliberately its own small array: bags have
+   their own vocabulary (size, leather, hardware) and do not belong
+   inside a catalogue keyed on dials and case sizes. */
+const BAGS=[
+ {b:"Hermès",m:"Kelly 25 Sellier",
+  t:"Kelly 25 Sellier In Bleu Saphir Epsom Leather With Palladium Hardware, 2022 Full Set",
+  y:2022,c:"Excellent",box:1,pap:1,aed:198000,loc:"Dubai",tag:"Bestseller",
+  size:"25 cm",leather:"Epsom",colour:"Bleu Saphir",hw:"Palladium",stamp:"U (2022)",
+  d:"Sellier construction \u2014 stitched on the outside, so the bag holds its architecture rather than slouching. Bleu saphir reads navy indoors and deep blue in sun. Corners crisp, hardware unmarked, protective film still on the clasp.",
+  img:"__BAG_K25__"},
+ {b:"Hermès",m:"Birkin 30",
+  t:"Birkin 30 In Craie Swift Leather With Palladium Hardware, 2021 Full Set",
+  y:2021,c:"Excellent",box:1,pap:1,aed:172000,loc:"Dubai",tag:"",
+  size:"30 cm",leather:"Swift",colour:"Craie",hw:"Palladium",stamp:"Y (2021)",
+  d:"Craie is the chalk white that flatters everything and forgives nothing \u2014 this one has been kept properly. Swift takes the light softly and the grain stays fine. Clochette, lock and both keys present.",
+  img:"__BAG_B30__"},
+ {b:"Hermès",m:"Birkin 30",
+  t:"Birkin 30 In Étoupe Epsom Leather With Palladium Hardware And Contrast Stitch, 2020 Full Set",
+  y:2020,c:"Very good",box:1,pap:1,aed:158000,loc:"United Kingdom",tag:"",
+  size:"30 cm",leather:"Epsom",colour:"Étoupe",hw:"Palladium",stamp:"Y (2020)",
+  d:"The neutral that outlasts every trend, in Epsom \u2014 the hardest-wearing leather Hermès uses. Light honest wear at the base corners, structure entirely intact, contrast saddle stitch clean throughout.",
+  img:"__BAG_B30E__"},
+ {b:"Hermès",m:"Kelly 20 Mini II",
+  t:"Kelly 20 Mini II Sellier In Chai Matte Alligator With Palladium Hardware, 2023 Unworn Full Set",
+  y:2023,c:"Unworn",box:1,pap:1,aed:445000,loc:"Dubai",tag:"Grail",
+  size:"20 cm",leather:"Matte alligator",colour:"Chai",hw:"Palladium",stamp:"B (2023)",
+  d:"Mini Kelly II in matte alligator \u2014 the hardest of all to be offered, and unworn. Chai is the warm sand-rose that sits between neutral and blush. CITES paperwork present for travel.",
+  img:"__BAG_K20__"}
+];
+
 /* ---------------- shared UI helpers ---------------- */
 const inc = (on, label) => `<span class="inc ${on?'on':'off'}"><span class="bx"></span>${label}</span>`;
 
@@ -103,6 +135,23 @@ function productCard(w, i){
       <div class="pname">${w.t||w.m}</div>
       <div class="pprice money" data-aed="${w.aed}">${money(w.aed)}</div>
       <div class="pspec">${inc(w.box,'Box')}${inc(w.pap,'Papers')}<span class="cond">${w.c}</span></div>
+    </div>
+  </a>`;
+}
+
+/* a bag wears the same card grammar as a watch */
+function bagCard(g,i){
+  return `
+  <a class="pcard" href="bags.html#b${i}">
+    <div class="part">
+      <div class="pshot on"><img src="${g.img}" alt="${g.b} ${g.m}"></div>
+      ${g.tag?`<span class="ptag">${g.tag}</span>`:''}
+    </div>
+    <div class="pbody">
+      <div class="pbrand">${g.b}</div>
+      <div class="pname">${g.t}</div>
+      <div class="pprice money" data-aed="${g.aed}">${money(g.aed)}</div>
+      <div class="pspec">${inc(g.box,'Box')}${inc(g.pap,'Receipt')}<span class="cond">${g.c}</span></div>
     </div>
   </a>`;
 }

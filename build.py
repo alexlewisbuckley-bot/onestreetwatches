@@ -37,14 +37,18 @@ IMGMAP={'__LOGO__':'logo.png','__IMG_CAM1__':'boutique-salon.jpg','__IMG_CAM2__'
         '__W_WG__':'rolex-submariner-white-gold.webp',
         '__B_ROLEX__':'brand-rolex.jpg','__B_AP__':'brand-ap.jpg','__B_PATEK__':'brand-patek.jpg',
         '__W_P5712__':'patek-nautilus-5712r.webp','__W_P5711R__':'patek-nautilus-5711r.webp',
-        '__W_CUBITUS__':'patek-cubitus-5821r.webp','__W_AQ5968__':'patek-aquanaut-5968a.webp'}
+        '__W_CUBITUS__':'patek-cubitus-5821r.webp','__W_AQ5968__':'patek-aquanaut-5968a.webp',
+        '__BAG_K25__':'hermes-kelly-25-bleu-saphir.webp','__BAG_B30__':'hermes-birkin-30-craie.webp',
+        '__BAG_B30E__':'hermes-birkin-30-etoupe.webp','__BAG_K20__':'hermes-kelly-20-alligator.webp'}
 SRC={'__LOGO__':'b/logo.png','__IMG_CAM1__':'b/cam1.jpg','__IMG_CAM2__':'b/cam2.jpg',
      '__IMG_CAM3__':'b/cam3.jpg','__IMG_CAM4__':'b/cam4.jpg','__IMG_EXT__':'b/ext.jpg',
      '__W_HULK__':'b/w-hulk.webp','__W_STAR__':'b/w-starbucks.webp',
      '__W_SPRITE__':'b/w-sprite.webp','__W_WG__':'b/w-wg.webp',
      '__B_ROLEX__':'b/brand-rolex.jpg','__B_AP__':'b/brand-ap.jpg','__B_PATEK__':'b/brand-patek.jpg',
      '__W_P5712__':'b/p5712.webp','__W_P5711R__':'b/p5711r.webp',
-     '__W_CUBITUS__':'b/cubitus.webp','__W_AQ5968__':'b/aq5968.webp'}
+     '__W_CUBITUS__':'b/cubitus.webp','__W_AQ5968__':'b/aq5968.webp',
+     '__BAG_K25__':'b/bag-kelly25.webp','__BAG_B30__':'b/bag-birkin30.webp',
+     '__BAG_B30E__':'b/bag-birkin30s.webp','__BAG_K20__':'b/bag-kelly20.webp'}
 for tok,name in IMGMAP.items():
     if os.path.exists(SRC[tok]):
         shutil.copy(SRC[tok], OUT+'assets/img/'+name)
@@ -108,6 +112,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'A watch dealer in Dubai and the United Kingdom, founded in 2021. We hold our own stock and authenticate it at our own bench.',''),
        ('community','community','The community | One Street Watches',
         'Collector dinners, first looks and straight talk — the One Street community in Dubai and the United Kingdom. Membership is free and stays small.','community'),
+       ('bags','bags','Handbags — Hermès Birkin & Kelly | One Street Watches',
+        'Authenticated Hermès Birkin and Kelly bags held in our own stock in Dubai and the United Kingdom. Full sets, condition graded, delivered insured.','bags'),
        ('vip','vip','VIP portal | One Street Watches',
         'Members-only services: chauffeur collection, home viewings, complimentary servicing and sizing, first refusal on arrivals.','vip'),
        ('contact','contact','Contact One Street Watches',
@@ -118,6 +124,7 @@ for slug,out,title,desc,nav in PAGES:
     body=open(B+slug+'.html').read()
     for tok in list(IMGMAP)+list(ALIAS): body=body.replace(tok, img_path(tok))
     page_css = slug+'.css' if slug in ('home','shop','product','book') else 'page.css'
+    extra2 = f'<link rel="stylesheet" href="assets/css/{CSSOUT["shop.css"]}">' if slug=='bags' else ''
     extra_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT[page_css]}">' if page_css in CSSOUT else ''
     extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
     mobile_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT["mobile.css"]}">'
@@ -143,6 +150,7 @@ for slug,out,title,desc,nav in PAGES:
 <link rel="stylesheet" href="assets/css/{CSSOUT['core.css']}">
 <link rel="stylesheet" href="assets/css/{CSSOUT['system.css']}">
 {extra_css}
+{extra2}
 {mobile_css}
 <script src="assets/js/{JSOUT['core.js']}" defer></script>
 {extra_js}
