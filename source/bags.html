@@ -1,27 +1,52 @@
 <div class="phead phead--shop">
-  <h1>Handbags</h1>
-  <p class="lede">Hermès Birkin and Kelly, held in our own stock and authenticated the same way
-    we authenticate a watch — hardware, stamps, stitching and leather, checked in person.</p>
+  <h1 id="bagTitle">Handbags</h1>
+  <p class="lede">Hermès, held in our own stock in Dubai and the United Kingdom — authenticated
+    the same way we authenticate a watch, by hand and in person.</p>
 </div>
 
 <div class="shopbar">
-  <div class="count"><b id="bcnt">4</b> bags</div>
-  <div class="locseg" id="blocseg" role="group" aria-label="Held in">
+  <button class="filtoggle" id="filtoggle" aria-expanded="false" aria-controls="frail">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>
+    <span id="filtoggletext">Filters</span><b id="filcount" hidden></b></button>
+  <label class="shopsearch">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M11 11l3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <input id="shopq" type="search" autocomplete="off" placeholder="Search the collection" aria-label="Search handbags">
+    <button class="sqclear" id="sqclear" aria-label="Clear search">×</button>
+  </label>
+  <div class="locseg" id="locseg" role="group" aria-label="Held in">
     <button data-l="" aria-pressed="true">All</button>
     <button data-l="Dubai" aria-pressed="false">UAE</button>
     <button data-l="United Kingdom" aria-pressed="false">UK</button>
   </div>
+  <div class="count"><b id="cnt">16</b> bags <span id="ofTotal"></span></div>
+  <div class="active" id="active"></div>
+  <button class="fclear" id="clear" hidden>Clear all</button>
+  <div class="sortwrap">
+    <label for="sort">Sort</label>
+    <select id="sort">
+      <option value="new">Newest in</option>
+      <option value="plow">Price — low to high</option>
+      <option value="phigh">Price — high to low</option>
+      <option value="size">Size — small to large</option>
+    </select>
+  </div>
 </div>
 
-<div class="bagwrap">
-  <div class="baglist" id="baglist"></div>
+<div class="shopwrap">
+  <aside class="frail" id="frail" aria-label="Filters"></aside>
+  <div class="results">
+    <div class="pgrid" id="pgrid"></div>
+    <div class="empty" id="empty" style="display:none">
+      Nothing matches that combination — try clearing a filter, or ask us to source it.
+    </div>
+  </div>
 </div>
 
 <div class="pxband">
   <div class="k">Sourcing &amp; part-exchange</div>
   <h2>Looking for a particular size, leather or colour?</h2>
   <p>Tell us the combination and we will hunt it through the same network we use for watches.
-     We also buy and part-exchange bags against anything in stock.</p>
+     We buy and part-exchange bags against anything in stock.</p>
   <a class="b2" href="sourcing.html">Start a sourcing request <span class="a">→</span></a>
 </div>
 
@@ -30,8 +55,8 @@
   <div class="acc">
     <div class="acci"><button class="acch">How do you authenticate a bag?<i>+</i></button>
       <div class="accb">By hand, in person: blind stamp and date code, hardware weight and finish,
-      stitch angle and thread, leather grain and smell, zip pulls, feet, and the interior stamp.
-      We do not authenticate from photographs alone.</div></div>
+      stitch angle and thread, leather grain, zip pulls, feet, and the interior stamp. We do not
+      authenticate from photographs alone.</div></div>
     <div class="acci"><button class="acch">Do bags come with box and receipt?<i>+</i></button>
       <div class="accb">Each listing states exactly what is included. Where an original receipt
       exists we redact the previous owner's details before it travels.</div></div>

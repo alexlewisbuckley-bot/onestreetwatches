@@ -82,31 +82,108 @@ const CATALOGUE = [
    their own vocabulary (size, leather, hardware) and do not belong
    inside a catalogue keyed on dials and case sizes. */
 const BAGS=[
- {b:"Hermès",m:"Kelly 25 Sellier",
+ {m:"Kelly",fam:"Kelly 25 Sellier",
   t:"Kelly 25 Sellier In Bleu Saphir Epsom Leather With Palladium Hardware, 2022 Full Set",
   y:2022,c:"Excellent",box:1,pap:1,aed:198000,loc:"Dubai",tag:"Bestseller",
-  size:"25 cm",leather:"Epsom",colour:"Bleu Saphir",hw:"Palladium",stamp:"U (2022)",
+  size:25,leather:"Epsom",colour:"Bleu Saphir",hex:"#22304F",hw:"Palladium",stamp:"U (2022)",
   d:"Sellier construction \u2014 stitched on the outside, so the bag holds its architecture rather than slouching. Bleu saphir reads navy indoors and deep blue in sun. Corners crisp, hardware unmarked, protective film still on the clasp.",
   img:"__BAG_K25__"},
- {b:"Hermès",m:"Birkin 30",
+ {m:"Birkin",fam:"Birkin 30",
   t:"Birkin 30 In Craie Swift Leather With Palladium Hardware, 2021 Full Set",
   y:2021,c:"Excellent",box:1,pap:1,aed:172000,loc:"Dubai",tag:"",
-  size:"30 cm",leather:"Swift",colour:"Craie",hw:"Palladium",stamp:"Y (2021)",
+  size:30,leather:"Swift",colour:"Craie",hex:"#E8E1D4",hw:"Palladium",stamp:"Y (2021)",
   d:"Craie is the chalk white that flatters everything and forgives nothing \u2014 this one has been kept properly. Swift takes the light softly and the grain stays fine. Clochette, lock and both keys present.",
   img:"__BAG_B30__"},
- {b:"Hermès",m:"Birkin 30",
-  t:"Birkin 30 In Étoupe Epsom Leather With Palladium Hardware And Contrast Stitch, 2020 Full Set",
+ {m:"Birkin",fam:"Birkin 30",
+  t:"Birkin 30 In \u00c9toupe Epsom Leather With Palladium Hardware And Contrast Stitch, 2020 Full Set",
   y:2020,c:"Very good",box:1,pap:1,aed:158000,loc:"United Kingdom",tag:"",
-  size:"30 cm",leather:"Epsom",colour:"Étoupe",hw:"Palladium",stamp:"Y (2020)",
-  d:"The neutral that outlasts every trend, in Epsom \u2014 the hardest-wearing leather Hermès uses. Light honest wear at the base corners, structure entirely intact, contrast saddle stitch clean throughout.",
+  size:30,leather:"Epsom",colour:"\u00c9toupe",hex:"#8A7D6E",hw:"Palladium",stamp:"Y (2020)",
+  d:"The neutral that outlasts every trend, in Epsom \u2014 the hardest-wearing leather Herm\u00e8s uses. Light honest wear at the base corners, structure entirely intact, contrast saddle stitch clean throughout.",
   img:"__BAG_B30E__"},
- {b:"Hermès",m:"Kelly 20 Mini II",
+ {m:"Kelly",fam:"Kelly 20 Mini II",
   t:"Kelly 20 Mini II Sellier In Chai Matte Alligator With Palladium Hardware, 2023 Unworn Full Set",
   y:2023,c:"Unworn",box:1,pap:1,aed:445000,loc:"Dubai",tag:"Grail",
-  size:"20 cm",leather:"Matte alligator",colour:"Chai",hw:"Palladium",stamp:"B (2023)",
+  size:20,leather:"Matte alligator",colour:"Chai",hex:"#C79A7C",hw:"Palladium",stamp:"B (2023)",
   d:"Mini Kelly II in matte alligator \u2014 the hardest of all to be offered, and unworn. Chai is the warm sand-rose that sits between neutral and blush. CITES paperwork present for travel.",
-  img:"__BAG_K20__"}
+  img:"__BAG_K20__"},
+ {m:"Birkin",fam:"Birkin 25",
+  t:"Birkin 25 In Gold Togo Leather With Gold Hardware, 2022 Full Set",
+  y:2022,c:"Excellent",box:1,pap:1,aed:238000,loc:"Dubai",tag:"Bestseller",
+  size:25,leather:"Togo",colour:"Gold",hex:"#B07C43",hw:"Gold",stamp:"U (2022)",
+  d:"The combination people wait years for: Birkin 25, gold Togo, gold hardware. Togo\u2019s pebbled grain hides wear and keeps its shape. Corners sharp, feet unscuffed.",
+  ph:["Three-quarter","Gold Togo Birkin 25 at 30\u00b0, palladium-free warm light"]},
+ {m:"Birkin",fam:"Birkin 35",
+  t:"Birkin 35 In Noir Togo Leather With Palladium Hardware, 2018 Full Set",
+  y:2018,c:"Very good",box:1,pap:1,aed:145000,loc:"United Kingdom",tag:"",
+  size:35,leather:"Togo",colour:"Noir",hex:"#1A1A1A",hw:"Palladium",stamp:"C (2018)",
+  d:"The travelling size, in the colour that goes everywhere. Softened with use exactly as a 35 should, base corners honest, all hardware present including clochette and both keys.",
+  ph:["Three-quarter","Black Togo Birkin 35, relaxed slouch, soft top light"]},
+ {m:"Kelly",fam:"Kelly 28 Retourne",
+  t:"Kelly 28 Retourne In Gold Togo Leather With Gold Hardware And Strap, 2021 Full Set",
+  y:2021,c:"Excellent",box:1,pap:1,aed:185000,loc:"Dubai",tag:"",
+  size:28,leather:"Togo",colour:"Gold",hex:"#B07C43",hw:"Gold",stamp:"Y (2021)",
+  d:"Retourne \u2014 stitched inside then turned, so it sits softer than a sellier and wears every day. Shoulder strap included, unworn on its keeper.",
+  ph:["Three-quarter","Gold Togo Kelly 28 retourne, strap coiled behind"]},
+ {m:"Kelly",fam:"Kelly 32 Sellier",
+  t:"Kelly 32 Sellier In Noir Box Calf With Gold Hardware, 2016 Full Set",
+  y:2016,c:"Very good",box:1,pap:1,aed:168000,loc:"United Kingdom",tag:"",
+  size:32,leather:"Box calf",colour:"Noir",hex:"#1A1A1A",hw:"Gold",stamp:"X (2016)",
+  d:"Box calf develops a glass-like patina nothing else matches, and this one has begun. A few faint surface marks consistent with age, structure immaculate.",
+  ph:["Three-quarter","Black box calf Kelly 32 sellier, hard light to show the shine"]},
+ {m:"Constance",fam:"Constance 18",
+  t:"Constance 18 In Rouge Casaque Epsom Leather With Palladium Hardware, 2023 Unworn Full Set",
+  y:2023,c:"Unworn",box:1,pap:1,aed:142000,loc:"Dubai",tag:"New arrival",
+  size:18,leather:"Epsom",colour:"Rouge Casaque",hex:"#B5252C",hw:"Palladium",stamp:"B (2023)",
+  d:"The H-clasp shoulder bag, unworn, in the red Herm\u00e8s is known for. Epsom keeps the crisp edges the Constance depends on.",
+  ph:["Three-quarter","Rouge casaque Constance 18, strap fanned, H clasp catching light"]},
+ {m:"Constance",fam:"Constance 24",
+  t:"Constance 24 In Noir Epsom Leather With Palladium Hardware, 2020 Full Set",
+  y:2020,c:"Excellent",box:1,pap:1,aed:156000,loc:"Dubai",tag:"",
+  size:24,leather:"Epsom",colour:"Noir",hex:"#1A1A1A",hw:"Palladium",stamp:"Y (2020)",
+  d:"The larger Constance, black on palladium \u2014 the quietest combination in the range and the hardest to find in good order. Clasp tight, edges unrubbed.",
+  ph:["Three-quarter","Black Epsom Constance 24, clean studio grey"]},
+ {m:"Lindy",fam:"Lindy 26",
+  t:"Lindy 26 In Gris Meyer Clemence Leather With Palladium Hardware, 2022 Full Set",
+  y:2022,c:"Excellent",box:1,pap:1,aed:64000,loc:"United Kingdom",tag:"",
+  size:26,leather:"Clemence",colour:"Gris Meyer",hex:"#8E8C88",hw:"Palladium",stamp:"U (2022)",
+  d:"The one you actually use \u2014 two openings, a shoulder strap, and Clemence\u2019s soft fall. Grey that works against navy and black equally.",
+  ph:["Three-quarter","Grey Clemence Lindy 26, slouched, strap across"]},
+ {m:"Bolide",fam:"Bolide 27",
+  t:"Bolide 27 In Noir Epsom Leather With Palladium Hardware, 2019 Full Set",
+  y:2019,c:"Excellent",box:1,pap:1,aed:74000,loc:"Dubai",tag:"",
+  size:27,leather:"Epsom",colour:"Noir",hex:"#1A1A1A",hw:"Palladium",stamp:"D (2019)",
+  d:"The first bag ever fitted with a zip, still the most practical shape Herm\u00e8s makes. Structured Epsom, strap included.",
+  ph:["Three-quarter","Black Epsom Bolide 27, zip curve catching light"]},
+ {m:"Picotin",fam:"Picotin Lock 18",
+  t:"Picotin Lock 18 In Craie Clemence Leather With Palladium Hardware, 2023 Unworn Full Set",
+  y:2023,c:"Unworn",box:1,pap:1,aed:39000,loc:"Dubai",tag:"New arrival",
+  size:18,leather:"Clemence",colour:"Craie",hex:"#E8E1D4",hw:"Palladium",stamp:"B (2023)",
+  d:"The bucket that started as a feed bag and became a staple. Unworn, with the lock and both keys still bagged.",
+  ph:["Three-quarter","Craie Clemence Picotin 18, open top, lock hanging"]},
+ {m:"Evelyne",fam:"Evelyne 29",
+  t:"Evelyne III 29 In Bleu Nuit Clemence Leather With Palladium Hardware, 2021 Full Set",
+  y:2021,c:"Very good",box:1,pap:0,aed:34000,loc:"United Kingdom",tag:"",
+  size:29,leather:"Clemence",colour:"Bleu Nuit",hex:"#2A3247",hw:"Palladium",stamp:"Y (2021)",
+  d:"The everyday crossbody \u2014 perforated H, canvas strap, and enough room for a day. Honest wear on the strap edge, body excellent.",
+  ph:["Three-quarter","Bleu nuit Evelyne 29, canvas strap laid across"]},
+ {m:"Garden Party",fam:"Garden Party 30",
+  t:"Garden Party 30 In \u00c9toupe Negonda Leather With Palladium Hardware, 2020 Box Only",
+  y:2020,c:"Very good",box:1,pap:0,aed:29000,loc:"United Kingdom",tag:"",
+  size:30,leather:"Negonda",colour:"\u00c9toupe",hex:"#8A7D6E",hw:"Palladium",stamp:"Y (2020)",
+  d:"The tote that takes a beating and looks better for it. Negonda is treated to shrug off rain. Interior clean, handles unmarked.",
+  ph:["Three-quarter","\u00c9toupe Negonda Garden Party 30, open tote, handles upright"]},
+ {m:"Herbag",fam:"Herbag Zip 31",
+  t:"Herbag Zip 31 In \u00c9cru Canvas And Noir Leather With Palladium Hardware, 2022 Full Set",
+  y:2022,c:"Excellent",box:1,pap:1,aed:23500,loc:"Dubai",tag:"",
+  size:31,leather:"Canvas & leather",colour:"\u00c9cru",hex:"#DCD4C2",hw:"Palladium",stamp:"U (2022)",
+  d:"Canvas body, leather flap, and the Kelly silhouette at a fraction of it. The easiest way into the shape.",
+  ph:["Three-quarter","\u00c9cru canvas Herbag Zip 31, flap closed, buckle centred"]}
 ];
+const bagImg = g => g.img || null;
+const nBags = f => BAGS.filter(f).length;
+const bagsURL = o => 'bags.html' + (o && Object.keys(o).length
+  ? '?' + Object.entries(o).map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&') : '');
+
 
 /* ---------------- shared UI helpers ---------------- */
 const inc = (on, label) => `<span class="inc ${on?'on':'off'}"><span class="bx"></span>${label}</span>`;
@@ -142,13 +219,15 @@ function productCard(w, i){
 /* a bag wears the same card grammar as a watch */
 function bagCard(g,i){
   return `
-  <a class="pcard" href="bags.html#b${i}">
+  <a class="pcard" href="bag.html?i=${i}">
     <div class="part">
-      <div class="pshot on"><img src="${g.img}" alt="${g.b} ${g.m}"></div>
+      <div class="pshot on">${g.img
+        ? `<img src="${g.img}" alt="Hermès ${g.fam}">`
+        : `<div class="ph"><div class="l1">${g.ph[0]}</div><div class="l2">${g.ph[1]}</div></div>`}</div>
       ${g.tag?`<span class="ptag">${g.tag}</span>`:''}
     </div>
     <div class="pbody">
-      <div class="pbrand">${g.b}</div>
+      <div class="pbrand">Hermès</div>
       <div class="pname">${g.t}</div>
       <div class="pprice money" data-aed="${g.aed}">${money(g.aed)}</div>
       <div class="pspec">${inc(g.box,'Box')}${inc(g.pap,'Receipt')}<span class="cond">${g.c}</span></div>
@@ -293,7 +372,7 @@ function buildBrandPanel(){
 }
 
 function initMega(){
-  const panels={shop:$m('mega-shop'), brands:$m('mega-brands')};
+  const panels={shop:$m('mega-shop'), bags:$m('mega-bags'), brands:$m('mega-brands')};
   const scrim=$m('scrim'), navEl=document.querySelector('nav');
   if(!panels.shop || !navEl) return;
   let openT=null, closeT=null, current=null;
@@ -324,7 +403,48 @@ function initMega(){
   addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
 }
 
-function buildMega(){ buildShopPanel(); buildBrandPanel(); initMega(); }
+function buildBagPanel(){
+  if(!$m('bg-browse')) return;
+  const B=CUR==='AED'
+    ? [['Under Dhs. 50,000',0,50000],['Dhs. 250,000 +',250000,null]]
+    : [['Under £10,000',0,47000],['£55,000 +',258500,null]];
+  const band=(lo,hi)=>bagsURL({band:lo+'-'+(hi==null?'x':hi)});
+  const YB=Math.max(...BAGS.map(g=>g.y));
+  $m('bg-browse').innerHTML=[
+    ['All '+BAGS.length+' handbags', BAGS.length, bagsURL({})],
+    ['Latest arrivals', nBags(g=>g.y>=YB), bagsURL({sort:'new'})],
+    ['Unworn', nBags(g=>g.c==='Unworn'), bagsURL({cond:'Unworn'})],
+    ['Full set — box and receipt', nBags(g=>g.box&&g.pap), bagsURL({})],
+    [B[0][0], nBags(g=>g.aed<B[0][2]), band(B[0][1],B[0][2])],
+    [B[1][0], nBags(g=>g.aed>=B[1][1]), band(B[1][1],B[1][2])],
+    ['Held in Dubai', nBags(g=>g.loc==='Dubai'), bagsURL({loc:'Dubai'})],
+    ['Held in the UK', nBags(g=>g.loc==='United Kingdom'), bagsURL({loc:'United Kingdom'})]
+  ].map(([a,b,href])=>`<a href="${href}">${a}<span>${b}</span></a>`).join('');
+
+  $m('bg-model').innerHTML=[...new Set(BAGS.map(g=>g.m))].sort()
+    .map(m=>`<a href="${bagsURL({model:m})}">${m}<span>${nBags(g=>g.m===m)}</span></a>`).join('');
+
+  const cols=[...new Set(BAGS.map(g=>g.colour))].sort();
+  $m('bg-colour').innerHTML=cols.map(col=>{
+    const hex=(BAGS.find(g=>g.colour===col)||{}).hex;
+    return `<a class="dial" href="${bagsURL({colour:col})}"><i style="background:${hex}"></i>${col}
+      <em>${nBags(g=>g.colour===col)}</em></a>`;}).join('');
+
+  $m('bg-size').innerHTML=[...new Set(BAGS.map(g=>g.size))].sort((a,b)=>a-b)
+    .map(s=>`<a class="chip" href="${bagsURL({size:s})}">${s} cm</a>`).join('');
+  $m('bg-leather').innerHTML=[...new Set(BAGS.map(g=>g.leather))].sort()
+    .map(l=>`<a class="chip" href="${bagsURL({leather:l})}">${l}</a>`).join('');
+
+  const newest=BAGS.map((g,i)=>({g,i})).sort((a,b)=>b.g.y-a.g.y).slice(0,4);
+  $m('bg-new').innerHTML=newest.map(({g,i})=>`
+    <a class="ni" href="bag.html?i=${i}">
+      <span class="im">${g.img?`<img src="${g.img}" alt="">`:''}</span>
+      <span><span class="n">${g.fam}</span>
+      <span class="p money" data-aed="${g.aed}">${money(g.aed)}</span></span></a>`).join('');
+  $m('bg-count').textContent=BAGS.length;
+}
+
+function buildMega(){ buildShopPanel(); buildBagPanel(); buildBrandPanel(); initMega(); }
 
 /* ---------------- currency ---------------- */
 function repaintMoney(){

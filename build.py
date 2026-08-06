@@ -114,6 +114,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'Collector dinners, first looks and straight talk — the One Street community in Dubai and the United Kingdom. Membership is free and stays small.','community'),
        ('bags','bags','Handbags — Hermès Birkin & Kelly | One Street Watches',
         'Authenticated Hermès Birkin and Kelly bags held in our own stock in Dubai and the United Kingdom. Full sets, condition graded, delivered insured.','bags'),
+       ('bag','bag','Handbag | One Street Watches',
+        'An authenticated Hermes handbag held in our own stock in Dubai or the United Kingdom.','bags'),
        ('vip','vip','VIP portal | One Street Watches',
         'Members-only services: chauffeur collection, home viewings, complimentary servicing and sizing, first refusal on arrivals.','vip'),
        ('contact','contact','Contact One Street Watches',
@@ -124,7 +126,7 @@ for slug,out,title,desc,nav in PAGES:
     body=open(B+slug+'.html').read()
     for tok in list(IMGMAP)+list(ALIAS): body=body.replace(tok, img_path(tok))
     page_css = slug+'.css' if slug in ('home','shop','product','book') else 'page.css'
-    extra2 = f'<link rel="stylesheet" href="assets/css/{CSSOUT["shop.css"]}">' if slug=='bags' else ''
+    extra2 = f'<link rel="stylesheet" href="assets/css/{CSSOUT["shop.css"]}">' if slug in ('bags','bag') else ''
     extra_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT[page_css]}">' if page_css in CSSOUT else ''
     extra_js = f'<script src="assets/js/{JSOUT[slug+".js"]}" defer></script>' if slug+'.js' in JSOUT else ''
     mobile_css = f'<link rel="stylesheet" href="assets/css/{CSSOUT["mobile.css"]}">'

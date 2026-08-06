@@ -82,7 +82,8 @@ function initNew(){
 /* ---------- handbags shelf ---------- */
 function initBags(){
   const t=$h('bagtrack'); if(!t||typeof BAGS==='undefined') return;
-  t.innerHTML=BAGS.map((g,i)=>bagCard(g,i)).join('');
+  const pick=BAGS.map((g,i)=>({g,i})).filter(o=>o.g.img).slice(0,4);
+  t.innerHTML=pick.map(o=>bagCard(o.g,o.i)).join('');
 }
 
 /* ---------- collector picks: a second shelf, no overlap with the first ---------- */
