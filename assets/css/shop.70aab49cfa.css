@@ -88,7 +88,10 @@
 .rsec:not(.open) .rsecb{display:none}
 .rsecb{padding-top:2px}
 
-.flist{max-height:224px;overflow-y:auto;overflow-x:hidden;margin:0 -4px;padding:0 4px;
+.flist{max-height:224px;overflow-y:auto;overflow-x:hidden;margin:0 -4px;
+ /* the scrollbar sits inside the content box — reserve a lane on the
+    right or it lands on top of the counts */
+ padding:0 14px 0 4px;scrollbar-gutter:stable;
  scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
 .flist::-webkit-scrollbar{width:4px}
 .flist::-webkit-scrollbar-thumb{background:var(--line2)}
