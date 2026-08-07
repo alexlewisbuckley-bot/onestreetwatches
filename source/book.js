@@ -162,7 +162,7 @@ async function paintCal(){
     c.classList.toggle('free',ok);
     c.classList.toggle('none',!ok);
     if(!ok) c.disabled=true;
-    else c.addEventListener('click',()=>pickDay(c.dataset.d));
+    else c.addEventListener('click',()=>pickDay(c.dataset.d,true));
   }));
 
   if(!S.date){
@@ -170,8 +170,9 @@ async function paintCal(){
     if(firstFree) pickDay(firstFree.dataset.d);
   }
 }
-async function pickDay(ds){
+async function pickDay(ds,fromGrid){
   S.date=ds; S.slot=null;
+  if(fromGrid && window.__calTimes) window.__calTimes();
   document.querySelectorAll('.cday').forEach(c=>c.classList.toggle('sel',c.dataset.d===ds));
   const d=new Date(ds+'T00:00:00');
   $b('slotday').textContent=longDate(d);
@@ -357,9 +358,36 @@ function buildMobileBook(){
   when.prepend(rail);
   const more=document.createElement('button');
   more.className='dmore'; more.textContent='Show the full month';
+  const cal=document.querySelector('.cal');
+  const slots=document.querySelector('.slots');
+
+  /* the panel has two faces: the month, and the times for the day you
+     picked in it. Choosing a date flows straight into the times inside
+     the same panel rather than sending you past the whole card. */
+  const face=document.createElement('div');
+  face.className='calface';
+  face.innerHTML='<button class="calbackb" type="button">← The month</button>'+
+                 '<span class="calfaced" id="calfaced"></span>';
+  cal.prepend(face);
+
+  const showMonth=()=>{
+    cal.classList.remove('times');
+    if(slots.parentElement===cal) when.appendChild(slots);
+  };
+  const showTimes=()=>{
+    cal.classList.add('times');
+    if(slots.parentElement!==cal) cal.appendChild(slots);
+    $b('calfaced').textContent=S.date
+      ? longDate(new Date(S.date+'T00:00:00')) : '';
+    cal.scrollIntoView({block:'start',behavior:'smooth'});
+  };
+  face.querySelector('.calbackb').addEventListener('click',showMonth);
+  window.__calTimes=()=>{ if(cal.classList.contains('on')) showTimes(); };
+  window.__calMonth=showMonth;
+
   more.addEventListener('click',()=>{
-    const cal=document.querySelector('.cal');
     const open=cal.classList.toggle('on');
+    if(!open) showMonth();
     more.textContent=open?'Hide the month':'Show the full month';
   });
   rail.after(more);
@@ -374,6 +402,7 @@ function buildMobileBook(){
         <span class="dn">${d.getDate()}</span>
         <span class="dm">${MONTHS[d.getMonth()].slice(0,3)}</span></button>`;}).join('');
     rail.querySelectorAll('.dday:not(.off)').forEach(b=>b.addEventListener('click',()=>{
+      if(window.__calMonth) window.__calMonth();
       pickDay(b.dataset.d);
       rail.querySelectorAll('.dday').forEach(x=>x.classList.toggle('sel',x.dataset.d===b.dataset.d));
       b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});

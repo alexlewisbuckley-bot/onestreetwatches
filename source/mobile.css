@@ -410,6 +410,17 @@
   .cday{aspect-ratio:auto;min-height:var(--tap);font-size:13px !important}
   .caldow,.calgrid{grid-template-columns:repeat(7,minmax(0,1fr)) !important;gap:3px}
   .cal{padding:14px}
+  /* two faces in one panel: month, then the times for the day chosen */
+  .calface{display:none;align-items:center;justify-content:space-between;gap:12px;
+   padding-bottom:12px;margin-bottom:12px;border-bottom:var(--hair)}
+  .cal.times .calface{display:flex}
+  .calbackb{min-height:var(--tap);font-size:var(--t-cap) !important;color:var(--muted);
+   display:inline-flex;align-items:center}
+  .calbackb:active{opacity:.5}
+  .calfaced{font-size:var(--t-sub) !important;color:var(--ink);text-align:right}
+  .cal.times .calhead,.cal.times .caldow,.cal.times .calgrid,.cal.times .calkey{display:none}
+  .cal.times .slots{margin-top:0}
+  .cal.times .slothead{display:none}   /* the face header already names the day */
   .caldow span{padding:4px 0}
   .cday.free::after{bottom:5px}
   .th{min-height:var(--tap)}
