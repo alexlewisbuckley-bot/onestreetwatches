@@ -6,27 +6,19 @@
    WhatsApp, so nothing on the page is dead while the account is set up. */
 
 const TYPES=[
-  {id:'dubai', k:'In person', h:'Vida Hotel, Emirates Hills',
-   p:'Tower A2, Vida Hotel. Coffee, a tray, and as long as you want with it.',
+  {id:'dubai', h:'Vida Hotel, Emirates Hills',
    m:'Open seven days, 10:00–20:00', tz:'Asia/Dubai', mins:45,
    days:[0,1,2,3,4,5,6], open:'10:00', close:'19:00', step:45},
-  {id:'uk', k:'In person', h:'The United Kingdom',
-   p:'Private appointment. Tell us what you want to see and we will bring it to the room.',
+  {id:'uk', h:'The United Kingdom',
    m:'Tuesday to Saturday, by appointment', tz:'Europe/London', mins:60,
    days:[2,3,4,5,6], open:'10:00', close:'16:00', step:60},
-  {id:'video', k:'From anywhere', h:'A video viewing',
-   p:'We walk the watch round on camera — serial, papers, bracelet stretch, every awkward question answered.',
+  {id:'video', h:'A video viewing',
    m:'Twenty minutes, any time zone', tz:'Asia/Dubai', mins:20,
-   days:[1,2,3,4,5,6], open:'09:00', close:'18:00', step:30},
-  {id:'service', k:'Bring a watch in', h:'Servicing or authentication',
-   p:'Drop a piece with us for a service, a polish, an authentication report or a valuation — bought from us or not.',
-   m:'Dubai or the UK, about 20 minutes', tz:'Asia/Dubai', mins:20,
-   days:[0,1,2,3,4,5,6], open:'10:00', close:'18:00', step:30},
-  {id:'specific', k:'A particular watch', h:'See one piece',
-   p:'Chosen from the case — we will have it out, sized and with its papers before you arrive.',
-   m:'Dubai, the UK or on camera', tz:'Asia/Dubai', mins:45,
-   days:[0,1,2,3,4,5,6], open:'10:00', close:'19:00', step:45}
+   days:[1,2,3,4,5,6], open:'09:00', close:'18:00', step:30}
 ];
+/* the two toggles decide the type: video overrides place, because a call
+   is a call wherever the watch happens to sit. */
+const typeFor=(place,mode)=> mode==='video' ? TYPES[2] : (place==='uk'?TYPES[1]:TYPES[0]);
 const WA=WA_LINK;           /* replace with the real number */
 const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone||'Asia/Dubai';
 const tzLabel=z=>((z||'').split('/').pop()||'').replace(/_/g,' ')||'your local';
@@ -74,38 +66,63 @@ function localSlots(dateStr){
 }
 async function dayHasSlots(dateStr){ return (await slotsFor(dateStr)).length>0; }
 
-/* ---------- step rail ---------- */
-const STEPNAMES=['Viewing','Date &amp; time','Your details','Confirmed'];
-function paintSteps(n){
-  $b('bsteps').innerHTML=STEPNAMES.map((s,i)=>{
-    const k=i+1;
-    return `<li class="${k===n?'on':k<n?'past':''}" data-go="${k}"><b>${k<n?'✓':k}</b>${s}</li>`;
-  }).join('');
-  $b('bsteps').querySelectorAll('li.past').forEach(li=>
-    li.addEventListener('click',()=>go(+li.dataset.go)));
-}
+/* ---------- one page, two toggles ----------
+   The old first step asked people to choose between five cards before they
+   could see a single date. Place and format are two toggles now, and the
+   calendar and the form sit under them on the same page. */
 let STEP=1;
-function go(n){
-  if(window.__bsum) setTimeout(window.__bsum,0);
-  if(n===4 && STEP!==4) return;
+function paintSteps(){}                    /* the numbered rail is gone */
+function go(n){                            /* only the confirmation still swaps views */
   STEP=n;
-  document.querySelectorAll('.bstep').forEach(s=>s.classList.toggle('on',+s.dataset.s===n));
-  paintSteps(n); paintSide();
-  window.scrollTo({top:0,behavior:'smooth'});
+  if(n===4){
+    document.querySelectorAll('.bstep').forEach(s=>s.classList.remove('on'));
+    $b('bdoneStep').classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  paintSide();
+  if(window.__bsum) setTimeout(window.__bsum,0);
 }
 
-/* ---------- 1 · type ---------- */
-function buildTypes(){
-  $b('btypes').innerHTML=TYPES.map(t=>`
-    <button class="btype" data-t="${t.id}" aria-pressed="false">
-      <span class="k">${t.k}</span><h3>${t.h}</h3><p>${t.p}</p>
-      <span class="m"><i></i>${t.m}</span></button>`).join('');
-  $b('btypes').querySelectorAll('.btype').forEach(b=>b.addEventListener('click',()=>{
-    S.type=TYPES.find(t=>t.id===b.dataset.t);
-    S.date=null; S.slot=null;
-    document.querySelectorAll('.btype').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-    buildCal(); go(2); if(window.__paintRail) window.__paintRail();
-  }));
+const PICK={place:'uae', mode:'person'};
+function applyPick(){
+  S.type=typeFor(PICK.place,PICK.mode);
+  S.date=null; S.slot=null;
+  $b('slotlist').innerHTML='';
+  $b('slotday').textContent='Pick a day';
+  $b('slotcount').textContent='';
+  const t=S.type;
+  const where = PICK.mode==='video'
+    ? 'On camera from ' + (PICK.place==='uk'?'the United Kingdom':'Dubai')
+    : t.h;
+  $b('btogmeta').textContent=`${where} · ${t.m} · about ${t.mins} minutes`;
+  /* a video call is offered from either country, so the place toggle stays live */
+  paintCal(); paintSubmit(); paintSide();
+  if(window.__paintRail) window.__paintRail();
+}
+function buildToggles(){
+  const bind=(id,key)=>{
+    const box=$b(id); if(!box) return;
+    box.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      if(PICK[key]===b.dataset.v) return;
+      PICK[key]=b.dataset.v;
+      box.querySelectorAll('button').forEach(x=>
+        x.setAttribute('aria-pressed',String(x===b)));
+      applyPick();
+    }));
+  };
+  bind('tog-place','place'); bind('tog-mode','mode');
+}
+function setPick(place,mode){
+  PICK.place=place; PICK.mode=mode;
+  $b('tog-place').querySelectorAll('button').forEach(b=>
+    b.setAttribute('aria-pressed',String(b.dataset.v===place)));
+  $b('tog-mode').querySelectorAll('button').forEach(b=>
+    b.setAttribute('aria-pressed',String(b.dataset.v===mode)));
+}
+function paintSubmit(){
+  const b=$b('bsubmit'); if(!b) return;
+  b.disabled=!S.slot;
+  b.querySelector('.lbl').textContent=S.slot?'Confirm the viewing':'Pick a date and time first';
 }
 
 /* ---------- 2 · calendar ---------- */
@@ -168,7 +185,9 @@ async function pickDay(ds){
     S.slot=list[+b.dataset.i];
     document.querySelectorAll('.slot').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
     paintSide();
-    setTimeout(()=>go(3),260); if(window.__bsum) window.__bsum();
+    paintSubmit();
+    $b('bdetails').scrollIntoView({block:'start',behavior:'smooth'});
+    if(window.__bsum) window.__bsum();
   }));
   const tzName=tzLabel(S.type.tz);
   $b('slottz').textContent = TZ===S.type.tz
@@ -281,23 +300,23 @@ document.addEventListener('DOMContentLoaded',()=>{
     const w=CATALOGUE[+i], im=w.ims.find(x=>x.img);
     S.watch={b:w.b,m:w.m,r:w.r,aed:w.aed,img:im?im.img:null};
   }
-  buildTypes();
-  if(p.get('type')==='service'){
+  buildToggles();
+
+  /* older links still arrive with ?type= — translate them into the toggles */
+  const want=p.get('type');
+  if(want==='uk')            setPick('uk','person');
+  else if(want==='video')    setPick('uae','video');
+  else if(want==='service'){
+    setPick('uae','person');
     const h=document.querySelector('.phead h1'); if(h) h.textContent='Book an appointment';
-    const c=document.querySelector('.phead .crumbs'); if(c) c.innerHTML=c.innerHTML.replace('Schedule a viewing','Book an appointment');
+    const c=document.querySelector('.phead .crumbs');
+    if(c) c.innerHTML=c.innerHTML.replace('Schedule a viewing','Book an appointment');
+    const n=$b('bnotes'); if(n) n.value='Servicing or authentication';
   }
-  /* arriving from a product page? the watch decides the viewing type */
-  const want = p.get('type') || (S.watch?'specific':null);
-  if(want && TYPES.some(t=>t.id===want)){
-    S.type=TYPES.find(t=>t.id===want);
-    const btn=document.querySelector(`.btype[data-t="${want}"]`);
-    if(btn) btn.setAttribute('aria-pressed','true');
-    buildCal(); go(2);
-  } else {
-    buildCal(); paintSteps(1); paintSide();   /* paintCal no-ops until a type is chosen */
-  }
+
+  buildCal();
+  applyPick();
   $b('bform').addEventListener('submit',submit);
-  document.querySelectorAll('.bback').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.back)));
 });
 
 /* ================= MOBILE =================
@@ -317,21 +336,18 @@ function buildMobileBook(){
   /* slim progress bar replaces the numbered rail */
   const bar=document.createElement('div');
   bar.className='bprog';
-  bar.innerHTML='<i></i><i></i><i></i>';
   document.querySelector('.bmain').prepend(bar);
 
-  /* one-line summary, only once a choice exists */
+  /* one-line summary — the toggles already name the place, so this only
+     earns its space once a date and time exist */
   const sum=document.createElement('div');
   sum.className='bsum'; sum.hidden=true;
   bar.after(sum);
   window.__bsum=()=>{
     const bits=[];
-    if(S.type) bits.push(S.type.h);
-    if(S.slot) bits.push(longDate(new Date(S.date+'T00:00:00'))+', '+hhmm(S.slot));
+    if(S.slot) bits.push(S.type.h, longDate(new Date(S.date+'T00:00:00'))+', '+hhmm(S.slot));
     sum.hidden=!bits.length;
     sum.innerHTML=bits.map(b=>`<span>${b}</span>`).join('');
-    document.querySelectorAll('.bprog i').forEach((x,i)=>
-      x.classList.toggle('on', i < (STEP>3?3:STEP-1) + (STEP===4?1:0) || i<STEP-1));
   };
 
   /* dates as a rail — a month grid on a phone is 44px cells and a lot of hunting */

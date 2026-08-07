@@ -20,6 +20,23 @@
 
 .bstep{display:none;animation:bfade .35s var(--e)}
 .bstep.on{display:block}
+/* the flow is one page now: sections stack, separated by a hairline */
+.bstep + .bstep.on{margin-top:40px;padding-top:36px;border-top:1px solid var(--line)}
+.bdone{border-top:none;margin-top:0;padding-top:0}
+
+/* ---------- where and how ---------- */
+.bchoose{padding-bottom:2px}
+.btogs{display:flex;gap:36px;flex-wrap:wrap}
+.btogl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+ margin-bottom:10px}
+.btog{display:flex;border:1px solid var(--line2)}
+.btog button{min-height:46px;padding:0 20px;font-size:12.5px;color:var(--soft);
+ border-right:1px solid var(--line2);white-space:nowrap;
+ transition:background .25s,color .25s}
+.btog button:last-child{border-right:none}
+.btog button:hover{color:var(--ink)}
+.btog button[aria-pressed="true"]{background:var(--char);color:#fff}
+.btogmeta{margin-top:18px;font-size:12px;color:var(--muted);letter-spacing:.02em}
 @keyframes bfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .bh{font-size:26px;font-weight:300;letter-spacing:-.03em;margin-bottom:22px}
 .blede{font-size:14px;color:var(--soft);line-height:1.75;max-width:52ch}

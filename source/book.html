@@ -2,22 +2,35 @@
   <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Schedule a viewing</div>
   <h1>Schedule a viewing</h1>
   <p class="lede">Pick a time that suits you. We will have the tray ready, the pieces sized and
-    the papers out before you sit down — in Dubai, in the United Kingdom, or on a video call
-    from wherever you are.</p>
+    the papers out before you sit down.</p>
 </div>
 
 <div class="bwrap">
   <div class="bmain">
-    <ol class="bsteps" id="bsteps"></ol>
 
-    <!-- 1 · what kind of viewing -->
-    <section class="bstep on" data-s="1">
-      <h2 class="bh">What kind of viewing?</h2>
-      <div class="btypes" id="btypes"></div>
+    <!-- where and how -->
+    <section class="bstep on bchoose">
+      <div class="btogs">
+        <div class="btogset">
+          <div class="btogl">Where</div>
+          <div class="btog" id="tog-place" role="group" aria-label="Location">
+            <button data-v="uae" aria-pressed="true">Vida Hotel, Emirates Hills</button>
+            <button data-v="uk" aria-pressed="false">United Kingdom</button>
+          </div>
+        </div>
+        <div class="btogset">
+          <div class="btogl">How</div>
+          <div class="btog" id="tog-mode" role="group" aria-label="Format">
+            <button data-v="person" aria-pressed="true">In person</button>
+            <button data-v="video" aria-pressed="false">Video call</button>
+          </div>
+        </div>
+      </div>
+      <p class="btogmeta" id="btogmeta"></p>
     </section>
 
-    <!-- 2 · when -->
-    <section class="bstep" data-s="2">
+    <!-- when -->
+    <section class="bstep on">
       <h2 class="bh">Choose a date and time</h2>
       <div class="bwhen">
         <div class="cal">
@@ -42,11 +55,10 @@
           <div class="slottz" id="slottz"></div>
         </div>
       </div>
-      <div class="bnav"><button class="bback" data-back="1">← Change viewing type</button></div>
     </section>
 
-    <!-- 3 · who -->
-    <section class="bstep" data-s="3">
+    <!-- who -->
+    <section class="bstep on" id="bdetails">
       <h2 class="bh">Your details</h2>
       <form class="bform" id="bform" novalidate>
         <div class="fgrid">
@@ -64,16 +76,15 @@
             <textarea id="bnotes" name="notes" placeholder="A reference you want to see, a budget, a part-exchange you are bringing, or a bracelet size."></textarea></div>
         </div>
         <div class="berr" id="berr" hidden></div>
-        <button class="b1 bsubmit" id="bsubmit" type="submit">
+        <button class="b1 bsubmit" id="bsubmit" type="submit" disabled>
           <span class="lbl">Confirm the viewing</span> <span class="a">→</span></button>
         <p class="bnote">No deposit, no obligation, and nothing is held against you if you change
           your mind. We will send a confirmation and a reminder the day before.</p>
       </form>
-      <div class="bnav"><button class="bback" data-back="2">← Change the time</button></div>
     </section>
 
-    <!-- 4 · done -->
-    <section class="bstep bdone" data-s="4">
+    <!-- done -->
+    <section class="bstep bdone" id="bdoneStep">
       <div class="btick" aria-hidden="true"><span></span></div>
       <h2 class="bh">You are booked in.</h2>
       <p class="blede" id="bdonelede"></p>
