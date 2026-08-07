@@ -402,7 +402,16 @@
   .spot{width:var(--tap);height:var(--tap)}
   .calnav,.sheetx,.arrows button,.gdots button{width:var(--tap);height:var(--tap);min-height:var(--tap)}
   .frow,.fkit label,.fsecb .frow{min-height:48px}
-  .slot,.cday,.segs button,.fchip,.pill2{min-height:var(--tap)}
+  .slot,.segs button,.fchip,.pill2{min-height:var(--tap)}
+  /* The day cell carries both a 1/.86 aspect-ratio and a 44px tap minimum.
+     Together they forced every cell to 44/.86 = 51px WIDE, so seven columns
+     measured 382px inside a 284px grid and Sunday fell off the screen.
+     Height keeps the tap target; width goes back to the column. */
+  .cday{aspect-ratio:auto;min-height:var(--tap);font-size:13px !important}
+  .caldow,.calgrid{grid-template-columns:repeat(7,minmax(0,1fr)) !important;gap:3px}
+  .cal{padding:14px}
+  .caldow span{padding:4px 0}
+  .cday.free::after{bottom:5px}
   .th{min-height:var(--tap)}
 
   /* ---- nothing may widen the layout viewport ---- */
