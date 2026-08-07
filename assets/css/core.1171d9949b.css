@@ -467,8 +467,8 @@ footer.foot a{transition:color .3s}
 @media (max-width:900px){footer.foot{padding:52px 22px 0}.fbot{flex-direction:column;align-items:flex-start;gap:14px}}
 
 /* ---------- mega menu ---------- */
-.links .mtrigger{background:none;border:none;cursor:pointer;font:inherit;font-size:13px;color:var(--soft);
- font-weight:400;letter-spacing:.002em;position:relative;padding:8px 0;transition:color .3s var(--e)}
+.links .mtrigger{background:none;border:none;cursor:pointer;position:relative;padding:8px 0;
+ transition:color .3s var(--e)}   /* type comes from .links a — same as every other item */
 .links .mtrigger:hover,.links .mtrigger.open{color:var(--ink)}
 .links .mtrigger::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--ink);
  transform:scaleX(0);transform-origin:right;transition:transform .5s var(--e)}
