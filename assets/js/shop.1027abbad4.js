@@ -10,7 +10,7 @@ const B={aed:bounds('aed'), y:bounds('y'), size:bounds('size')};
 const round=(v,s)=>Math.round(v/s)*s;
 B.aed=[round(B.aed[0]-2000,1000), round(B.aed[1]+10000,10000)];
 
-const F={brand:new Set(),fam:new Set(),cat:new Set(),dial:new Set(),cond:new Set(),loc:new Set(),kit:new Set()};
+const F={brand:new Set(),fam:new Set(),cat:new Set(),mat:new Set(),dial:new Set(),cond:new Set(),loc:new Set(),kit:new Set()};
 const R={aed:[...B.aed], y:[...B.y], size:[...B.size]};
 let Q='';
 
@@ -25,6 +25,7 @@ const GROUPS=[
   {k:'brand', t:'Brand',           type:'check'},
   {k:'fam',   t:'Model',           type:'check'},
   {k:'cat',   t:'Type',            type:'check'},
+  {k:'mat',   t:'Material',        type:'check'},
   {k:'y',     t:'Year',            type:'range', step:1},
   {k:'size',  t:'Case size',       type:'range', step:1, note:'Measured across the case, excluding the crown.'},
   {k:'dial',  t:'Dial',            type:'check'},
@@ -36,6 +37,7 @@ const ITEMS={
   brand:()=>uniq('b').map(b=>({v:b,l:b,c:countBy('b',b)})),
   fam:()=>famPool(),
   cat:()=>CATS().map(([c,n])=>({v:c,l:c,c:n})),
+  mat:()=>MATS().map(([m,n])=>({v:m,l:m,c:n})),
   dial:()=>DIALS().map(([n,hex,c])=>({v:n,l:n,c,sw:hex})),
   kit:()=>[{v:'full',l:'Full set'},{v:'box',l:'Box'},{v:'pap',l:'Papers'}],
   cond:()=>['Unworn','Excellent','Very good','Good'].filter(c=>countBy('c',c)).map(c=>({v:c,l:c})),
@@ -155,7 +157,7 @@ function clearAll(){
 function applyURL(){
   const p=new URLSearchParams(location.search);
   const take=(param,key)=>{const v=p.get(param); if(v) v.split(',').forEach(x=>F[key].add(x));};
-  take('brand','brand'); take('fam','fam'); take('cat','cat');
+  take('brand','brand'); take('fam','fam'); take('cat','cat'); take('mat','mat');
   take('dial','dial'); take('cond','cond'); take('loc','loc'); take('kit','kit');
   ['aed','y','size'].forEach(k=>{
     const v=p.get(k); if(!v) return;
@@ -180,6 +182,7 @@ function paintHead(){
   if(F.brand.size) bits.push([...F.brand].join(', '));
   if(F.fam.size) bits.push([...F.fam].join(', '));
   if(!bits.length && F.cat.size) bits.push([...F.cat].join(', '));
+  if(!bits.length && F.mat.size) bits.push([...F.mat].join(', '));
   if(!bits.length && F.dial.size) bits.push([...F.dial].join(', ')+' dials');
   if(!bits.length && F.loc.size) bits.push([...F.loc].map(l=>'Held in '+l).join(', '));
   if(!bits.length && F.cond.size) bits.push([...F.cond].join(', '));
@@ -275,6 +278,7 @@ function matches(w){
   if(F.brand.size && !F.brand.has(w.b)) return false;
   if(F.fam.size && !F.fam.has(famOf(w))) return false;
   if(F.cat.size && !(w.cat||[]).some(c=>F.cat.has(c))) return false;
+  if(F.mat.size && !F.mat.has(w.mat)) return false;
   if(F.dial.size && !F.dial.has(w.dial)) return false;
   if(F.cond.size && !F.cond.has(w.c)) return false;
   if(F.loc.size && !F.loc.has(w.loc)) return false;
@@ -289,7 +293,7 @@ function matches(w){
   if(Q){
     /* every word must land somewhere — "green bezel" finds
        "…Green Ceramic Bezel…" even though the words aren't adjacent */
-    const hay=(w.b+' '+w.m+' '+w.r+' '+(w.t||'')+' '+w.dial+' '+w.y+' '+w.loc).toLowerCase();
+    const hay=(w.b+' '+w.m+' '+w.r+' '+(w.t||'')+' '+(w.mat||'')+' '+w.dial+' '+w.y+' '+w.loc).toLowerCase();
     if(!Q.toLowerCase().split(/\s+/).every(t=>hay.includes(t))) return false;
   }
   return true;

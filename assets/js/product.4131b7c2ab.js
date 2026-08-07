@@ -10,7 +10,7 @@ function paint(){
   document.title=W.b+' '+W.m+' — One Street Watches';
   $('cbbrand').textContent=W.b; $('cbref').textContent=W.m;
   $('pbrand').textContent=W.b; $('pmodel').textContent=W.m;
-  $('pref').textContent='Ref. '+W.r+'  ·  '+W.y+'  ·  '+W.size+' mm';
+  $('pref').textContent='Ref. '+W.r+'  ·  '+W.y+'  ·  '+(W.mat||'')+'  ·  '+W.size+' mm';
   $('pprice').dataset.aed=W.aed;
   $('ploc').innerHTML='<b>In the case now</b> — '+W.loc+'. One of one.';
   $('pdel').innerHTML=W.loc==='Dubai'
@@ -42,7 +42,7 @@ function paint(){
   /* specs */
   const kit=(on,l)=>`<span class="inc ${on?'on':'off'}"><span class="bx"></span>${l}</span>`;
   $('pspecs').innerHTML=[['Reference',W.r],['Year',W.y],['Case size',W.size+' mm'],
-    ['Dial',W.dial],['Condition',W.c],['Held in',W.loc]]
+    ['Material',W.mat||'—'],['Dial',W.dial],['Condition',W.c],['Held in',W.loc]]
     .map(([a,b])=>`<div class="dspec"><span>${a}</span><span>${b}</span></div>`).join('')
     +`<div class="dspec full"><span>Box &amp; papers</span><span class="dkit">${kit(W.box,'Box')}${kit(W.pap,'Papers')}</span></div>`;
 
@@ -52,7 +52,7 @@ function paint(){
     :W.box?'Original box present; papers are no longer with the watch.'
     :'Watch only — box and papers are no longer with it.';
   const ACC=[
-    ['About this watch',`<p>${W.b} ${W.m}, reference ${W.r}, from ${W.y}. ${set} Graded <b>${W.c.toLowerCase()}</b> against our own scale, and held in ${W.loc}.</p>`],
+    ['About this watch',`<p>${W.b} ${W.m}, reference ${W.r}, from ${W.y}, in ${(W.mat||'').toLowerCase()}. ${set} Graded <b>${W.c.toLowerCase()}</b> against our own scale, and held in ${W.loc}.</p>`],
     ['What our grading means',`<ul>
       <li><b>Unworn</b>Never worn. Stickers may be intact, current production.</li>
       <li><b>Excellent</b>Barely worn. Nothing visible at arm's length.</li>
@@ -128,6 +128,7 @@ function factStrip(w){
     [w.box?'Box':'No box', 'Box'],
     [w.pap?'Papers':'No papers','Papers'],
     [w.size+' mm','Case'],
+    [w.mat||'—','Material'],
     [w.dial,'Dial'],
     [w.loc==='Dubai'?'In Dubai':'In the UK','Held']
   ];
