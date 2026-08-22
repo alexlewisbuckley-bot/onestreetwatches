@@ -281,15 +281,22 @@ async function submit(e){
   e.preventDefault();
   const f=$b('bform'), err=$b('berr'), btn=$b('bsubmit');
   const data=Object.fromEntries(new FormData(f).entries());
+  /* the number comes from the shared dialling-code control, which carries no
+     name attribute of its own, so FormData never sees it */
+  const tel=window.__btel;
+  data.phone = tel ? (tel.value()||'') : '';
+  const telIn = tel ? tel.input : null;
   const bad=[];
-  if(!data.name || data.name.trim().length<2) bad.push('bname');
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email||'')) bad.push('bemail');
-  if(!data.phone || data.phone.replace(/\D/g,'').length<7) bad.push('bphone');
-  ['bname','bemail','bphone'].forEach(id=>$b(id).classList.toggle('bad',bad.includes(id)));
+  if(!data.name || data.name.trim().length<2) bad.push($b('bname'));
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email||'')) bad.push($b('bemail'));
+  if(!tel || !tel.valid()) bad.push(telIn);
+  [$b('bname'),$b('bemail'),telIn].forEach(el=>{
+    if(el) el.classList.toggle('bad', bad.includes(el));
+  });
   if(bad.length){
     err.hidden=false;
     err.textContent='Please check your name, email and phone number — we need all three to hold the slot.';
-    $b(bad[0]).focus(); return;
+    if(bad[0]) bad[0].focus(); return;
   }
   err.hidden=true;
   btn.disabled=true; btn.querySelector('.lbl').textContent='Confirming…';
@@ -370,6 +377,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 
   buildCal();
+  window.__btel=telField(document.getElementById('btelmount'),
+                         {inputClass:'', placeholder:'55 389 2824'});
   bindNav();
   applyPick();
   paintSteps();

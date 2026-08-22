@@ -56,9 +56,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(!card) return;
   const S={}; let sending=false;
   const go=document.getElementById('jc-go');
-  const name=document.getElementById('jc-name'), contact=document.getElementById('jc-contact');
-  const contactOK=v=>/@.+\./.test(v)||(v.replace(/\D/g,'').length>=7);
-  const refresh=()=>{ go.disabled=sending||!(name.value.trim()&&contactOK(contact.value.trim())); };
+  const name=document.getElementById('jc-name'), email=document.getElementById('jc-email');
+  const tel=telField(document.getElementById('jc-telmount'),
+                     {inputClass:'bpin', placeholder:'55 389 2824'});
+  const emailOK=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  const contactVal=()=>[tel.value(), emailOK(email.value.trim())?email.value.trim():null]
+                        .filter(Boolean).join('  ·  ');
+  const refresh=()=>{ go.disabled=sending||!(name.value.trim()&&(tel.valid()||emailOK(email.value.trim()))); };
+  tel.on(refresh);
   card.querySelectorAll('.bpchips').forEach(set=>{
     set.addEventListener('click',e=>{
       const c=e.target.closest('.bpc'); if(!c) return;
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       refresh();
     });
   });
-  [name,contact].forEach(i=>i.addEventListener('input',refresh));
+  [name,email].forEach(i=>i.addEventListener('input',refresh));
 
   go.addEventListener('click',async()=>{
     if(go.disabled) return;
@@ -77,7 +82,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({page:'community',
           brand:collects||'Not said', model:window.__evt||'General access',
-          contact:name.value.trim()+' · '+contact.value.trim(),photos:[]})});
+          contact:name.value.trim()+' · '+contactVal(),photos:[]})});
       if(!r.ok) throw 0;
       card.innerHTML=`<div class="bph"><span>Requested</span></div>
         <p class="bpdone">Thank you — you are on the list. We keep the community small,

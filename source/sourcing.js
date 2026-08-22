@@ -24,7 +24,7 @@ function initComposer(box){
 
   const other=document.getElementById('q-brand-other');
   const model=document.getElementById('q-model');
-  const contact=document.getElementById('q-contact');
+  const email=document.getElementById('q-email');
   const send=document.getElementById('cssubmit');
   const wa=document.getElementById('cswa');
   const err=document.getElementById('cserr');
@@ -33,18 +33,21 @@ function initComposer(box){
     const s=document.querySelector('#'+id+' span');
     s.textContent=txt||'—'; s.classList.toggle('empty',!txt);
   };
-  const contactOK=v=>/@.+\./.test(v) || (v.replace(/\D/g,'').length>=7);
+  const emailOK=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  const tel=telField(document.getElementById('telmount'),{placeholder:'55 389 2824'}).on(()=>refresh());
 
   const refresh=()=>{
     V.brand = SEL.brand==='Other' ? (other.value.trim()||null) : (SEL.brand||null);
     V.model=(model.value||'').trim();
     V.budget=SEL.budget||null;
-    V.contact=(contact.value||'').trim();
+    V.phone = tel.valid() ? tel.value() : null;
+    V.email = emailOK((email.value||'').trim()) ? email.value.trim() : null;
+    V.contact = [V.phone,V.email].filter(Boolean).join('  ·  ') || null;
     put('s-watch',[V.brand,V.model].filter(Boolean).join(' '));
     put('s-budget',V.budget);
     put('s-contact',V.contact);
     const base=V.brand && V.model.length>1;
-    send.disabled=!(base && contactOK(V.contact)) || SENDING;
+    send.disabled=!(base && (V.phone||V.email)) || SENDING;
     wa.disabled=!base;
     wa.onclick=base?()=>{ location.href=waURL(
       `Hello — I am looking for a watch.\n\n${V.brand} ${V.model}\n`+
@@ -68,7 +71,7 @@ function initComposer(box){
   });
   other.addEventListener('input',refresh);
   model.addEventListener('input',refresh);
-  contact.addEventListener('input',refresh);
+  email.addEventListener('input',refresh);
 
   send.addEventListener('click',async()=>{
     if(send.disabled) return;
@@ -78,7 +81,7 @@ function initComposer(box){
       const r=await fetch('/api/enquiry',{method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({page:'sourcing',brand:V.brand,model:V.model,budget:V.budget,
-                             contact:V.contact,photos:[]})});
+                             phone:V.phone,email:V.email,contact:V.contact,photos:[]})});
       if(!r.ok) throw new Error('send failed');
       document.querySelector('.csin').innerHTML=`
         <div class="csh">The search is on</div>

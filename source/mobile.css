@@ -558,4 +558,10 @@
   /* ---- closing CTA bands duplicate the top action: gone ---- */
   .cta{border-top:var(--hair);background:none}
   .cta p{max-width:34ch}
+
+  /* ---------- mobile number control ---------- */
+  .telrow{max-width:none}
+  .telnum{min-height:var(--tap)}
+  .tellist{width:min(310px,calc(100vw - 32px))}
+  .telmail{margin-top:10px}
 }

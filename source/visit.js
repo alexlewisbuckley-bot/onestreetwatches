@@ -23,9 +23,14 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const S={}; let sending=false;
   const go=document.getElementById('bi-go');
-  const name=document.getElementById('bi-name'), contact=document.getElementById('bi-contact');
-  const contactOK=v=>/@.+\./.test(v)||(v.replace(/\D/g,'').length>=7);
-  const refresh=()=>{ go.disabled=sending||!(S.type&&S.day&&S.time&&name.value.trim()&&contactOK(contact.value.trim())); };
+  const name=document.getElementById('bi-name'), email=document.getElementById('bi-email');
+  const tel=telField(document.getElementById('bi-telmount'),
+                     {inputClass:'bpin', placeholder:'55 389 2824'});
+  const emailOK=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  const contactVal=()=>[tel.value(), emailOK(email.value.trim())?email.value.trim():null]
+                        .filter(Boolean).join('  ·  ');
+  const refresh=()=>{ go.disabled=sending||!(S.type&&S.day&&S.time&&name.value.trim()&&(tel.valid()||emailOK(email.value.trim()))); };
+  tel.on(refresh);
   box.querySelectorAll('.bpchips').forEach(set=>{
     const k=set.dataset.k;
     set.addEventListener('click',e=>{
@@ -36,7 +41,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       refresh();
     });
   });
-  [name,contact].forEach(i=>i.addEventListener('input',refresh));
+  [name,email].forEach(i=>i.addEventListener('input',refresh));
 
   go.addEventListener('click',async()=>{
     if(go.disabled) return;
@@ -45,7 +50,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     try{
       const r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({page:'viewing',brand:S.type,model:S.day+' — '+S.time,
-          contact:name.value.trim()+' · '+contact.value.trim(),photos:[]})});
+          contact:name.value.trim()+' · '+contactVal(),photos:[]})});
       if(!r.ok) throw 0;
       box.innerHTML=`<div class="bph"><span>Requested</span></div>
         <p class="bpdone">Thank you — we will confirm your ${S.type} viewing for

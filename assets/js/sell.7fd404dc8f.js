@@ -14,51 +14,6 @@ const ASKS=[
   {k:'proof',  q:'Do you have proof of purchase?'},
   {k:'unworn', q:'Is your watch unworn with factory stickers intact?'}
 ];
-/* Dial codes. Flags are derived from the ISO code rather than shipped as
-   images, and the dial code is always printed beside them so the control still
-   reads correctly on a device with no flag glyphs. The Gulf and the UK sit at
-   the top because that is where the customers are; the rest is alphabetical. */
-const DIAL=[
-  ['AE','United Arab Emirates','971'],['GB','United Kingdom','44'],
-  ['SA','Saudi Arabia','966'],['QA','Qatar','974'],['KW','Kuwait','965'],
-  ['BH','Bahrain','973'],['OM','Oman','968'],
-  ['US','United States','1'],['CA','Canada','1'],['AU','Australia','61'],
-  ['AT','Austria','43'],['BD','Bangladesh','880'],['BE','Belgium','32'],
-  ['BR','Brazil','55'],['CN','China','86'],['CY','Cyprus','357'],
-  ['CZ','Czechia','420'],['DK','Denmark','45'],['EG','Egypt','20'],
-  ['FI','Finland','358'],['FR','France','33'],['DE','Germany','49'],
-  ['GR','Greece','30'],['HK','Hong Kong','852'],['IN','India','91'],
-  ['ID','Indonesia','62'],['IE','Ireland','353'],['IL','Israel','972'],
-  ['IT','Italy','39'],['JP','Japan','81'],['JO','Jordan','962'],
-  ['KE','Kenya','254'],['LB','Lebanon','961'],['LU','Luxembourg','352'],
-  ['MY','Malaysia','60'],['MV','Maldives','960'],['MT','Malta','356'],
-  ['MX','Mexico','52'],['MC','Monaco','377'],['MA','Morocco','212'],
-  ['NL','Netherlands','31'],['NZ','New Zealand','64'],['NG','Nigeria','234'],
-  ['NO','Norway','47'],['PK','Pakistan','92'],['PH','Philippines','63'],
-  ['PL','Poland','48'],['PT','Portugal','351'],['RO','Romania','40'],
-  ['RU','Russia','7'],['SG','Singapore','65'],['ZA','South Africa','27'],
-  ['KR','South Korea','82'],['ES','Spain','34'],['LK','Sri Lanka','94'],
-  ['SE','Sweden','46'],['CH','Switzerland','41'],['TH','Thailand','66'],
-  ['TN','Tunisia','216'],['TR','Turkey','90'],['UA','Ukraine','380'],
-  ['VN','Vietnam','84']
-];
-const flagOf=cc=>{
-  try{ return String.fromCodePoint(...[...cc].map(c=>0x1F1E6+c.charCodeAt(0)-65)); }
-  catch(e){ return cc; }
-};
-/* a reasonable first guess so most people never open the list */
-const guessCC=()=>{
-  const z=(Intl.DateTimeFormat().resolvedOptions().timeZone||'').toLowerCase();
-  if(z.includes('dubai')||z.includes('abu_dhabi')) return 'AE';
-  if(z.includes('london')||z.includes('belfast')) return 'GB';
-  const m={riyadh:'SA',qatar:'QA',doha:'QA',kuwait:'KW',bahrain:'BH',muscat:'OM',
-           karachi:'PK',kolkata:'IN',calcutta:'IN',singapore:'SG',hong_kong:'HK',
-           tokyo:'JP',sydney:'AU',paris:'FR',berlin:'DE',madrid:'ES',rome:'IT',
-           amsterdam:'NL',zurich:'CH',dublin:'IE',new_york:'US',los_angeles:'US',
-           chicago:'US',toronto:'CA',johannesburg:'ZA',lagos:'NG',cairo:'EG'};
-  for(const k in m) if(z.includes(k)) return m[k];
-  return 'AE';
-};
 const THIS_YEAR=new Date().getFullYear();
 const MAXPHOTOS=6;
 
@@ -160,7 +115,6 @@ function initComposer(box){
 
   const other=document.getElementById('q-brand-other');
   const model=document.getElementById('q-model');
-  const phone=document.getElementById('q-phone');
   const email=document.getElementById('q-email');
   /* the action exists twice — in the sticky rail and at the foot of the
      questions — so treat them as one control rather than two code paths */
@@ -174,12 +128,6 @@ function initComposer(box){
     s.textContent=txt||'—'; s.classList.toggle('empty',!txt);
   };
   const emailOK=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-  /* national numbers vary from 6 digits (Monaco) to 11 — accept 6 and up, and
-     drop a trunk zero, which people type out of habit: 07… under +44 */
-  const natDigits=v=>(v||'').replace(/\D/g,'').replace(/^0+/,'');
-  /* keep the grouping they typed — "7911 123456" reads; "7911123456" does not */
-  const prettyNat=v=>(v||'').replace(/[^\d\s]/g,'').replace(/\s+/g,' ')
-                            .trim().replace(/^0+\s?/,'');
 
   const refresh=()=>{
     V.brand = SEL.brand==='Other' ? (other.value.trim()||null) : (SEL.brand||null);
@@ -196,8 +144,7 @@ function initComposer(box){
     if(ANS.unworn==='yes') has.push('Unworn, stickers on');
     V.kit = has.length ? has.join(', ')
           : (ANS.box==='no'&&ANS.papers==='no') ? 'Watch only' : null;
-    const nat=natDigits(phone.value);
-    V.phone = nat.length>=6 ? '+'+CC[2]+' '+(prettyNat(phone.value)||nat) : null;
+    V.phone = tel.valid() ? tel.value() : null;
     V.email = emailOK((email.value||'').trim()) ? email.value.trim() : null;
     V.contact = [V.phone, V.email].filter(Boolean).join('  ·  ') || null;
     V.intent = INTENT;
@@ -231,50 +178,8 @@ function initComposer(box){
   }));
   pxField.addEventListener('input',refresh);
 
-  /* ---------- country code ---------- */
-  let CC = DIAL.find(d=>d[0]===guessCC()) || DIAL[0];
-  const ccBtn=document.getElementById('telbtn');
-  const ccList=document.getElementById('tellist');
-  const ccOpts=document.getElementById('telopts');
-  const ccSearch=document.getElementById('telsearch');
-  const paintCC=()=>{
-    document.getElementById('telflag').textContent=flagOf(CC[0]);
-    document.getElementById('teldial').textContent='+'+CC[2];
-    ccBtn.setAttribute('title', CC[1]+' +'+CC[2]);
-  };
-  const drawOpts=(q='')=>{
-    const t=q.trim().toLowerCase().replace(/^\+/,'');
-    const hits=DIAL.filter(d=>!t || d[1].toLowerCase().includes(t) ||
-                              d[2].startsWith(t) || d[0].toLowerCase()===t);
-    ccOpts.innerHTML = hits.length
-      ? hits.map(d=>`<button class="telopt${d===CC?' on':''}" type="button" role="option"
-          aria-selected="${d===CC}" data-cc="${d[0]}" data-dial="${d[2]}">
-          <span class="f">${flagOf(d[0])}</span><span class="n">${d[1]}</span>
-          <span class="d">+${d[2]}</span></button>`).join('')
-      : '<div class="telnone">No country matches that.</div>';
-    ccOpts.querySelectorAll('.telopt').forEach(b=>b.addEventListener('click',()=>{
-      CC=DIAL.find(d=>d[0]===b.dataset.cc && d[2]===b.dataset.dial)||CC;
-      paintCC(); closeCC(); phone.focus(); refresh();
-    }));
-  };
-  const openCC=()=>{
-    ccList.hidden=false; ccBtn.setAttribute('aria-expanded','true');
-    ccSearch.value=''; drawOpts();
-    const on=ccOpts.querySelector('.telopt.on');
-    if(on) on.scrollIntoView({block:'center'});
-    requestAnimationFrame(()=>ccSearch.focus());
-  };
-  const closeCC=()=>{ ccList.hidden=true; ccBtn.setAttribute('aria-expanded','false'); };
-  ccBtn.addEventListener('click',()=>ccList.hidden?openCC():closeCC());
-  ccSearch.addEventListener('input',()=>drawOpts(ccSearch.value));
-  ccSearch.addEventListener('keydown',e=>{
-    if(e.key==='Escape'){ closeCC(); ccBtn.focus(); }
-    if(e.key==='Enter'){ e.preventDefault(); const f=ccOpts.querySelector('.telopt'); if(f) f.click(); }
-  });
-  document.addEventListener('click',e=>{
-    if(!ccList.hidden && !document.getElementById('telcc').contains(e.target)) closeCC();
-  });
-  paintCC();
+  /* the number control is shared with sourcing, booking and every panel */
+  const tel=telField(document.getElementById('telmount'),{placeholder:'55 389 2824'}).on(refresh);
 
   /* everything they typed travels with them into the chat, so nobody has to
      ask "what is it and what comes with it" a second time. Only answered
@@ -323,7 +228,6 @@ function initComposer(box){
   });
   other.addEventListener('input',refresh);
   model.addEventListener('input',refresh);
-  phone.addEventListener('input',refresh);
   email.addEventListener('input',refresh);
 
   /* ---------- the dropzone ---------- */

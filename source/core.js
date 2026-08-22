@@ -194,6 +194,137 @@ const bagsURL = o => 'bags.html' + (o && Object.keys(o).length
   ? '?' + Object.entries(o).map(([k,v]) => k + '=' + encodeURIComponent(v)).join('&') : '');
 
 
+/* ================= MOBILE NUMBER + DIALLING CODE =================
+   One implementation, mounted anywhere a contact number is asked for. It uses
+   no ids, so several can live on the same page (the header booking drawdown
+   and a page's own form, for instance). Flags come from the ISO code rather
+   than image files, and the dial code is always printed beside them so the
+   control still reads on a device with no flag glyphs. */
+const DIAL=[
+  ['AE','United Arab Emirates','971'],['GB','United Kingdom','44'],
+  ['SA','Saudi Arabia','966'],['QA','Qatar','974'],['KW','Kuwait','965'],
+  ['BH','Bahrain','973'],['OM','Oman','968'],
+  ['US','United States','1'],['CA','Canada','1'],['AU','Australia','61'],
+  ['AT','Austria','43'],['BD','Bangladesh','880'],['BE','Belgium','32'],
+  ['BR','Brazil','55'],['CN','China','86'],['CY','Cyprus','357'],
+  ['CZ','Czechia','420'],['DK','Denmark','45'],['EG','Egypt','20'],
+  ['FI','Finland','358'],['FR','France','33'],['DE','Germany','49'],
+  ['GR','Greece','30'],['HK','Hong Kong','852'],['IN','India','91'],
+  ['ID','Indonesia','62'],['IE','Ireland','353'],['IL','Israel','972'],
+  ['IT','Italy','39'],['JP','Japan','81'],['JO','Jordan','962'],
+  ['KE','Kenya','254'],['LB','Lebanon','961'],['LU','Luxembourg','352'],
+  ['MY','Malaysia','60'],['MV','Maldives','960'],['MT','Malta','356'],
+  ['MX','Mexico','52'],['MC','Monaco','377'],['MA','Morocco','212'],
+  ['NL','Netherlands','31'],['NZ','New Zealand','64'],['NG','Nigeria','234'],
+  ['NO','Norway','47'],['PK','Pakistan','92'],['PH','Philippines','63'],
+  ['PL','Poland','48'],['PT','Portugal','351'],['RO','Romania','40'],
+  ['RU','Russia','7'],['SG','Singapore','65'],['ZA','South Africa','27'],
+  ['KR','South Korea','82'],['ES','Spain','34'],['LK','Sri Lanka','94'],
+  ['SE','Sweden','46'],['CH','Switzerland','41'],['TH','Thailand','66'],
+  ['TN','Tunisia','216'],['TR','Turkey','90'],['UA','Ukraine','380'],
+  ['VN','Vietnam','84']
+];
+const flagOf = cc => {
+  try{ return String.fromCodePoint(...[...cc].map(c=>0x1F1E6+c.charCodeAt(0)-65)); }
+  catch(e){ return cc; }
+};
+const guessCC = () => {
+  const z=(Intl.DateTimeFormat().resolvedOptions().timeZone||'').toLowerCase();
+  if(z.includes('dubai')||z.includes('abu_dhabi')) return 'AE';
+  if(z.includes('london')||z.includes('belfast')) return 'GB';
+  const m={riyadh:'SA',qatar:'QA',doha:'QA',kuwait:'KW',bahrain:'BH',muscat:'OM',
+           karachi:'PK',kolkata:'IN',calcutta:'IN',singapore:'SG',hong_kong:'HK',
+           tokyo:'JP',sydney:'AU',paris:'FR',berlin:'DE',madrid:'ES',rome:'IT',
+           amsterdam:'NL',zurich:'CH',dublin:'IE',new_york:'US',los_angeles:'US',
+           chicago:'US',toronto:'CA',johannesburg:'ZA',lagos:'NG',cairo:'EG'};
+  for(const k in m) if(z.includes(k)) return m[k];
+  return 'AE';
+};
+/* national digits, minus the trunk zero people type out of habit (07… on +44) */
+const telDigits = v => (v||'').replace(/\D/g,'').replace(/^0+/,'');
+/* keep the grouping they typed — "7911 123456" reads, "7911123456" does not */
+const telPretty = v => (v||'').replace(/[^\d\s]/g,'').replace(/\s+/g,' ')
+                              .trim().replace(/^0+\s?/,'');
+
+function telField(mount, opts){
+  opts = opts || {};
+  let CC = DIAL.find(d=>d[0]===guessCC()) || DIAL[0];
+  const wrap=document.createElement('div');
+  wrap.className='telrow';
+  wrap.innerHTML=`
+    <div class="telcc">
+      <button class="telbtn" type="button" aria-haspopup="listbox" aria-expanded="false"
+              aria-label="Country dialling code">
+        <span class="telflag" aria-hidden="true"></span><span class="teldial"></span>
+        <span class="telcar" aria-hidden="true"></span>
+      </button>
+      <div class="tellist" role="listbox" aria-label="Country dialling code" hidden>
+        <input class="telsearch" type="text" autocomplete="off"
+               placeholder="Search country or code" aria-label="Search country">
+        <div class="telopts"></div>
+      </div>
+    </div>
+    <input class="telnum ${opts.inputClass||'qtext'}" type="tel" inputmode="tel"
+           autocomplete="tel-national" placeholder="${opts.placeholder||'55 389 2824'}"
+           aria-label="${opts.label||'Mobile number'}">`;
+  mount.appendChild(wrap);
+
+  const btn=wrap.querySelector('.telbtn'), list=wrap.querySelector('.tellist');
+  const optbox=wrap.querySelector('.telopts'), search=wrap.querySelector('.telsearch');
+  const num=wrap.querySelector('.telnum');
+
+  const paint=()=>{
+    wrap.querySelector('.telflag').textContent=flagOf(CC[0]);
+    wrap.querySelector('.teldial').textContent='+'+CC[2];
+    btn.title=CC[1]+' +'+CC[2];
+  };
+  const draw=(q='')=>{
+    const t=(q||'').trim().toLowerCase().replace(/^\+/,'');
+    const hits=DIAL.filter(d=>!t || d[1].toLowerCase().includes(t) ||
+                              d[2].startsWith(t) || d[0].toLowerCase()===t);
+    optbox.innerHTML = hits.length
+      ? hits.map(d=>`<button class="telopt${d===CC?' on':''}" type="button" role="option"
+          aria-selected="${d===CC}" data-cc="${d[0]}" data-dial="${d[2]}">
+          <span class="f">${flagOf(d[0])}</span><span class="n">${d[1]}</span>
+          <span class="d">+${d[2]}</span></button>`).join('')
+      : '<div class="telnone">No country matches that.</div>';
+    optbox.querySelectorAll('.telopt').forEach(b=>b.addEventListener('click',()=>{
+      CC=DIAL.find(d=>d[0]===b.dataset.cc && d[2]===b.dataset.dial)||CC;
+      paint(); close(); num.focus(); fire();
+    }));
+  };
+  const open=()=>{
+    list.hidden=false; btn.setAttribute('aria-expanded','true');
+    search.value=''; draw();
+    const on=optbox.querySelector('.telopt.on'); if(on) on.scrollIntoView({block:'center'});
+    requestAnimationFrame(()=>search.focus());
+  };
+  const close=()=>{ list.hidden=true; btn.setAttribute('aria-expanded','false'); };
+  btn.addEventListener('click',()=>list.hidden?open():close());
+  search.addEventListener('input',()=>draw(search.value));
+  search.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ close(); btn.focus(); }
+    if(e.key==='Enter'){ e.preventDefault(); const f=optbox.querySelector('.telopt'); if(f) f.click(); }
+  });
+  document.addEventListener('click',e=>{ if(!list.hidden && !wrap.contains(e.target)) close(); });
+  let handler=null;
+  const fire=()=>{ if(handler) handler(api); };
+  num.addEventListener('input',fire);
+  paint();
+
+  const api={
+    el:wrap, input:num,
+    digits:()=>telDigits(num.value),
+    valid:()=>telDigits(num.value).length>=6,
+    value:()=>api.valid() ? '+'+CC[2]+' '+(telPretty(num.value)||telDigits(num.value)) : null,
+    e164:()=>api.valid() ? '+'+CC[2]+telDigits(num.value) : null,
+    country:()=>CC[1],
+    on:fn=>{ handler=fn; return api; },
+    focus:()=>num.focus()
+  };
+  return api;
+}
+
 /* ---------------- shared UI helpers ---------------- */
 const inc = (on, label) => `<span class="inc ${on?'on':'off'}"><span class="bx"></span>${label}</span>`;
 
@@ -634,14 +765,15 @@ function initBookPanel(){
   panel.setAttribute('role','dialog'); panel.setAttribute('aria-label','Book a viewing');
   panel.innerHTML=`
     <div class="bph"><span>Book a viewing</span><button class="bpx" aria-label="Close">×</button></div>
-    <div class="bpl">Where</div>
-    <div class="bpchips">${chip('type','Dubai boutique','Dubai boutique')}${chip('type','United Kingdom','United Kingdom')}${chip('type','Video call','Video call')}</div>
+    <div class="bpl">How</div>
+    <div class="bpchips">${chip('type','Dubai boutique','In person')}${chip('type','Video call','Video call')}</div>
     <div class="bpl">Day</div>
     <div class="bpchips">${days.map(d=>chip('day',d.v,d.l)).join('')}</div>
     <div class="bpl">Time</div>
     <div class="bpchips">${chip('time','Morning','Morning')}${chip('time','Afternoon','Afternoon')}${chip('time','Evening','Evening')}</div>
     <input class="bpin" id="bp-name" type="text" placeholder="Your name" autocomplete="name">
-    <input class="bpin" id="bp-contact" type="text" placeholder="Email or phone" autocomplete="email">
+    <div class="bptel" id="bp-telmount"></div>
+    <input class="bpin" id="bp-email" type="email" placeholder="Email (optional)" autocomplete="email">
     <button class="bpgo" id="bp-go" disabled>Request this viewing <span class="a">→</span></button>
     <div class="bperr" id="bp-err" hidden>That didn’t send — <a href="book.html">use the full calendar</a>
       or <a href="https://wa.me/971553892824">WhatsApp us</a>.</div>
@@ -650,16 +782,22 @@ function initBookPanel(){
 
   const S={}; let sending=false;
   const go=panel.querySelector('#bp-go');
-  const name=panel.querySelector('#bp-name'), contact=panel.querySelector('#bp-contact');
-  const contactOK=v=>/@.+\./.test(v)||(v.replace(/\D/g,'').length>=7);
-  const refresh=()=>{ go.disabled=sending||!(S.type&&S.day&&S.time&&name.value.trim()&&contactOK(contact.value.trim())); };
+  const name=panel.querySelector('#bp-name'), email=panel.querySelector('#bp-email');
+  const tel=telField(panel.querySelector('#bp-telmount'),
+                     {inputClass:'bpin', placeholder:'55 389 2824'});
+  const emailOK=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  const contactVal=()=>[tel.value(), emailOK(email.value.trim())?email.value.trim():null]
+                        .filter(Boolean).join('  ·  ');
+  const refresh=()=>{ go.disabled=sending||!(S.type&&S.day&&S.time&&name.value.trim()&&
+                                             (tel.valid()||emailOK(email.value.trim()))); };
+  tel.on(refresh);
   panel.querySelectorAll('.bpc').forEach(c=>c.addEventListener('click',()=>{
     const k=c.dataset.k, on=S[k]===c.dataset.v;
     S[k]=on?null:c.dataset.v;
     panel.querySelectorAll(`.bpc[data-k="${k}"]`).forEach(x=>x.classList.toggle('on',!on&&x===c));
     refresh();
   }));
-  [name,contact].forEach(i=>i.addEventListener('input',refresh));
+  [name,email].forEach(i=>i.addEventListener('input',refresh));
 
   go.addEventListener('click',async()=>{
     if(go.disabled) return;
@@ -668,7 +806,7 @@ function initBookPanel(){
     try{
       const r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({page:'viewing',brand:S.type,model:S.day+' — '+S.time,
-          contact:name.value.trim()+' · '+contact.value.trim(),photos:[]})});
+          contact:name.value.trim()+' · '+contactVal(),photos:[]})});
       if(!r.ok) throw 0;
       panel.querySelector('.bph span').textContent='Requested';
       panel.innerHTML=`<div class="bph"><span>Requested</span><button class="bpx" aria-label="Close">×</button></div>
