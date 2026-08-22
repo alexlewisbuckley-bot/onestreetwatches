@@ -147,6 +147,50 @@
 .qother{display:none;margin-top:10px}
 .qf.askother .qother{display:block}
 
+/* ---------- four yes / no answers ----------
+   A row per question so nothing is ambiguous, and the pair of buttons reads
+   as one control rather than two loose chips. */
+.yesno{display:flex;flex-direction:column;gap:2px}
+.ynrow{display:flex;align-items:center;justify-content:space-between;gap:20px;
+ padding:11px 0;border-bottom:1px solid var(--line)}
+.ynrow:last-child{border-bottom:none}
+.ynq{font-size:13.5px;color:var(--soft);line-height:1.5}
+.ynb{display:flex;flex:none;border:1px solid var(--line2);background:var(--white)}
+.ynopt{min-height:40px;padding:0 20px;font-size:12.5px;color:var(--muted);
+ border-right:1px solid var(--line2);transition:background .22s,color .22s}
+.ynopt:last-child{border-right:none}
+.ynopt:hover{color:var(--ink)}
+.ynopt.on{background:var(--char);color:#fff}
+
+/* ---------- the year ----------
+   A dropdown of eighty years is a scroll; the slider reads as a dial and
+   answers "how old is it" in the same glance. */
+.yearpick{max-width:460px}
+.yrread{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.yrn{font-size:30px;font-weight:300;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.yrn.unset{color:var(--pale)}
+.yra{font-size:12px;color:var(--muted)}
+.yrrange{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;
+ cursor:pointer;display:block}
+.yrrange::-webkit-slider-runnable-track{height:2px;
+ background:linear-gradient(to right,var(--char) var(--fill,0%),var(--line2) var(--fill,0%))}
+.yrrange::-moz-range-track{height:2px;background:var(--line2)}
+.yrrange::-moz-range-progress{height:2px;background:var(--char)}
+.yrrange::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;
+ margin-top:-8px;background:var(--white);border:1px solid var(--ink);border-radius:50%;
+ transition:transform .2s var(--e)}
+.yrrange::-moz-range-thumb{width:18px;height:18px;background:var(--white);
+ border:1px solid var(--ink);border-radius:50%}
+.yearpick.set .yrrange::-webkit-slider-thumb{background:var(--char)}
+.yearpick.set .yrrange::-moz-range-thumb{background:var(--char)}
+.yrrange:active::-webkit-slider-thumb{transform:scale(1.15)}
+.yrrange:focus-visible{outline:none}
+.yrrange:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px rgba(28,27,25,.16)}
+.yrscale{display:flex;justify-content:space-between;margin-top:7px;
+ font-size:10px;letter-spacing:.1em;color:var(--pale)}
+.yrquick{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.yrq{min-height:38px;padding:0 15px;font-size:12px}
+
 .cs{position:sticky;top:calc(var(--navH) + 24px)}
 .csin{border:1px solid var(--line2);background:var(--white);padding:26px}
 .csh{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
@@ -225,6 +269,12 @@
   .facts--quiet{margin-top:40px}
   .faqwrap{padding:48px 0 64px}
   .qtext{max-width:none;font-size:16px}
+  /* the question and its Yes/No stack rather than squeezing on a phone */
+  .ynrow{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 0}
+  .ynb{width:100%}
+  .ynopt{flex:1;min-height:46px;font-size:13px}
+  .yearpick{max-width:none}
+  .yrn{font-size:26px}
   .csin{padding:20px 16px}
 }
 

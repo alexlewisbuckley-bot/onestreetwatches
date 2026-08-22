@@ -19,16 +19,33 @@
         <div class="ql">02 &nbsp;Model or reference</div>
         <input class="qtext" id="q-model" type="text" autocomplete="off" placeholder="Submariner 116610LV">
       </div>
+      <div class="qf" data-k="year">
+        <div class="ql">03 &nbsp;Year <em>drag to the year it was made</em></div>
+        <div class="yearpick" id="q-year">
+          <div class="yrread">
+            <span class="yrn" id="yr-n">Not sure</span>
+            <span class="yra" id="yr-a">Drag the slider, or say you are not sure</span>
+          </div>
+          <input class="yrrange" id="yr-range" type="range" min="1950" max="2026" step="1" value="2018"
+                 aria-label="Year of manufacture">
+          <div class="yrscale" id="yr-scale" aria-hidden="true"></div>
+          <div class="yrquick">
+            <button class="qchip yrq" type="button" data-yr="unsure">Not sure</button>
+            <button class="qchip yrq" type="button" data-yr="thisyear">This year</button>
+            <button class="qchip yrq" type="button" data-yr="vintage">Pre-1990</button>
+          </div>
+        </div>
+      </div>
       <div class="qf" data-k="cond">
-        <div class="ql">03 &nbsp;Condition <em>optional</em></div>
+        <div class="ql">04 &nbsp;Condition <em>optional</em></div>
         <div class="qchips" id="q-cond"></div>
       </div>
       <div class="qf" data-k="kit">
-        <div class="ql">04 &nbsp;What comes with it <em>optional</em></div>
-        <div class="qchips" id="q-kit"></div>
+        <div class="ql">05 &nbsp;What comes with it</div>
+        <div class="yesno" id="q-yesno"></div>
       </div>
       <div class="qf" data-k="photos">
-        <div class="ql">05 &nbsp;Photographs <em>front, back, clasp, papers — up to 6</em></div>
+        <div class="ql">06 &nbsp;Photographs <em>front, back, clasp, papers — up to 6</em></div>
         <div class="dz" id="dz" role="button" tabindex="0" aria-label="Add photographs">
           <input type="file" id="dzin" accept="image/*" multiple hidden>
           <div class="dzhint"><b>Drag photographs here</b><span>or click to choose from your device</span></div>
@@ -36,7 +53,7 @@
         <div class="dzgrid" id="dzgrid"></div>
       </div>
       <div class="qf" data-k="contact">
-        <div class="ql">06 &nbsp;Where should the offer go?</div>
+        <div class="ql">07 &nbsp;Where should the offer go?</div>
         <input class="qtext" id="q-contact" type="text" autocomplete="email"
                placeholder="Email address or phone number">
       </div>
@@ -46,6 +63,7 @@
       <div class="csin">
         <div class="csh">Your enquiry</div>
         <div class="csrow" id="s-watch"><em>Watch</em><span>—</span></div>
+        <div class="csrow" id="s-year"><em>Year</em><span>—</span></div>
         <div class="csrow" id="s-cond"><em>Condition</em><span>—</span></div>
         <div class="csrow" id="s-kit"><em>Includes</em><span>—</span></div>
         <div class="csrow" id="s-photos"><em>Photographs</em><span>—</span></div>

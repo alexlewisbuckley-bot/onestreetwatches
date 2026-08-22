@@ -85,21 +85,67 @@ function localSlots(dateStr){
 }
 async function dayHasSlots(dateStr){ return (await slotsFor(dateStr)).length>0; }
 
-/* ---------- one page, two toggles ----------
-   The old first step asked people to choose between five cards before they
-   could see a single date. Place and format are two toggles now, and the
-   calendar and the form sit under them on the same page. */
+/* ---------- the flow is three steps again ----------
+   One page meant the calendar and the form sat below the fold, so the page
+   opened on a wall of white and asked people to scroll before they had done
+   anything. Three steps keep every decision in the first screen, and each
+   answer immediately reveals the next question. */
 let STEP=1;
-function paintSteps(){}                    /* the numbered rail is gone */
-function go(n){                            /* only the confirmation still swaps views */
+const STEP_IDS={1:'bstep1', 2:'bstep2', 3:'bdetails', 4:'bdoneStep'};
+const canReach=n =>
+  n<=1            ? true :
+  n===2           ? !!S.type :
+  n===3           ? !!S.slot :
+                    true;
+
+function paintSteps(){
+  const rail=$b('bsteps'); if(!rail) return;
+  rail.querySelectorAll('li').forEach(li=>{
+    const n=+li.dataset.s;
+    li.classList.toggle('on', n===STEP);
+    li.classList.toggle('past', n<STEP);
+    li.setAttribute('aria-current', n===STEP ? 'step' : 'false');
+  });
+  const bar=document.querySelector('.bprog');
+  if(bar) bar.querySelectorAll('i').forEach((i,k)=>i.classList.toggle('on', k<STEP));
+}
+
+function go(n){
+  if(!canReach(n)) return;
   STEP=n;
-  if(n===4){
-    document.querySelectorAll('.bstep').forEach(s=>s.classList.remove('on'));
-    $b('bdoneStep').classList.add('on');
-    window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.bstep').forEach(s=>s.classList.remove('on'));
+  const el=$b(STEP_IDS[n]);
+  if(el){
+    el.classList.add('on');
+    /* move focus for keyboard and screen-reader users, without the browser
+       scrolling the panel into view itself — we handle that below */
+    try{ el.focus({preventScroll:true}); }catch(e){ el.focus(); }
   }
+  paintSteps();
   paintSide();
+  /* only scroll if the flow has actually been pushed out of view. The anchor
+     must be a rendered element: .bsteps is hidden on phones and a display:none
+     node reports a zero rect, which would read as "off screen" and scroll. */
+  const anchor=[$b('bsteps'), document.querySelector('.bprog'), el]
+    .find(e=>e && e.offsetParent!==null);
+  if(anchor && anchor.getBoundingClientRect().top < stickyTop())
+    scrollToBlock(anchor, 14);
   if(window.__bsum) setTimeout(window.__bsum,0);
+}
+
+function bindNav(){
+  document.querySelectorAll('[data-go]').forEach(b=>
+    b.addEventListener('click',()=>go(+b.dataset.go)));
+  const rail=$b('bsteps');
+  if(rail) rail.querySelectorAll('li').forEach(li=>
+    li.addEventListener('click',()=>{ const n=+li.dataset.s; if(n<STEP||canReach(n)) go(n); }));
+}
+
+/* step 2's Continue mirrors whether a time has been chosen */
+function paintNext2(){
+  const b=$b('bnext2'); if(!b) return;
+  b.disabled=!S.slot;
+  b.querySelector('.lbl').textContent=S.slot?'Your details':'Pick a time to continue';
 }
 
 const PICK={place:'uae', mode:'person'};
@@ -115,7 +161,7 @@ function applyPick(){
     : t.h;
   $b('btogmeta').textContent=`${where} · ${t.m} · about ${t.mins} minutes`;
   /* a video call is offered from either country, so the place toggle stays live */
-  paintCal(); paintSubmit(); paintSide();
+  paintCal(); paintSubmit(); paintNext2(); paintSide();
   if(window.__paintRail) window.__paintRail();
 }
 function buildToggles(){
@@ -206,7 +252,10 @@ async function pickDay(ds,fromGrid){
     document.querySelectorAll('.slot').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
     paintSide();
     paintSubmit();
-    scrollToBlock($b('bdetails'));
+    paintNext2();
+    /* a chosen time is an unambiguous end to this step, so carry them
+       forward rather than making them hunt for the button */
+    setTimeout(()=>{ if(S.slot && STEP===2) go(3); }, 260);
     if(window.__bsum) window.__bsum();
   }));
   const tzName=tzLabel(S.type.tz);
@@ -335,7 +384,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 
   buildCal();
+  bindNav();
   applyPick();
+  paintSteps();
   $b('bform').addEventListener('submit',submit);
 });
 
@@ -356,6 +407,7 @@ function buildMobileBook(){
   /* slim progress bar replaces the numbered rail */
   const bar=document.createElement('div');
   bar.className='bprog';
+  bar.innerHTML='<i></i><i></i><i></i>';
   document.querySelector('.bmain').prepend(bar);
 
   /* one-line summary — the toggles already name the place, so this only

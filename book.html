@@ -17,11 +17,11 @@
 <link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.e21cecec3a.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/core.f53b583e06.css">
 <link rel="stylesheet" href="assets/css/system.64cbaafc12.css">
-<link rel="stylesheet" href="assets/css/book.1e4ca7d954.css">
+<link rel="stylesheet" href="assets/css/book.291b67ad1a.css">
 
-<link rel="stylesheet" href="assets/css/mobile.79a45e51cd.css">
+<link rel="stylesheet" href="assets/css/mobile.eba91e8bfa.css">
 <script src="assets/js/core.d43b7ea1a7.js" defer></script>
-<script src="assets/js/book.fea96661b8.js" defer></script>
+<script src="assets/js/book.5d99c97b71.js" defer></script>
 </head>
 <body data-page="visit">
 <div class="top">
@@ -192,46 +192,54 @@
   </div>
 </nav>
 
-<div class="phead">
+<div class="phead phead--book">
   <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Schedule a viewing</div>
   <h1>Schedule a viewing</h1>
-  <p class="lede">Pick a time that suits you. We will have the tray ready, the pieces sized and
-    the papers out before you sit down.</p>
+  <p class="lede">Three steps, about a minute. We will have the tray ready before you sit down.</p>
 </div>
 
 <div class="bwrap">
   <div class="bmain">
 
-    <!-- where and how -->
-    <section class="bstep on bchoose">
+    <ol class="bsteps" id="bsteps">
+      <li data-s="1" class="on"><b>1</b><span>Where &amp; how</span></li>
+      <li data-s="2"><b>2</b><span>Date &amp; time</span></li>
+      <li data-s="3"><b>3</b><span>Your details</span></li>
+    </ol>
+
+    <!-- 1 · where and how -->
+    <section class="bstep on bchoose" id="bstep1" tabindex="-1">
       <div class="btogs">
         <div class="btogset">
           <div class="btogl">Where</div>
           <div class="btog" id="tog-place" role="group" aria-label="Location">
-            <button data-v="uae" aria-pressed="true">Vida Hotel, Emirates Hills</button>
-            <button data-v="uk" aria-pressed="false">United Kingdom</button>
+            <button type="button" data-v="uae" aria-pressed="true">Vida Hotel, Emirates Hills</button>
+            <button type="button" data-v="uk" aria-pressed="false">United Kingdom</button>
           </div>
         </div>
         <div class="btogset">
           <div class="btogl">How</div>
           <div class="btog" id="tog-mode" role="group" aria-label="Format">
-            <button data-v="person" aria-pressed="true">In person</button>
-            <button data-v="video" aria-pressed="false">Video call</button>
+            <button type="button" data-v="person" aria-pressed="true">In person</button>
+            <button type="button" data-v="video" aria-pressed="false">Video call</button>
           </div>
         </div>
       </div>
       <p class="btogmeta" id="btogmeta"></p>
+      <div class="bnav">
+        <button class="b1 bgo" type="button" data-go="2">
+          <span class="lbl">Choose a date and time</span> <span class="a">→</span></button>
+      </div>
     </section>
 
-    <!-- when -->
-    <section class="bstep on">
-      <h2 class="bh">Choose a date and time</h2>
+    <!-- 2 · when -->
+    <section class="bstep" id="bstep2" tabindex="-1">
       <div class="bwhen">
         <div class="cal">
           <div class="calhead">
-            <button class="calnav" id="calprev" aria-label="Previous month">←</button>
+            <button class="calnav" id="calprev" type="button" aria-label="Previous month">←</button>
             <div class="calmonth" id="calmonth" aria-live="polite"></div>
-            <button class="calnav" id="calnext" aria-label="Next month">→</button>
+            <button class="calnav" id="calnext" type="button" aria-label="Next month">→</button>
           </div>
           <div class="caldow" id="caldow"></div>
           <div class="calgrid" id="calgrid" role="grid"></div>
@@ -249,11 +257,15 @@
           <div class="slottz" id="slottz"></div>
         </div>
       </div>
+      <div class="bnav">
+        <button class="bback" type="button" data-go="1">← Where &amp; how</button>
+        <button class="b1 bgo" type="button" id="bnext2" data-go="3" disabled>
+          <span class="lbl">Pick a time to continue</span> <span class="a">→</span></button>
+      </div>
     </section>
 
-    <!-- who -->
-    <section class="bstep on" id="bdetails">
-      <h2 class="bh">Your details</h2>
+    <!-- 3 · who -->
+    <section class="bstep" id="bdetails" tabindex="-1">
       <form class="bform" id="bform" novalidate>
         <div class="fgrid">
           <div class="f"><label for="bname">Full name</label>
@@ -270,21 +282,24 @@
             <textarea id="bnotes" name="notes" placeholder="A reference you want to see, a budget, a part-exchange you are bringing, or a bracelet size."></textarea></div>
         </div>
         <div class="berr" id="berr" hidden></div>
-        <button class="b1 bsubmit" id="bsubmit" type="submit" disabled>
-          <span class="lbl">Confirm the viewing</span> <span class="a">→</span></button>
+        <div class="bnav">
+          <button class="bback" type="button" data-go="2">← Date &amp; time</button>
+          <button class="b1 bsubmit" id="bsubmit" type="submit" disabled>
+            <span class="lbl">Confirm the viewing</span> <span class="a">→</span></button>
+        </div>
         <p class="bnote">No deposit, no obligation, and nothing is held against you if you change
           your mind. We will send a confirmation and a reminder the day before.</p>
       </form>
     </section>
 
     <!-- done -->
-    <section class="bstep bdone" id="bdoneStep">
+    <section class="bstep bdone" id="bdoneStep" tabindex="-1">
       <div class="btick" aria-hidden="true"><span></span></div>
       <h2 class="bh">You are booked in.</h2>
       <p class="blede" id="bdonelede"></p>
       <div class="bcard" id="bcard"></div>
       <div class="bdoneacts">
-        <button class="b1" id="bics">Add to calendar <span class="a">→</span></button>
+        <button class="b1" id="bics" type="button">Add to calendar <span class="a">→</span></button>
         <a class="b2" id="bwa" href="https://wa.me/message/55ILJOASJYUAD1">Message us on WhatsApp <span class="a">→</span></a>
       </div>
       <p class="bnote" id="bref"></p>

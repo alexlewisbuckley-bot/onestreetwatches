@@ -4,9 +4,17 @@
    (desktop-first — no WhatsApp needed), and WhatsApp remains the
    fast lane, primary on the phone. */
 
-const BRANDS_S=['Rolex','Patek Philippe','Audemars Piguet','Cartier','Omega','Other'];
+const BRANDS_S=['Rolex','Patek Philippe','Audemars Piguet','Richard Mille','Cartier','Omega','Other'];
 const CONDS_S=['Unworn','Excellent','Very good','Good'];
-const KITS_S=['Full set','Box only','Papers only','Watch only'];
+/* the old single "what comes with it" chip could not answer proof of purchase
+   or factory stickers, and a valuation turns on all four. One row each. */
+const ASKS=[
+  {k:'box',    q:'Do you have the original box?'},
+  {k:'papers', q:'Do you have the original papers?'},
+  {k:'proof',  q:'Do you have proof of purchase?'},
+  {k:'unworn', q:'Is your watch unworn with factory stickers intact?'}
+];
+const THIS_YEAR=new Date().getFullYear();
 const MAXPHOTOS=6;
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -41,7 +49,69 @@ function initComposer(box){
   };
   chipset('q-brand',BRANDS_S);
   chipset('q-cond',CONDS_S);
-  chipset('q-kit',KITS_S);
+
+  /* ---------- four yes / no answers ---------- */
+  const ANS={};
+  const ynBox=document.getElementById('q-yesno');
+  ynBox.innerHTML=ASKS.map(a=>`
+    <div class="ynrow" data-a="${a.k}">
+      <span class="ynq">${a.q}</span>
+      <span class="ynb" role="group" aria-label="${a.q}">
+        <button class="ynopt" type="button" data-v="yes">Yes</button>
+        <button class="ynopt" type="button" data-v="no">No</button>
+      </span>
+    </div>`).join('');
+  ynBox.querySelectorAll('.ynrow').forEach(row=>{
+    const k=row.dataset.a;
+    row.querySelectorAll('.ynopt').forEach(b=>b.addEventListener('click',()=>{
+      const off=ANS[k]===b.dataset.v;              /* click again to unset */
+      ANS[k]=off?undefined:b.dataset.v;
+      row.querySelectorAll('.ynopt').forEach(x=>
+        x.classList.toggle('on', !off && x===b));
+      refresh();
+    }));
+  });
+
+  /* ---------- the year ---------- */
+  const yr=document.getElementById('yr-range');
+  const yrn=document.getElementById('yr-n'), yra=document.getElementById('yr-a');
+  let YEAR=null;                                   /* null until they choose */
+  yr.max=String(THIS_YEAR);
+  document.getElementById('yr-scale').innerHTML=
+    [1950,1970,1990,2010,THIS_YEAR].map(y=>`<span>${y}</span>`).join('');
+  const ageLine=y=>{
+    const a=THIS_YEAR-y;
+    return a<=0 ? 'Made this year'
+         : a===1 ? 'A year old'
+         : a<=4  ? `${a} years old`
+         : a<=9  ? `${a} years old — recent pre-owned`
+         : a<=29 ? `${a} years old`
+         :         `${a} years old — vintage`;
+  };
+  const paintYear=()=>{
+    /* fill the track up to the handle so the slider reads as a gauge */
+    const pct=(yr.value-yr.min)/(yr.max-yr.min)*100;
+    yr.style.setProperty('--fill', pct+'%');
+    yrn.textContent = YEAR===null ? 'Not sure' : YEAR;
+    yrn.classList.toggle('unset', YEAR===null);
+    yra.textContent = YEAR===null
+      ? 'Drag the slider, or say you are not sure'
+      : ageLine(YEAR);
+  };
+  const setYear=(v,{quiet}={})=>{
+    YEAR = v===null ? null : Math.min(THIS_YEAR, Math.max(1950, +v));
+    if(YEAR!==null) yr.value=String(YEAR);
+    document.querySelectorAll('.yrq').forEach(b=>b.classList.remove('on'));
+    if(YEAR===null) document.querySelector('.yrq[data-yr="unsure"]').classList.add('on');
+    document.getElementById('q-year').classList.toggle('set', YEAR!==null);
+    paintYear();
+    if(!quiet) refresh();
+  };
+  yr.addEventListener('input',()=>setYear(yr.value));
+  document.querySelectorAll('.yrq').forEach(b=>b.addEventListener('click',()=>{
+    const v=b.dataset.yr;
+    setYear(v==='unsure' ? null : v==='thisyear' ? THIS_YEAR : 1985);
+  }));
 
   const other=document.getElementById('q-brand-other');
   const model=document.getElementById('q-model');
@@ -59,9 +129,21 @@ function initComposer(box){
   const refresh=()=>{
     V.brand = SEL.brand==='Other' ? (other.value.trim()||null) : (SEL.brand||null);
     V.model=(model.value||'').trim();
-    V.cond=SEL.cond||null; V.kit=SEL.kit||null;
+    V.cond=SEL.cond||null;
+    V.year=YEAR;
+    V.box=ANS.box||null; V.papers=ANS.papers||null;
+    V.proof=ANS.proof||null; V.unworn=ANS.unworn||null;
+    /* "includes" is now derived, so the summary still reads in one line */
+    const has=[];
+    if(ANS.box==='yes') has.push('Box');
+    if(ANS.papers==='yes') has.push('Papers');
+    if(ANS.proof==='yes') has.push('Proof of purchase');
+    if(ANS.unworn==='yes') has.push('Unworn, stickers on');
+    V.kit = has.length ? has.join(', ')
+          : (ANS.box==='no'&&ANS.papers==='no') ? 'Watch only' : null;
     V.contact=(contact.value||'').trim();
     put('s-watch',[V.brand,V.model].filter(Boolean).join(' '));
+    put('s-year',V.year?String(V.year):'');
     put('s-cond',V.cond); put('s-kit',V.kit);
     put('s-photos',PHOTOS.length?PHOTOS.length+' attached':'');
     put('s-contact',V.contact);
@@ -70,7 +152,10 @@ function initComposer(box){
     wa.disabled=!base;
     wa.onclick=base?()=>{ location.href=waURL(
       `Hello — I would like a valuation.\n\n${V.brand} ${V.model}\n`+
-      `Condition: ${V.cond||'—'}\nIncludes: ${V.kit||'—'}\n\nI will send photographs next.`);}:null;
+      `Year: ${V.year||'not sure'}\nCondition: ${V.cond||'—'}\n`+
+      `Box: ${V.box||'—'}  ·  Papers: ${V.papers||'—'}\n`+
+      `Proof of purchase: ${V.proof||'—'}  ·  Unworn with stickers: ${V.unworn||'—'}\n\n`+
+      `I will send photographs next.`);}:null;
   };
 
   box.querySelectorAll('.qchips').forEach(set=>{
@@ -125,7 +210,9 @@ function initComposer(box){
     try{
       const r=await fetch('/api/enquiry',{method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({page:'sell',brand:V.brand,model:V.model,cond:V.cond,kit:V.kit,
+        body:JSON.stringify({page:'sell',brand:V.brand,model:V.model,year:V.year,
+                             cond:V.cond,kit:V.kit,box:V.box,papers:V.papers,
+                             proof:V.proof,unworn:V.unworn,
                              contact:V.contact,photos:PHOTOS})});
       if(!r.ok) throw new Error('send failed');
       document.querySelector('.csin').innerHTML=`
@@ -141,5 +228,6 @@ function initComposer(box){
     }
   });
 
+  setYear(null,{quiet:true});
   refresh();
 }
