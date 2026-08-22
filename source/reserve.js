@@ -31,44 +31,30 @@ function rvSub(){
 
 function paintItem(){
   const it=RV.item, isBag=RV.kind==='bag';
-  /* name it before you show it — a photograph beside a form, with the brand
-     and the price below the fold, asks people to reserve something unnamed */
-  /* the long catalogue title is written for a card, not a headline — as an h1
-     it reads as a spec dump. Brand and model lead; the specification follows
-     quietly on one line. */
-  const head = isBag ? `Hermès ${it.fam}` : `${it.b} ${it.m}`;
-  const sub  = isBag
-    ? [it.colour, it.leather, it.hw+' hardware', 'Size '+it.size, it.y].filter(Boolean).join('  ·  ')
-    : ['Ref. '+it.r, it.y, it.mat, it.size+' mm'].filter(Boolean).join('  ·  ');
-  const kitLine = it.box&&it.pap ? 'Full set' : it.box ? 'Box only' : it.pap ? 'Papers only'
-                : (isBag ? 'Bag only' : 'Watch only');
-  document.getElementById('rvid').innerHTML=`
-    <div class="rvbrand">${isBag?'Hermès':it.b}</div>
-    <h1 class="rvname">${isBag?it.fam:it.m}</h1>
-    <div class="rvsubline">${sub}</div>
-    <div class="rvmeta">
-      <span class="rvprice money" data-aed="${it.aed}">${money(it.aed)}</span>
-      <span class="rvtags"><em>${it.c}</em><em>${kitLine}</em></span>
-      <span class="rvloc"><i></i>In stock — ${it.loc}</span>
-    </div>`;
-
+  /* a brief overview, not a product page: a thumbnail, what it is, and the
+     specification on one line. The detail collection below is the point. */
+  const spec = isBag
+    ? [it.colour, it.leather, it.hw, 'Size '+it.size, it.c].filter(Boolean)
+    : ['Ref. '+it.r, it.y, it.mat, it.size+' mm', it.c].filter(Boolean);
+  const kit = it.box&&it.pap ? 'Full set' : it.box ? 'Box only' : it.pap ? 'Papers only'
+            : (isBag?'Bag only':'Watch only');
   const im=(it.ims||[]).find(x=>x.img);
-  document.getElementById('rvshot').innerHTML = im
-    ? `<img src="${im.img}" alt="${rvTitle()}">`
-    : `<div class="rvph"><span>${isBag?'Hermès':it.b}</span></div>`;
-
-  const rows = isBag
-    ? [['Model',it.fam],['Colour',it.colour],['Leather',it.leather],['Hardware',it.hw],
-       ['Size',it.size+' cm'],['Year',it.y],['Condition',it.c],
-       ['Box &amp; papers', it.box&&it.pap?'Full set':it.box?'Box only':it.pap?'Papers only':'Bag only'],
-       ['Held in',it.loc]]
-    : [['Reference',it.r],['Year',it.y],['Material',it.mat||'—'],
-       ['Case size',it.size+' mm'],['Dial',it.dial],['Condition',it.c],
-       ['Box &amp; papers', it.box&&it.pap?'Full set':it.box?'Box only':it.pap?'Papers only':'Watch only'],
-       ['Held in',it.loc]];
-  document.getElementById('rvspec').innerHTML=
-    rows.map(([a,b])=>`<div class="rvrow"><span>${a}</span><span>${b}</span></div>`).join('')+
-    `<a class="rvback" href="${isBag?'bag.html?i='+RV.i:'product.html?i='+RV.i}">← Back to the ${isBag?'handbag':'watch'}</a>`;
+  document.getElementById('rvcard').innerHTML=`
+    <div class="rvthumb">${im
+      ? `<img src="${im.img}" alt="${rvTitle()}">`
+      : `<span>${isBag?'Hermès':it.b}</span>`}</div>
+    <div class="rvinfo">
+      <div class="rvbrand">${isBag?'Hermès':it.b}</div>
+      <div class="rvmodel">${isBag?it.fam:it.m}</div>
+      <div class="rvspecline">${spec.join('  ·  ')}  ·  ${kit}</div>
+    </div>
+    <div class="rvright">
+      <div class="rvprice money" data-aed="${it.aed}">${money(it.aed)}</div>
+      <div class="rvloc"><i></i>${it.loc}</div>
+    </div>`;
+  const ex=document.getElementById('rvexit');
+  if(ex){ ex.href = isBag ? 'bag.html?i='+RV.i : 'product.html?i='+RV.i;
+          ex.textContent = '← Back to the '+(isBag?'handbag':'watch'); }
   if(window.repaintMoney) repaintMoney();
 }
 
@@ -80,7 +66,7 @@ function rvBadge(){
 
 document.addEventListener('DOMContentLoaded',()=>{
   const found=rvParams();
-  const wrap=document.querySelector('.rvwrap');
+  const wrap=document.querySelector('.rvcol');
   if(!found){
     /* someone landed here without a piece — send them where the pieces are */
     wrap.innerHTML=`<div class="rvempty"><h2 class="bh">Nothing selected</h2>
@@ -93,7 +79,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const isBag=RV.kind==='bag';
   document.getElementById('rvh1').textContent = isBag ? 'Reserve this handbag' : 'Reserve this watch';
-  document.getElementById('rvcrumb').textContent = isBag ? 'Reserve this handbag' : 'Reserve this watch';
   document.title = 'Reserve — '+rvTitle()+' | One Street Watches';
   paintItem();
 
@@ -155,6 +140,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       `We will confirm by WhatsApp within the hour.`;
     document.getElementById('rvref').textContent='Your reference is '+RV.ref+'.';
     document.getElementById('rvwa').href=waURL(msg);
+    document.getElementById('rvcard').classList.add('held');
     if(d.getBoundingClientRect().top<0) d.scrollIntoView({block:'nearest',behavior:'smooth'});
   }
 });

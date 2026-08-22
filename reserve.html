@@ -17,11 +17,11 @@
 <link rel="preload" href="assets/fonts/inter-tight-latin-300-normal.e21cecec3a.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/core.a1115ccc43.css">
 <link rel="stylesheet" href="assets/css/system.64cbaafc12.css">
-<link rel="stylesheet" href="assets/css/page.f2eb140679.css">
+<link rel="stylesheet" href="assets/css/page.26a68ecc85.css">
 
 <link rel="stylesheet" href="assets/css/mobile.c18fc744ac.css">
 <script src="assets/js/core.81b2f6d456.js" defer></script>
-<script src="assets/js/reserve.48d2e3e44a.js" defer></script>
+<script src="assets/js/reserve.659912c3e6.js" defer></script>
 </head>
 <body data-page="">
 <div class="top">
@@ -192,22 +192,22 @@
   </div>
 </nav>
 
-<div class="phead phead--rv">
-  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <span id="rvcrumb">Reserve</span></div>
-</div>
+<div class="rvpage">
+  <div class="rvcol">
+    <div class="rvtop">
+      <a class="rvexit" id="rvexit" href="shop.html">← Back</a>
+      <span class="rvstep">Reservation</span>
+    </div>
 
-<div class="rvwrap">
-  <div class="rvpiece">
-    <div class="rvid" id="rvid"></div>
-    <div class="rvshot" id="rvshot"></div>
-    <div class="rvspec" id="rvspec"></div>
-  </div>
+    <h1 class="rvh" id="rvh1">Reserve this watch</h1>
+    <p class="rvlede">Held in your name for 24 hours. No deposit, nothing charged.</p>
 
-  <aside class="rvpanel" id="rvpanel">
+    <!-- brief overview -->
+    <div class="rvcard" id="rvcard"></div>
+
+    <!-- detail collection -->
     <form id="rvform" novalidate>
-      <div class="rvph1" id="rvh1">Reserve this watch</div>
-      <p class="rvsub">Held in your name for 24 hours. No deposit, nothing charged.</p>
-      <div class="fgrid">
+      <div class="rvfields">
         <div class="f"><label for="rv-first">First name</label>
           <input id="rv-first" name="first" autocomplete="given-name" required></div>
         <div class="f"><label for="rv-last">Last name</label>
@@ -221,20 +221,20 @@
       <button class="b1 rvgo" id="rv-go" type="submit">
         <span class="lbl">Reserve it</span> <span class="a">→</span></button>
       <div class="rvassure">
-        <span><i></i>We confirm on WhatsApp within the hour.</span>
-        <span><i></i>No deposit, and nothing to cancel.</span>
-        <span><i></i>Authenticated at our own bench.</span>
+        <span>Confirmed on WhatsApp within the hour</span>
+        <span>No deposit</span>
+        <span>Authenticated at our bench</span>
       </div>
     </form>
 
     <div class="rvdone" id="rvdone" hidden>
       <div class="btick" aria-hidden="true"><span></span></div>
-      <div class="rvph1">It is held in your name.</div>
-      <p class="rvsub" id="rvdonelede"></p>
+      <h2 class="rvh">It is held in your name.</h2>
+      <p class="rvlede" id="rvdonelede"></p>
       <a class="b2 rvwide" id="rvwa" href="https://wa.me/971553892824">Message us on WhatsApp <span class="a">→</span></a>
       <p class="rvref" id="rvref"></p>
     </div>
-  </aside>
+  </div>
 </div>
 
 <footer class="foot">
