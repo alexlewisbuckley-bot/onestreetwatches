@@ -1,0 +1,161 @@
+/* ============================================================
+   THE CASE (v2) — Sellier grammar.
+   A quiet left filter rail that scrolls with the page (nothing
+   sticky, nothing to trap), a spacious 3-up grid on white.
+   ============================================================ */
+
+/* ---------- collection band ---------- */
+.phead--shop{padding:44px 52px 40px;border-bottom:none;background:var(--sand);text-align:center}
+.phead--shop h1{font-size:22px;font-weight:400;letter-spacing:.34em;text-transform:uppercase}
+.phead--shop .lede{margin:12px auto 0;max-width:520px;font-size:12.5px;color:var(--muted);line-height:1.8}
+
+/* ---------- count / sort row ---------- */
+.shopbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:16px 52px;
+ border-bottom:1px solid var(--line)}
+.shopsearch{display:flex;align-items:center;gap:10px;height:44px;flex:1;max-width:320px;min-width:180px;
+ border:1px solid var(--line2);background:var(--white);padding:0 15px;color:var(--pale);
+ transition:border-color .3s,box-shadow .3s}
+.shopsearch:hover{border-color:var(--pale)}
+.shopsearch:focus-within{border-color:var(--ink);color:var(--ink)}
+.shopsearch svg{flex:none}
+.shopsearch input{flex:1;border:none;outline:none;background:none;font:inherit;font-size:12.5px;
+ letter-spacing:.02em;color:var(--ink);min-width:0;height:100%}
+.shopsearch input::placeholder{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--pale)}
+.shopsearch input::-webkit-search-cancel-button{display:none}
+.sqclear{flex:none;width:26px;height:26px;display:none;place-items:center;font-size:14px;
+ color:var(--muted);transition:color .25s}
+.sqclear:hover{color:var(--ink)}
+.shopsearch.has .sqclear{display:grid}
+.count{font-size:12px;color:var(--muted);flex:none;letter-spacing:.04em}
+.count b{color:var(--ink);font-weight:500}
+.active{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
+.pill2{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);padding:5px 9px;
+ font-size:11.5px;color:var(--soft);cursor:pointer;background:var(--white);
+ transition:border-color .25s,color .25s}
+.pill2:hover{border-color:var(--ink);color:var(--ink)}
+.pill2 i{font-style:normal;font-size:13px;line-height:1;color:var(--pale)}
+.fclear{margin-left:auto;font-size:11px;letter-spacing:.08em;color:var(--muted);
+ border-bottom:1px solid var(--line2);padding-bottom:2px;flex:none}
+.fclear:hover{color:var(--ink);border-color:var(--ink)}
+.sortwrap{display:flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:.16em;
+ text-transform:uppercase;color:var(--muted);flex:none;margin-left:auto}
+.fclear:not([hidden]) + .sortwrap{margin-left:0}   /* a hidden Clear still matches + otherwise */
+.sortwrap select{font:inherit;font-size:12px;color:var(--ink);background-color:var(--white);
+ border:1px solid var(--line2);padding:8px 11px;outline:none;cursor:pointer;border-radius:0}
+
+/* ---------- the split: rail is a drawer, closed by default ---------- */
+.shopwrap{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;
+ padding:34px 52px 96px;align-items:start}
+.shopwrap .frail{display:none}
+.shopwrap.open{grid-template-columns:228px minmax(0,1fr)}
+.shopwrap.open .frail{display:block}
+
+.filtoggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;
+ min-width:132px;padding:0 16px;
+ border:1px solid var(--line2);background:var(--white);font-size:10.5px;letter-spacing:.18em;
+ text-transform:uppercase;color:var(--ink);transition:border-color .25s,background .25s}
+.filtoggle:hover{border-color:var(--ink)}
+.filtoggle[aria-expanded="true"]{background:var(--char);border-color:var(--char);color:#fff}
+.filtoggle b{min-width:17px;height:17px;padding:0 5px;display:grid;place-items:center;
+ background:var(--char);color:#fff;font-size:10px;font-weight:500;letter-spacing:0}
+.filtoggle[aria-expanded="true"] b{background:#fff;color:var(--char)}
+.filtoggle b[hidden]{display:none}   /* author display beats the hidden attribute otherwise */
+.locseg{display:flex;border:1px solid var(--line2);height:44px}
+.locseg button{position:relative;padding:0 16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--muted);border-right:1px solid var(--line2);transition:background .25s,color .25s;overflow:hidden}
+.locseg button:last-child{border-right:none}
+.locseg button:hover{color:var(--ink)}
+.locseg button[aria-pressed="true"]{background:var(--char);color:#fff}
+/* each country wears its colours as a fine thread along the base */
+.locseg button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+ opacity:.35;transition:opacity .3s var(--e)}
+.locseg button:hover::after,.locseg button[aria-pressed="true"]::after{opacity:1}
+.locseg button[data-l="Dubai"]::after{background:linear-gradient(90deg,
+ #EF3340 0 14%,#00843D 14% 43%,#F4F4F2 43% 71%,#141414 71% 100%)}
+.locseg button[data-l="United Kingdom"]::after{background:linear-gradient(90deg,
+ #012169 0 30%,#F4F4F2 30% 42%,#C8102A 42% 58%,#F4F4F2 58% 70%,#012169 70% 100%)}
+.locseg button[data-l=""]::after{background:linear-gradient(90deg,
+ #EF3340 0 10%,#00843D 10% 28%,#F4F4F2 28% 46%,#141414 46% 55%,
+ #012169 55% 72%,#F4F4F2 72% 82%,#C8102A 82% 100%)}
+
+/* ---------- filter rail ---------- */
+.frail{min-width:0}
+.rsec{border-bottom:1px solid var(--line);padding:2px 0 18px;margin-bottom:16px}
+.rsech{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
+ text-align:left;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+ color:var(--ink);font-weight:500;padding:6px 0 12px}
+.rsech i{font-style:normal;font-size:13px;font-weight:300;color:var(--pale)}
+.rsec:not(.open) .rsecb{display:none}
+.rsecb{padding-top:2px}
+
+.flist{max-height:224px;overflow-y:auto;overflow-x:hidden;margin:0 -4px;
+ /* the scrollbar sits inside the content box — reserve a lane on the
+    right or it lands on top of the counts */
+ padding:0 14px 0 4px;scrollbar-gutter:stable;
+ scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.flist::-webkit-scrollbar{width:4px}
+.flist::-webkit-scrollbar-thumb{background:var(--line2)}
+
+/* ---------- checkbox rows ---------- */
+.frow{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:12.5px;color:var(--soft);
+ cursor:pointer;transition:color .25s}
+.frow:hover{color:var(--ink)}
+.frow input{position:absolute;opacity:0;pointer-events:none}
+.fbx{width:14px;height:14px;border:1px solid var(--line2);flex:none;position:relative;
+ transition:background .2s,border-color .2s}
+.frow input:checked + .fbx{background:var(--char);border-color:var(--char)}
+.frow input:checked + .fbx::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:3.5px;
+ border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;
+ transform:translate(-50%,-63%) rotate(-45deg)}
+.frow .fl{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frow em{margin-left:auto;font-style:normal;font-size:10.5px;color:var(--pale)}
+.frow.on{color:var(--ink)}
+.fsw{width:13px;height:13px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.fnone{font-size:12px;color:var(--pale);line-height:1.7}
+
+/* ---------- segmented toggles ---------- */
+.segs{display:flex;flex-wrap:wrap;gap:6px}
+.segs button{border:1px solid var(--line2);padding:7px 11px;font-size:11px;color:var(--soft);
+ transition:border-color .25s,background .25s,color .25s}
+.segs button:hover{border-color:var(--ink);color:var(--ink)}
+.segs button[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff}
+
+/* ---------- dual-handle range ---------- */
+.rngval{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+ font-size:12.5px;color:var(--ink)}
+.rngval em{font-style:normal;font-size:10.5px;color:var(--pale)}
+.rnghist{display:flex;align-items:flex-end;gap:2px;height:34px;margin:12px 0 0}
+.rnghist i{flex:1;background:var(--line);min-height:2px;transition:background .25s var(--e)}
+.rnghist i.on{background:var(--line2)}
+.rnghist i.hit{background:var(--pale)}
+.rngtrack{position:relative;height:2px;background:var(--line2);margin:12px 7px 4px;touch-action:none}
+.rngfill{position:absolute;top:0;bottom:0;background:var(--char)}
+.rngh{position:absolute;top:50%;width:14px;height:14px;margin:0;padding:0;
+ transform:translate(-50%,-50%);background:#fff;border:1px solid var(--ink);cursor:grab;z-index:2;
+ box-shadow:0 1px 3px rgba(0,0,0,.15);transition:box-shadow .2s}
+.rngh:hover,.rngh:focus-visible{box-shadow:0 0 0 4px rgba(0,0,0,.07)}
+.rngh:active{cursor:grabbing}
+.rngends{display:flex;justify-content:space-between;font-size:10px;color:var(--pale);margin-top:9px}
+.rngnote{margin-top:11px;font-size:10.5px;color:var(--pale);line-height:1.6}
+.fpoph{display:none}   /* rail sections have their own headers; reset lives in the chips row */
+
+/* ---------- results ---------- */
+.results{min-width:0}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:44px 22px}
+.shopwrap.open .pgrid{grid-template-columns:repeat(3,1fr)}
+.pgrid .pcard{flex:none;width:auto}
+.pgrid .pcard[hidden]{display:none}
+.empty{padding:90px 0;text-align:center;color:var(--muted);font-size:13px}
+.pgrid .bars{left:12px;right:12px;bottom:10px}
+
+@media (max-width:1380px){.pgrid{grid-template-columns:repeat(3,1fr);gap:40px 20px}
+ .shopwrap.open .pgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1120px){.pgrid,.shopwrap.open .pgrid{grid-template-columns:repeat(2,1fr)}
+ .shopwrap{grid-template-columns:204px minmax(0,1fr);gap:32px;padding:28px 22px 72px}
+ .shopbar{padding:14px 22px}.phead--shop{padding:36px 22px 32px}}
+@media (max-width:979px){
+  .shopbar,.frail{display:none}
+  .shopwrap{display:block;padding:0}
+  .results{padding:14px 12px 40px}
+  .pgrid{grid-template-columns:1fr 1fr;gap:18px 10px}
+}

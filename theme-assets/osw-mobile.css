@@ -1,0 +1,567 @@
+/* ============================================================
+   MOBILE APP SHELL — everything below 980px
+   Desktop is untouched; all of this is gated.
+   ============================================================ */
+:root{--dock:0px;--mtop:52px}
+
+@media (max-width:979px){
+  /* the desktop chrome cannot compress below 896px and was blowing the
+     layout viewport out to 896px on a 390px phone — it is replaced, not scaled */
+  .top,nav .links,nav .tools,.mega,.scrim{display:none !important}
+
+
+
+  /* ---------- top bar: logo + one contextual action ---------- */
+  /* the desktop nav is a two-row grid in v2 — mobile flattens it back to one row */
+  nav{display:flex;align-items:center;height:var(--mtop);padding:0 16px;justify-content:space-between;
+   background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(14px);
+   -webkit-backdrop-filter:saturate(180%) blur(14px);
+   border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.stuck{border-bottom-color:var(--line)}
+  nav .logo{height:24px}
+  .mact{display:flex;align-items:center;gap:4px}
+  .mbtn{width:40px;height:40px;display:grid;place-items:center;color:var(--soft);
+   -webkit-tap-highlight-color:transparent}
+  .mbtn:active{opacity:.5}
+  .mbtn svg{width:19px;height:19px;display:block;stroke:currentColor;fill:none;
+   stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .mbtn .cnt{position:absolute;top:6px;right:5px;min-width:15px;height:15px;padding:0 4px;
+   background:var(--char);color:#fff;font-size:9px;display:grid;place-items:center}
+  .mbtn{position:relative}
+
+
+  /* ---------- full-screen menu ---------- */
+  .navmenu{position:fixed;inset:0;z-index:95;background:var(--ivory);display:none;
+   flex-direction:column;overscroll-behavior:contain}
+  .navmenu.on{display:flex}
+  .navmenu__bar{display:flex;align-items:center;justify-content:space-between;
+   padding:calc(var(--s2) + env(safe-area-inset-top)) var(--gut) var(--s3);
+   border-bottom:var(--hair);flex:none}
+  .navmenu__body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+   padding:var(--s2) var(--gut) calc(var(--s8) + env(safe-area-inset-bottom))}
+  .navbig{display:grid;gap:var(--s2);padding-top:var(--s4)}
+  .navtile{position:relative;display:block;background:var(--white);border:var(--hair);
+   box-shadow:var(--e1);padding:var(--s5) 52px var(--s5) var(--s5);min-height:76px}
+  .navtile:first-child{background-image:var(--plate)}
+  .navtile__t{display:block;font-size:var(--t-head) !important;letter-spacing:var(--ls-head);color:var(--ink)}
+  .navtile__s{display:block;margin-top:5px;font-size:var(--t-cap) !important;color:var(--muted)}
+  .navtile__a{position:absolute;right:var(--s5);top:50%;transform:translateY(-50%);
+   font-size:16px;color:var(--pale)}
+  .navtile:active{opacity:.6}
+  .navrest{margin-top:var(--s6);border-top:var(--hair)}
+  .navfoot{margin-top:var(--s6)}
+  .navgroup{padding-top:var(--s5)}
+  .navgroup .t-label{padding-bottom:var(--s2);display:block}
+  .navlink{display:flex;align-items:center;gap:var(--s3);min-height:52px;
+   border-bottom:var(--hair);font-size:var(--t-sub) !important;color:var(--ink)}
+  .navlink:active{opacity:.5}
+  .navlink.on{color:var(--muted)}
+  .navlink em{margin-left:auto;font-style:normal;font-size:var(--t-cap) !important;color:var(--pale)}
+  .navlink--w .im{width:46px;height:46px;flex:none;background-image:var(--plate);
+   border:var(--hair);display:grid;place-items:center;overflow:hidden}
+  .navlink--w .im img{width:80%;height:80%;object-fit:contain}
+  .navlink--w .tx{min-width:0;flex:1}
+  .navlink--w .n{display:block;font-size:var(--t-sec) !important}
+  .navlink--w .s{display:block;font-size:var(--t-cap) !important;color:var(--muted);margin-top:2px}
+  .navlink--w .p{flex:none;font-size:var(--t-sec) !important}
+  .navcur{display:flex;gap:var(--s2);padding-top:var(--s1)}
+  .navcur button{flex:1;min-height:48px;border:var(--hair2);background:var(--white);
+   font-size:var(--t-sec) !important;color:var(--soft)}
+  .navcur button[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff}
+  .navwa{display:flex;align-items:center;justify-content:center;gap:var(--s2);margin-top:var(--s4);
+   background:var(--char);color:#fff;min-height:52px;font-size:var(--t-sec) !important}
+  .navwa--plain{background:none;border:var(--hair2);color:var(--ink)}
+  .navmenu svg,.msearch svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;
+   stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .mfilpanel{border-top:var(--hair);padding:var(--s2) var(--gut) var(--s5);
+   background:var(--ivory);max-height:64vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .mfildone{width:100%;justify-content:center;margin-top:var(--s4);position:sticky;bottom:0}
+
+  /* ---------- full-screen search ---------- */
+  .msearch{position:fixed;inset:0;z-index:96;background:var(--ivory);display:none;
+   flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+  .msearch.on{display:flex}
+  .msbar{display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top)) 14px 12px;
+   border-bottom:1px solid var(--line);flex:none}
+  .msbar .fld{flex:1;display:flex;align-items:center;gap:9px;border:1px solid var(--line2);
+   background:var(--white);height:44px;padding:0 13px}
+  .msbar input{flex:1;border:none;outline:none;background:none;font:inherit;font-size:16px;
+   color:var(--ink);min-width:0}
+  .msbar .cancel{font-size:14px;color:var(--soft);padding:0 2px;flex:none}
+  .msres{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 16px 24px}
+
+  /* ---------- shared mobile typography floor ---------- */
+  .lede{font-size:14.5px}
+
+
+  /* icons inside sheets and the search bar need explicit sizing —
+     an unsized inline SVG defaults to 300px and starves its flex siblings */
+  .msearch svg,.mwa svg,.sheet svg{width:18px;height:18px;flex:none;display:block;
+   stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .msbar .fld svg{color:var(--pale)}
+
+  /* content pages: the two-column split and 4-up grids cannot hold their
+     minimum width at 390px and were widening the layout viewport */
+  .wrap,.pwrap{padding-left:16px;padding-right:16px;max-width:100%}
+  /* minmax(0,1fr), not 1fr: an `auto` grid minimum takes the track's
+     min-content size, and a nowrap flex child (the step chips) reports its
+     full scroll width there — which widened the track to 719px inside a
+     358px container. min-width:0 on the items closes the same hole for any
+     future horizontal rail dropped into a split. */
+  .split,.split.narrow{grid-template-columns:minmax(0,1fr) !important;gap:28px;padding:36px 0}
+  .split > *{min-width:0}
+  .cgrid,.cgrid.four{grid-template-columns:1fr 1fr !important;gap:10px}
+  .facts{grid-template-columns:1fr 1fr !important}
+  .facts > div{border-right:1px solid var(--line)}
+  .facts > div:nth-child(2n){border-right:none}
+  .fgrid{grid-template-columns:1fr !important}
+  .grid6{grid-template-columns:1fr 1fr !important}
+  body[data-page="visit"] .cgrid{grid-template-columns:1fr !important}
+  /* two-up only works for label-length cards. These hold paragraphs, and at
+     ~130px of measure they read worse and — because the rows go ragged —
+     actually run taller than a single column. */
+  body[data-page="sell"] .cgrid,body[data-page="sourcing"] .cgrid{grid-template-columns:1fr !important}
+  .loc2 .acts{flex-direction:column}
+  .loc2 .acts .b1,.loc2 .acts .b2{width:100%;justify-content:center}
+  .split h2,.cta h2{font-size:26px}
+  img,svg,video,iframe{max-width:100%}
+
+
+  /* ================= THE CASE ================= */
+  .fbar{display:none}
+  .mfil{position:sticky;top:var(--mtop);z-index:33;background:rgba(255,255,255,.94);
+   backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+   border-bottom:1px solid var(--line)}
+  .mfilrow{display:flex;align-items:center;gap:8px;padding:10px 16px}
+  .mchips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;flex:1;
+   -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .mchips::-webkit-scrollbar{display:none}
+  .mchip{flex:none;height:36px;display:inline-flex;align-items:center;padding:0 14px;
+   border:1px solid var(--line2);background:var(--white);font-size:13px;color:var(--soft);
+   white-space:nowrap;-webkit-tap-highlight-color:transparent}
+  .mchip[aria-pressed="true"]{background:var(--char);border-color:var(--char);color:#fff}
+  .mchips{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent);
+   mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent)}
+  .mfilbtn{flex:none;height:44px;display:inline-flex;align-items:center;gap:8px;padding:0 15px;
+   border:1px solid var(--ink);background:var(--white);font-size:13.5px;color:var(--ink)}
+  .mfilbtn.has{background:var(--char);border-color:var(--char);color:#fff}
+  .mfilbtn b{font-weight:500;min-width:18px;height:18px;display:grid;place-items:center;
+   background:var(--char);color:#fff;font-size:10.5px;padding:0 4px}
+  .mfilbtn.has b{background:#fff;color:var(--char)}
+  .mfilbtn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6}
+  .mcount{padding:0 16px 10px;font-size:12.5px;color:var(--muted)}
+  .mcount b{color:var(--ink);font-weight:500}
+
+  .results{padding:14px 12px calc(28px + var(--dock))}
+  .pgrid{grid-template-columns:1fr 1fr !important;gap:10px}
+  .pgrid .pbody{padding:var(--s3)}
+  .pgrid .pspec{margin-top:var(--s3);padding-top:var(--s3);gap:var(--s2) var(--s3);flex-wrap:wrap}
+  .pgrid .cond{margin-left:0}
+  .pgrid .bars{display:none}
+
+  .mfilpanel{border-top:var(--hair);padding:var(--s2) var(--gut) var(--s5);
+   background:var(--ivory);max-height:64vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .mfildone{width:100%;justify-content:center;margin-top:var(--s4);position:sticky;bottom:0}
+
+  /* filter panel groups */
+  .fsec{border-bottom:1px solid var(--line)}
+  .fsech{display:flex;align-items:center;justify-content:space-between;width:100%;
+   padding:16px 0;font-size:15px;color:var(--ink);text-align:left}
+  .fsech em{font-style:normal;margin-left:auto;margin-right:12px;font-size:12px;color:var(--pale)}
+  .fsech i{font-style:normal;font-size:18px;color:var(--pale);transition:transform .3s var(--e)}
+  .fsec.open .fsech i{transform:rotate(45deg)}
+  .fsecb{display:none;padding:0 0 18px}
+  .fsec.open .fsecb{display:block}
+  .fsecb .frow{padding:11px 0;font-size:14.5px}
+  .fsecb .fbx{width:20px;height:20px}
+  .fsecb .frow input:checked + .fbx::after{width:9px;height:4.5px}
+  .fsecb .segs button{min-height:44px;padding:0 16px;font-size:13px}
+  .fsecb .rngtrack{margin:16px 9px 6px}
+  .fsecb .rngh{width:24px;height:24px}
+  .fsecb .flist{max-height:none}
+  .fsecb .rngval{font-size:15px}
+
+  /* ================= PRODUCT ================= */
+  /* the fact strip carries every spec the table did — one of them goes */
+  .pbar,.gthumbs,.galnote,.dacts,.dbook,.buybar,.dspecs{display:none}
+  .pwrap{padding:0}
+  .pdp{grid-template-columns:1fr !important;gap:0;padding:0 0 24px}
+  .gmain{width:100%;height:auto;aspect-ratio:1/1;border:none;border-bottom:1px solid var(--line);
+   display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+   scrollbar-width:none;cursor:default}
+  .gmain::-webkit-scrollbar{display:none}
+  .gshot{position:relative;inset:auto;flex:0 0 100%;opacity:1;scroll-snap-align:center;
+   display:grid;place-items:center;transition:none}
+  .gshot img{width:82%;height:82%}
+  .gzoom,.gcount{display:none}
+  .gdots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:2px;z-index:5}
+  .gdots button{width:26px;height:26px;padding:0;background:none;border:none;position:relative}
+  .gdots button::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+   width:5px;height:5px;background:rgba(28,27,25,.22);transition:background .25s}
+  .gdots button.on::after{background:var(--char)}
+
+  .gwrap{position:relative}
+  .det{padding:22px 16px 0}
+  .det h1{font-size:26px;margin-top:8px}
+  .dprice{margin-top:18px;padding-top:16px}
+  .dprice b{font-size:26px}
+  .dspecs{grid-template-columns:1fr 1fr;column-gap:20px;margin-top:24px}
+  .dspec{font-size:12.5px;padding:10px 0}
+  .dassure{gap:12px;font-size:11px}
+  .acc{margin-top:24px}
+  .mbuy{position:fixed;left:0;right:0;bottom:0;z-index:79;display:flex;align-items:stretch;
+   gap:var(--s2);padding:var(--s2) var(--gut) calc(var(--s2) + env(safe-area-inset-bottom));
+   background:rgba(255,255,255,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+   border-top:1px solid var(--line);transform:translateY(140%);transition:transform .4s var(--e)}
+  .mbuy.on{transform:none}
+  .mbuy__wa{flex:1;display:flex;align-items:center;gap:var(--s3);background:var(--char);
+   color:#fff;padding:0 var(--s4);min-height:56px}
+  .mbuy__wa svg{width:21px;height:21px;flex:none;stroke:#fff;fill:none;stroke-width:1.5;
+   stroke-linecap:round;stroke-linejoin:round}
+  .mbuy__wa b{display:block;font-weight:400;font-size:var(--t-sec) !important}
+  .mbuy__wa em{display:block;font-style:normal;font-size:var(--t-cap) !important;
+   color:rgba(255,255,255,.6);margin-top:2px}
+  .mbuy__alt{flex:none;display:grid;place-items:center;min-width:74px;min-height:56px;
+   border:var(--hair2);background:var(--white);color:var(--ink);font-size:var(--t-sec) !important}
+
+  /* the six facts a buyer checks before asking */
+  .mfacts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:var(--s4);
+   background:var(--line);border:var(--hair)}
+  .mfact{background:var(--ivory);padding:var(--s3) var(--s2);text-align:center}
+  .mfact .v{display:block;font-size:var(--t-sec) !important;color:var(--ink);letter-spacing:-.01em}
+  .mfact .l{display:block;margin-top:3px;font-size:var(--t-label) !important;
+   letter-spacing:var(--ls-label);text-transform:uppercase;color:var(--pale)}
+
+  /* ================= HOME ================= */
+  .hero{height:auto;min-height:0;display:block}
+  .hero{display:flex;flex-direction:column}
+  .shot{margin:0;height:46vh;min-height:280px;order:1}
+  .pane{padding:var(--s6) var(--gut) 0;order:2}
+  .eyebrow{margin-bottom:14px;font-size:10px}
+  h1{font-size:34px}
+  .sub{font-size:14.5px;margin-top:14px}
+  .card{display:none}
+  .stats{gap:var(--s6);flex-wrap:wrap}
+  .acts{margin-top:var(--s5);gap:var(--s3);flex-wrap:wrap}
+
+  .hero .thumbs{gap:5px}
+  .spot{width:30px;height:30px}
+  .sec,.band{padding:44px 16px 0}
+  .sec.last{padding-bottom:56px}
+  .shead{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:20px}
+  .shead h2{font-size:26px}
+  .shead .rt{width:100%;justify-content:space-between}
+  .rail{margin:0 -16px;padding:0 16px}
+  .track{scroll-padding-left:16px}
+  /* authentication: six taps, not six paragraphs */
+  .msteps{display:block;min-width:0}
+  .mstepchips{display:flex;min-width:0;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+   margin:0 calc(var(--gut) * -1);padding:0 var(--gut) var(--s4);scroll-padding-left:var(--gut)}
+  .mstepchips::-webkit-scrollbar{display:none}
+  .mstepchips button{flex:none;min-height:52px;padding:0 var(--s4);border:var(--hair2);
+   background:var(--white);display:flex;align-items:center;gap:var(--s2);white-space:nowrap;
+   scroll-snap-align:start;transition:background var(--m),border-color var(--m),color var(--m)}
+  .mstepchips button b{font-weight:400;font-size:var(--t-cap) !important;color:var(--pale)}
+  .mstepchips button span{font-size:var(--t-sec) !important;color:var(--soft)}
+  .mstepchips button[aria-selected="true"]{background:var(--char);border-color:var(--char)}
+  .mstepchips button[aria-selected="true"] b{color:rgba(255,255,255,.55)}
+  .mstepchips button[aria-selected="true"] span{color:#fff}
+  .msteppanel{border:var(--hair);background:var(--white);padding:var(--s5);min-height:92px}
+  .msteppanel h4{font-size:var(--t-head) !important;letter-spacing:var(--ls-head);font-weight:400}
+  .msteppanel p{margin-top:var(--s2);font-size:var(--t-sec) !important;line-height:1.7;color:var(--soft)}
+  .guarantee{grid-template-columns:1fr;gap:20px}
+  .rvscore{grid-template-columns:1fr;gap:16px;padding:18px 16px}
+  .rvsrc{flex-direction:row;gap:var(--s6);text-align:left}
+  .rv{flex-basis:82vw;padding:20px}
+  .svcs{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+   margin:0 -16px;padding:0 16px;scrollbar-width:none}
+  .svcs::-webkit-scrollbar{display:none}
+  .svc{flex:0 0 78vw;scroll-snap-align:start}
+  .bcard,.pcard{scroll-snap-align:start}
+
+  /* kill hover-only affordances */
+  .pcta{display:none}
+  .hint{font-size:11px}
+}
+
+/* the dock and sheets never exist on desktop */
+@media (min-width:980px){.sheet,.msearch,.mact,.navmenu{display:none !important}}
+
+@media (prefers-reduced-motion:reduce){
+  .sheetbody,.sheetbg,.dock a{transition-duration:.01ms !important}
+}
+
+/* ============================================================
+   SYSTEM BRIDGE — legacy components adopt the design language.
+   Loaded last so it wins over every page stylesheet.
+   ============================================================ */
+@media (max-width:979px){
+
+  /* ---- one gutter, everywhere ---- */
+  .wrap,.pwrap,.sec,.band,.phead,.results,.fbarin,.fbar2,.bwrap,.film,.cta .wrap,
+  .rvscore,.mcount{padding-left:var(--gut) !important;padding-right:var(--gut) !important}
+  .rail,.svcs,.c-rail{margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1);
+   padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
+  .pane{padding-left:var(--gut);padding-right:var(--gut)}
+  .det{padding-left:var(--gut);padding-right:var(--gut)}
+  .sec,.band,.split,.rel{padding-top:var(--s8) !important}
+  .phead{padding-top:var(--s6) !important;padding-bottom:var(--s6) !important}
+  .results{padding-top:var(--s5) !important}
+  .cta{padding-top:var(--s8) !important;padding-bottom:var(--s8) !important}
+  .bwrap{padding-top:var(--s6) !important}
+  .split{padding:var(--s7) 0}
+  .cta{padding:var(--s8) 0}
+
+  /* ---- one type scale ---- */
+  h1,.phead h1{font-size:var(--t-display) !important;line-height:var(--lh-display);letter-spacing:var(--ls-display)}
+  h2,.shead h2,.split h2,.cta h2,.bh,.sellbd h2,.conc h2{font-size:var(--t-title) !important;
+   line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+  h3,.ccard h3,.acard h3,.loc2 h3,.svc h3,.rv h3,.btype h3,.form h3,.nrow h4,.ss h4{
+   font-size:var(--t-head) !important;line-height:var(--lh-head);letter-spacing:var(--ls-head)}
+  .lede,.lead,.sub,.copy p,.split p,.cta p,.blede,.rv p,.svc p,.conc .lead{
+   font-size:var(--t-body) !important;line-height:var(--lh-body)}
+  .shead p,.ccard p,.acard p,.loc2 .addr,.btype p,.accb,.bnote,.nrow p,.ss p,.stept,.stepd,
+  .sellnote,.concnote .l,.faq p{font-size:var(--t-sec) !important;line-height:var(--lh-sec)}
+  /* dense metadata floors at 12 — it was as low as 8.5 */
+  .pmeta,.bcount,.inc,.cond,.stat .l,.claims,.rvm,.rvv,.dassure,.dspec,.pill2,.slotcount,
+  .rngends,.rngnote,.calkey,.mrow em,.bsrow,.note,.hint,.m,.filmcap span,.acard .m,
+  .galnote,.dfin,.dfair,.crumbs,.count,.sortwrap,.c-row__s,.mchip,.slot,.fchip,.ptag,
+  .bcard .r,.bsassure,.tp,.loc,.pspec,.dstate div{font-size:var(--t-cap) !important;line-height:var(--lh-cap)}
+  /* uppercase labels are the one permitted 11px */
+  .pbrand,.mh,.msub,.sughead,.eyebrow,.conceye,.bsh,.dbrand,.acard .k,.btype .k,.t-label,
+  .f label,.bform label,.fkit label,.caldow span,.fpoph,.fhead,.slotday{
+   font-size:var(--t-label) !important;line-height:var(--lh-label);letter-spacing:var(--ls-label)}
+  .slotday{letter-spacing:var(--ls-sub);font-size:var(--t-sub) !important;text-transform:none}
+
+  /* ---- one button ---- */
+  .b1,.b2,.cbtn,.form .b1,.bsubmit,.mwa,.dacts .b1,.dacts .b2{min-height:var(--tap-lg);
+   padding:0 var(--s5);font-size:var(--t-sec) !important;display:inline-flex;align-items:center;
+   justify-content:center;gap:var(--s3)}
+  .cta .row{flex-direction:column;gap:var(--s2)}
+  .cta .row .b1,.cta .row .b2{width:100%}
+  .tlink,.go,.fclear,.bback,.dbook{min-height:var(--tap);display:inline-flex;align-items:center;
+   font-size:var(--t-sec) !important}
+
+  /* ---- one row ---- */
+  .nrow,.gline,.ss,.step,.frow,.mrow,.dspec,.acci .acch,.bcard .r,.bsrow{
+   min-height:var(--tap-lg)}
+  .nrow,.ss{padding:var(--s4) 0;gap:var(--s4)}
+  .gline{padding:var(--s3) 0}
+  .facts > div{padding:var(--s4)}
+
+  /* ---- one accordion ---- */
+  .acch{min-height:var(--tap-lg);padding:var(--s4) 0;font-size:var(--t-sub) !important}
+  .acci.open .acch{padding-left:var(--s4);padding-right:var(--s4)}
+  .accb{padding:0 var(--s4) var(--s4)}
+
+  /* ---- one form: 16px so iOS never zooms on focus ---- */
+  input,select,textarea,.f input,.f select,.f textarea,.bform input,.bform select,.bform textarea,
+  .sortwrap select{font-size:16px !important;min-height:var(--tap-lg);
+   padding-left:var(--s3);padding-right:var(--s3)}
+  textarea,.f textarea,.bform textarea{padding-top:var(--s3);padding-bottom:var(--s3);min-height:104px}
+  .fgrid,.bform .fgrid{gap:var(--s4)}
+  .f,.c-field{gap:var(--s2)}
+  .fkit{gap:var(--s4)}
+  .fkit label{min-height:var(--tap)}
+  .fkit .bx2{width:20px;height:20px}
+
+  /* ---- section heads read the same everywhere ---- */
+  .shead,.c-sechead{margin-bottom:var(--s5)}
+  .phead{padding-top:var(--s6);padding-bottom:var(--s6)}
+  .phead .lede{margin-top:var(--s3);max-width:38ch}
+
+
+  .rel{padding-top:var(--s7);border-top:var(--hair)}
+  .rel .pwrap{padding-bottom:var(--s8)}
+  .reltrack{gap:var(--s3);margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1);
+   padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
+  .reltrack .pcard{flex:0 0 46% !important}
+
+  /* ---- card internals follow the scale, not a bespoke density ---- */
+  .pgrid .pbrand,.pcard .pbrand{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
+  .pgrid .pmodel,.pcard .pmodel{font-size:var(--t-sub) !important;letter-spacing:var(--ls-sub)}
+  .pgrid .pprice,.pcard .pprice{font-size:var(--t-sub) !important;margin-top:4px}
+  .pgrid .pmeta,.pcard .pmeta,.pgrid .inc,.pcard .inc{font-size:var(--t-cap) !important}
+  .pgrid .cond,.pcard .cond{font-size:var(--t-cap) !important;padding:3px 7px}
+  .ptag,.pgrid .ptag{font-size:var(--t-label) !important;letter-spacing:var(--ls-label);padding:4px 8px}
+
+  /* ---- placeholder frames are scaffolding, but users still read them ---- */
+  .ph .l1{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
+  .ph .l2{font-size:var(--t-cap) !important;line-height:var(--lh-cap)}
+  .gthumb span,.im span,.rvav,.bgo,.k,.rvcnt,.dbrand,.eyebrow,.note,.m{font-size:var(--t-cap) !important}
+  .rvav{font-size:var(--t-cap) !important}
+  .dock a span{font-size:var(--t-label) !important;letter-spacing:.02em;text-transform:none}
+  .gshot .ph .l1{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
+  .gshot .ph .l2,.gline span i,.bbl .m,.filmtxt p{font-size:var(--t-cap) !important}
+  .bsteps b{font-size:var(--t-label) !important}
+  nav > a:first-child{min-height:var(--tap);display:flex;align-items:center}
+
+  /* ---- every control reaches 44px ---- */
+  .mbtn{width:var(--tap);height:var(--tap)}
+  .mchip,.c-chip{min-height:var(--tap)}
+  .spot{width:var(--tap);height:var(--tap)}
+  .calnav,.sheetx,.arrows button,.gdots button{width:var(--tap);height:var(--tap);min-height:var(--tap)}
+  .frow,.fkit label,.fsecb .frow{min-height:48px}
+  .slot,.segs button,.fchip,.pill2{min-height:var(--tap)}
+  /* The day cell carries both a 1/.86 aspect-ratio and a 44px tap minimum.
+     Together they forced every cell to 44/.86 = 51px WIDE, so seven columns
+     measured 382px inside a 284px grid and Sunday fell off the screen.
+     Height keeps the tap target; width goes back to the column. */
+  .cday{aspect-ratio:auto;min-height:var(--tap);font-size:13px !important}
+  .caldow,.calgrid{grid-template-columns:repeat(7,minmax(0,1fr)) !important;gap:3px}
+  .cal{padding:14px}
+  /* two faces in one panel: month, then the times for the day chosen */
+  .calface{display:none;align-items:center;justify-content:space-between;gap:12px;
+   padding-bottom:12px;margin-bottom:12px;border-bottom:var(--hair)}
+  .cal.times .calface{display:flex}
+  .calbackb{min-height:var(--tap);font-size:var(--t-cap) !important;color:var(--muted);
+   display:inline-flex;align-items:center}
+  .calbackb:active{opacity:.5}
+  .calfaced{font-size:var(--t-sub) !important;color:var(--ink);text-align:right}
+  .cal.times .calhead,.cal.times .caldow,.cal.times .calgrid,.cal.times .calkey{display:none}
+  .cal.times .slots{margin-top:0}
+  .cal.times .slothead{display:none}   /* the face header already names the day */
+  .caldow span{padding:4px 0}
+  .cday.free::after{bottom:5px}
+  .th{min-height:var(--tap)}
+
+  /* ---- nothing may widen the layout viewport ---- */
+  html,body{max-width:100%;overflow-x:hidden}
+  .results,.wrap,.pwrap,.c-section,.cgrid,.pgrid,.grid6,.facts,.fgrid{min-width:0;max-width:100%}
+  .pgrid > *,.cgrid > *,.grid6 > *,.facts > *{min-width:0}
+  .c-rail,.rail,.reltrack,.track,.svcs,.mchips,.c-chips{max-width:100vw}
+  .c-section > .c-rail{margin-left:calc(var(--gut) * -1);margin-right:calc(var(--gut) * -1)}
+  .ccard,.c-card,.loc2,.acard{min-width:0;overflow-wrap:anywhere}
+
+  /* ---- final normalisation: everything lands on the eight steps ---- */
+  .facts .v,.stat .v,.concnote .v,.dprice b,.pdp h1,.c-stat__v{font-size:var(--t-title) !important;
+   line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+  .acch i,.fsech i,.c-acc__h i{font-size:var(--t-head) !important}
+  .rvn,.dref,.b1,.b2,.cbtn,.bsubmit,.tlink,.go,.count,.sortwrap,.slotcount,
+  .bback,.fclear,.dbook,button,.pill2{font-size:var(--t-sec) !important}
+  .lede,.lead,.sub,.note,.ccard .price,.bsteps li{font-size:var(--t-body) !important}
+  .ccard .price,.c-price__v{font-size:var(--t-head) !important}
+  .bsteps li{font-size:var(--t-cap) !important}
+  .bsteps li b{font-size:var(--t-label) !important}
+  .note,.sub{font-size:var(--t-sec) !important}
+  h3,.ccard h3,.acard h3,.loc2 h3,.svc h3,.rv h3,.btype h3,.form h3{font-size:var(--t-head) !important}
+  .money,.pprice,.dprice b{letter-spacing:var(--ls-title)}
+
+  /* separators dangle at the end of a wrapped line — space the claims instead */
+  .claims{gap:var(--s2) var(--s5)}
+  .claims i{display:none}
+  .dassure{gap:var(--s2) var(--s5)}
+
+  /* ================= SELL & SOURCING ================= */
+  body[data-page="sell"] .form,body[data-page="sourcing"] .form,
+  body[data-page="sell"] .cta,body[data-page="sourcing"] .cta{display:none}
+  .mflow{padding:var(--s6) var(--gut) var(--s7);border-bottom:var(--hair)}
+  .mfield{margin-bottom:var(--s5)}
+  .mfield .t-label{display:block;margin-bottom:var(--s3)}
+  .mchipset{display:flex;flex-wrap:wrap;gap:var(--s2)}
+  .mchip2{min-height:var(--tap);padding:0 var(--s4);border:var(--hair2);background:var(--white);
+   font-size:var(--t-sec) !important;color:var(--soft);
+   transition:background var(--m),border-color var(--m),color var(--m)}
+  .mchip2.on{background:var(--char);border-color:var(--char);color:#fff}
+  .mtext{width:100%;min-height:var(--tap-lg);border:var(--hair2);background:var(--white);
+   padding:0 var(--s4);font:inherit;font-size:16px !important;color:var(--ink);outline:none}
+  .mtext:focus{border-color:var(--ink)}
+  /* "Other" is a question, not an answer — tapping it opens the field that
+     holds the real one. Hidden until asked so the form stays four taps long. */
+  .mother{display:none}
+  .mfield.askother .mother{display:block;margin-top:var(--s3)}
+  .mflowgo{width:100%;min-height:56px;display:flex;align-items:center;justify-content:center;
+   gap:var(--s3);background:var(--char);color:#fff;font-size:var(--t-sec) !important;
+   margin-top:var(--s2);transition:opacity var(--m)}
+  .mflowgo[disabled]{opacity:.35}
+  .mflownote{margin-top:var(--s3);font-size:var(--t-cap) !important;color:var(--muted);line-height:1.65}
+
+  /* ================= BOOKING ================= */
+  .bwrap{display:block;padding:0 0 var(--s8)}
+  .bside{display:none}                 /* the summary belonged after a choice, not before one */
+  .bsteps{display:none}                /* numbered rail wrapped and clipped */
+  .bmain{padding:0}
+  body[data-page="visit"] .phead p.lede{display:none}
+  /* three steps again, so the slim progress bar earns its place */
+  .bprog{display:flex;gap:4px;padding:var(--s4) var(--gut) 0}
+  .bprog i{flex:1;height:2px;background:var(--line);transition:background var(--m)}
+  .bprog i.on{background:var(--char)}
+  .bsum{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);padding:var(--s3) var(--gut) 0;
+   font-size:var(--t-cap) !important;color:var(--muted)}
+  .bsum span:not(:last-child)::after{content:" ·";color:var(--line2)}
+  .bstep{padding:0 var(--gut);min-height:0}
+  .bnav{flex-direction:column-reverse;align-items:stretch;gap:var(--s4)}
+  .bnav .b1,.bnav .bsubmit{width:100%;min-width:0}
+  .bnav .bback{align-self:flex-start}
+  .bh{margin:var(--s5) 0 var(--s4);font-size:var(--t-title) !important}
+
+  /* viewing type — full-width rows, not 176px cards */
+  /* the toggles stack and each half fills the row */
+  .btogs{flex-direction:column;gap:var(--s5)}
+  .btog{width:100%}
+  .btog button{flex:1;padding:0 var(--s3);min-height:var(--tap);
+   font-size:var(--t-sec) !important;text-align:center}
+  .btogmeta{margin-top:var(--s4);font-size:var(--t-cap) !important;line-height:1.6}
+  .btype .m{margin-top:var(--s1);padding-top:0;font-size:var(--t-cap) !important}
+
+  /* dates as a rail; the month grid is opt-in */
+  .bwhen{display:block}
+  .drail{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+   margin:0 calc(var(--gut) * -1);padding:0 var(--gut) var(--s3);scroll-padding-left:var(--gut)}
+  .drail::-webkit-scrollbar{display:none}
+  .dday{flex:none;width:60px;min-height:76px;border:var(--hair2);background:var(--white);
+   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+   scroll-snap-align:start;transition:background var(--m),border-color var(--m)}
+  .dday .dw{font-size:var(--t-label) !important;letter-spacing:.08em;text-transform:uppercase;color:var(--pale)}
+  .dday .dn{font-size:var(--t-head) !important;color:var(--ink);letter-spacing:-.02em}
+  .dday .dm{font-size:var(--t-label) !important;color:var(--pale);text-transform:uppercase;letter-spacing:.08em}
+  .dday.off{opacity:.32}
+  .dday.sel{background:var(--char);border-color:var(--char)}
+  .dday.sel .dw,.dday.sel .dn,.dday.sel .dm{color:#fff}
+  .dmore{min-height:var(--tap);font-size:var(--t-cap) !important;color:var(--muted);
+   border-bottom:var(--hair2);padding-bottom:2px}
+  .cal{display:none;margin-top:var(--s4)}
+  .cal.on{display:block}
+  .slothead{margin-top:var(--s5)}
+  .slotlist{grid-template-columns:repeat(3,1fr);gap:var(--s2);max-height:none;margin-top:var(--s3)}
+  .slot{min-height:var(--tap-lg)}
+  .slottz{margin-top:var(--s4)}
+  .bnav{margin-top:var(--s5)}
+  .bform .fgrid{grid-template-columns:1fr}
+  .bdoneacts{flex-direction:column}
+  .bdoneacts .b1,.bdoneacts .b2{width:100%;min-width:0}
+
+  /* ---- footer: was 1504px on a 844px screen ---- */
+  footer.foot{padding:var(--s7) var(--gut) 0 !important}
+  .fmain{padding-bottom:var(--s6) !important;gap:var(--s6) !important}
+  .fcols{grid-template-columns:1fr 1fr !important;gap:var(--s5) var(--s4) !important;align-items:start}
+  .fcol{align-self:start}
+  .flocs{padding:var(--s6) 0 !important;gap:var(--s5) !important}
+  .floc h5{margin-bottom:var(--s2)}
+  .floc p:empty{display:none}
+  .floc h5 + .fwa{margin-top:var(--s3)}
+  .floc p{line-height:1.7}
+  .fbot{padding:var(--s5) 0 var(--s6) !important;gap:var(--s3) !important}
+  .fbot .lks{gap:var(--s3) var(--s4) !important}
+  /* every footer link was a 14–25px tall target. Padding, not font size:
+     the type stays quiet, the thumb gets 44px. */
+  .fcol a{padding:var(--s3) 0 !important;min-height:var(--tap);display:flex;align-items:center}
+  .fbot .lks a,.floc a:not(.fwa){display:inline-flex;align-items:center;min-height:var(--tap)}
+  .fsocial a{min-height:var(--tap);display:inline-flex;align-items:center}
+  .pill{min-height:var(--tap)}
+  .floc a.fwa{min-height:var(--tap)}
+  .crumbs a{display:inline-flex;align-items:center;min-height:var(--tap)}
+  .crumbs{display:flex;align-items:center;flex-wrap:wrap}
+  .fnews{margin-top:var(--s4)}
+  .fsocial{margin-top:var(--s4)}
+
+  /* ---- closing CTA bands duplicate the top action: gone ---- */
+  .cta{border-top:var(--hair);background:none}
+  .cta p{max-width:34ch}
+
+  /* ---------- mobile number control ---------- */
+  .telrow{max-width:none}
+  .telnum{min-height:var(--tap)}
+  .tellist{width:min(310px,calc(100vw - 32px))}
+  .telmail{margin-top:10px}
+}
