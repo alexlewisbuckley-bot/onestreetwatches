@@ -57,6 +57,16 @@
         <input class="qtext" id="q-contact" type="text" autocomplete="email"
                placeholder="Email address or phone number">
       </div>
+
+      <!-- the action, where the form actually ends. The summary rail is sticky
+           but cannot travel past its container, so it drifts out of reach over
+           the last stretch — this is the button that is under your cursor when
+           you finish typing. -->
+      <div class="qsend">
+        <button class="cswa" id="cssubmit2" disabled>Send enquiry <span class="a">→</span></button>
+        <button class="cswa cswa--ghost" id="cswa2" disabled>Or get a valuation on WhatsApp</button>
+        <p class="qsendn">A firm number within 24 hours.</p>
+      </div>
     </div>
 
     <aside class="cs">

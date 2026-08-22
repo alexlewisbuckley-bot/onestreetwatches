@@ -116,8 +116,11 @@ function initComposer(box){
   const other=document.getElementById('q-brand-other');
   const model=document.getElementById('q-model');
   const contact=document.getElementById('q-contact');
-  const send=document.getElementById('cssubmit');
-  const wa=document.getElementById('cswa');
+  /* the action exists twice — in the sticky rail and at the foot of the
+     questions — so treat them as one control rather than two code paths */
+  const sends=[...document.querySelectorAll('#cssubmit,#cssubmit2')];
+  const was=[...document.querySelectorAll('#cswa,#cswa2')];
+  const send=sends[0], wa=was[0];
   const err=document.getElementById('cserr');
 
   const put=(id,txt)=>{
@@ -148,14 +151,39 @@ function initComposer(box){
     put('s-photos',PHOTOS.length?PHOTOS.length+' attached':'');
     put('s-contact',V.contact);
     const base=V.brand && V.model.length>1;
-    send.disabled=!(base && contactOK(V.contact)) || SENDING;
-    wa.disabled=!base;
-    wa.onclick=base?()=>{ location.href=waURL(
-      `Hello — I would like a valuation.\n\n${V.brand} ${V.model}\n`+
-      `Year: ${V.year||'not sure'}\nCondition: ${V.cond||'—'}\n`+
-      `Box: ${V.box||'—'}  ·  Papers: ${V.papers||'—'}\n`+
-      `Proof of purchase: ${V.proof||'—'}  ·  Unworn with stickers: ${V.unworn||'—'}\n\n`+
-      `I will send photographs next.`);}:null;
+    const ready=!(base && contactOK(V.contact)) || SENDING;
+    sends.forEach(b=>b.disabled=ready);
+    was.forEach(b=>{
+      b.disabled=!base;
+      b.onclick=base?()=>{ location.href=waURL(waMessage()); }:null;
+    });
+  };
+
+  /* everything they typed travels with them into the chat, so nobody has to
+     ask "what is it and what comes with it" a second time. Only answered
+     questions appear — a half-filled form should not read as a form. */
+  const waMessage=()=>{
+    const yn=v=>v==='yes'?'Yes':v==='no'?'No':null;
+    const L=[];
+    L.push('Hello — I would like a valuation.');
+    L.push('');
+    L.push(`Watch: ${[V.brand,V.model].filter(Boolean).join(' ')}`);
+    if(V.year)  L.push(`Year: ${V.year}`);
+    if(V.cond)  L.push(`Condition: ${V.cond}`);
+    const kit=[];
+    if(yn(V.box))    kit.push(`Box: ${yn(V.box)}`);
+    if(yn(V.papers)) kit.push(`Papers: ${yn(V.papers)}`);
+    if(kit.length) L.push(kit.join('  ·  '));
+    const extra=[];
+    if(yn(V.proof))  extra.push(`Proof of purchase: ${yn(V.proof)}`);
+    if(yn(V.unworn)) extra.push(`Unworn, stickers intact: ${yn(V.unworn)}`);
+    if(extra.length) L.push(extra.join('  ·  '));
+    if(V.contact) L.push(`Contact: ${V.contact}`);
+    L.push('');
+    L.push(PHOTOS.length
+      ? `I have ${PHOTOS.length} photograph${PHOTOS.length>1?'s':''} to send — attaching them now.`
+      : 'I will send photographs next.');
+    return L.join('\n');
   };
 
   box.querySelectorAll('.qchips').forEach(set=>{
@@ -203,10 +231,10 @@ function initComposer(box){
   dz.addEventListener('drop',e=>addFiles(e.dataTransfer.files));
 
   /* ---------- submit ---------- */
-  send.addEventListener('click',async()=>{
+  const doSend=async()=>{
     if(send.disabled) return;
     SENDING=true; err.hidden=true;
-    send.innerHTML='Sending…'; send.disabled=true;
+    sends.forEach(b=>{ b.innerHTML='Sending…'; b.disabled=true; });
     try{
       const r=await fetch('/api/enquiry',{method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -220,13 +248,16 @@ function initComposer(box){
         <p class="csdone">Thank you — your ${V.brand} ${V.model} is with us.
         A firm number goes to <b>${V.contact}</b> within 24 hours.</p>
         <a class="csalt" href="shop.html">Browse all watches while you wait</a>`;
+      const foot=document.querySelector('.qsend');
+      if(foot) foot.innerHTML='<p class="qsendn">Sent — a firm number is on its way to '+V.contact+'.</p>';
     }catch(e){
       SENDING=false;
-      send.innerHTML='Send enquiry <span class="a">→</span>';
+      sends.forEach(b=>b.innerHTML='Send enquiry <span class="a">→</span>');
       err.hidden=false;
       refresh();
     }
-  });
+  };
+  sends.forEach(b=>b.addEventListener('click',doSend));
 
   setYear(null,{quiet:true});
   refresh();

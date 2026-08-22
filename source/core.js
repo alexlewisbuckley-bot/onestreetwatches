@@ -5,8 +5,17 @@
 /* WhatsApp — the only conversion on this site. One source of truth.
    Short links carry the business's own pre-set greeting; ?text= is honoured
    by most clients but is only guaranteed on a wa.me/<number> link. */
+/* WhatsApp: a wa.me/message/<code> vanity link opens the chat but SILENTLY
+   DROPS ?text=, so every prefilled message we built was being thrown away.
+   Prefill only works on a number link — wa.me/<E.164 digits>?text=…
+   Put the boutique's WhatsApp number here (digits only, no + or spaces,
+   e.g. '9715XXXXXXXX') and every prefilled message on the site starts working. */
+const WA_PHONE = '';
 const WA_LINK = 'https://wa.me/message/55ILJOASJYUAD1';
-const waURL = msg => WA_LINK + (msg ? '?text=' + encodeURIComponent(msg) : '');
+const waCanPrefill = () => !!WA_PHONE;
+const waURL = msg =>
+  WA_PHONE ? 'https://wa.me/' + WA_PHONE + (msg ? '?text=' + encodeURIComponent(msg) : '')
+           : WA_LINK;      /* no number yet — send them to the chat, unprefilled */
 
 const RATE = 4.70;                      // AED per GBP (indicative — replace with a live feed)
 let CUR = localStorage.getItem('osw-cur') || 'AED';
