@@ -33,18 +33,24 @@ function paintItem(){
   const it=RV.item, isBag=RV.kind==='bag';
   /* name it before you show it — a photograph beside a form, with the brand
      and the price below the fold, asks people to reserve something unnamed */
-  const chips = isBag
-    ? [it.colour, it.leather, it.hw+' hardware', it.size, it.c]
-    : [it.y, it.mat, it.size+' mm', it.c,
-       it.box&&it.pap ? 'Full set' : it.box ? 'Box only' : it.pap ? 'Papers only' : 'Watch only'];
+  /* the long catalogue title is written for a card, not a headline — as an h1
+     it reads as a spec dump. Brand and model lead; the specification follows
+     quietly on one line. */
+  const head = isBag ? `Hermès ${it.fam}` : `${it.b} ${it.m}`;
+  const sub  = isBag
+    ? [it.colour, it.leather, it.hw+' hardware', 'Size '+it.size, it.y].filter(Boolean).join('  ·  ')
+    : ['Ref. '+it.r, it.y, it.mat, it.size+' mm'].filter(Boolean).join('  ·  ');
+  const kitLine = it.box&&it.pap ? 'Full set' : it.box ? 'Box only' : it.pap ? 'Papers only'
+                : (isBag ? 'Bag only' : 'Watch only');
   document.getElementById('rvid').innerHTML=`
     <div class="rvbrand">${isBag?'Hermès':it.b}</div>
-    <h1 class="rvname">${it.t || rvTitle()}</h1>
+    <h1 class="rvname">${isBag?it.fam:it.m}</h1>
+    <div class="rvsubline">${sub}</div>
     <div class="rvmeta">
       <span class="rvprice money" data-aed="${it.aed}">${money(it.aed)}</span>
+      <span class="rvtags"><em>${it.c}</em><em>${kitLine}</em></span>
       <span class="rvloc"><i></i>In stock — ${it.loc}</span>
-    </div>
-    <div class="rvchips">${chips.filter(Boolean).map(c=>`<span>${c}</span>`).join('')}</div>`;
+    </div>`;
 
   const im=(it.ims||[]).find(x=>x.img);
   document.getElementById('rvshot').innerHTML = im
@@ -52,8 +58,10 @@ function paintItem(){
     : `<div class="rvph"><span>${isBag?'Hermès':it.b}</span></div>`;
 
   const rows = isBag
-    ? [['Model',it.fam],['Colour',it.colour],['Leather',it.leather],
-       ['Hardware',it.hw],['Size',it.size],['Condition',it.c],['Held in',it.loc]]
+    ? [['Model',it.fam],['Colour',it.colour],['Leather',it.leather],['Hardware',it.hw],
+       ['Size',it.size+' cm'],['Year',it.y],['Condition',it.c],
+       ['Box &amp; papers', it.box&&it.pap?'Full set':it.box?'Box only':it.pap?'Papers only':'Bag only'],
+       ['Held in',it.loc]]
     : [['Reference',it.r],['Year',it.y],['Material',it.mat||'—'],
        ['Case size',it.size+' mm'],['Dial',it.dial],['Condition',it.c],
        ['Box &amp; papers', it.box&&it.pap?'Full set':it.box?'Box only':it.pap?'Papers only':'Watch only'],
