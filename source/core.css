@@ -152,7 +152,7 @@ h1 span{color:var(--pale)}
 .telmail{margin-top:8px}
 
 /* inside the compact booking / join panels the control fills the column */
-.bptel{margin-bottom:8px}
+.bptel{margin-top:10px}   /* match the .bpin rhythm above and below */
 .bptel .telrow{max-width:none;gap:6px}
 .bptel .telbtn{min-height:42px;padding:0 10px;font-size:12px;gap:6px}
 .bptel .telrow .telnum{flex:1;min-width:0;margin-top:0}
