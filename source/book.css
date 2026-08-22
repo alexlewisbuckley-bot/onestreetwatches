@@ -3,8 +3,8 @@
    ============================================================ */
 /* the page header used to run h1 + a two-line lede + generous padding, which
    pushed the first decision under the fold. Booking gets a compact head. */
-.phead--book{padding-top:22px;padding-bottom:18px}
-.phead--book h1{font-size:30px;margin-bottom:7px}
+.phead--book{padding-top:18px;padding-bottom:14px}
+.phead--book h1{font-size:28px;margin-bottom:6px}
 .phead--book .lede{font-size:13px;max-width:60ch;margin-top:0}
 
 .bwrap{max-width:1420px;margin:0 auto;padding:28px 52px 88px;
@@ -12,7 +12,7 @@
 .bmain{min-width:0}
 
 /* ---------- step rail ---------- */
-.bsteps{list-style:none;display:flex;gap:0;margin-bottom:24px;border-bottom:1px solid var(--line)}
+.bsteps{list-style:none;display:flex;gap:0;margin-bottom:18px;border-bottom:1px solid var(--line)}
 .bsteps li{display:flex;align-items:center;gap:10px;padding:0 22px 14px 0;margin-right:22px;
  font-size:12px;color:var(--pale);position:relative}
 .bsteps li b{width:22px;height:22px;flex:none;display:grid;place-items:center;font-weight:400;
@@ -27,17 +27,21 @@
 .bsteps li.on::after{content:"";position:absolute;left:0;right:22px;bottom:-1px;height:1px;background:var(--char)}
 
 .bstep{display:none;animation:bfade .35s var(--e)}
+.bstep:focus{outline:none}
 .bstep.on{display:block}
 /* exactly one step is on screen, so no stacking rules and no hairline */
 .bdone{border-top:none;margin-top:0;padding-top:0}
 
 /* ---------- where and how ---------- */
 .bchoose{padding-bottom:2px}
+/* the format switch and what it means read as one line above the calendar */
+.bchoose--row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.bchoose--row .btogmeta{margin-top:0}
 .btogs{display:flex;gap:44px;flex-wrap:wrap}
 .btogl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
  margin-bottom:10px}
 .btog{display:flex;border:1px solid var(--line2)}
-.btog button{min-height:54px;padding:0 24px;font-size:13px;color:var(--soft);
+.btog button{min-height:46px;padding:0 20px;font-size:12.5px;color:var(--soft);
  border-right:1px solid var(--line2);white-space:nowrap;
  transition:background .25s,color .25s}
 .btog button:last-child{border-right:none}
@@ -47,7 +51,7 @@
 @keyframes bfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .bh{font-size:26px;font-weight:300;letter-spacing:-.03em;margin-bottom:22px}
 .blede{font-size:14px;color:var(--soft);line-height:1.75;max-width:52ch}
-.bnav{margin-top:30px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+.bnav{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;
  flex-wrap:wrap}
 .bnav .b1{min-width:240px;justify-content:center}
 .bnav .b1[disabled]{opacity:.5;cursor:default}
@@ -71,7 +75,7 @@
 
 /* ---------- 2 · calendar + slots ---------- */
 .bwhen{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:36px;align-items:start}
-.cal{border:1px solid var(--line);background:var(--white);padding:18px;box-shadow:var(--e1)}
+.cal{border:1px solid var(--line);background:var(--white);padding:14px;box-shadow:var(--e1)}
 .calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .calmonth{font-size:15px;letter-spacing:-.015em}
 .calnav{width:32px;height:32px;border:1px solid var(--line2);display:grid;place-items:center;
@@ -84,7 +88,7 @@
  color:var(--pale);padding:6px 0}
 /* the month grid was the tallest thing on the page — six rows of near-square
    cells. Flatter cells keep the step, and its Continue, in the first screen. */
-.cday{aspect-ratio:1/.58;display:grid;place-items:center;position:relative;font-size:13px;
+.cday{aspect-ratio:1/.46;display:grid;place-items:center;position:relative;font-size:13px;
  color:var(--soft);border:1px solid transparent;transition:background .2s,color .2s,border-color .2s}
 .cday.pad{visibility:hidden}
 /* :hover is more specific than .sel, and a tap leaves hover stuck on touch —
@@ -108,7 +112,9 @@
  padding-bottom:11px;border-bottom:1px solid var(--line)}
 .slotday{font-size:13.5px;letter-spacing:-.012em}
 .slotcount{font-size:11px;color:var(--pale);white-space:nowrap}
-.slotlist{display:grid;gap:6px;margin-top:12px;max-height:352px;overflow-y:auto;
+/* the times column, not the month, now sets the height of this step — cap it
+   so the step's own Continue stays in the first screen; the list scrolls */
+.slotlist{display:grid;gap:6px;margin-top:12px;max-height:268px;overflow-y:auto;
  scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
 .slotlist::-webkit-scrollbar{width:4px}
 .slotlist::-webkit-scrollbar-thumb{background:var(--line2)}
@@ -127,8 +133,9 @@
 .bform label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .bform label .opt{letter-spacing:0;text-transform:none;color:var(--pale);font-weight:400;margin-left:6px}
 .bform input,.bform select,.bform textarea{font:inherit;font-size:13px;color:var(--ink);
- background:var(--white);border:1px solid var(--line2);padding:12px 13px;outline:none;
+ background-color:var(--white);border:1px solid var(--line2);padding:12px 13px;outline:none;
  border-radius:0;transition:border-color .25s}
+.bform select{height:42px;padding-right:32px}   /* match the inputs beside it */
 .bform input:focus,.bform select:focus,.bform textarea:focus{border-color:var(--ink)}
 .bform input.bad,.bform textarea.bad{border-color:#9B3B32}
 .bform textarea{min-height:92px;resize:vertical}

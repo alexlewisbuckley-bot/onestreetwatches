@@ -36,6 +36,7 @@
 .f input,.f select,.f textarea{font:inherit;font-size:13px;color:var(--ink);background:var(--ivory);
  border:1px solid var(--line2);padding:12px 13px;outline:none;border-radius:0;transition:border-color .25s}
 .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--ink);background:#fff}
+.f select{height:42px;padding-right:32px}   /* match the inputs in the same grid */
 .f textarea{min-height:96px;resize:vertical}
 .f .hint{font-size:11px;color:var(--pale)}
 .fkit{display:flex;gap:18px;flex-wrap:wrap;padding-top:2px}
@@ -207,6 +208,46 @@
 /* the action at the foot of the questions */
 .qsend{padding:30px 0 0;display:flex;flex-direction:column;gap:10px;max-width:420px}
 .qsendn{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+/* ---------- mobile number with a dialling code ---------- */
+.telrow{display:flex;gap:8px;max-width:420px}
+.telcc{position:relative;flex:none}
+.telbtn{display:flex;align-items:center;gap:8px;height:48px;padding:0 13px;
+ border:1px solid var(--line2);background:var(--white);font-size:13px;color:var(--ink);
+ transition:border-color .25s}
+.telbtn:hover{border-color:var(--ink)}
+.telbtn[aria-expanded="true"]{border-color:var(--ink)}
+.telflag{font-size:15px;line-height:1}
+.teldial{letter-spacing:.01em}
+.telcar{width:6px;height:6px;border-right:1px solid var(--muted);border-bottom:1px solid var(--muted);
+ transform:rotate(45deg) translate(-1px,-1px);flex:none}
+.telnum{flex:1;min-width:0}
+.tellist{position:absolute;top:calc(100% + 6px);left:0;z-index:40;width:310px;
+ background:var(--white);border:1px solid var(--line2);box-shadow:var(--e2)}
+.telsearch{width:100%;height:42px;padding:0 13px;border:none;border-bottom:1px solid var(--line);
+ font:inherit;font-size:13px;color:var(--ink);outline:none;background:var(--white)}
+.telopts{max-height:266px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.telopts::-webkit-scrollbar{width:4px}
+.telopts::-webkit-scrollbar-thumb{background:var(--line2)}
+.telopt{display:flex;align-items:center;gap:10px;width:100%;padding:9px 13px;text-align:left;
+ font-size:13px;color:var(--soft);transition:background .18s,color .18s}
+.telopt:hover{background:var(--sand);color:var(--ink)}
+.telopt.on{color:var(--ink)}
+.telopt .f{font-size:14px;flex:none}
+.telopt .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.telopt .d{color:var(--pale);flex:none}
+.telopt.on .d{color:var(--soft)}
+.telnone{padding:14px 13px;font-size:12.5px;color:var(--muted)}
+.telmail{margin-top:8px}
+
+/* ---------- sell or part-exchange ---------- */
+.qf--intent .ql{margin-bottom:12px}
+.intentb{display:inline-flex}
+.intentb .ynopt{min-height:46px;padding:0 24px;font-size:13px}
+/* the "what would you like in return" line only earns its space once the
+   answer is part-exchange, the same reveal the Other brand field uses */
+.pxwant{display:none;margin-top:12px}
+.qf--intent.wantpx .pxwant{display:block}
 .csin{border:1px solid var(--line2);background:var(--white);padding:26px}
 .csh{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
  padding-bottom:14px;border-bottom:1px solid var(--line)}
@@ -290,6 +331,10 @@
   .ynopt{flex:1;min-height:46px;font-size:13px}
   .yearpick{max-width:none}
   .yrn{font-size:26px}
+  .telrow{max-width:none}
+  .tellist{width:min(310px,calc(100vw - 32px))}
+  .telbtn{height:52px}
+  .telmail{margin-top:10px}
   .csin{padding:20px 16px}
 }
 

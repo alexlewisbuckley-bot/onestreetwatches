@@ -1,45 +1,27 @@
 <div class="phead phead--book">
   <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; Schedule a viewing</div>
   <h1>Schedule a viewing</h1>
-  <p class="lede">Three steps, about a minute. We will have the tray ready before you sit down.</p>
+  <p class="lede">Two steps, about a minute. We will have the tray ready before you sit down.</p>
 </div>
 
 <div class="bwrap">
   <div class="bmain">
 
     <ol class="bsteps" id="bsteps">
-      <li data-s="1" class="on"><b>1</b><span>Where &amp; how</span></li>
-      <li data-s="2"><b>2</b><span>Date &amp; time</span></li>
-      <li data-s="3"><b>3</b><span>Your details</span></li>
+      <li data-s="1" class="on"><b>1</b><span>Date &amp; time</span></li>
+      <li data-s="2"><b>2</b><span>Your details</span></li>
     </ol>
 
-    <!-- 1 · where and how -->
-    <section class="bstep on bchoose" id="bstep1" tabindex="-1">
-      <div class="btogs">
-        <div class="btogset">
-          <div class="btogl">Where</div>
-          <div class="btog" id="tog-place" role="group" aria-label="Location">
-            <button type="button" data-v="uae" aria-pressed="true">Vida Hotel, Emirates Hills</button>
-            <button type="button" data-v="uk" aria-pressed="false">United Kingdom</button>
-          </div>
+    <!-- 1 · how, and when -->
+    <section class="bstep on" id="bstep1" tabindex="-1">
+      <div class="bchoose bchoose--row">
+        <div class="btog" id="tog-mode" role="group" aria-label="Format">
+          <button type="button" data-v="person" aria-pressed="true">In person</button>
+          <button type="button" data-v="video" aria-pressed="false">Video call</button>
         </div>
-        <div class="btogset">
-          <div class="btogl">How</div>
-          <div class="btog" id="tog-mode" role="group" aria-label="Format">
-            <button type="button" data-v="person" aria-pressed="true">In person</button>
-            <button type="button" data-v="video" aria-pressed="false">Video call</button>
-          </div>
-        </div>
+        <p class="btogmeta" id="btogmeta"></p>
       </div>
-      <p class="btogmeta" id="btogmeta"></p>
-      <div class="bnav">
-        <button class="b1 bgo" type="button" data-go="2">
-          <span class="lbl">Choose a date and time</span> <span class="a">→</span></button>
-      </div>
-    </section>
 
-    <!-- 2 · when -->
-    <section class="bstep" id="bstep2" tabindex="-1">
       <div class="bwhen">
         <div class="cal">
           <div class="calhead">
@@ -64,13 +46,13 @@
         </div>
       </div>
       <div class="bnav">
-        <button class="bback" type="button" data-go="1">← Where &amp; how</button>
-        <button class="b1 bgo" type="button" id="bnext2" data-go="3" disabled>
+        <span></span>
+        <button class="b1" type="button" id="bnext2" data-go="2" disabled>
           <span class="lbl">Pick a time to continue</span> <span class="a">→</span></button>
       </div>
     </section>
 
-    <!-- 3 · who -->
+    <!-- 2 · who -->
     <section class="bstep" id="bdetails" tabindex="-1">
       <form class="bform" id="bform" novalidate>
         <div class="fgrid">
@@ -89,7 +71,7 @@
         </div>
         <div class="berr" id="berr" hidden></div>
         <div class="bnav">
-          <button class="bback" type="button" data-go="2">← Date &amp; time</button>
+          <button class="bback" type="button" data-go="1">← Date &amp; time</button>
           <button class="b1 bsubmit" id="bsubmit" type="submit" disabled>
             <span class="lbl">Confirm the viewing</span> <span class="a">→</span></button>
         </div>

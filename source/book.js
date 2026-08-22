@@ -5,20 +5,17 @@
    generated from the opening hours below and the booking hands off to
    WhatsApp, so nothing on the page is dead while the account is set up. */
 
+/* Appointments are Dubai only. The UK type and the where-toggle are gone;
+   the single remaining choice is whether you come in or join on camera. */
 const TYPES=[
   {id:'dubai', h:'Vida Hotel, Emirates Hills',
    m:'Open seven days, 10:00–20:00', tz:'Asia/Dubai', mins:45,
    days:[0,1,2,3,4,5,6], open:'10:00', close:'19:00', step:45},
-  {id:'uk', h:'The United Kingdom',
-   m:'Tuesday to Saturday, by appointment', tz:'Europe/London', mins:60,
-   days:[2,3,4,5,6], open:'10:00', close:'16:00', step:60},
   {id:'video', h:'A video viewing',
    m:'Twenty minutes, any time zone', tz:'Asia/Dubai', mins:20,
    days:[1,2,3,4,5,6], open:'09:00', close:'18:00', step:30}
 ];
-/* the two toggles decide the type: video overrides place, because a call
-   is a call wherever the watch happens to sit. */
-const typeFor=(place,mode)=> mode==='video' ? TYPES[2] : (place==='uk'?TYPES[1]:TYPES[0]);
+const typeFor=mode => mode==='video' ? TYPES[1] : TYPES[0];
 const WA=WA_LINK;           /* replace with the real number */
 const TZ=Intl.DateTimeFormat().resolvedOptions().timeZone||'Asia/Dubai';
 const tzLabel=z=>((z||'').split('/').pop()||'').replace(/_/g,' ')||'your local';
@@ -91,12 +88,8 @@ async function dayHasSlots(dateStr){ return (await slotsFor(dateStr)).length>0; 
    anything. Three steps keep every decision in the first screen, and each
    answer immediately reveals the next question. */
 let STEP=1;
-const STEP_IDS={1:'bstep1', 2:'bstep2', 3:'bdetails', 4:'bdoneStep'};
-const canReach=n =>
-  n<=1            ? true :
-  n===2           ? !!S.type :
-  n===3           ? !!S.slot :
-                    true;
+const STEP_IDS={1:'bstep1', 2:'bdetails', 3:'bdoneStep'};
+const canReach=n => n<=1 ? true : n===2 ? !!S.slot : true;
 
 function paintSteps(){
   const rail=$b('bsteps'); if(!rail) return;
@@ -141,26 +134,23 @@ function bindNav(){
     li.addEventListener('click',()=>{ const n=+li.dataset.s; if(n<STEP||canReach(n)) go(n); }));
 }
 
-/* step 2's Continue mirrors whether a time has been chosen */
+/* step 1 ends when a time is chosen */
 function paintNext2(){
   const b=$b('bnext2'); if(!b) return;
   b.disabled=!S.slot;
   b.querySelector('.lbl').textContent=S.slot?'Your details':'Pick a time to continue';
 }
 
-const PICK={place:'uae', mode:'person'};
+const PICK={mode:'person'};
 function applyPick(){
-  S.type=typeFor(PICK.place,PICK.mode);
+  S.type=typeFor(PICK.mode);
   S.date=null; S.slot=null;
   $b('slotlist').innerHTML='';
   $b('slotday').textContent='Pick a day';
   $b('slotcount').textContent='';
   const t=S.type;
-  const where = PICK.mode==='video'
-    ? 'On camera from ' + (PICK.place==='uk'?'the United Kingdom':'Dubai')
-    : t.h;
+  const where = PICK.mode==='video' ? 'On camera from Dubai' : t.h;
   $b('btogmeta').textContent=`${where} · ${t.m} · about ${t.mins} minutes`;
-  /* a video call is offered from either country, so the place toggle stays live */
   paintCal(); paintSubmit(); paintNext2(); paintSide();
   if(window.__paintRail) window.__paintRail();
 }
@@ -175,12 +165,10 @@ function buildToggles(){
       applyPick();
     }));
   };
-  bind('tog-place','place'); bind('tog-mode','mode');
+  bind('tog-mode','mode');
 }
-function setPick(place,mode){
-  PICK.place=place; PICK.mode=mode;
-  $b('tog-place').querySelectorAll('button').forEach(b=>
-    b.setAttribute('aria-pressed',String(b.dataset.v===place)));
+function setPick(mode){
+  PICK.mode=mode;
   $b('tog-mode').querySelectorAll('button').forEach(b=>
     b.setAttribute('aria-pressed',String(b.dataset.v===mode)));
 }
@@ -255,7 +243,7 @@ async function pickDay(ds,fromGrid){
     paintNext2();
     /* a chosen time is an unambiguous end to this step, so carry them
        forward rather than making them hunt for the button */
-    setTimeout(()=>{ if(S.slot && STEP===2) go(3); }, 260);
+    setTimeout(()=>{ if(S.slot && STEP===1) go(2); }, 260);
     if(window.__bsum) window.__bsum();
   }));
   const tzName=tzLabel(S.type.tz);
@@ -339,15 +327,14 @@ function done(data){
             (S.watch?`%0AWatch: ${S.watch.b} ${S.watch.m} ref ${S.watch.r}`:'');
   $b('bwa').href=`${WA}?text=${msg}`;
   $b('bics').addEventListener('click',downloadICS,{once:true});
-  STEP=4; go(4);
+  STEP=3; go(3);
 }
 
 /* ---------- add to calendar ---------- */
 function downloadICS(){
   const st=new Date(S.slot), en=new Date(st.getTime()+S.type.mins*60000);
   const z=d=>d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
-  const where = S.type.id==='uk' ? 'One Street Watches — United Kingdom'
-              : S.type.id==='video' ? 'Video call — link to follow'
+  const where = S.type.id==='video' ? 'Video call — link to follow'
               : 'One Street Watches, Tower A2, Vida Hotel, Emirates Hills, Dubai, United Arab Emirates';
   const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//One Street Watches//EN','BEGIN:VEVENT',
     'UID:'+S.ref+'@onestreetwatches.com','DTSTAMP:'+z(new Date()),
@@ -373,10 +360,9 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   /* older links still arrive with ?type= — translate them into the toggles */
   const want=p.get('type');
-  if(want==='uk')            setPick('uk','person');
-  else if(want==='video')    setPick('uae','video');
+  if(want==='video')         setPick('video');       /* ?type=uk is retired — Dubai only */
   else if(want==='service'){
-    setPick('uae','person');
+    setPick('person');
     const h=document.querySelector('.phead h1'); if(h) h.textContent='Book an appointment';
     const c=document.querySelector('.phead .crumbs');
     if(c) c.innerHTML=c.innerHTML.replace('Schedule a viewing','Book an appointment');
@@ -407,7 +393,7 @@ function buildMobileBook(){
   /* slim progress bar replaces the numbered rail */
   const bar=document.createElement('div');
   bar.className='bprog';
-  bar.innerHTML='<i></i><i></i><i></i>';
+  bar.innerHTML='<i></i><i></i>';        /* two steps */
   document.querySelector('.bmain').prepend(bar);
 
   /* one-line summary — the toggles already name the place, so this only

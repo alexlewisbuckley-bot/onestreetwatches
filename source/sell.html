@@ -9,6 +9,16 @@
 <div class="wrap">
   <div class="composer" id="composer">
     <div class="cq">
+      <div class="qf qf--intent" data-k="intent">
+        <div class="ql">I would like to</div>
+        <div class="ynb intentb" id="q-intent" role="group" aria-label="Sell or part-exchange">
+          <button class="ynopt on" type="button" data-v="sell">Sell outright</button>
+          <button class="ynopt" type="button" data-v="px">Part-exchange</button>
+        </div>
+        <input class="qtext pxwant" id="q-px" type="text" autocomplete="off"
+               placeholder="Anything you have your eye on? e.g. Daytona 126500LN"
+               aria-label="What you would like in return">
+      </div>
       <div class="qf" data-k="brand">
         <div class="ql">01 &nbsp;What are you selling?</div>
         <div class="qchips" id="q-brand"></div>
@@ -53,9 +63,26 @@
         <div class="dzgrid" id="dzgrid"></div>
       </div>
       <div class="qf" data-k="contact">
-        <div class="ql">07 &nbsp;Where should the offer go?</div>
-        <input class="qtext" id="q-contact" type="text" autocomplete="email"
-               placeholder="Email address or phone number">
+        <div class="ql">07 &nbsp;Where should the offer go? <em>we reply on WhatsApp</em></div>
+        <div class="telrow">
+          <div class="telcc" id="telcc">
+            <button class="telbtn" type="button" id="telbtn"
+                    aria-haspopup="listbox" aria-expanded="false" aria-label="Country dialling code">
+              <span class="telflag" id="telflag" aria-hidden="true"></span>
+              <span class="teldial" id="teldial">+971</span>
+              <span class="telcar" aria-hidden="true"></span>
+            </button>
+            <div class="tellist" id="tellist" role="listbox" aria-label="Country dialling code" hidden>
+              <input class="telsearch" id="telsearch" type="text" autocomplete="off"
+                     placeholder="Search country or code" aria-label="Search country">
+              <div class="telopts" id="telopts"></div>
+            </div>
+          </div>
+          <input class="qtext telnum" id="q-phone" type="tel" inputmode="tel"
+                 autocomplete="tel-national" placeholder="55 389 2824" aria-label="Mobile number">
+        </div>
+        <input class="qtext telmail" id="q-email" type="email" autocomplete="email"
+               placeholder="Email address, if you would rather we wrote" aria-label="Email address">
       </div>
 
       <!-- the action, where the form actually ends. The summary rail is sticky
@@ -72,6 +99,7 @@
     <aside class="cs">
       <div class="csin">
         <div class="csh">Your enquiry</div>
+        <div class="csrow" id="s-intent"><em>Enquiry</em><span>Sell outright</span></div>
         <div class="csrow" id="s-watch"><em>Watch</em><span>—</span></div>
         <div class="csrow" id="s-year"><em>Year</em><span>—</span></div>
         <div class="csrow" id="s-cond"><em>Condition</em><span>—</span></div>
