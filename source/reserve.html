@@ -1,43 +1,44 @@
-<div class="phead phead--book">
+<div class="phead phead--rv">
   <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <span id="rvcrumb">Reserve</span></div>
-  <h1 id="rvh1">Reserve this watch</h1>
-  <p class="lede">Four details and it is held in your name for 24 hours. No deposit, and nothing
-    is charged — we simply take it off the floor while you decide.</p>
 </div>
 
 <div class="rvwrap">
-  <!-- what you are reserving -->
-  <aside class="rvitem" id="rvitem"></aside>
+  <div class="rvpiece">
+    <div class="rvid" id="rvid"></div>
+    <div class="rvshot" id="rvshot"></div>
+    <div class="rvspec" id="rvspec"></div>
+  </div>
 
-  <!-- who you are -->
-  <div class="rvform">
+  <aside class="rvpanel" id="rvpanel">
     <form id="rvform" novalidate>
+      <div class="rvph1" id="rvh1">Reserve this watch</div>
+      <p class="rvsub">Held in your name for 24 hours. No deposit, nothing charged.</p>
       <div class="fgrid">
         <div class="f"><label for="rv-first">First name</label>
           <input id="rv-first" name="first" autocomplete="given-name" required></div>
         <div class="f"><label for="rv-last">Last name</label>
           <input id="rv-last" name="last" autocomplete="family-name" required></div>
-        <div class="f"><label for="rv-phone">Phone number</label>
+        <div class="f full"><label for="rv-phone">Phone number</label>
           <div id="rv-telmount"></div></div>
-        <div class="f"><label for="rv-email">Email</label>
+        <div class="f full"><label for="rv-email">Email</label>
           <input id="rv-email" name="email" type="email" autocomplete="email" required></div>
       </div>
       <div class="berr" id="rv-err" hidden></div>
       <button class="b1 rvgo" id="rv-go" type="submit">
         <span class="lbl">Reserve it</span> <span class="a">→</span></button>
-      <p class="bnote">We will confirm by WhatsApp within the hour. If it turns out not to be for
-        you, tell us and the hold simply lapses — there is nothing to cancel.</p>
+      <div class="rvassure">
+        <span><i></i>We confirm on WhatsApp within the hour.</span>
+        <span><i></i>No deposit, and nothing to cancel.</span>
+        <span><i></i>Authenticated at our own bench.</span>
+      </div>
     </form>
 
     <div class="rvdone" id="rvdone" hidden>
       <div class="btick" aria-hidden="true"><span></span></div>
-      <h2 class="bh">It is held in your name.</h2>
-      <p class="blede" id="rvdonelede"></p>
-      <div class="bdoneacts">
-        <a class="b2" id="rvwa" href="https://wa.me/971553892824">Message us on WhatsApp <span class="a">→</span></a>
-        <a class="b2" href="shop.html">Keep browsing <span class="a">→</span></a>
-      </div>
-      <p class="bnote" id="rvref"></p>
+      <div class="rvph1">It is held in your name.</div>
+      <p class="rvsub" id="rvdonelede"></p>
+      <a class="b2 rvwide" id="rvwa" href="https://wa.me/971553892824">Message us on WhatsApp <span class="a">→</span></a>
+      <p class="rvref" id="rvref"></p>
     </div>
-  </div>
+  </aside>
 </div>

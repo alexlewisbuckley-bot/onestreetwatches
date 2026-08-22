@@ -30,31 +30,37 @@ function rvSub(){
 }
 
 function paintItem(){
-  const it=RV.item, box=document.getElementById('rvitem');
+  const it=RV.item, isBag=RV.kind==='bag';
+  /* name it before you show it — a photograph beside a form, with the brand
+     and the price below the fold, asks people to reserve something unnamed */
+  const chips = isBag
+    ? [it.colour, it.leather, it.hw+' hardware', it.size, it.c]
+    : [it.y, it.mat, it.size+' mm', it.c,
+       it.box&&it.pap ? 'Full set' : it.box ? 'Box only' : it.pap ? 'Papers only' : 'Watch only'];
+  document.getElementById('rvid').innerHTML=`
+    <div class="rvbrand">${isBag?'Hermès':it.b}</div>
+    <h1 class="rvname">${it.t || rvTitle()}</h1>
+    <div class="rvmeta">
+      <span class="rvprice money" data-aed="${it.aed}">${money(it.aed)}</span>
+      <span class="rvloc"><i></i>In stock — ${it.loc}</span>
+    </div>
+    <div class="rvchips">${chips.filter(Boolean).map(c=>`<span>${c}</span>`).join('')}</div>`;
+
   const im=(it.ims||[]).find(x=>x.img);
-  const rows = RV.kind==='bag'
+  document.getElementById('rvshot').innerHTML = im
+    ? `<img src="${im.img}" alt="${rvTitle()}">`
+    : `<div class="rvph"><span>${isBag?'Hermès':it.b}</span></div>`;
+
+  const rows = isBag
     ? [['Model',it.fam],['Colour',it.colour],['Leather',it.leather],
        ['Hardware',it.hw],['Size',it.size],['Condition',it.c],['Held in',it.loc]]
     : [['Reference',it.r],['Year',it.y],['Material',it.mat||'—'],
-       ['Case size',it.size+' mm'],['Dial',it.dial],['Condition',it.c],['Held in',it.loc]];
-  const kit = RV.kind==='bag' ? '' :
-    `<div class="rvrow"><span>Box &amp; papers</span><span>${
-      it.box&&it.pap ? 'Full set' : it.box ? 'Box only' : it.pap ? 'Papers only' : 'Watch only'}</span></div>`;
-  box.innerHTML=`
-    <div class="rvshot">${im
-      ? `<img src="${im.img}" alt="${rvTitle()}">`
-      : `<div class="rvph"><span>${RV.kind==='bag'?'Hermès':it.b}</span></div>`}</div>
-    <div class="rvbody">
-      <div class="rvbrand">${RV.kind==='bag'?'Hermès':it.b}</div>
-      <div class="rvname">${it.t || rvTitle()}</div>
-      <div class="rvprice money" data-aed="${it.aed}">${money(it.aed)}</div>
-      <div class="rvspec">
-        ${rows.map(([a,b])=>`<div class="rvrow"><span>${a}</span><span>${b}</span></div>`).join('')}
-        ${kit}
-      </div>
-      <a class="rvback" href="${RV.kind==='bag'?'bag.html?i='+RV.i:'product.html?i='+RV.i}">
-        ← Back to the ${RV.kind==='bag'?'handbag':'watch'}</a>
-    </div>`;
+       ['Case size',it.size+' mm'],['Dial',it.dial],['Condition',it.c],
+       ['Box &amp; papers', it.box&&it.pap?'Full set':it.box?'Box only':it.pap?'Papers only':'Watch only'],
+       ['Held in',it.loc]];
+  document.getElementById('rvspec').innerHTML=
+    rows.map(([a,b])=>`<div class="rvrow"><span>${a}</span><span>${b}</span></div>`).join('')+
+    `<a class="rvback" href="${isBag?'bag.html?i='+RV.i:'product.html?i='+RV.i}">← Back to the ${isBag?'handbag':'watch'}</a>`;
   if(window.repaintMoney) repaintMoney();
 }
 
@@ -141,6 +147,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       `We will confirm by WhatsApp within the hour.`;
     document.getElementById('rvref').textContent='Your reference is '+RV.ref+'.';
     document.getElementById('rvwa').href=waURL(msg);
-    d.scrollIntoView({block:'nearest',behavior:'smooth'});
+    if(d.getBoundingClientRect().top<0) d.scrollIntoView({block:'nearest',behavior:'smooth'});
   }
 });
