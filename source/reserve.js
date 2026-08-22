@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     [first,last,tel.input,email].forEach(el=>el.classList.toggle('bad',bad.includes(el)));
     if(bad.length){
       err.hidden=false;
-      err.textContent='Please check your name, number and email — we need all four to hold it.';
+      err.textContent='Please check the highlighted fields — we need all four to hold it.';
       bad[0].focus(); return;
     }
     err.hidden=true; sending=true;

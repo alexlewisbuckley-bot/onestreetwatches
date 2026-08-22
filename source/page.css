@@ -462,6 +462,12 @@
  min-height:46px;width:100%;transition:border-color .25s}
 .rvfields input:focus{border-color:var(--ink)}
 .rvfields input.bad{border-color:#9B3B32}
+/* .berr lives in book.css, which this page does not load — so the message was
+   rendering unstyled at browser-default size */
+.rverr{margin-top:18px;border:1px solid #E0C4C0;background:#FBF3F2;padding:11px 13px;
+ font-size:12.5px;line-height:1.55;color:#7E332B}
+.rverr a{border-bottom:1px solid rgba(126,51,43,.4);padding-bottom:1px}
+.rverr a:hover{border-color:#7E332B}
 .rvgo{margin-top:22px;width:100%;justify-content:center;padding:17px 24px}
 .rvgo[disabled]{opacity:.55;cursor:default}
 .rvwide{width:100%;justify-content:center;margin-top:22px}
