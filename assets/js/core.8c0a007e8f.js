@@ -10,8 +10,8 @@
    Prefill only works on a number link — wa.me/<E.164 digits>?text=…
    Put the boutique's WhatsApp number here (digits only, no + or spaces,
    e.g. '9715XXXXXXXX') and every prefilled message on the site starts working. */
-const WA_PHONE = '';
-const WA_LINK = 'https://wa.me/message/55ILJOASJYUAD1';
+const WA_PHONE = '971553892824';
+const WA_LINK = 'https://wa.me/971553892824';
 const waCanPrefill = () => !!WA_PHONE;
 const waURL = msg =>
   WA_PHONE ? 'https://wa.me/' + WA_PHONE + (msg ? '?text=' + encodeURIComponent(msg) : '')
@@ -644,7 +644,7 @@ function initBookPanel(){
     <input class="bpin" id="bp-contact" type="text" placeholder="Email or phone" autocomplete="email">
     <button class="bpgo" id="bp-go" disabled>Request this viewing <span class="a">→</span></button>
     <div class="bperr" id="bp-err" hidden>That didn’t send — <a href="book.html">use the full calendar</a>
-      or <a href="https://wa.me/message/55ILJOASJYUAD1">WhatsApp us</a>.</div>
+      or <a href="https://wa.me/971553892824">WhatsApp us</a>.</div>
     <a class="bpfull" href="book.html">Prefer an exact slot? Open the full calendar →</a>`;
   nav.appendChild(panel);
 
