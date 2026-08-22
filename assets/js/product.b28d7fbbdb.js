@@ -98,7 +98,11 @@ function paint(){
 function linkBooking(i){
   const q='book.html?i='+i+'&type=specific';
   const b=document.getElementById('dbook'); if(b) b.href=q;
-  const r=document.getElementById('pres');  if(r) r.href=q;
+  /* Reserve now goes to its own page: four fields, the piece on screen, and
+     no calendar to reconsider in front of. */
+  /* there are two of these — the desktop action row and the sticky buy bar on
+     phones — so update both, not just whichever getElementById reaches first */
+  document.querySelectorAll('.pres').forEach(r=>r.href='reserve.html?w='+i);
   const w=CATALOGUE[i];
   document.querySelectorAll('a[href^="https://wa.me"]').forEach(a=>{
     a.href=waURL(

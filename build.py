@@ -118,6 +118,8 @@ PAGES=[('home','index','One Street Watches — pre-owned Rolex, Patek Philippe &
         'An authenticated Hermes handbag held in our own stock in Dubai or the United Kingdom.','bags'),
        ('vip','vip','VIP portal | One Street Watches',
         'Members-only services: chauffeur collection, home viewings, complimentary servicing and sizing, first refusal on arrivals.','vip'),
+       ('reserve','reserve','Reserve a piece | One Street Watches',
+        'Hold a watch or a handbag in your name for 24 hours. No deposit, four details, and we confirm by WhatsApp within the hour.',''),
        ('contact','contact','Contact One Street Watches',
         'WhatsApp, phone, email, or visit us in Dubai and the United Kingdom. A real person, seven days a week.','')]
 

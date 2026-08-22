@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VIP portal | One Street Watches</title>
-<meta name="description" content="Members-only services: chauffeur collection, home viewings, complimentary servicing and sizing, first refusal on arrivals."><meta name="robots" content="noindex">
-<link rel="canonical" href="https://onestreetwatches.com/vip">
+<title>Reserve a piece | One Street Watches</title>
+<meta name="description" content="Hold a watch or a handbag in your name for 24 hours. No deposit, four details, and we confirm by WhatsApp within the hour.">
+<link rel="canonical" href="https://onestreetwatches.com/reserve">
 <meta property="og:type" content="website">
-<meta property="og:title" content="VIP portal | One Street Watches">
-<meta property="og:description" content="Members-only services: chauffeur collection, home viewings, complimentary servicing and sizing, first refusal on arrivals.">
+<meta property="og:title" content="Reserve a piece | One Street Watches">
+<meta property="og:description" content="Hold a watch or a handbag in your name for 24 hours. No deposit, four details, and we confirm by WhatsApp within the hour.">
 <meta property="og:image" content="https://onestreetwatches.com/assets/img/boutique-salon.ea631f9f49.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F7F4EF">
@@ -21,9 +21,9 @@
 
 <link rel="stylesheet" href="assets/css/mobile.c18fc744ac.css">
 <script src="assets/js/core.81b2f6d456.js" defer></script>
-<script src="assets/js/vip.09da8079e1.js" defer></script>
+<script src="assets/js/reserve.77112eab04.js" defer></script>
 </head>
-<body data-page="vip">
+<body data-page="">
 <div class="top">
   <div class="marqwrap" aria-hidden="true">
     <div class="marq"><div class="mset"><span>Authenticated pre-owned watches — Dubai &amp; United Kingdom</span><i></i><span>12-month warranty on every watch</span><i></i><span>One-hour delivery in Dubai</span><i></i><span>Part-exchange welcome — a firm offer within 24 hours</span><i></i><span>Rated 4.9 on Trustpilot</span><i></i></div><div class="mset"><span>Authenticated pre-owned watches — Dubai &amp; United Kingdom</span><i></i><span>12-month warranty on every watch</span><i></i><span>One-hour delivery in Dubai</span><i></i><span>Part-exchange welcome — a firm offer within 24 hours</span><i></i><span>Rated 4.9 on Trustpilot</span><i></i></div></div>
@@ -192,39 +192,47 @@
   </div>
 </nav>
 
-<!-- ============ GATE ============ -->
-<div class="sellhero">
-  <div class="k">Members only</div>
-  <h1>The VIP portal</h1>
-  <p>Premium services for the people who keep coming back.</p>
+<div class="phead phead--book">
+  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <span id="rvcrumb">Reserve</span></div>
+  <h1 id="rvh1">Reserve this watch</h1>
+  <p class="lede">Four details and it is held in your name for 24 hours. No deposit, and nothing
+    is charged — we simply take it off the floor while you decide.</p>
 </div>
 
-<div class="wrap">
-  <!-- login -->
-  <div class="vipgate" id="vipgate">
-    <div class="bookcard vipcard">
-      <div class="bph"><span>Sign in</span></div>
-      <input class="bpin" id="vip-email" type="email" placeholder="Email address" autocomplete="email">
-      <input class="bpin" id="vip-pass" type="password" placeholder="Password" autocomplete="current-password">
-      <button class="bpgo" id="vip-go">Enter the portal <span class="a">→</span></button>
-      <div class="bperr" id="vip-err" hidden>Those details don’t match — check both fields, or
-        <a href="https://wa.me/971553892824">WhatsApp us</a> for access.</div>
-      <a class="bpfull" href="community.html">Not a member yet? Start with the community →</a>
-    </div>
-  </div>
+<div class="rvwrap">
+  <!-- what you are reserving -->
+  <aside class="rvitem" id="rvitem"></aside>
 
-  <!-- portal -->
-  <div class="vipin" id="vipin" hidden>
-    <div class="viphead">
-      <div>
-        <div class="k">Welcome back</div>
-        <h2 id="vip-name">—</h2>
+  <!-- who you are -->
+  <div class="rvform">
+    <form id="rvform" novalidate>
+      <div class="fgrid">
+        <div class="f"><label for="rv-first">First name</label>
+          <input id="rv-first" name="first" autocomplete="given-name" required></div>
+        <div class="f"><label for="rv-last">Last name</label>
+          <input id="rv-last" name="last" autocomplete="family-name" required></div>
+        <div class="f"><label for="rv-phone">Phone number</label>
+          <div id="rv-telmount"></div></div>
+        <div class="f"><label for="rv-email">Email</label>
+          <input id="rv-email" name="email" type="email" autocomplete="email" required></div>
       </div>
-      <button class="viplogout" id="vip-out">Sign out</button>
+      <div class="berr" id="rv-err" hidden></div>
+      <button class="b1 rvgo" id="rv-go" type="submit">
+        <span class="lbl">Reserve it</span> <span class="a">→</span></button>
+      <p class="bnote">We will confirm by WhatsApp within the hour. If it turns out not to be for
+        you, tell us and the hold simply lapses — there is nothing to cancel.</p>
+    </form>
+
+    <div class="rvdone" id="rvdone" hidden>
+      <div class="btick" aria-hidden="true"><span></span></div>
+      <h2 class="bh">It is held in your name.</h2>
+      <p class="blede" id="rvdonelede"></p>
+      <div class="bdoneacts">
+        <a class="b2" id="rvwa" href="https://wa.me/971553892824">Message us on WhatsApp <span class="a">→</span></a>
+        <a class="b2" href="shop.html">Keep browsing <span class="a">→</span></a>
+      </div>
+      <p class="bnote" id="rvref"></p>
     </div>
-    <div class="vipgrid" id="vipgrid"></div>
-    <p class="vipnote">Every request goes straight to your concierge — one person, not a queue.
-      Same-day is usually possible in Dubai.</p>
   </div>
 </div>
 

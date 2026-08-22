@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         ${row('Held in',g.loc)}
       </div>
       <div class="bagacts">
-        <button class="b1" id="bagwa">Enquire on WhatsApp <span class="a">→</span></button>
-        <a class="b2" href="book.html">Book a viewing <span class="a">→</span></a>
+        <a class="b1" href="reserve.html?b=${i}">Reserve this handbag <span class="a">→</span></a>
+        <button class="b2" id="bagwa">Enquire on WhatsApp <span class="a">→</span></button>
       </div>
       <div class="bagassure">
         <span>Authenticated by hand</span><i></i><span>Insured delivery</span><i></i>

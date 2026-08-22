@@ -1,0 +1,43 @@
+<div class="phead phead--book">
+  <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <span id="rvcrumb">Reserve</span></div>
+  <h1 id="rvh1">Reserve this watch</h1>
+  <p class="lede">Four details and it is held in your name for 24 hours. No deposit, and nothing
+    is charged — we simply take it off the floor while you decide.</p>
+</div>
+
+<div class="rvwrap">
+  <!-- what you are reserving -->
+  <aside class="rvitem" id="rvitem"></aside>
+
+  <!-- who you are -->
+  <div class="rvform">
+    <form id="rvform" novalidate>
+      <div class="fgrid">
+        <div class="f"><label for="rv-first">First name</label>
+          <input id="rv-first" name="first" autocomplete="given-name" required></div>
+        <div class="f"><label for="rv-last">Last name</label>
+          <input id="rv-last" name="last" autocomplete="family-name" required></div>
+        <div class="f"><label for="rv-phone">Phone number</label>
+          <div id="rv-telmount"></div></div>
+        <div class="f"><label for="rv-email">Email</label>
+          <input id="rv-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="berr" id="rv-err" hidden></div>
+      <button class="b1 rvgo" id="rv-go" type="submit">
+        <span class="lbl">Reserve it</span> <span class="a">→</span></button>
+      <p class="bnote">We will confirm by WhatsApp within the hour. If it turns out not to be for
+        you, tell us and the hold simply lapses — there is nothing to cancel.</p>
+    </form>
+
+    <div class="rvdone" id="rvdone" hidden>
+      <div class="btick" aria-hidden="true"><span></span></div>
+      <h2 class="bh">It is held in your name.</h2>
+      <p class="blede" id="rvdonelede"></p>
+      <div class="bdoneacts">
+        <a class="b2" id="rvwa" href="https://wa.me/971553892824">Message us on WhatsApp <span class="a">→</span></a>
+        <a class="b2" href="shop.html">Keep browsing <span class="a">→</span></a>
+      </div>
+      <p class="bnote" id="rvref"></p>
+    </div>
+  </div>
+</div>
