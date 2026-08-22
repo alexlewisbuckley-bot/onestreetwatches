@@ -25,6 +25,25 @@ const tzLabel=z=>((z||'').split('/').pop()||'').replace(/_/g,' ')||'your local';
 const S={type:null, date:null, slot:null, watch:null, ref:null};
 const $b=id=>document.getElementById(id);
 
+/* scrollIntoView({block:'start'}) parks the element's top at the viewport's
+   top — which is underneath the sticky nav, so the heading and the first two
+   fields end up hidden and the page reads as having jumped too far. Measure
+   the sticky header for real and leave a little air above the target. */
+function stickyTop(){
+  const nav=document.querySelector('nav');
+  if(!nav) return 0;
+  const cs=getComputedStyle(nav);
+  if(cs.position!=='sticky' && cs.position!=='fixed') return 0;
+  return nav.getBoundingClientRect().height;
+}
+function scrollToBlock(el, air){
+  if(!el) return;
+  const gap=(air===undefined?18:air)+stickyTop();
+  const y=window.scrollY+el.getBoundingClientRect().top-gap;
+  const max=Math.max(0, document.documentElement.scrollHeight-window.innerHeight);
+  window.scrollTo({top:Math.max(0,Math.min(y,max)), behavior:'smooth'});
+}
+
 /* ---------- date helpers (local, no library) ---------- */
 const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const midnight=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x;};
@@ -187,7 +206,7 @@ async function pickDay(ds,fromGrid){
     document.querySelectorAll('.slot').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
     paintSide();
     paintSubmit();
-    $b('bdetails').scrollIntoView({block:'start',behavior:'smooth'});
+    scrollToBlock($b('bdetails'));
     if(window.__bsum) window.__bsum();
   }));
   const tzName=tzLabel(S.type.tz);
@@ -379,7 +398,7 @@ function buildMobileBook(){
     if(slots.parentElement!==cal) cal.appendChild(slots);
     $b('calfaced').textContent=S.date
       ? longDate(new Date(S.date+'T00:00:00')) : '';
-    cal.scrollIntoView({block:'start',behavior:'smooth'});
+    scrollToBlock(cal, 10);
   };
   face.querySelector('.calbackb').addEventListener('click',showMonth);
   window.__calTimes=()=>{ if(cal.classList.contains('on')) showTimes(); };

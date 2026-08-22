@@ -141,7 +141,7 @@ function paintSearch(){
     return `<a class="navlink navlink--w" href="product.html?i=${i}">
       <span class="im">${im?`<img src="${im.img}" alt="">`:''}</span>
       <span class="tx"><span class="n">${w.b} ${w.m}</span>
-      <span class="s">Ref. ${w.r} · ${w.y}</span></span>
+      <span class="s">Ref. ${w.r} · ${w.mat||''} · ${w.y}</span></span>
       <span class="p">${money(w.aed)}</span></a>`;};
   if(!q){
     box.innerHTML=`<div class="navgroup"><div class="t-label">By brand</div>`+
@@ -154,7 +154,7 @@ function paintSearch(){
   }
   const ql=q.toLowerCase();
   const hits=CATALOGUE.map((w,i)=>({w,i})).filter(o=>
-    (o.w.b+' '+o.w.m+' '+o.w.r+' '+o.w.dial+' '+o.w.y).toLowerCase().includes(ql));
+    (o.w.b+' '+o.w.m+' '+o.w.r+' '+(o.w.mat||'')+' '+o.w.dial+' '+o.w.y).toLowerCase().includes(ql));
   box.innerHTML = hits.length
     ? `<div class="navgroup"><div class="t-label">${hits.length} watch${hits.length>1?'es':''}</div>`+
       hits.map(o=>row(o.w,o.i)).join('')+
