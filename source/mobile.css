@@ -377,6 +377,24 @@
    padding-left:var(--gut);padding-right:var(--gut);scroll-padding-left:var(--gut)}
   .reltrack .pcard{flex:0 0 46% !important}
 
+  /* ---- the watch itself, which is what the card is for ----
+     core.css draws the photograph at 64% of its plate at every width. On a
+     desktop grid of four that is a watch about 190px across and reads well.
+     On a phone the same card is half a 390px screen, so 64% leaves the
+     watch around 110px — small enough that a Submariner and a Sea-Dweller
+     are the same grey shape, which is the one judgement a shop grid exists
+     to let somebody make.
+
+     74%, not more: the plate is a 1:1 field of sand and the watch is meant
+     to sit in it rather than fill it. Past about 80% the bracelet ends run
+     into the corners and the grid stops looking like a case and starts
+     looking like a contact sheet. This is the midpoint between what was
+     there and the tighter crops it was compared against.
+
+     Scoped to the plate, so the placeholder frame and its "Photography to
+     come" lines are untouched. */
+  .pgrid .pshot > img{width:74%;height:74%}
+
   /* ---- card internals follow the scale, not a bespoke density ---- */
   .pgrid .pbrand,.pcard .pbrand{font-size:var(--t-label) !important;letter-spacing:var(--ls-label)}
   .pgrid .pmodel,.pcard .pmodel{font-size:var(--t-sub) !important;letter-spacing:var(--ls-sub)}
